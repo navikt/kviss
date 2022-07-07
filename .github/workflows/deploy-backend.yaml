@@ -10,9 +10,10 @@ env:
   docker_image: ghcr.io/${{ github.repository }}:${{ github.sha }}
 
 jobs:
-  env:
-    working-directory: ./navhoot-backend
   build:
+    env:
+      working-directory: ./navhoot-backend
+
     name: Build and push Docker container
     runs-on: ubuntu-latest
     steps:
@@ -22,6 +23,7 @@ jobs:
         java-version: '17.x'
     - name: test and build
       run: ./gradlew build
+      working-directory: ${{ env.working-directiory }}
 
     - uses: docker/login-action@v1
       with:
