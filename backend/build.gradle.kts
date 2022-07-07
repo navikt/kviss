@@ -10,13 +10,43 @@ plugins {
 
 group = "nav.no"
 version = "0.0.1"
-application {
-    mainClass.set("nav.no.ApplicationKt")
 
-    val isDevelopment: Boolean = project.ext.has("development")
-    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+tasks {
+    compileKotlin {
+        kotlinOptions.jvmTarget = "17"
+    }
+
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = "17"
+    }
+    withType<Test> {
+        useJUnitPlatform()
+        testLogging {
+            events("skipped", "failed")
+        }
+    }
+
+
+    jar {
+        archiveFileName.set("app.jar")
+
+        manifest {
+            attributes["Main-Class"] = "no.nav.ApplicationKt"
+            attributes["Class-Path"] = configurations.runtimeClasspath.get().joinToString(separator = " ") {
+                it.name
+            }
+        }
+        doLast {
+            configurations.runtimeClasspath.get()
+                .filter { it.name != "app.jar" }
+                .forEach {
+                    val file = File("$buildDir/libs/${it.name}")
+                    if (!file.exists())
+                        it.copyTo(file)
+                }
+        }
+    }
 }
-
 repositories {
     mavenCentral()
     maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
