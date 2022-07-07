@@ -31,7 +31,7 @@ tasks {
         archiveFileName.set("app.jar")
 
         manifest {
-            attributes["Main-Class"] = "no.nav.ApplicationKt"
+            attributes["Main-Class"] = "nav.no.ApplicationKt"
             attributes["Class-Path"] = configurations.runtimeClasspath.get().joinToString(separator = " ") {
                 it.name
             }
