@@ -7,13 +7,10 @@ on:
       - 1-nais-setup
 
 env:
-  docker_image: ghcr.io/${{ github.repository }}:${{ github.sha }}
+  docker_image: ghcr.io/${{ github.repository }}/backend:${{ github.sha }}
 
 jobs:
   build:
-    env:
-      working-directory: ./navhoot-backend
-
     name: Build and push Docker container
     runs-on: ubuntu-latest
     steps:
@@ -46,5 +43,5 @@ jobs:
       env:
         APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
         CLUSTER: dev-gcp
-        RESOURCE: nais.yaml
+        RESOURCE: backend/dev.yaml
         VAR: image=${{ env.docker_image }}
