@@ -18,7 +18,7 @@ spec:
     - team: team-tolk
       application: navhoot
       access: readwrite   # read, write, readwrite
-    - team: team-etterlatte
+    - team: team-etterlatte # Not sure if they should have full access or not so just gave them read for now.
       application: navhoot
       access: read
     - team: team-tolk

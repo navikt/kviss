@@ -8,6 +8,9 @@ metadata:
 spec:
   image: {{ image }}
   port: 8080
+  kafka:
+    pool:
+      nav-dev
   gcp:
     sqlInstances:
       - type: POSTGRES_14
