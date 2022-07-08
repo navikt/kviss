@@ -1,0 +1,27 @@
+apiVersion: kafka.nais.io/v1
+kind: Topic
+metadata:
+  name: navhoot
+  namespace: team-tolk
+  labels:
+    team: team-tolk
+spec:
+  pool: nav-dev
+  config:  # optional; all fields are optional too; defaults shown
+    cleanupPolicy: delete  # delete, compact, compact,delete
+    minimumInSyncReplicas: 2
+    partitions: 1
+    replication: 3  # see min/max requirements
+    retentionBytes: -1  # -1 means unlimited
+    retentionHours: 72  # -1 means unlimited
+  acl:
+    - team: team-tolk
+      application: navhoot
+      access: readwrite   # read, write, readwrite
+    - team: team-etterlatte
+      application: navhoot
+      access: read
+    - team: team-tolk
+      application: rapid-*
+      access: readwrite   # Applications from myteam with names starting with `rapid-` has readwrite access
+
