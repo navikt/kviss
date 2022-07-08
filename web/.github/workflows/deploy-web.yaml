@@ -2,7 +2,9 @@ name: Deplay frontend to dev-gcp
 
 on: 
     push:
-        branches: [main]
+        branches: 
+            - main
+            - setup/web/nais
 
 env:
     docker_image: ghcr.io/${{ github.repository }}:${{ github.sha }}
