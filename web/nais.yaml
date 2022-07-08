@@ -1,0 +1,12 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: navhoot-web
+  namespace: team-tolk
+  labels:
+    team: team-tolk
+spec:
+  image: {{ image }}
+  port: 8080
+  ingresses:
+    - https://navhoot-web.dev.nav.no/
