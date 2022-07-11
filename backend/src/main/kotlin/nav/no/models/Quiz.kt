@@ -11,6 +11,11 @@ class Quiz (var name: String, val creator: Player?){  // TODO: Change player to 
         val UUID = UUID.randomUUID().toString()
     }
     var questions = mutableListOf<Question>()
+    var description = String()
+
+    fun changeDescription(desc: String) {
+        description = desc
+    }
 
     fun addQuestion(question: Question) {
         if(questions.contains(question)) {
