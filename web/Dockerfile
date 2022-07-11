@@ -1,14 +1,10 @@
 FROM node:14.17.0
 
-WORKDIR /app
-
-COPY package.json .
+COPY . .
 
 RUN yarn
 
 RUN yarn build
-
-COPY . .
 
 EXPOSE 3000
 
