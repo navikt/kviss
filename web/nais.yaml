@@ -9,4 +9,4 @@ spec:
     image: {{ image }}
     port: 3000
     ingresses:
-        - https://navhoot-web.dev.nav.no/
+        - https://navhoot-web.dev.intern.nav.no/
