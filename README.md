@@ -10,5 +10,6 @@ For every task a issue should be created and relevant tags should be added to th
 Branches should be created from an issue and should in most cases use the name that GitHub generates. This can be done by choosing an issue to create a branch from, then click "Create a branch" under the "Development" selection menu.
 
 ### Commits
-
+Each commit message should start with the on of the following verbs: **Add, Fix, Update, Delete**. The commit message should also be short and descriptive on what code has been affected and how the code has been affected.
 ### Pull requests
+Every pull request should stem from a branch created from an issue. In the description of the pull request
