@@ -10,11 +10,15 @@ import nav.no.database.dbConnect
 fun Application.configureRouting() {
 
     routing {
-        get("/") {
-            call.respondText("Hello World!")
+        route("/") {
+           get {
+               call.respondText("Hello World!")
+           }
         }
-        get("/database_test/") {
-            call.respondText(dbConnect().toString())
-        }
+       route("/db-test/") {
+           get {
+               call.respondText(dbConnect().toString(), status = HttpStatusCode.OK)
+           }
+       }
     }
 }
