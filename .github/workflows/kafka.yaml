@@ -4,7 +4,8 @@ on:
   push:
     branches:
     - main
-    - 4-kafka-setup
+    paths:
+    - 'backend/topic.yml'
 
 jobs:
   deployDev:
