@@ -1,16 +1,15 @@
 FROM node:14.17.0
 
-ENV NODE_ENV=development
-ENV API_URL=http://localhost:3000
-
 WORKDIR /app
 
 COPY package.json .
 
 RUN yarn
 
+RUN yarn build
+
 COPY . .
 
-EXPOSE 4200
+EXPOSE 3000
 
-CMD ["yarn", "start", "--host=0.0.0.0"]
+CMD ["yarn", "start"]
