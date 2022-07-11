@@ -17,7 +17,7 @@ fun Application.configureRouting() {
         }
        route("/db-test/") {
            get {
-               call.respondText(dbConnect().toString(), status = HttpStatusCode.OK)
+               call.respondText("db test is working")
            }
        }
     }
