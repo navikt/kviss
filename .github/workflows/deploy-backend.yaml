@@ -3,7 +3,6 @@ name: Build, push, and deploy
 on:
   push:
     branches:
-      - 4-kafka-setup
       - main
 
 env:
