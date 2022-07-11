@@ -3,8 +3,9 @@ package nav.no.models
 import Player
 import Question
 import java.util.UUID
+import kotlinx.serialization.Serializable
 
-@kotlinx.serialization.Serializable
+@Serializable
 class Quiz (var name: String, val creator: Player?){  // TODO: Change player to user once that is implemented
     init {
         val UUID = UUID.randomUUID().toString()
