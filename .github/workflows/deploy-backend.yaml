@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-        11-postgres-connection
+      - 11-postgres-connection
 
 env:
   docker_image: ghcr.io/${{ github.repository }}:${{ github.sha }}
