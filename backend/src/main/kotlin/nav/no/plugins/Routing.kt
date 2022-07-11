@@ -8,7 +8,7 @@ import io.ktor.server.request.*
 import nav.no.database.dbConnect
 
 fun Application.configureRouting() {
-    val text = dbConnect().toString()
+    val text = dbConnect()
     val text2 = "hello world"
 
     routing {
