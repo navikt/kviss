@@ -7,6 +7,7 @@ import io.ktor.server.response.*
 import io.ktor.server.request.*
 import nav.no.database.dbConnect
 import nav.no.routes.dbRoute
+import nav.no.routes.healthAPI
 import nav.no.routes.helloWorldRoute
 
 fun Application.configureRouting() {
@@ -24,6 +25,7 @@ fun Application.configureRouting() {
 //               call.respondText(text)
 //           }
 //       }
+        healthAPI()
         helloWorldRoute()
         dbRoute()
     }
