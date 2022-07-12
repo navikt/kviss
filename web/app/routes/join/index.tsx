@@ -15,15 +15,9 @@ export default function QuizIndexRoute() {
 
     const quiz = useLoaderData();
 
-      return (
-        <>
-        <Header />
-          <div className="container max-w-full my-10 bg-orange-100">
-            <div className="flex place-items-center justify-center text-center">
-              <PinCode />
-            </div>
-          </div>
-        <Footer />
-        </>
+    return (
+      <div className="flex flex-col h-screen justify-center items-center">
+        <PinCode />
+      </div>
     );
   }

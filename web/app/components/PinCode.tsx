@@ -1,24 +1,24 @@
 export default function PinCode() {
     return(
-        <div className="flex flex-col text-center align-middle">
+        <div className="text-center ">
             <form method="post">
-            <p>
-                <label>
-                    PIN kode:{" "}
-                </label>
-            </p>
-            <p>
-                <input
-                name="name"
-                type="text"
-                />
-            </p>
-            <p>
-                <button type="submit">
-
-                </button>
-            </p>
-        </form>
+                <div>
+                    <label>
+                        PIN kode:{" "}
+                    </label>
+                </div>
+                <div>
+                    <input
+                    name="name"
+                    type="text"
+                    />
+                </div>
+                <div>
+                    <button type="submit">
+                        submit
+                    </button>
+                </div>
+            </form>
         </div>
         
     )

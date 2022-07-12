@@ -28,8 +28,10 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="bg-orange-100">
+        <Header />
         <Outlet />
+        <Footer />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
