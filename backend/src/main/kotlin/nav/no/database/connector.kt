@@ -31,9 +31,6 @@ private val hikariConfig = HikariConfig().apply {
     private fun runMigration(dataSource: DataSource) =
         Flyway.configure()
             .dataSource(dataSource)
-            .apply {
-                if (env.containsKey("NAIS_CLUSTER_NAME")) locations("db/migration", "db/gcp")
-            }
             .load()
             .migrate()
 }

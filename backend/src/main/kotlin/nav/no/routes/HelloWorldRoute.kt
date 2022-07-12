@@ -8,7 +8,7 @@ import io.ktor.server.routing.*
 fun Route.helloWorldRoute() {
     route("/") {
         get {
-            call.respondText("Hello World2", status = HttpStatusCode.OK)
+            call.respondText("Hello World", status = HttpStatusCode.OK)
         }
     }
 }
