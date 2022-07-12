@@ -11,11 +11,21 @@ spec:
   kafka:
     pool:
       nav-dev
+  replicas:
+    cpuThresholdPercentage: 90
+    max: 1
+    min: 1
   gcp:
     sqlInstances:
       - type: POSTGRES_14
         databases:
           - name: navhoot-db
+  liveness:
+    initialDelay: 30
+    path: isalive
+  readiness:
+    initialDelay: 30
+    path: isready
   ingresses:
     - https://navhoot-backend.dev.nav.no/
   #image: ghcr.io/navikt/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd
