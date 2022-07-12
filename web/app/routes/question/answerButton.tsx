@@ -1,15 +1,15 @@
-import type { ChangeEvent } from "react"
+interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    answerText: string
+} 
 
 export default function AnswerButton(
     {
-        answerText, 
-        onAnswerClicked
-    }: {
-        answerText: string
-        onAnswerClicked: () => void
-    }) {
+        answerText,
+        ...rest
+    }: IButtonProps) {
+
     return (
-        <button className="border mx-1" onClick={onAnswerClicked} >
+        <button className="border mx-1" {...rest} >
             {answerText}
         </button>
     )

@@ -8,8 +8,11 @@ interface IAnswer {
 
 export default function QuestionView() {
 
-    const onQuestionAnswered = () => {
-        console.log("Hei")
+    const onQuestionAnswered = (answerIndex: number) => {
+        if (answers[answerIndex].isCorrectAnswer) {
+            // TODO: Route to result screen with displaying that answer is correct
+        }
+        // TODO: Route to to result screen with displaying that answer is incorrect
     }
 
     const [answers, setAnswers] = useState<IAnswer[]>([
@@ -37,7 +40,7 @@ export default function QuestionView() {
                 return <AnswerButton 
                     key={i} 
                     answerText={answer.answerText} 
-                    onAnswerClicked={onQuestionAnswered}
+                    onClick={() => onQuestionAnswered(i)}
                 />
             })}
         </div>
