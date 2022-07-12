@@ -560,10 +560,26 @@ video {
   display: flex;
 }
 
+.w-5 {
+  width: 1.25rem;
+}
+
 .flex-col {
   flex-direction: column;
 }
 
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
 .border {
   border-width: 1px;
+}
+
+.text-center {
+  text-align: center;
 }
