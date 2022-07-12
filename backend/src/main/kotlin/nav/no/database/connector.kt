@@ -22,10 +22,6 @@ private val hikariConfig = HikariConfig().apply {
 }
     val dataSource: DataSource
     init {
-        if (!env.containsKey("DB_JDBC_URL")) {
-            checkNotNull(env["DB_USERNAME"]) { "username must be set when vault is disabled" }
-            checkNotNull(env["DB_PASSWORD"]) { "password must be set when vault is disabled" }
-        }
         dataSource = HikariDataSource(hikariConfig)
     }
 }
