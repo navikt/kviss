@@ -17,28 +17,28 @@ export default function QuestionView() {
 
     const [answers, setAnswers] = useState<IAnswer[]>([
         {
-            answerText: "Question A",
+            answerText: "Answer A",
             isCorrectAnswer: false
         },
         {
-            answerText: "Question B",
+            answerText: "Answer B",
             isCorrectAnswer: false
         },
         {
-            answerText: "Question C",
+            answerText: "Answer C",
             isCorrectAnswer: true
         },
         {
-            answerText: "Question D",
+            answerText: "Answer D",
             isCorrectAnswer: false
         }
     ])
 
     return (
-        <div>
+        <div className="flex flex-col h-screen justify-center items-center">
             {answers.map((answer, i) => {
                 return <AnswerButton 
-                    key={i} 
+                    key={i}
                     answerText={answer.answerText} 
                     onClick={() => onQuestionAnswered(i)}
                 />
