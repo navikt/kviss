@@ -14,12 +14,12 @@ val dbUrl = System.getenv("NAIS_DATABASE_NAVHOOT_BACKEND_NAVHOOT_DB_URL")?: Stri
 
 fun dbConnect(): String {
     println(dbUrl)
-    val connection = DriverManager.getConnection(dbUrl)
+    val connection = DriverManager.getConnection("jdbc:" + dbUrl)
 
-    if (connection.isValid(20)){
-        return "hello"
+    return if (connection.isValid(20)){
+        "hello"
     } else {
-        return "not valid"
+        "not valid"
     }
 }
 
