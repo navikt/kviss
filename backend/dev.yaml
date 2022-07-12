@@ -11,6 +11,10 @@ spec:
   kafka:
     pool:
       nav-dev
+  replicas:
+    cpuThresholdPercentage: 90
+    max: 1
+    min: 1
   gcp:
     sqlInstances:
       - type: POSTGRES_14
