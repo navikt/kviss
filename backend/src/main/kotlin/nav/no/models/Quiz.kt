@@ -6,7 +6,7 @@ import java.util.*
 @Serializable
 data class Game(
     val id: Long,
-    val quiz: Quiz,
+    val quizId: Long,
     val isActive: Boolean
 )
 @Serializable
@@ -27,4 +27,11 @@ data class Alternative(
     val id: Long,
     val text: String,
     val isCorrect: Boolean
+)
+
+@Serializable
+data class Player(
+    val id: Long,
+    val name: String,
+    val score: Int,
 )
