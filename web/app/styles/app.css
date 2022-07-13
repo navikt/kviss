@@ -551,14 +551,17 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-.my-1 {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-}
-
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
 }
 
 .flex {
@@ -593,10 +596,6 @@ video {
   border-radius: 1.5rem;
 }
 
-.border-2 {
-  border-width: 2px;
-}
-
 .bg-nord-grey {
   --tw-bg-opacity: 1;
   background-color: rgb(236 239 244 / var(--tw-bg-opacity));
@@ -608,6 +607,16 @@ video {
 
 .p-1 {
   padding: 0.25rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .drop-shadow-lg {

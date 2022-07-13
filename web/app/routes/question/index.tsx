@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import AnswerButton from "./answerButton";
 
 interface IAnswer {
@@ -6,7 +5,13 @@ interface IAnswer {
     isCorrectAnswer: boolean
 }
 
-export default function QuestionView() {
+export default function QuestionView({
+    question,
+    answers
+}: {
+    question: string
+    answers: IAnswer[]
+}) {
 
     const onQuestionAnswered = (answerIndex: number) => {
         if (answers[answerIndex].isCorrectAnswer) {
@@ -15,27 +20,9 @@ export default function QuestionView() {
         // TODO: Route to to result screen with displaying that answer is incorrect
     }
 
-    const [answers, setAnswers] = useState<IAnswer[]>([
-        {
-            answerText: "Answer A",
-            isCorrectAnswer: false
-        },
-        {
-            answerText: "Answer B",
-            isCorrectAnswer: false
-        },
-        {
-            answerText: "Answer C",
-            isCorrectAnswer: true
-        },
-        {
-            answerText: "Answer D",
-            isCorrectAnswer: false
-        }
-    ])
-
     return (
         <div className="flex flex-col h-screen justify-center items-center">
+            <h1 className="text-2xl mb-4">{question}</h1>
             {answers.map((answer, i) => {
                 return <AnswerButton 
                     key={i}
