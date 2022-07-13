@@ -1,8 +1,10 @@
 package nav.no.database
 
 import nav.no.database.Queries.SELECT_ALTERNATIVE
+import nav.no.database.Queries.SELECT_PLAYER
 import nav.no.database.Queries.SELECT_QUIZ
 import nav.no.models.Alternative
+import nav.no.models.Player
 import nav.no.models.Question
 import nav.no.models.Quiz
 import java.sql.ResultSet
@@ -43,6 +45,21 @@ class QuizDao(
             }
         }
     }
+
+    fun getPayer(playerId: Long, gameId: Long): Player {
+        return dataSource.connection.use {
+            val rs = it.prepareStatement(SELECT_PLAYER).executeQuery()
+            return if(rs.next()){
+                Player(
+                    rs.getLong("id"),
+                    rs.getString("name"),
+                    rs.getInt("score")
+                )
+            } else {
+                throw Exception("No valid player found")
+            }
+        }
+    }
 }
 
 private fun <T> ResultSet.toList(block: ResultSet.() -> T): List<T> {
@@ -67,6 +84,13 @@ private object Queries {
         select * 
         from alternative
         where question_id = ?;
+    """.trimIndent()
+
+    val SELECT_PLAYER = """
+        select * 
+        from player
+        where id = ?
+        and game_id = ?
     """.trimIndent()
 
 }
