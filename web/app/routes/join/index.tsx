@@ -1,7 +1,5 @@
 import { json, LoaderFunction } from "@remix-run/node";
 import { Form, Outlet, useLoaderData } from "@remix-run/react";
-import Footer from "~/components/Footer";
-import Header from "~/components/Header";
 import PinCode from "~/components/PinCode";
 
 export const loader: LoaderFunction = async () => {

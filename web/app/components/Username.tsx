@@ -4,7 +4,7 @@ export default function PinCode() {
             <form method="post">
                 <div>
                     <label>
-                        PIN kode:{" "}
+                        Brukernavn:{" "}
                     </label>
                 </div>
                 <div>
