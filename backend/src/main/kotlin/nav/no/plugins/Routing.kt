@@ -1,18 +1,17 @@
 package nav.no.plugins
 
 import io.ktor.server.routing.*
-import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.response.*
-import io.ktor.server.request.*
+import nav.no.database.NavhootDao
 import nav.no.routes.dbRoute
 import nav.no.routes.healthAPI
 import nav.no.routes.helloWorldRoute
 import nav.no.routes.quizRoute
+import javax.sql.DataSource
 
-fun Application.configureRouting() {
+fun Application.configureRouting(dataSource: DataSource) {
     install(ContentNegotiation) {
         json()
     }
@@ -21,6 +20,6 @@ fun Application.configureRouting() {
         healthAPI()
         helloWorldRoute()
         dbRoute()
-        quizRoute()
+        quizRoute(NavhootDao(dataSource))
     }
 }

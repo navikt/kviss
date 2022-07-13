@@ -18,7 +18,7 @@ import javax.sql.DataSource
 class NavhootDao(
     private val dataSource: DataSource,
 ) {
-    fun getQuizzes(id: Long): List<Quiz> {
+    fun getQuizzes(): List<Quiz> {
         return dataSource.connection.use {
             return it.prepareStatement(SELECT_ALL_QUIZ).executeQuery().toList {
                 Quiz(
