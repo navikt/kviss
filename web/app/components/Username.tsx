@@ -1,7 +1,7 @@
 export default function PinCode() {
     return(
         <div className="text-center ">
-            <form method="post">
+            <form>
                 <div>
                     <label>
                         Brukernavn:{" "}
