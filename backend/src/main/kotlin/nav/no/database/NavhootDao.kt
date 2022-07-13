@@ -15,7 +15,7 @@ import nav.no.models.Quiz
 import java.sql.ResultSet
 import javax.sql.DataSource
 
-class QuizDao(
+class NavhootDao(
     private val dataSource: DataSource,
 ) {
     fun getQuizzes(id: Long): List<Quiz> {
