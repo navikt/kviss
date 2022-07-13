@@ -10,6 +10,7 @@ import {
 } from "@remix-run/react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import QuizProvider from "./context/QuizContext";
 
 export function links() {
   return [{ rel: "stylesheet", href: styles }]
@@ -29,12 +30,14 @@ export default function App() {
         <Links />
       </head>
       <body className="bg-orange-100">
-        <Header />
-        <Outlet />
-        <Footer />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <QuizProvider> 
+          <Header />
+          <Outlet />
+          <Footer />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+          </QuizProvider> 
       </body>
     </html>
   );
