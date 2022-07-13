@@ -2,10 +2,8 @@ import { useState } from 'react'
 import type { ActionFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { useNavigate } from "react-router-dom"
+import { ButtonProps } from "../routes/join/index"
 
-type ButtonProps = {
-    handleClick: (pinCode: String) => void;
-  };
 
 export default function PinCode({handleClick}: ButtonProps) {
 
@@ -30,7 +28,7 @@ export default function PinCode({handleClick}: ButtonProps) {
                 <div>
                     <button 
                     type="submit"
-                    onClick={event => handleClick(pinCode)}
+                    onClick={event => handleClick(event ,pinCode)}
                     >
                         Neste
                     </button>
