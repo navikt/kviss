@@ -1,1 +1,0 @@
-class Scoreboard(val players: List<Player>)
