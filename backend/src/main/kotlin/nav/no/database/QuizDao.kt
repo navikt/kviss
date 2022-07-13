@@ -5,15 +5,18 @@ import nav.no.database.Queries.SELECT_QUESTION
 import nav.no.database.Queries.SELECT_QUESTIONS
 import nav.no.database.Queries.SELECT_QUIZ
 import nav.no.models.Game
+import nav.no.models.Alternative
+import nav.no.models.Player
 import nav.no.models.Question
 import nav.no.models.Quiz
+import java.sql.ResultSet
 import java.util.ListResourceBundle
 import javax.sql.DataSource
 
 class QuizDao(
     private val dataSource: DataSource,
 ) {
-    fun getQuiz(id: Long): Quiz {
+    fun getQuiz(id: Long) : Quiz{
         return dataSource.connection.use {
             val rs = it.prepareStatement(SELECT_QUIZ)
                 .apply {
@@ -26,7 +29,7 @@ class QuizDao(
                     rs.getLong("id"),
                     rs.getString("description"),
                     emptyList()
-                )
+                    )
             } else {
                 throw Exception("The quiz does not exist")
             }
@@ -72,6 +75,17 @@ class QuizDao(
             }.toList()
         }
     }
+    fun getAlternatives(questionId: Long): List<Alternative> {
+        return dataSource.connection.use {
+            return it.prepareStatement(SELECT_ALTERNATIVE).executeQuery().toList {
+                Alternative(
+                    getLong("id"),
+                    getString("description"),
+                    getBoolean("isCorrect")
+                )
+            }
+        }
+    }
 
     fun getGame(gameId: Long): Game {
         return dataSource.connection.use {
@@ -92,7 +106,28 @@ class QuizDao(
         }
     }
 }
+    fun getPayer(playerId: Long, gameId: Long): Player {
+        return dataSource.connection.use {
+            val rs = it.prepareStatement(SELECT_PLAYER).executeQuery()
+            return if(rs.next()){
+                Player(
+                    rs.getLong("id"),
+                    rs.getString("name"),
+                    rs.getInt("score")
+                )
+            } else {
+                throw Exception("No valid player found")
+            }
+        }
+    }
+}
 
+private fun <T> ResultSet.toList(block: ResultSet.() -> T): List<T> {
+    return generateSequence {
+        if (next()) block()
+        else null
+    }.toList()
+}
 
 private object Queries {
     val SELECT_ALL_QUIZ = """
@@ -121,6 +156,19 @@ private object Queries {
        SELECT * 
        FROM game
        WHERE id = ?;
+    """.trimIndent()
+
+    val SELECT_ALTERNATIVE = """
+        select * 
+        from alternative
+        where question_id = ?;
+    """.trimIndent()
+
+    val SELECT_PLAYER = """
+        select * 
+        from player
+        where id = ?
+        and game_id = ?
     """.trimIndent()
 
 }

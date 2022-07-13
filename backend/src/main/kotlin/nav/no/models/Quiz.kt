@@ -28,3 +28,10 @@ data class Alternative(
     val text: String,
     val isCorrect: Boolean
 )
+
+@Serializable
+data class Player(
+    val id: Long,
+    val name: String,
+    val score: Int,
+)
