@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import AnswerButton from "./answerButton";
 
 interface IAnswer {
@@ -13,9 +14,12 @@ export default function QuestionView({
     answers: IAnswer[]
 }) {
 
+    const navigate = useNavigate()
+
     const onQuestionAnswered = (answerIndex: number) => {
         if (answers[answerIndex].isCorrectAnswer) {
             // TODO: Route to result screen with displaying that answer is correct
+            navigate('./result', { replace: true })
         }
         // TODO: Route to to result screen with displaying that answer is incorrect
     }
