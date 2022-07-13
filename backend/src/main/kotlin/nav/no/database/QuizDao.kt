@@ -1,5 +1,6 @@
 package nav.no.database
 
+import nav.no.database.Queries.SELECT_ALL_QUIZ
 import nav.no.database.Queries.SELECT_ALTERNATIVE
 import nav.no.database.Queries.SELECT_GAME
 import nav.no.database.Queries.SELECT_PLAYER
@@ -17,6 +18,19 @@ import javax.sql.DataSource
 class QuizDao(
     private val dataSource: DataSource,
 ) {
+    fun getQuizzes(id: Long): List<Quiz> {
+        return dataSource.connection.use {
+            return it.prepareStatement(SELECT_ALL_QUIZ).executeQuery().toList {
+                Quiz(
+                    getString("name"),
+                    getLong("id"),
+                    getString("description"),
+                    emptyList()
+                )
+            }
+        }
+    }
+
     fun getQuiz(id: Long): Quiz {
         return dataSource.connection.use {
             val rs = it.prepareStatement(SELECT_QUIZ)
