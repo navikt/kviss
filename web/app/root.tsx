@@ -9,6 +9,12 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+export function links() {
+  return [{ rel: "stylesheet", href: styles }]
+}
 
 export function links() {
   return [{ rel: "stylesheet", href: styles }]
@@ -28,8 +34,10 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="bg-orange-100">
+        <Header />
         <Outlet />
+        <Footer />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
