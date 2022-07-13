@@ -99,7 +99,7 @@ class NavhootDao(
                 Alternative(
                     getLong("id"),
                     getString("description"),
-                    getBoolean("isCorrect")
+                    getBoolean("is_correct")
                 )
             }
         }
