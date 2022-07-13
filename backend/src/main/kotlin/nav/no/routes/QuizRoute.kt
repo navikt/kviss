@@ -4,13 +4,12 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import nav.no.database.DataSourceBuilder
-import nav.no.database.NavhootDao
+import nav.no.database.QuizDao
 import nav.no.models.Alternative
 import nav.no.models.Question
 import nav.no.models.Quiz
 
-fun Route.quizRoute(dao: NavhootDao) {
+fun Route.quizRoute(dao: QuizDao) {
     route("quiz") {
         get {
             val quiz: List<Quiz> = dao.getQuizzes()
