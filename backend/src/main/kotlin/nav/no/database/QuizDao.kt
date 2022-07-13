@@ -77,7 +77,9 @@ class QuizDao(
     }
     fun getAlternatives(questionId: Long): List<Alternative> {
         return dataSource.connection.use {
-            return it.prepareStatement(SELECT_ALTERNATIVE).executeQuery().toList {
+            return it.prepareStatement(SELECT_ALTERNATIVE).apply {
+                setLong(1, questionId)
+            }.executeQuery().toList {
                 Alternative(
                     getLong("id"),
                     getString("description"),
@@ -107,8 +109,11 @@ class QuizDao(
     }
 }
     fun getPayer(playerId: Long, gameId: Long): Player {
+    fun getPayer(playerId: Long): Player {
         return dataSource.connection.use {
-            val rs = it.prepareStatement(SELECT_PLAYER).executeQuery()
+            val rs = it.prepareStatement(SELECT_PLAYER).apply {
+                setLong(1, playerId)
+            }.executeQuery()
             return if(rs.next()){
                 Player(
                     rs.getLong("id"),
@@ -167,8 +172,7 @@ private object Queries {
     val SELECT_PLAYER = """
         select * 
         from player
-        where id = ?
-        and game_id = ?
+        where id = ?;
     """.trimIndent()
 
 }
