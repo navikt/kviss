@@ -1,6 +1,8 @@
 package nav.no.database
 
+import nav.no.database.Queries.SELECT_ALTERNATIVE
 import nav.no.database.Queries.SELECT_GAME
+import nav.no.database.Queries.SELECT_PLAYER
 import nav.no.database.Queries.SELECT_QUESTION
 import nav.no.database.Queries.SELECT_QUESTIONS
 import nav.no.database.Queries.SELECT_QUIZ
@@ -10,13 +12,12 @@ import nav.no.models.Player
 import nav.no.models.Question
 import nav.no.models.Quiz
 import java.sql.ResultSet
-import java.util.ListResourceBundle
 import javax.sql.DataSource
 
 class QuizDao(
     private val dataSource: DataSource,
 ) {
-    fun getQuiz(id: Long) : Quiz{
+    fun getQuiz(id: Long): Quiz {
         return dataSource.connection.use {
             val rs = it.prepareStatement(SELECT_QUIZ)
                 .apply {
@@ -29,7 +30,7 @@ class QuizDao(
                     rs.getLong("id"),
                     rs.getString("description"),
                     emptyList()
-                    )
+                )
             } else {
                 throw Exception("The quiz does not exist")
             }
@@ -75,6 +76,7 @@ class QuizDao(
             }.toList()
         }
     }
+
     fun getAlternatives(questionId: Long): List<Alternative> {
         return dataSource.connection.use {
             return it.prepareStatement(SELECT_ALTERNATIVE).apply {
@@ -107,14 +109,13 @@ class QuizDao(
             }
         }
     }
-}
-    fun getPayer(playerId: Long, gameId: Long): Player {
+
     fun getPayer(playerId: Long): Player {
         return dataSource.connection.use {
             val rs = it.prepareStatement(SELECT_PLAYER).apply {
                 setLong(1, playerId)
             }.executeQuery()
-            return if(rs.next()){
+            return if (rs.next()) {
                 Player(
                     rs.getLong("id"),
                     rs.getString("name"),
