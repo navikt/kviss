@@ -57,7 +57,6 @@ export default function QuizProvider({ children }: { children: Array<ReactElemen
     const [quiz, setQuiz] = useState<IQuiz>(initQuiz)
 
 
-
     return (
         <QuizContext.Provider value={{ quiz, setQuiz }}>
             {children}
