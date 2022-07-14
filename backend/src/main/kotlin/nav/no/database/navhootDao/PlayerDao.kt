@@ -1,6 +1,7 @@
 package nav.no.database
 
 import nav.no.database.QueriesPlayer.SELECT_PLAYER
+import nav.no.database.QueriesPlayer.SELECT_PLAYERS
 import nav.no.models.Player
 import javax.sql.DataSource
 
@@ -23,6 +24,24 @@ class PlayerDao(
             }
         }
     }
+    fun getPlayers(gameId: Long): List<Player> {
+        return dataSource.connection.use {
+            val rs = it.prepareStatement(SELECT_PLAYERS).apply {
+                setLong(1, gameId)
+            }.executeQuery()
+            return generateSequence {
+                if (rs.next()) {
+                    Player(
+                        rs.getLong("id"),
+                        rs.getString("name"),
+                        rs.getInt("score")
+                    )
+                } else {
+                    throw Exception("No valid player found")
+                }
+            }.toList()
+        }
+    }
 }
 
 
@@ -32,6 +51,12 @@ private object QueriesPlayer {
         select * 
         from player
         where id = ?;
+    """.trimIndent()
+
+    val SELECT_PLAYERS = """
+        select * 
+        from player
+        where game_id = ?
     """.trimIndent()
 
 }

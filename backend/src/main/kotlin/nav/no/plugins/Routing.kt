@@ -4,6 +4,7 @@ import io.ktor.server.routing.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
+import nav.no.database.GameDao
 import nav.no.database.PlayerDao
 import nav.no.database.QuizDao
 import nav.no.routes.*
@@ -15,11 +16,17 @@ fun Application.configureRouting(dataSource: DataSource) {
     }
     install(IgnoreTrailingSlash)
 
+    val playerDao = PlayerDao(dataSource)
+    val quizDao = QuizDao(dataSource)
+    val gameDao = GameDao(dataSource)
+
+
     routing {
         healthAPI()
         helloWorldRoute()
         dbRoute()
-        quizRoute(QuizDao(dataSource))
-        playerRoute(PlayerDao(dataSource))
+        quizRoute(quizDao)
+        playerRoute(playerDao)
+        gameRoute(gameDao, playerDao)
     }
 }
