@@ -12,7 +12,7 @@ export type ButtonProps = {
 };
 
 export const loader: LoaderFunction = async () => {
-    const res = await fetch('https://navhoot-backend.dev.nav.no/quiz')
+    const res = await fetch('https://navhoot-backend.dev.nav.no/quiz/mock')
     return json(await res.json())
 }
 
@@ -54,7 +54,7 @@ export default function QuizIndexRoute() {
                     </div>
                 )}
             <button
-                onClick={e => navigate("../question/1")}>
+                onClick={e => navigate(`../quiz`)}>
                 Start Quiz
             </button>
         </div>

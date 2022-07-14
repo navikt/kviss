@@ -6,13 +6,13 @@ import { createContext, useContext } from "react"
 export interface IAlternative {
     id: number,
     text: string,
-    isCorrect: boolean
+    isCorrect?: boolean
 }
 
 export interface IQuestion {
-    id: number,
-    description: string,
-    alternative: IAlternative[]
+    id?: number
+    description?: string
+    alternative?: IAlternative[]
 }
 
 export interface IQuiz {
@@ -42,9 +42,24 @@ const initQuiz: IQuiz = {
     ]
 }
 
+const initQuestion: IQuestion = {
+    "id": 1,
+    "description": "Spørsmål 1",
+    "alternative": [
+        {
+            "id": 1,
+            "text": "Alternative 1",
+            "isCorrect": true
+        }
+    ]
+}
+
 const QuizContext = React.createContext({
     quiz: initQuiz,
     setQuiz: (_: any) => {
+    },
+    question: initQuestion,
+    setQuestion: (_: any) => {
     },
 })
 
@@ -55,10 +70,11 @@ export function useQuiz() {
 
 export default function QuizProvider({ children }: { children: Array<ReactElement> | ReactElement }): ReactElement {
     const [quiz, setQuiz] = useState<IQuiz>(initQuiz)
+    const [question, setQuestion] = useState<IQuestion>(initQuestion)
 
 
     return (
-        <QuizContext.Provider value={{ quiz, setQuiz }}>
+        <QuizContext.Provider value={{ quiz, setQuiz, question, setQuestion }}>
             {children}
         </QuizContext.Provider>
     );
