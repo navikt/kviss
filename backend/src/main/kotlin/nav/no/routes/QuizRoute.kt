@@ -16,15 +16,13 @@ fun Route.quizRoute(quizDao: QuizDao, questionDao: QuestionDao) {
             val quiz: List<Quiz> = quizDao.getQuizzes()
             call.respond(quiz)
         }
-        route("id") {
+        route("{id}") {
             get {
                 try {
                     val quiz: Quiz = quizDao.getQuiz(call.parameters["id"]!!.toLong())
                     call.respond(quiz)
                 } catch (e: Exception) {
-                    call.respondText("quiz not found",
-                        status = HttpStatusCode(404, "Quiz not found"))
-                }
+                    call.respond(HttpStatusCode(404, "Quiz not found"))                }
             }
             get("questions") {
                 try {
@@ -32,8 +30,7 @@ fun Route.quizRoute(quizDao: QuizDao, questionDao: QuestionDao) {
                         .getQuestions(call.parameters["id"]!!.toLong())
                     call.respond(questions)
                 } catch (e: Exception) {
-                    call.respondText("Error getting questions",
-                        status = HttpStatusCode(404, "error getting questions"))
+                    call.respond(HttpStatusCode(404, "error getting questions"))
                 }
             }
         }
