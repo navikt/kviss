@@ -4,20 +4,38 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import nav.no.database.QuestionDao
 import nav.no.database.QuizDao
 import nav.no.models.Alternative
 import nav.no.models.Question
 import nav.no.models.Quiz
 
-fun Route.quizRoute(dao: QuizDao) {
+fun Route.quizRoute(quizDao: QuizDao, questionDao: QuestionDao) {
     route("quiz") {
         get {
-            val quiz: List<Quiz> = dao.getQuizzes()
+            val quiz: List<Quiz> = quizDao.getQuizzes()
             call.respond(quiz)
         }
-        get("{id}") {
-            val quiz: Quiz = dao.getQuiz(call.parameters["id"]!!.toLong())
-            call.respond(quiz)
+        route("id") {
+            get {
+                try {
+                    val quiz: Quiz = quizDao.getQuiz(call.parameters["id"]!!.toLong())
+                    call.respond(quiz)
+                } catch (e: Exception) {
+                    call.respondText("quiz not found",
+                        status = HttpStatusCode(404, "Quiz not found"))
+                }
+            }
+            get("questions") {
+                try {
+                    val questions: List<Question> = questionDao
+                        .getQuestions(call.parameters["id"]!!.toLong())
+                    call.respond(questions)
+                } catch (e: Exception) {
+                    call.respondText("Error getting questions",
+                        status = HttpStatusCode(404, "error getting questions"))
+                }
+            }
         }
         get("mock") {
             call.respond(quiz)
