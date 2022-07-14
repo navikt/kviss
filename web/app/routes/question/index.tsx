@@ -1,25 +1,21 @@
-import type { LoaderFunction } from '@remix-run/node'
-import { json } from '@remix-run/node'
-import { useLoaderData, useNavigate } from '@remix-run/react'
 import AnswerButton from './answerButton'
 
 interface IQuestionViewProps {
-    description: string
-    alternative: IAlternative[]
-    questionIndex: number
+	description: string
+	alternative: IAlternative[]
+	questionIndex: number
 }
 
 interface IAlternative {
-    text: string
-    isCorrect: boolean
+	text: string
+	isCorrect: boolean
 }
 
 export default function QuestionView({
 	description,
 	alternative,
-	questionIndex
-}: IQuestionViewProps) {   
-	const navigate = useNavigate()
+
+}: IQuestionViewProps) {
 
 	const onQuestionAnswered = (answerIndex: number) => {
 		if (alternative[answerIndex].isCorrect) {
@@ -32,9 +28,9 @@ export default function QuestionView({
 		<div className="flex flex-col h-screen justify-center items-center">
 			<h1 className="text-2xl mb-4">{description}</h1>
 			{alternative.map((answer: any, i: number) => {
-				return <AnswerButton 
+				return <AnswerButton
 					key={i}
-					answerText={answer.text} 
+					answerText={answer.text}
 					onClick={() => onQuestionAnswered(i)}
 				/>
 			})}
