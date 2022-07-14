@@ -1,6 +1,3 @@
-import type { LoaderFunction } from '@remix-run/node'
-import { json } from '@remix-run/node'
-import { useLoaderData, useNavigate } from '@remix-run/react'
 import AnswerButton from './answerButton'
 
 interface IQuestionViewProps {
@@ -17,9 +14,8 @@ interface IAlternative {
 export default function QuestionView({
     description,
     alternative,
-    questionIndex
+
 }: IQuestionViewProps) {
-    const navigate = useNavigate()
 
     const onQuestionAnswered = (answerIndex: number) => {
         if (alternative[answerIndex].isCorrect) {

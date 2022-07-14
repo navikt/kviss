@@ -1,9 +1,10 @@
 import { json, LoaderFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { useState } from 'react'
+import { useLinkClickHandler, useNavigate } from 'react-router-dom'
 import PinCode from '~/components/PinCode'
 import Username from '~/components/Username'
-import QuizProvider, { useQuiz } from '~/context/QuizContext'
+import { useQuiz } from '~/context/QuizContext'
 
 
 export type ButtonProps = {
@@ -21,7 +22,7 @@ export default function QuizIndexRoute() {
 
     const [pinCode, setPinCode] = useState<string>('')
     const [nickname, setNickName] = useState<string>('')
-
+    const navigate = useNavigate()
     const { quiz, setQuiz } = useQuiz()
     const data = useLoaderData()
 
@@ -34,6 +35,7 @@ export default function QuizIndexRoute() {
         event.preventDefault()
         setNickName(pc)
         setQuiz(data)
+        console.log(data)
 
     }
 
@@ -51,6 +53,10 @@ export default function QuizIndexRoute() {
                         {nickname}
                     </div>
                 )}
+            <button
+                onClick={e => navigate("../question/1")}>
+                Start Quiz
+            </button>
         </div>
     )
 }
