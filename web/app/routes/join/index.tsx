@@ -7,12 +7,12 @@ import QuizProvider, { useQuiz } from "~/context/QuizContext";
 
 
 export type ButtonProps = {
-  handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, pinCode: String) => void;
+    handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, pinCode: String) => void;
 };
 
 export const loader: LoaderFunction = async () => {
-  const res = await fetch("https://navhoot-backend.dev.nav.no/quiz")
-  return json(await res.json())
+    const res = await fetch("https://navhoot-backend.dev.nav.no/quiz")
+    return json(await res.json())
 };
 
 
@@ -22,35 +22,35 @@ export default function QuizIndexRoute() {
     const [pinCode, setPinCode] = useState<String>("")
     const [nickname, setNickName] = useState<String>("")
 
-    const {quiz, setQuiz } = useQuiz()
+    const { quiz, setQuiz } = useQuiz()
     const data = useLoaderData()
 
     const handleClickPin = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, pc: String) => {
-      event.preventDefault()
-      setPinCode(pc)
+        event.preventDefault()
+        setPinCode(pc)
     }
 
     const handleClickNick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, pc: String) => {
-      event.preventDefault()
-      setNickName(pc)
-      setQuiz(data)
+        event.preventDefault()
+        setNickName(pc)
+        setQuiz(data)
 
-  }
+    }
 
     return (
         <div className="flex flex-col h-screen justify-center items-center">
-        
-          {pinCode === ""? 
-            <PinCode handleClick={handleClickPin}/>:
-            (nickname ===""?
-              <Username handleClick={handleClickNick}/>
-              : 
-              <div className="text-center ">
-                See your name on the screen?
-                <br/>
-                {nickname}
-              </div>
-            )}
+
+            {pinCode === "" ?
+                <PinCode handleClick={handleClickPin} /> :
+                (nickname === "" ?
+                    <Username handleClick={handleClickNick} />
+                    :
+                    <div className="text-center ">
+                        See your name on the screen?
+                        <br />
+                        {nickname}
+                    </div>
+                )}
         </div>
     );
-  }
+}
