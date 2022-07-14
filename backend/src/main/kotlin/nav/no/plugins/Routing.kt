@@ -4,11 +4,9 @@ import io.ktor.server.routing.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
+import nav.no.database.PlayerDao
 import nav.no.database.QuizDao
-import nav.no.routes.dbRoute
-import nav.no.routes.healthAPI
-import nav.no.routes.helloWorldRoute
-import nav.no.routes.quizRoute
+import nav.no.routes.*
 import javax.sql.DataSource
 
 fun Application.configureRouting(dataSource: DataSource) {
@@ -22,5 +20,6 @@ fun Application.configureRouting(dataSource: DataSource) {
         helloWorldRoute()
         dbRoute()
         quizRoute(QuizDao(dataSource))
+        playerRoute(PlayerDao(dataSource))
     }
 }

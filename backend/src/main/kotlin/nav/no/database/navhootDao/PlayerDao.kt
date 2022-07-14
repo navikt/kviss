@@ -4,10 +4,10 @@ import nav.no.database.QueriesPlayer.SELECT_PLAYER
 import nav.no.models.Player
 import javax.sql.DataSource
 
-class PayerDao(
+class PlayerDao(
     private val dataSource: DataSource,
 ) {
-    fun getPayer(playerId: Long): Player {
+    fun getPlayer(playerId: Long): Player {
         return dataSource.connection.use {
             val rs = it.prepareStatement(SELECT_PLAYER).apply {
                 setLong(1, playerId)
