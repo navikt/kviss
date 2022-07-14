@@ -4,7 +4,7 @@ import { ButtonProps } from "../routes/join/index"
 
 export default function PinCode({ handleClick }: ButtonProps) {
 
-    const [username, setUsername] = useState<String>("")
+    const [username, setUsername] = useState<string>("")
 
     return (
         <div className="text-center ">
