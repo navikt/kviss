@@ -5,9 +5,11 @@ on:
   push:
     branches:
       - main
+    paths:
+      - backend/**
 
 env:
-  docker_image: ghcr.io/${{ github.repository }}:${{ github.sha }}
+  docker_image: ghcr.io/${{ github.repository }}-backend:${{ github.sha }}
 
 jobs:
   build:
@@ -36,7 +38,7 @@ jobs:
           tags: ${{ env.docker_image }}
 
   deploy:
-    name: Deploy to NAIS
+    name: Deploy to dev-gcp
     needs: build
     runs-on: ubuntu-latest
     steps:

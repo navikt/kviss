@@ -6,7 +6,11 @@ metadata:
   labels:
     team: team-tolk
 spec:
-    image: {{ image }}
-    port: 3000
-    ingresses:
-        - https://navhoot-web.dev.intern.nav.no/
+  image: {{ image }}
+  port: 3000
+  ingresses:
+    - https://navhoot-web.dev.intern.nav.no/
+  replicas:
+    cpuThresholdPercentage: 90
+    max: 1
+    min: 1

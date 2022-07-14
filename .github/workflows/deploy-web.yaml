@@ -2,14 +2,14 @@ name: Deploy frontend
 
 on:
   workflow_dispatch: # Allow manually triggered workflow run
-    push:
-      branches:
-        - main
+  push:
+    branches:
+      - main
+    paths:
+      - web/**
 
 env:
-  docker_image: ghcr.io/${{ github.repository }}:${{ github.sha }}
-  CLUSTER: dev-gcp
-  RESOURCE: web/nais.yaml
+  docker_image: ghcr.io/${{ github.repository }}-web:${{ github.sha }}
 
 jobs:
   build:
@@ -29,7 +29,7 @@ jobs:
           tags: ${{ env.docker_image }}
 
   deploy:
-    name: Deploy to NAIS
+    name: Deploy to dev-gcp
     needs: build
     runs-on: ubuntu-latest
     steps:
