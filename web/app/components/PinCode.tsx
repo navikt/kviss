@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom"
 import { ButtonProps } from "../routes/join/index"
 
 
-export default function PinCode({handleClick}: ButtonProps) {
+export default function PinCode({ handleClick }: ButtonProps) {
 
-    const [pinCode, setPinCode] = useState<String>("")
+    const [pinCode, setPinCode] = useState<string>("")
 
-      
-    return(
+
+    return (
         <div className="text-center ">
             <form>
                 <div>
@@ -26,16 +26,16 @@ export default function PinCode({handleClick}: ButtonProps) {
                     />
                 </div>
                 <div>
-                    <button 
-                    type="submit"
-                    onClick={event => handleClick(event ,pinCode)}
+                    <button
+                        type="submit"
+                        onClick={event => handleClick(event, pinCode)}
                     >
                         Neste
                     </button>
                 </div>
             </form>
         </div>
-        
+
     )
-    
+
 }
