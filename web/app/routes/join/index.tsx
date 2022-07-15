@@ -23,7 +23,7 @@ export default function QuizIndexRoute() {
     const [pinCode, setPinCode] = useState<string>('')
     const [nickname, setNickName] = useState<string>('')
     const navigate = useNavigate()
-    const { quiz, setQuiz } = useQuiz()
+    const { quiz, setQuiz, setQuestion } = useQuiz()
     const data = useLoaderData()
 
     const handleClickPin = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, pc: string) => {
@@ -35,6 +35,7 @@ export default function QuizIndexRoute() {
         event.preventDefault()
         setNickName(pc)
         setQuiz(data)
+        setQuestion(data.questions[0])
         console.log(data)
 
     }
