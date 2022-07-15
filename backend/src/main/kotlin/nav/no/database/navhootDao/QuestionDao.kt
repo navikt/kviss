@@ -22,7 +22,9 @@ class QuestionDao(
                 Question(
                     rs.getLong("id"),
                     rs.getString("description"),
-                    emptyList()
+                    emptyList(),
+                    rs.getLong("quiz_id"),
+                    rs.getInt("sort_order")
                 )
             } else {
                 throw Exception("The Question does not exist")
@@ -33,23 +35,23 @@ class QuestionDao(
 
     fun getQuestions(quizId: Long): List<Question> {
         return dataSource.connection.use {
-            val rs = it.prepareStatement(SELECT_QUESTIONS)
+            return it.prepareStatement(SELECT_QUESTIONS)
                 .apply {
                     setLong(1, quizId)
                 }
-                .executeQuery()
-
-            return generateSequence {
-                if (rs.next())
+                .executeQuery().toList {
                     Question(
-                        rs.getLong("id"),
-                        rs.getString("description"),
-                        emptyList()
+                        getLong("id"),
+                        getString("description"),
+                        emptyList(),
+                        getLong("quiz_id"),
+                        getInt("sort_order")
+
                     )
-                else null
-            }.toList()
+                }
         }
     }
+
 }
 
 
@@ -65,5 +67,18 @@ private object QueriesQuestions {
        SELECT * 
        FROM question
        WHERE quiz_id = ?;
+    """.trimIndent()
+
+    val INSERT_QUESTIONS = """
+       INSERT INTO question(description, quiz_id, sort_order)
+       VALUES (?, ?, ?);
+    """.trimIndent()
+
+    val DELETE_QUESTIONS = """
+        DELETE FROM question WHERE quiz_id = ?;
+    """.trimIndent()
+
+    val DELETE_QUESTION = """
+        DELETE FROM question WHERE id = ?;
     """.trimIndent()
 }

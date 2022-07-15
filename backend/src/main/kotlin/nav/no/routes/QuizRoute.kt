@@ -24,7 +24,9 @@ fun Route.quizRoute() {
                             Alternative(2, "Alternative 2", false),
                             Alternative(3, "Alternative 3", false),
                             Alternative(4, "Alternative 4", false),
-                        )
+                        ),
+                        123,
+                        1
                     ),
                     Question(
                         2,
@@ -34,7 +36,9 @@ fun Route.quizRoute() {
                             Alternative(2, "Alternative 2", false),
                             Alternative(3, "Alternative 3", false),
                             Alternative(4, "Alternative 4", false),
-                        )
+                        ),
+                        123,
+                        2
                     ),
                     Question(
                         3,
@@ -44,7 +48,9 @@ fun Route.quizRoute() {
                             Alternative(2, "Alternative 2", false),
                             Alternative(3, "Alternative 3", false),
                             Alternative(4, "Alternative 4", false),
-                        )
+                        ),
+                        123,
+                        3
                     ),
                     Question(
                         4,
@@ -54,9 +60,11 @@ fun Route.quizRoute() {
                             Alternative(2, "Alternative 2", false),
                             Alternative(3, "Alternative 3", false),
                             Alternative(4, "Alternative 4", false),
-                        )
+                        ),
+                        123,
+                        4
                     )
-                )
+                ), false
             )
             call.respond(quiz)
         }

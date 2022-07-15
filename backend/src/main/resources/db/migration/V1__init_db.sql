@@ -7,6 +7,10 @@ create table quiz
     description text,
     is_draft    bool
 );
+
+create unique index quiz_id_uindex on quiz (id);
+
+
 create table question
 (
     id          bigserial
@@ -15,9 +19,12 @@ create table question
     description text,
     quiz_id     bigint not null
         constraint question_quiz_id_fk
-            references quiz,
+            references quiz ON DELETE CASCADE,
     sort_order     int
 );
+
+create unique index question_id_uindex on question (id);
+
 create table alternative
 (
     id bigserial
@@ -25,10 +32,14 @@ create table alternative
             primary key,
     question_id bigint
         constraint alternative_question_id_fk
-            references question,
+            references question ON DELETE CASCADE,
     description text,
     is_correct  bool
 );
+
+create unique index alternative_id_uindex on alternative (id);
+
+
 create table game
 (
     id         bigserial

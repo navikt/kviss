@@ -4,7 +4,7 @@ import nav.no.database.QueriesPlayer.SELECT_PLAYER
 import nav.no.models.Player
 import javax.sql.DataSource
 
-class PayerDao(
+class PlayerDao(
     private val dataSource: DataSource,
 ) {
     fun getPayer(playerId: Long): Player {
@@ -33,5 +33,8 @@ private object QueriesPlayer {
         from player
         where id = ?;
     """.trimIndent()
+
+
+
 
 }

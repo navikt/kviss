@@ -7,20 +7,23 @@ import java.util.*
 data class Game(
     val id: Long,
     val quizId: Long,
-    val isActive: Boolean
+    val isActive: Boolean //TODO: Add gameID
 )
 @Serializable
 data class Quiz(
     val name: String,
     val id: Long,
     val description: String,
-    val questions: List<Question>
+    val questions: List<Question>,
+    val isDraft: Boolean
 )
 @Serializable
 data class Question(
     val id: Long,
     val description: String,
-    val alternative: List<Alternative>
+    val alternative: List<Alternative>,
+    val quizId: Long,
+    val sortOrder: Int
 )
 @Serializable
 data class Alternative(
@@ -34,4 +37,9 @@ data class Player(
     val id: Long,
     val name: String,
     val score: Int,
+)
+
+@Serializable
+data class ScoreBoard(
+    val scores: List<Player>,
 )
