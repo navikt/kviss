@@ -9,11 +9,11 @@ import nav.no.plugins.*
 import java.time.Duration
 
 fun main() {
-//    val datasourceBuilder = DataSourceBuilder(System.getenv())
+    val datasourceBuilder = DataSourceBuilder(System.getenv())
 //    datasourceBuilder.migrate()
 
     embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
-//        configureRouting(datasourceBuilder.dataSource)
+        configureRouting(datasourceBuilder.dataSource)
         configureSockets()
     }.start(wait = true)
 }
