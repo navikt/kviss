@@ -15,6 +15,10 @@ export interface IQuestion {
     alternative?: IAlternative[]
 }
 
+export type ScoreboardProps = {
+    toggleScoreboard: (toggleScoreboard: boolean) => void
+};
+
 export interface IQuiz {
     name: string,
     id: number,
