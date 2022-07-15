@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Question } from '~/components/Question'
-import Scoreboard from '~/components/Scoreboard'
+import AnswerView from '~/components/AnswerView'
+import Scoreboard from '~/components/AnswerView'
 import { IQuestion, useQuiz } from '~/context/QuizContext'
 
 
@@ -11,7 +12,7 @@ export default function QuizView() {
     return (
         <>
             {toggleScoreboard ?
-                <Scoreboard toggleScoreboard={setToggleScoreboard}></Scoreboard> :
+                <AnswerView toggleScoreboard={setToggleScoreboard}></AnswerView> :
                 <Question toggleScoreboard={setToggleScoreboard}></Question>}
         </>
     )
