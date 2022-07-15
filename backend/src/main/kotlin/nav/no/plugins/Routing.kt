@@ -4,11 +4,13 @@ import io.ktor.server.routing.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.server.websocket.*
 import nav.no.database.GameDao
 import nav.no.database.PlayerDao
 import nav.no.database.QuestionDao
 import nav.no.database.QuizDao
 import nav.no.routes.*
+import java.time.Duration
 import javax.sql.DataSource
 
 fun Application.configureRouting(dataSource: DataSource) {

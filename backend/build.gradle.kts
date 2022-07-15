@@ -55,7 +55,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.apache.kafka:kafka-clients:$kafkaVersion")
+    implementation("io.ktor:ktor-server-websockets:$ktor_version")
 
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")
