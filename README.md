@@ -2,6 +2,16 @@
 
 NavHoot is an internal quiz application for the employees of NAV, and can be accessed at [https://navhoot-web.dev.intern.nav.no/](https://navhoot-web.dev.intern.nav.no/)
 
+
+## Apps
+
+[web](web)\
+Frontend app build using [Remix](https://remix.run/)
+
+[backend](backend)\
+Backend built using Kotlin and Ktor. Offers REST API and data storage with Postgres.
+
+
 ## GitHub guidelines
 
 ### Issues

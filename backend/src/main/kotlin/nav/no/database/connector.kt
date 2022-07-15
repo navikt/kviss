@@ -13,13 +13,13 @@ class DataSourceBuilder(private val env: Map<String, String>) {
 private val hikariConfig = HikariConfig().apply {
     jdbcUrl = String.format(
         "jdbc:postgresql://%s:%s/%s%s",
-        requireNotNull(env["NAIS_DATABASE_NAVHOOT_BACKEND_NAVHOOT_DB_HOST"]) { "database host must be set if jdbc url is not provided" },
-        requireNotNull(env["NAIS_DATABASE_NAVHOOT_BACKEND_NAVHOOT_DB_PORT"]) { "database port must be set if jdbc url is not provided" },
-        requireNotNull(env["NAIS_DATABASE_NAVHOOT_BACKEND_NAVHOOT_DB_DATABASE"]) { "database name must be set if jdbc url is not provided" },
-        env["NAIS_DATABASE_NAVHOOT_BACKEND_NAVHOOT_DB_USERNAME"]?.let { "?user=$it" } ?: "")
+        requireNotNull(env["DB_HOST"]) { "database host must be set if jdbc url is not provided" },
+        requireNotNull(env["DB_PORT"]) { "database port must be set if jdbc url is not provided" },
+        requireNotNull(env["DB_DATABASE"]) { "database name must be set if jdbc url is not provided" },
+        env["DB_USERNAME"]?.let { "?user=$it" } ?: "")
 
-    env["NAIS_DATABASE_NAVHOOT_BACKEND_NAVHOOT_DB_USERNAME"]?.let { this.username = it }
-    env["NAIS_DATABASE_NAVHOOT_BACKEND_NAVHOOT_DB_PASSWORD"]?.let { this.password = it }
+    env["DB_USERNAME"]?.let { this.username = it }
+    env["DB_PASSWORD"]?.let { this.password = it }
 }
     val dataSource: DataSource
     init {
