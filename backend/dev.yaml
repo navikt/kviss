@@ -8,9 +8,6 @@ metadata:
 spec:
   image: {{ image }}
   port: 8080
-  kafka:
-    pool:
-      nav-dev
   replicas:
     cpuThresholdPercentage: 90
     max: 1
