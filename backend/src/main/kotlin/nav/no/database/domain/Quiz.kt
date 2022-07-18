@@ -9,6 +9,7 @@ data class Game(
     val isActive: Boolean,
     val gamePin: Long
 )
+
 @Serializable
 data class Quiz(
     val name: String,
@@ -17,6 +18,7 @@ data class Quiz(
     val questions: List<Question>,
     val isDraft: Boolean
 )
+
 @Serializable
 data class Question(
     val id: Long,
@@ -25,6 +27,20 @@ data class Question(
     val quizId: Long,
     val sortOrder: Int
 )
+
+@Serializable
+data class SendQuestion(
+    val id: Long,
+    val description: String,
+    val alternative: List<SendAlternative>,
+)
+
+@Serializable
+data class SendAlternative(
+    val id: Long,
+    val text: String,
+)
+
 @Serializable
 data class Alternative(
     val id: Long,
