@@ -112,8 +112,8 @@ export default function CreateQuiz() {
                     )
                 })}
             </form>
-            <button className='border mt-2' onClick={onAddQuestion}>Add question</button>
-            <button className='flex flex-col' onClick={onCreateQuiz}>
+            <button className='border-2 border-black rounded mt-2' onClick={onAddQuestion}>Add question</button>
+            <button className='flex flex-col border-2 border-black rounded mt-2' onClick={onCreateQuiz}>
                 <h1 className='text-2xl my-2'>CREATE QUIZ</h1>
             </button>
         </div>
