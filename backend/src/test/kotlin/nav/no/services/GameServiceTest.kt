@@ -8,6 +8,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
+import kotlin.test.assertNotNull
 
 internal class GameServiceTest {
 
@@ -19,6 +20,7 @@ internal class GameServiceTest {
 
     @AfterEach
     fun afterEach(){
+        confirmVerified(gamedao)
         clearAllMocks()
     }
 
@@ -33,15 +35,16 @@ internal class GameServiceTest {
 
     @Test
     fun `exception after three tries`() {
-        every { gamedao.getGamePin(any()) } returns 1
-        every { gamedao.getGamePin(any()) } returns 2
-        every { gamedao.getGamePin(any()) } returns 3
+        every { gamedao.getGamePin(any()) }
+            .returns(1)
+            .andThen(2)
+            .andThen(3)
 
         try {
             service.createGamePin()
             Assertions.fail()
         } catch (e: Exception) {
-
+            assertNotNull(e)
         }
 
         verify(exactly = 3) { gamedao.getGamePin(any()) }
@@ -49,8 +52,9 @@ internal class GameServiceTest {
 
     @Test
     fun `match on first`() {
-        every { gamedao.getGamePin(any()) } returns 12345
-        every { gamedao.getGamePin(any()) } returns null
+        every { gamedao.getGamePin(any()) }
+            .returns(1234)
+            .andThen(null)
 
         service.createGamePin()
 
