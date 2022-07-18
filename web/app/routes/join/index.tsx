@@ -1,7 +1,7 @@
 import { json, LoaderFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { useState } from 'react'
-import { useLinkClickHandler, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import PinCode from '~/components/PinCode'
 import Username from '~/components/Username'
 import { useQuiz } from '~/context/QuizContext'

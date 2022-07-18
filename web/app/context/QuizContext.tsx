@@ -1,7 +1,5 @@
-import { json, LoaderFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import React, { Children, ReactElement, useState } from "react";
-import { createContext, useContext } from "react"
+import React, { ReactElement, useState } from "react";
+import { useContext } from "react"
 
 export interface IAlternative {
     id: number,
@@ -10,9 +8,9 @@ export interface IAlternative {
 }
 
 export interface IQuestion {
-    id?: number
-    description?: string
-    alternative?: IAlternative[]
+    id: number
+    description: string
+    alternative: IAlternative[]
     quizId: number,
     sortOrder: number
 }

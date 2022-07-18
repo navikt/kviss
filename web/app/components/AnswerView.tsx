@@ -1,5 +1,3 @@
-import { json } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
 import { useState } from 'react'
 import { ScoreboardProps, useQuiz } from '~/context/QuizContext'
 

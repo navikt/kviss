@@ -1,12 +1,9 @@
 import { useState } from 'react'
 import { Question } from '~/components/Question'
 import AnswerView from '~/components/AnswerView'
-import Scoreboard from '~/components/AnswerView'
-import { IQuestion, useQuiz } from '~/context/QuizContext'
 
 
 export default function QuizView() {
-    const { quiz, question } = useQuiz()
     const [toggleScoreboard, setToggleScoreboard] = useState<boolean>(false)
 
     return (
