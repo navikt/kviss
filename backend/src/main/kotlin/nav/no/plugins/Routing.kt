@@ -4,10 +4,10 @@ import io.ktor.server.routing.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
-import nav.no.database.GameDao
-import nav.no.database.PlayerDao
-import nav.no.database.QuestionDao
-import nav.no.database.QuizDao
+import nav.no.database.navhootDao.GameDao
+import nav.no.database.navhootDao.PlayerDao
+import nav.no.database.navhootDao.QuestionDao
+import nav.no.database.navhootDao.QuizDao
 import nav.no.routes.*
 import javax.sql.DataSource
 

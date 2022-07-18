@@ -1,7 +1,7 @@
-package nav.no.database
+package nav.no.database.navhootDao
 
-import nav.no.database.QueriesPlayer.SELECT_PLAYER
-import nav.no.database.QueriesPlayer.SELECT_PLAYERS
+import nav.no.database.navhootDao.QueriesPlayer.SELECT_PLAYER
+import nav.no.database.navhootDao.QueriesPlayer.SELECT_PLAYERS
 import nav.no.models.Player
 import javax.sql.DataSource
 
@@ -57,6 +57,11 @@ private object QueriesPlayer {
         select * 
         from player
         where game_id = ?
+    """.trimIndent()
+
+    val INSERT_PLAYER = """
+        INSERT INTO player(name, score, game_id)
+        VALUES (?, ?, ?);
     """.trimIndent()
 
 }

@@ -1,6 +1,6 @@
-package nav.no.database
+package nav.no.database.navhootDao
 
-import nav.no.database.QueriesGame.SELECT_GAME
+import nav.no.database.navhootDao.QueriesGame.SELECT_GAME
 import nav.no.models.Game
 import javax.sql.DataSource
 
@@ -19,12 +19,14 @@ class GameDao(
                     rs.getLong("id"),
                     rs.getLong("quiz_id"),
                     rs.getBoolean("is_active"),
-                )
+                    rs.getLong("game_id"),
+                    )
             } else {
                 throw Exception("The Game does not exist")
             }
         }
     }
+
 }
 
 
