@@ -4,7 +4,7 @@ import nav.no.database.navhootDao.QueriesQuestions.INSERT_QUESTION
 import nav.no.database.navhootDao.QueriesQuestions.SELECT_QUESTION
 import nav.no.database.navhootDao.QueriesQuestions.SELECT_QUESTIONS
 import nav.no.database.toList
-import nav.no.models.Question
+import nav.no.database.domain.Question
 import javax.sql.DataSource
 
 class QuestionDao(

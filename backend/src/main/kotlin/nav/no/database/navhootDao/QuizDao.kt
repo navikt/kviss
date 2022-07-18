@@ -6,7 +6,8 @@ import nav.no.database.navhootDao.QuizDao.Queries.SELECT_QUIZ
 import nav.no.database.navhootDao.QuizDao.Queries.DELETE_QUIZ
 import nav.no.database.navhootDao.QuizDao.Queries.UPDATE_QUIZ
 import nav.no.database.toList
-import nav.no.models.Quiz
+import nav.no.database.domain.Quiz
+import nav.no.models.CreateQuizRequest
 import java.sql.ResultSet
 import javax.sql.DataSource
 
@@ -38,11 +39,11 @@ class QuizDao(
         }
     }
 
-    fun postQuiz(quiz: Quiz): Long = dataSource.connection.use {
+    fun createQuiz(quiz: CreateQuizRequest): Long = dataSource.connection.use {
         return it.prepareStatement(POST_QUIZ).apply {
             setString(1, quiz.name)
             setString(2, quiz.description)
-            setBoolean(3, false)
+            setBoolean(3, true)
         }.executeQuery().singleOrNull { getLong(1) }!!
     }
 

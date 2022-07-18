@@ -1,8 +1,9 @@
-package nav.no.database
+package nav.no.database.navhootDao
 
-import nav.no.database.QueriesAlternatives.SELECT_ALTERNATIVE
-import nav.no.database.QueriesAlternatives.SELECT_ALTERNATIVES
-import nav.no.models.Alternative
+import nav.no.database.navhootDao.QueriesAlternatives.SELECT_ALTERNATIVE
+import nav.no.database.navhootDao.QueriesAlternatives.SELECT_ALTERNATIVES
+import nav.no.database.toList
+import nav.no.database.domain.Alternative
 import javax.sql.DataSource
 
 class AlternativesDao(

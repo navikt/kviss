@@ -2,7 +2,7 @@ package nav.no.database.navhootDao
 
 import nav.no.database.navhootDao.QueriesPlayer.SELECT_PLAYER
 import nav.no.database.navhootDao.QueriesPlayer.SELECT_PLAYERS
-import nav.no.models.Player
+import nav.no.database.domain.Player
 import javax.sql.DataSource
 
 class PlayerDao(
