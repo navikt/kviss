@@ -1,7 +1,6 @@
 package nav.no.models
 
 import kotlinx.serialization.Serializable
-import nav.no.database.domain.Question
 
 @Serializable
 data class Game(

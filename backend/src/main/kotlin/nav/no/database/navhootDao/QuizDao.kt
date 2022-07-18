@@ -18,7 +18,7 @@ class QuizDao(
         return dataSource.connection.use {
             return it.prepareStatement(SELECT_ALL_QUIZ).executeQuery().toList {
                 Quiz(
-                    getString("name"), getLong("id"), getString("description"), emptyList(), getBoolean("is_draft")
+                    getString("name"), getLong("id"), getString("description"), getBoolean("is_draft")
                 )
             }
         }
@@ -31,7 +31,7 @@ class QuizDao(
             }.executeQuery()
             return if (rs.next()) {
                 Quiz(
-                    rs.getString("name"), rs.getLong("id"), rs.getString("description"), emptyList(), rs.getBoolean("is_draft")
+                    rs.getString("name"), rs.getLong("id"), rs.getString("description"), rs.getBoolean("is_draft")
                 )
             } else {
                 throw Exception("The quiz does not exist")

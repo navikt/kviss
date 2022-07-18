@@ -6,8 +6,8 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import nav.no.database.navhootDao.GameDao
 import nav.no.database.navhootDao.PlayerDao
-import nav.no.models.Game
-import nav.no.models.Player
+import nav.no.database.domain.Game
+import nav.no.database.domain.Player
 
 fun Route.gameRoute(gameDao: GameDao, playerDao: PlayerDao) {
     route("game") {
