@@ -8,7 +8,7 @@ class GameDao(
     private val dataSource: DataSource,
 ) {
     fun getGame(gameId: Long): Game {
-        return dataSource.connection.use {
+        dataSource.connection.use {
             val rs = it.prepareStatement(SELECT_GAME)
                 .apply {
                     setLong(1, gameId)
