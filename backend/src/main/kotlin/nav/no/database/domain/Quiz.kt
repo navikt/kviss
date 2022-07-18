@@ -2,60 +2,57 @@ package nav.no.database.domain
 
 import kotlinx.serialization.Serializable
 
-@Serializable
 data class Game(
     val id: Long,
     val quizId: Long,
     val isActive: Boolean,
     val gamePin: Long
 )
-
-@Serializable
 data class Quiz(
+    val name: String,
+    val id: Long,
+    val description: String?,
+    val isDraft: Boolean
+)
+data class DatabaseQuiz(
     val name: String,
     val id: Long,
     val description: String?,
     val questions: List<Question>,
     val isDraft: Boolean
 )
-
-@Serializable
 data class Question(
     val id: Long,
     val description: String,
-    val alternative: List<Alternative>,
     val quizId: Long,
     val sortOrder: Int
 )
 
-@Serializable
+fun Question.toModel(alternatives: List<nav.no.models.Alternative>) =
+    nav.no.models.Question(id, description, alternatives, quizId, sortOrder)
 data class SendQuestion(
     val id: Long,
     val description: String,
     val alternative: List<SendAlternative>,
 )
-
-@Serializable
 data class SendAlternative(
     val id: Long,
     val text: String,
 )
 
-@Serializable
 data class Alternative(
     val id: Long,
     val text: String,
     val isCorrect: Boolean
 )
-
-@Serializable
+fun Alternative.toModel() =
+    nav.no.models.Alternative(id, text, isCorrect)
 data class Player(
     val id: Long,
     val name: String,
     val score: Int,
 )
 
-@Serializable
 data class ScoreBoard(
     val scores: List<Player>,
 )

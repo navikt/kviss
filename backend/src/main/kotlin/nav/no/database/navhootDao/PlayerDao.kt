@@ -9,7 +9,7 @@ class PlayerDao(
     private val dataSource: DataSource,
 ) {
     fun getPlayer(playerId: Long): Player {
-        return dataSource.connection.use {
+        dataSource.connection.use {
             val rs = it.prepareStatement(SELECT_PLAYER).apply {
                 setLong(1, playerId)
             }.executeQuery()
@@ -25,7 +25,7 @@ class PlayerDao(
         }
     }
     fun getPlayers(gameId: Long): List<Player> {
-        return dataSource.connection.use {
+        dataSource.connection.use {
             val rs = it.prepareStatement(SELECT_PLAYERS).apply {
                 setLong(1, gameId)
             }.executeQuery()

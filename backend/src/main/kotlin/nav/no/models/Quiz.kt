@@ -16,6 +16,15 @@ data class CreateQuizRequest (
 )
 
 @Serializable
+data class Quiz(
+    val name: String,
+    val id: Long,
+    val description: String?,
+    val questions: List<Question>,
+    val isDraft: Boolean
+)
+
+@Serializable
 data class UpdateQuizRequest(
     val id: Long,
     val name: String,

@@ -5,12 +5,10 @@ import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
-import nav.no.database.navhootDao.GameDao
-import nav.no.database.navhootDao.PlayerDao
-import nav.no.database.navhootDao.QuestionDao
-import nav.no.database.navhootDao.QuizDao
+import nav.no.database.navhootDao.*
 import nav.no.routes.*
 import java.time.Duration
+import nav.no.services.QuizService
 import javax.sql.DataSource
 
 fun Application.configureRouting(dataSource: DataSource) {
@@ -26,12 +24,14 @@ fun Application.configureRouting(dataSource: DataSource) {
     val quizDao = QuizDao(dataSource)
     val gameDao = GameDao(dataSource)
     val questionDao = QuestionDao(dataSource)
+    val alternativesDao = AlternativesDao(dataSource)
+    val quizService = QuizService(questionDao, quizDao, alternativesDao)
 
     routing {
         healthAPI()
         helloWorldRoute()
         dbRoute()
-        quizRoute(quizDao, questionDao)
+        quizRoute(quizService)
         playerRoute(playerDao)
         gameRoute(gameDao, playerDao)
     }
