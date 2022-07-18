@@ -1,10 +1,11 @@
-package nav.no.database
+package nav.no.database.navhootDao
 
-import nav.no.database.QuizDao.Queries.DELETE_QUIZ
-import nav.no.database.QuizDao.Queries.INSERT_QUIZ
-import nav.no.database.QuizDao.Queries.SELECT_ALL_QUIZ
-import nav.no.database.QuizDao.Queries.SELECT_QUIZ
-import nav.no.database.QuizDao.Queries.UPDATE_QUIZ
+import nav.no.database.navhootDao.QuizDao.Queries.DELETE_QUIZ
+import nav.no.database.navhootDao.QuizDao.Queries.INSERT_QUIZ
+import nav.no.database.navhootDao.QuizDao.Queries.SELECT_ALL_QUIZ
+import nav.no.database.navhootDao.QuizDao.Queries.SELECT_QUIZ
+import nav.no.database.navhootDao.QuizDao.Queries.UPDATE_QUIZ
+import nav.no.database.toList
 import nav.no.models.Quiz
 import javax.sql.DataSource
 
@@ -15,7 +16,10 @@ class QuizDao(
         return dataSource.connection.use {
             return it.prepareStatement(SELECT_ALL_QUIZ).executeQuery().toList {
                 Quiz(
-                    getString("name"), getLong("id"), getString("description"), emptyList(),
+                    getString("name"),
+                    getLong("id"),
+                    getString("description"),
+                    emptyList(),
                     false
                 )
             }
@@ -29,7 +33,11 @@ class QuizDao(
             }.executeQuery()
             return if (rs.next()) {
                 Quiz(
-                    rs.getString("name"), rs.getLong("id"), rs.getString("description"), emptyList(), false
+                    rs.getString("name"),
+                    rs.getLong("id"),
+                    rs.getString("description"),
+                    emptyList(),
+                    false
                 )
             } else {
                 throw Exception("The quiz does not exist")

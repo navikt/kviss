@@ -3,7 +3,6 @@ package nav.no.database
 import nav.no.database.QueriesAlternatives.SELECT_ALTERNATIVE
 import nav.no.database.QueriesAlternatives.SELECT_ALTERNATIVES
 import nav.no.models.Alternative
-import nav.no.models.Quiz
 import javax.sql.DataSource
 
 class AlternativesDao(

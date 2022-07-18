@@ -1,15 +1,15 @@
-package nav.no.database
+package nav.no.database.navhootDao
 
-import nav.no.database.QueriesQuestions.SELECT_QUESTION
-import nav.no.database.QueriesQuestions.SELECT_QUESTIONS
+import nav.no.database.navhootDao.QueriesQuestions.INSERT_QUESTION
+import nav.no.database.navhootDao.QueriesQuestions.SELECT_QUESTION
+import nav.no.database.navhootDao.QueriesQuestions.SELECT_QUESTIONS
+import nav.no.database.toList
 import nav.no.models.Question
-import java.sql.ResultSet
 import javax.sql.DataSource
 
 class QuestionDao(
     private val dataSource: DataSource,
 ) {
-
 
     fun getQuestion(quizId: Long, id: Long): Question {
         return dataSource.connection.use {
@@ -32,7 +32,6 @@ class QuestionDao(
         }
     }
 
-
     fun getQuestions(quizId: Long): List<Question> {
         return dataSource.connection.use {
             return it.prepareStatement(SELECT_QUESTIONS)
@@ -46,9 +45,21 @@ class QuestionDao(
                         emptyList(),
                         getLong("quiz_id"),
                         getInt("sort_order")
-
                     )
                 }
+        }
+    }
+
+    fun addQuestions(questions: List<Question>) {
+        //TODO: 🤔
+        for (question in questions) {
+            dataSource.connection.use {
+                it.prepareStatement(INSERT_QUESTION).apply {
+                    setString(1, question.description)
+                    setLong(2, question.quizId)
+                    setInt(3, question.sortOrder)
+                }.executeQuery()
+            }
         }
     }
 
@@ -69,7 +80,7 @@ private object QueriesQuestions {
        WHERE quiz_id = ?;
     """.trimIndent()
 
-    val INSERT_QUESTIONS = """
+    val INSERT_QUESTION = """
        INSERT INTO question(description, quiz_id, sort_order)
        VALUES (?, ?, ?);
     """.trimIndent()
