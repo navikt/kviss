@@ -82,7 +82,8 @@ private object QueriesQuestions {
 
     val INSERT_QUESTION = """
        INSERT INTO question(description, quiz_id, sort_order)
-       VALUES (?, ?, ?);
+       VALUES (?, ?, ?)
+       RETURNING id;
     """.trimIndent()
 
     val DELETE_QUESTIONS = """
