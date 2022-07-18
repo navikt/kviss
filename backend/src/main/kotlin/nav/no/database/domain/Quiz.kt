@@ -14,14 +14,18 @@ data class Quiz(
     val name: String,
     val id: Long,
     val description: String?,
+    val isDraft: Boolean
+)
+data class DatabaseQuiz(
+    val name: String,
+    val id: Long,
+    val description: String?,
     val questions: List<Question>,
     val isDraft: Boolean
 )
-@Serializable
 data class Question(
     val id: Long,
     val description: String,
-    val alternative: List<Alternative>,
     val quizId: Long,
     val sortOrder: Int
 )

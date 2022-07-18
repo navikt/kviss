@@ -1,6 +1,7 @@
 package nav.no.models
 
 import kotlinx.serialization.Serializable
+import nav.no.database.domain.Question
 
 @Serializable
 data class Game(
@@ -13,6 +14,15 @@ data class Game(
 data class CreateQuizRequest (
     val name: String,
     val description: String?,
+)
+
+@Serializable
+data class Quiz(
+    val name: String,
+    val id: Long,
+    val description: String?,
+    val questions: List<Question>,
+    val isDraft: Boolean
 )
 
 @Serializable

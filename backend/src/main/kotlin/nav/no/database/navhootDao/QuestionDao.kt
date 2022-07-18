@@ -22,7 +22,6 @@ class QuestionDao(
                 Question(
                     rs.getLong("id"),
                     rs.getString("description"),
-                    emptyList(),
                     rs.getLong("quiz_id"),
                     rs.getInt("sort_order")
                 )
@@ -42,7 +41,6 @@ class QuestionDao(
                     Question(
                         getLong("id"),
                         getString("description"),
-                        emptyList(),
                         getLong("quiz_id"),
                         getInt("sort_order")
                     )
