@@ -1,20 +1,17 @@
-import { json, LoaderFunction } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
+
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PinCode from '~/components/PinCode'
 import Username from '~/components/Username'
-import { useQuiz } from '~/context/QuizContext'
+import { IQuiz, useQuiz } from '~/context/QuizContext'
+import axios from 'axios';
+
 
 
 export type ButtonProps = {
     handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, pinCode: string) => void;
 };
 
-export const loader: LoaderFunction = async () => {
-    const res = await fetch('https://navhoot-backend.dev.nav.no/quiz/mock-empty')
-    return json(await res.json())
-}
 
 
 export default function QuizIndexRoute() {
@@ -22,21 +19,37 @@ export default function QuizIndexRoute() {
 
     const [pinCode, setPinCode] = useState<string>('')
     const [nickname, setNickName] = useState<string>('')
+
     const navigate = useNavigate()
-    const { quiz, setQuiz, setQuestion } = useQuiz()
-    const data = useLoaderData()
+    const { questions, setQuestions, setQuestion } = useQuiz()
+
+    const getQuiz = async (pinCode: string) => {
+        axios
+            .get<IQuiz[]>(`https://navhoot-backend.dev.nav.no/quiz/${pinCode}/questions`, {
+                headers: {
+                    "Content-Type": "text/html"
+                },
+            }).then(response => {
+                setQuestions(response.data);
+            }).catch(ex => {
+                const error =
+                    ex.response.status === 404
+                        ? "Resource Not found"
+                        : "An unexpected error has occurred";
+            });
+    }
 
     const handleClickPin = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, pc: string) => {
         event.preventDefault()
+        getQuiz(pc);
         setPinCode(pc)
     }
 
-    const handleClickNick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, pc: string) => {
+    const handleClickNick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, username: string) => {
         event.preventDefault()
-        setNickName(pc)
-        setQuiz(data)
-        setQuestion(data.questions[0])
-        console.log(data)
+        setNickName(username)
+        setQuestions(questions)
+        setQuestion(questions[0])
 
     }
 

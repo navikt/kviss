@@ -8,13 +8,13 @@ interface IQuizInfo {
 
 export default function CreateQuiz() {
 
-    const [tempAlternativesArray, setTempAlternativesArray] = useState<IAlternative[] >([
-        { id: 1, text: '', isCorrect: false},
-        { id: 1, text: '', isCorrect: false},
-        { id: 1, text: '', isCorrect: false},
-        { id: 1, text: '', isCorrect: false}
+    const [tempAlternativesArray, setTempAlternativesArray] = useState<IAlternative[]>([
+        { id: 1, text: '', isCorrect: false },
+        { id: 1, text: '', isCorrect: false },
+        { id: 1, text: '', isCorrect: false },
+        { id: 1, text: '', isCorrect: false }
     ])
-    
+
     const [quizInfo, setQuizInfo] = useState<IQuizInfo>({
         name: '',
         description: ''
@@ -39,30 +39,33 @@ export default function CreateQuiz() {
 
     const replaceAlternativeTextAtIndex = (index: number, newAlternativeText: string) => {
         const alternatives = [...tempAlternativesArray]
-        alternatives[index] = {id: alternatives[index].id, text: newAlternativeText, isCorrect: alternatives[index].isCorrect}
+        alternatives[index] = { id: alternatives[index].id, text: newAlternativeText, isCorrect: alternatives[index].isCorrect }
         setTempAlternativesArray(alternatives)
     }
 
     const replaceAlternativeIsCorrectAtIndex = (index: number, newAlternativeIsCorrect: boolean) => {
         const alternatives = [...tempAlternativesArray]
-        alternatives[index] = {id: alternatives[index].id, text: alternatives[index].text, isCorrect: newAlternativeIsCorrect}
+        alternatives[index] = { id: alternatives[index].id, text: alternatives[index].text, isCorrect: newAlternativeIsCorrect }
         setTempAlternativesArray(alternatives)
     }
 
     const onAddQuestion = () => {
         setQuestions(questions.concat({
+            quizId: 1,
             id: questions.length,
             description: questionDescription,
-            alternative: tempAlternativesArray
+            alternative: tempAlternativesArray,
+            sortOrder: 1
         }))
     }
-    
+
     const onCreateQuiz = () => {
         setQuiz({
             id: 1,
             name: quizInfo.name,
             description: quizInfo.description,
-            questions
+            questions,
+            isDraft: false
         })
     }
 
@@ -83,7 +86,7 @@ export default function CreateQuiz() {
             <div>
                 {questions.map((item, i) => {
                     return (
-                        <div key={i}className='flex flex-col my-2'>
+                        <div key={i} className='flex flex-col my-2'>
                             <p>Question: {item.description}</p>
                             {item.alternative.map((alt, j) => {
                                 return <p key={j}>{`Alternative ${j + 1}: ${alt.text}. Correct?: ${alt.isCorrect}`}</p>
@@ -95,7 +98,7 @@ export default function CreateQuiz() {
             <form className='flex flex-col'>
                 <label className='mb-1'>
                     Description:
-                    <input type="text" onChange={handleQuestionDescriptionChange}/>
+                    <input type="text" onChange={handleQuestionDescriptionChange} />
                 </label>
                 {tempAlternativesArray.map((item, i) => {
                     return (

@@ -4,7 +4,7 @@ import { useContext } from "react"
 export interface IAlternative {
     id: number,
     text: string,
-    isCorrect?: boolean
+    isCorrect: boolean
 }
 
 export interface IQuestion {
@@ -64,8 +64,8 @@ const initQuestion: IQuestion = {
 }
 
 const QuizContext = React.createContext({
-    quiz: initQuiz,
-    setQuiz: (_: any) => {
+    questions: [initQuestion],
+    setQuestions: (_: any) => {
     },
     question: initQuestion,
     setQuestion: (_: any) => {
@@ -78,12 +78,12 @@ export function useQuiz() {
 }
 
 export default function QuizProvider({ children }: { children: Array<ReactElement> | ReactElement }): ReactElement {
-    const [quiz, setQuiz] = useState<IQuiz>(initQuiz)
+    const [questions, setQuestions] = useState<IQuestion[]>([initQuestion])
     const [question, setQuestion] = useState<IQuestion>(initQuestion)
 
 
     return (
-        <QuizContext.Provider value={{ quiz, setQuiz, question, setQuestion }}>
+        <QuizContext.Provider value={{ questions, setQuestions, question, setQuestion }}>
             {children}
         </QuizContext.Provider>
     );
