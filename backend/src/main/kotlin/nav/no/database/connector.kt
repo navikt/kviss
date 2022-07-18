@@ -32,5 +32,8 @@ private val hikariConfig = HikariConfig().apply {
         Flyway.configure()
             .dataSource(dataSource)
             .load()
-            .migrate()
+            .run {
+                clean()
+                migrate()
+            }
 }
