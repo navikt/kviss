@@ -1,9 +1,9 @@
 package nav.no.services
 
-import nav.no.database.AlternativesDao
 import nav.no.database.navhootDao.PlayerDao
-import nav.no.models.Game
-import nav.no.models.Quiz
+import nav.no.database.domain.Game
+import nav.no.database.domain.Quiz
+import nav.no.database.navhootDao.AlternativesDao
 
 class GameService(
     private val alternativesDao: AlternativesDao,

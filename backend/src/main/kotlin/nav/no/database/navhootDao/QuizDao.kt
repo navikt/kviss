@@ -6,7 +6,8 @@ import nav.no.database.navhootDao.QuizDao.Queries.SELECT_QUIZ
 import nav.no.database.navhootDao.QuizDao.Queries.DELETE_QUIZ
 import nav.no.database.navhootDao.QuizDao.Queries.UPDATE_QUIZ
 import nav.no.database.toList
-import nav.no.models.Quiz
+import nav.no.database.domain.Quiz
+import nav.no.models.CreateQuizRequest
 import java.sql.ResultSet
 import javax.sql.DataSource
 
@@ -17,7 +18,7 @@ class QuizDao(
         return dataSource.connection.use {
             return it.prepareStatement(SELECT_ALL_QUIZ).executeQuery().toList {
                 Quiz(
-                    getString("name"), getLong("id"), getString("description"), emptyList(), false
+                    getString("name"), getLong("id"), getString("description"), emptyList(), getBoolean("is_draft")
                 )
             }
         }
@@ -30,7 +31,7 @@ class QuizDao(
             }.executeQuery()
             return if (rs.next()) {
                 Quiz(
-                    rs.getString("name"), rs.getLong("id"), rs.getString("description"), emptyList(), false
+                    rs.getString("name"), rs.getLong("id"), rs.getString("description"), emptyList(), rs.getBoolean("is_draft")
                 )
             } else {
                 throw Exception("The quiz does not exist")
@@ -38,11 +39,11 @@ class QuizDao(
         }
     }
 
-    fun postQuiz(quiz: Quiz): Long = dataSource.connection.use {
+    fun createQuiz(quiz: CreateQuizRequest): Long = dataSource.connection.use {
         return it.prepareStatement(POST_QUIZ).apply {
             setString(1, quiz.name)
             setString(2, quiz.description)
-            setBoolean(3, false)
+            setBoolean(3, true)
         }.executeQuery().singleOrNull { getLong(1) }!!
     }
 
@@ -54,23 +55,22 @@ class QuizDao(
         } else {
             null
         }
-
-        fun updateQuiz(quiz: Quiz) {
-            dataSource.connection.use {
-                it.prepareStatement(UPDATE_QUIZ).apply {
-                    setString(1, quiz.name)
-                    setString(2, quiz.description)
-                    setBoolean(3, quiz.isDraft)
-                }.executeQuery()
-            }
+    }
+    fun updateQuiz(quiz: Quiz) {
+        dataSource.connection.use {
+            it.prepareStatement(UPDATE_QUIZ).apply {
+                setString(1, quiz.name)
+                setString(2, quiz.description)
+                setBoolean(3, quiz.isDraft)
+            }.executeQuery()
         }
+    }
 
-        fun deleteQuiz(id: Long) {
-            dataSource.connection.use {
-                it.prepareStatement(DELETE_QUIZ).apply {
-                    setLong(1, id)
-                }.executeQuery()
-            }
+    fun deleteQuiz(id: Long) {
+        dataSource.connection.use {
+            it.prepareStatement(DELETE_QUIZ).apply {
+                setLong(1, id)
+            }.executeQuery()
         }
     }
 

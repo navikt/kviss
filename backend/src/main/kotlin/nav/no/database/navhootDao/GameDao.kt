@@ -1,7 +1,7 @@
 package nav.no.database.navhootDao
 
 import nav.no.database.navhootDao.QueriesGame.SELECT_GAME
-import nav.no.models.Game
+import nav.no.database.domain.Game
 import javax.sql.DataSource
 
 class GameDao(

@@ -65,6 +65,7 @@ dependencies {
     implementation("org.postgresql:postgresql:42.4.0")
     implementation("com.zaxxer:HikariCP:3.4.5")
     implementation("org.flywaydb:flyway-core:6.5.0")
+    implementation("io.ktor:ktor-server-cors:$ktor_version")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }

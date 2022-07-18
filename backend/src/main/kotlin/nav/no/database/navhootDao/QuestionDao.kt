@@ -4,7 +4,7 @@ import nav.no.database.navhootDao.QueriesQuestions.INSERT_QUESTION
 import nav.no.database.navhootDao.QueriesQuestions.SELECT_QUESTION
 import nav.no.database.navhootDao.QueriesQuestions.SELECT_QUESTIONS
 import nav.no.database.toList
-import nav.no.models.Question
+import nav.no.database.domain.Question
 import javax.sql.DataSource
 
 class QuestionDao(
@@ -82,7 +82,8 @@ private object QueriesQuestions {
 
     val INSERT_QUESTION = """
        INSERT INTO question(description, quiz_id, sort_order)
-       VALUES (?, ?, ?);
+       VALUES (?, ?, ?)
+       RETURNING id;
     """.trimIndent()
 
     val DELETE_QUESTIONS = """
