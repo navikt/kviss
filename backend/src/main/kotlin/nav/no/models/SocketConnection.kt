@@ -3,7 +3,7 @@ package nav.no.models
 import io.ktor.websocket.*
 import java.util.concurrent.atomic.AtomicInteger
 
-class SocketConnection(val session: DefaultWebSocketSession) {
+class SocketConnection(val session: DefaultWebSocketSession, val id: Int) {
     companion object {
         var lastId = AtomicInteger(0)
     }

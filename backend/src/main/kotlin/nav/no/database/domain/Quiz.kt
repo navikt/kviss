@@ -30,15 +30,6 @@ data class Question(
 
 fun Question.toModel(alternatives: List<nav.no.models.Alternative>) =
     nav.no.models.Question(id, description, alternatives, quizId, sortOrder)
-data class SendQuestion(
-    val id: Long,
-    val description: String,
-    val alternative: List<SendAlternative>,
-)
-data class SendAlternative(
-    val id: Long,
-    val text: String,
-)
 
 data class Alternative(
     val id: Long,
