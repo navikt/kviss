@@ -32,9 +32,9 @@ export default function App() {
             </head>
             <body className="bg-orange-100">
                 <QuizProvider>
-                    {/* <Header /> */}
+                    <Header />
                     <Outlet />
-                    {/* <Footer /> */}
+                    <Footer />
                     <ScrollRestoration />
                     <Scripts />
                     <LiveReload />
