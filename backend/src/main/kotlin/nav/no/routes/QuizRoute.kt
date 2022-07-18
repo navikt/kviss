@@ -9,22 +9,17 @@ import nav.no.database.navhootDao.QuestionDao
 import nav.no.database.navhootDao.QuizDao
 import nav.no.models.Question
 import nav.no.models.Quiz
-import lofotenQuiz
-import quiz
-import worldCupQuiz
 
 fun Route.quizRoute(quizDao: QuizDao, questionDao: QuestionDao) {
     route("quiz") {
         get {
-            //TODO: This response is temp, need to take out from db
-//            val quiz: List<Quiz> = quizDao.getQuizzes()
-            call.respond(mutableListOf(quiz, lofotenQuiz, worldCupQuiz))
+            val quizList = quizDao.getQuizzes()
+            call.respond(quizList)
         }
         post {
             val source = call.receive<Quiz>()
             quizDao.postQuiz(source)
             call.respond(source.id)
-//            val gucci = quizDao.postQuiz(source.)
         }
 
         route("{id}") {
@@ -44,15 +39,6 @@ fun Route.quizRoute(quizDao: QuizDao, questionDao: QuestionDao) {
                     call.respond(HttpStatusCode(404, "error getting questions"))
                 }
             }
-        }
-        get("mock-empty") {
-            call.respond(quiz)
-        }
-        get("mock-lofoten") {
-            call.respond(lofotenQuiz)
-        }
-        get("mock-world-cup") {
-            call.respond(worldCupQuiz)
         }
     }
 }
