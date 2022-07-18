@@ -1,17 +1,17 @@
-import React, { ReactElement, useState } from "react";
-import { useContext } from "react"
+import React, { ReactElement, useState } from 'react'
+import { useContext } from 'react'
 
 export interface IAlternative {
-    id: number,
+    id?: number,
     text: string,
     isCorrect?: boolean
 }
 
 export interface IQuestion {
-    id: number
+    id?: number
     description: string
     alternative: IAlternative[]
-    quizId: number,
+    quizId?: number,
     sortOrder: number
 }
 
@@ -21,25 +21,25 @@ export type ScoreboardProps = {
 
 export interface IQuiz {
     name: string,
-    id: number,
+    id?: number,
     description: string,
     questions: IQuestion[],
     isDraft: boolean
 }
 
 const initQuiz: IQuiz = {
-    "name": "test quiz",
-    "id": 123,
-    "description": "test description",
-    "questions": [
+    'name': 'test quiz',
+    'id': 123,
+    'description': 'test description',
+    'questions': [
         {
-            "id": 1,
-            "description": "Spørsmål 1",
-            "alternative": [
+            'id': 1,
+            'description': 'Spørsmål 1',
+            'alternative': [
                 {
-                    "id": 1,
-                    "text": "Alternative 1",
-                    "isCorrect": true
+                    'id': 1,
+                    'text': 'Alternative 1',
+                    'isCorrect': true
                 },
             ],
             quizId: 1,
@@ -50,13 +50,13 @@ const initQuiz: IQuiz = {
 }
 
 const initQuestion: IQuestion = {
-    "id": 1,
-    "description": "Spørsmål 1",
-    "alternative": [
+    'id': 1,
+    'description': 'Spørsmål 1',
+    'alternative': [
         {
-            "id": 1,
-            "text": "Alternative 1",
-            "isCorrect": true
+            'id': 1,
+            'text': 'Alternative 1',
+            'isCorrect': true
         }
     ],
     quizId: 1,
@@ -65,11 +65,9 @@ const initQuestion: IQuestion = {
 
 const QuizContext = React.createContext({
     quiz: initQuiz,
-    setQuiz: (_: any) => {
-    },
+    setQuiz: (_: any) => { },
     question: initQuestion,
-    setQuestion: (_: any) => {
-    },
+    setQuestion: (_: any) => { },
 })
 
 
@@ -86,6 +84,6 @@ export default function QuizProvider({ children }: { children: Array<ReactElemen
         <QuizContext.Provider value={{ quiz, setQuiz, question, setQuestion }}>
             {children}
         </QuizContext.Provider>
-    );
+    )
 }
 

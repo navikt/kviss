@@ -1,4 +1,6 @@
+import axios, { AxiosError } from 'axios'
 import { ChangeEvent, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { IAlternative, IQuestion, IQuiz } from '~/context/QuizContext'
 
 interface IQuizInfo {
@@ -9,10 +11,10 @@ interface IQuizInfo {
 export default function CreateQuiz() {
 
     const [tempAlternativesArray, setTempAlternativesArray] = useState<IAlternative[] >([
-        { id: 1, text: '', isCorrect: false},
-        { id: 1, text: '', isCorrect: false},
-        { id: 1, text: '', isCorrect: false},
-        { id: 1, text: '', isCorrect: false}
+        { text: '', isCorrect: false},
+        { text: '', isCorrect: false},
+        { text: '', isCorrect: false},
+        { text: '', isCorrect: false}
     ])
     
     const [quizInfo, setQuizInfo] = useState<IQuizInfo>({
@@ -24,7 +26,7 @@ export default function CreateQuiz() {
 
     const [questions, setQuestions] = useState<IQuestion[]>([])
 
-    const [quiz, setQuiz] = useState<IQuiz>()
+    const navigate = useNavigate()
 
     const handleQuizInfoChange = (event: ChangeEvent<HTMLInputElement>) => {
         setQuizInfo({
@@ -51,19 +53,27 @@ export default function CreateQuiz() {
 
     const onAddQuestion = () => {
         setQuestions(questions.concat({
-            id: questions.length,
             description: questionDescription,
-            alternative: tempAlternativesArray
+            alternative: tempAlternativesArray,
+            sortOrder: questions.length
         }))
     }
     
     const onCreateQuiz = () => {
-        setQuiz({
-            id: 1,
+        const quiz = {
             name: quizInfo.name,
             description: quizInfo.description,
-            questions
-        })
+        }
+
+        // Post quiz before routing
+        
+        const quizId = axios.post('https://navhoot-backend.dev.nav.no/quiz', quiz)
+        // axios.post('https://navhoot-backend.dev.nav.no/question', {
+        //     quizId,
+        //     questions
+        // })
+        navigate('../')
+        
     }
 
     return (
