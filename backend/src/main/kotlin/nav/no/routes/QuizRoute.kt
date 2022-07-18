@@ -2,6 +2,7 @@ package nav.no.routes
 
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import nav.no.database.QuestionDao
@@ -16,6 +17,13 @@ fun Route.quizRoute(quizDao: QuizDao, questionDao: QuestionDao) {
             val quiz: List<Quiz> = quizDao.getQuizzes()
             call.respond(quiz)
         }
+        post {
+            val source = call.receive<Quiz>()
+            quizDao.postQuiz(source)
+            call.respond(source.id)
+//            val gucci = quizDao.postQuiz(source.)
+        }
+
         route("{id}") {
             get {
                 try {
