@@ -32,6 +32,7 @@ export default function App() {
             </head>
             <body className="bg-orange-100">
                 <QuizProvider>
+                    {/** TODO: Add the implementation of header and footer */}
                     {/* <Header /> */}
                     <Outlet />
                     {/* <Footer /> */}
