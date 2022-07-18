@@ -54,23 +54,22 @@ class QuizDao(
         } else {
             null
         }
-
-        fun updateQuiz(quiz: Quiz) {
-            dataSource.connection.use {
-                it.prepareStatement(UPDATE_QUIZ).apply {
-                    setString(1, quiz.name)
-                    setString(2, quiz.description)
-                    setBoolean(3, quiz.isDraft)
-                }.executeQuery()
-            }
+    }
+    fun updateQuiz(quiz: Quiz) {
+        dataSource.connection.use {
+            it.prepareStatement(UPDATE_QUIZ).apply {
+                setString(1, quiz.name)
+                setString(2, quiz.description)
+                setBoolean(3, quiz.isDraft)
+            }.executeQuery()
         }
+    }
 
-        fun deleteQuiz(id: Long) {
-            dataSource.connection.use {
-                it.prepareStatement(DELETE_QUIZ).apply {
-                    setLong(1, id)
-                }.executeQuery()
-            }
+    fun deleteQuiz(id: Long) {
+        dataSource.connection.use {
+            it.prepareStatement(DELETE_QUIZ).apply {
+                setLong(1, id)
+            }.executeQuery()
         }
     }
 
