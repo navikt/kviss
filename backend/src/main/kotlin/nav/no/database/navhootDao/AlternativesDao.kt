@@ -56,15 +56,10 @@ private object QueriesAlternatives {
         where id = ?;
     """.trimIndent()
 
-    val ADD_ALTERNATIVE = """
-        UPDATE quiz
-        SET name = ?, description = ?, is_draft = ?
-        WHERE id = ?;
-    """.trimIndent()
-
     val INSERT_ALTERNATIVE = """
         INSERT INTO alternative(question_id, description, is_correct)
-        VALUES (?, ?, ?);
+        VALUES (?, ?, ?)
+        RETURNING id;
     """.trimIndent()
 
     val DELETE_ALTERNATIVE = """
