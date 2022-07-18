@@ -1,13 +1,13 @@
 package nav.no.models
 
 import kotlinx.serialization.Serializable
-import java.util.*
 
 @Serializable
 data class Game(
     val id: Long,
     val quizId: Long,
-    val isActive: Boolean //TODO: Add gameID
+    val isActive: Boolean,
+    val gamePin: Long
 )
 @Serializable
 data class Quiz(
