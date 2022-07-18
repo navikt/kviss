@@ -13,7 +13,7 @@ data class Game(
 data class Quiz(
     val name: String,
     val id: Long,
-    val description: String,
+    val description: String?,
     val questions: List<Question>,
     val isDraft: Boolean
 )

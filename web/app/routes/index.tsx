@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from '@remix-run/react'
+import { useNavigate } from '@remix-run/react'
 
 export default function Index() {
 

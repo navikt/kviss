@@ -1,25 +1,30 @@
-import { json, LoaderFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import React, { Children, ReactElement, useState } from "react";
-import { createContext, useContext } from "react"
+import React, { ReactElement, useState } from "react";
+import { useContext } from "react"
 
 export interface IAlternative {
     id: number,
     text: string,
-    isCorrect: boolean
+    isCorrect?: boolean
 }
 
 export interface IQuestion {
-    id: number,
-    description: string,
+    id: number
+    description: string
     alternative: IAlternative[]
+    quizId: number,
+    sortOrder: number
 }
+
+export type ScoreboardProps = {
+    toggleScoreboard: (toggleScoreboard: boolean) => void
+};
 
 export interface IQuiz {
     name: string,
     id: number,
     description: string,
-    questions: IQuestion[]
+    questions: IQuestion[],
+    isDraft: boolean
 }
 
 const initQuiz: IQuiz = {
@@ -36,15 +41,34 @@ const initQuiz: IQuiz = {
                     "text": "Alternative 1",
                     "isCorrect": true
                 },
-            ]
+            ],
+            quizId: 1,
+            sortOrder: 1
         }
+    ],
+    isDraft: false
+}
 
-    ]
+const initQuestion: IQuestion = {
+    "id": 1,
+    "description": "Spørsmål 1",
+    "alternative": [
+        {
+            "id": 1,
+            "text": "Alternative 1",
+            "isCorrect": true
+        }
+    ],
+    quizId: 1,
+    sortOrder: 1
 }
 
 const QuizContext = React.createContext({
     quiz: initQuiz,
     setQuiz: (_: any) => {
+    },
+    question: initQuestion,
+    setQuestion: (_: any) => {
     },
 })
 
@@ -55,10 +79,11 @@ export function useQuiz() {
 
 export default function QuizProvider({ children }: { children: Array<ReactElement> | ReactElement }): ReactElement {
     const [quiz, setQuiz] = useState<IQuiz>(initQuiz)
+    const [question, setQuestion] = useState<IQuestion>(initQuestion)
 
 
     return (
-        <QuizContext.Provider value={{ quiz, setQuiz }}>
+        <QuizContext.Provider value={{ quiz, setQuiz, question, setQuestion }}>
             {children}
         </QuizContext.Provider>
     );

@@ -1,7 +1,7 @@
 import { json, LoaderFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { useState } from 'react'
-import { useLinkClickHandler, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import PinCode from '~/components/PinCode'
 import Username from '~/components/Username'
 import { useQuiz } from '~/context/QuizContext'
@@ -12,7 +12,7 @@ export type ButtonProps = {
 };
 
 export const loader: LoaderFunction = async () => {
-    const res = await fetch('https://navhoot-backend.dev.nav.no/quiz')
+    const res = await fetch('https://navhoot-backend.dev.nav.no/quiz/mock-empty')
     return json(await res.json())
 }
 
@@ -23,7 +23,7 @@ export default function QuizIndexRoute() {
     const [pinCode, setPinCode] = useState<string>('')
     const [nickname, setNickName] = useState<string>('')
     const navigate = useNavigate()
-    const { quiz, setQuiz } = useQuiz()
+    const { quiz, setQuiz, setQuestion } = useQuiz()
     const data = useLoaderData()
 
     const handleClickPin = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, pc: string) => {
@@ -35,6 +35,7 @@ export default function QuizIndexRoute() {
         event.preventDefault()
         setNickName(pc)
         setQuiz(data)
+        setQuestion(data.questions[0])
         console.log(data)
 
     }
@@ -54,7 +55,7 @@ export default function QuizIndexRoute() {
                     </div>
                 )}
             <button
-                onClick={e => navigate('../question/1')}>
+                onClick={e => navigate(`../quiz`)}>
                 Start Quiz
             </button>
         </div>
