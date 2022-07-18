@@ -13,6 +13,8 @@ export interface IQuestion {
     id?: number
     description?: string
     alternative?: IAlternative[]
+    quizId: number,
+    sortOrder: number
 }
 
 export type ScoreboardProps = {
@@ -23,7 +25,8 @@ export interface IQuiz {
     name: string,
     id: number,
     description: string,
-    questions: IQuestion[]
+    questions: IQuestion[],
+    isDraft: boolean
 }
 
 const initQuiz: IQuiz = {
@@ -40,10 +43,12 @@ const initQuiz: IQuiz = {
                     "text": "Alternative 1",
                     "isCorrect": true
                 },
-            ]
+            ],
+            quizId: 1,
+            sortOrder: 1
         }
-
-    ]
+    ],
+    isDraft: false
 }
 
 const initQuestion: IQuestion = {
@@ -55,7 +60,9 @@ const initQuestion: IQuestion = {
             "text": "Alternative 1",
             "isCorrect": true
         }
-    ]
+    ],
+    quizId: 1,
+    sortOrder: 1
 }
 
 const QuizContext = React.createContext({

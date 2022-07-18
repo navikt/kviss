@@ -12,7 +12,7 @@ export type ButtonProps = {
 };
 
 export const loader: LoaderFunction = async () => {
-    const res = await fetch('https://navhoot-backend.dev.nav.no/quiz/mock')
+    const res = await fetch('https://navhoot-backend.dev.nav.no/quiz/mock-empty')
     return json(await res.json())
 }
 
