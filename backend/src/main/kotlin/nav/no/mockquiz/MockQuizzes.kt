@@ -17,7 +17,7 @@ val quiz = Quiz(
                 Alternative(4, "Alternative 4", false),
             ),
             1,
-            11
+            1
         ),
         Question(
             2,
