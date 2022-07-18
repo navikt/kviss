@@ -7,8 +7,9 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import nav.no.database.navhootDao.QuestionDao
 import nav.no.database.navhootDao.QuizDao
-import nav.no.models.Question
-import nav.no.models.Quiz
+import nav.no.database.domain.Question
+import nav.no.database.domain.Quiz
+import nav.no.models.CreateQuizRequest
 
 fun Route.quizRoute(quizDao: QuizDao, questionDao: QuestionDao) {
     route("quiz") {
@@ -17,9 +18,9 @@ fun Route.quizRoute(quizDao: QuizDao, questionDao: QuestionDao) {
             call.respond(quizList)
         }
         post {
-            val source = call.receive<Quiz>()
-            quizDao.postQuiz(source)
-            call.respond(source.id)
+            val source = call.receive<CreateQuizRequest>()
+            val id = quizDao.createQuiz(source)
+            call.respond(id)
         }
 
         route("{id}") {

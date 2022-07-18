@@ -1,4 +1,4 @@
-package nav.no.models
+package nav.no.database.domain
 
 import kotlinx.serialization.Serializable
 
@@ -10,17 +10,12 @@ data class Game(
     val gamePin: Long
 )
 @Serializable
-data class CreateQuizRequest (
+data class Quiz(
     val name: String,
-    val description: String?,
-)
-
-@Serializable
-data class UpdateQuizRequest(
     val id: Long,
-    val name: String,
     val description: String?,
-    val isDraft: Boolean,
+    val questions: List<Question>,
+    val isDraft: Boolean
 )
 @Serializable
 data class Question(
