@@ -62,6 +62,11 @@ dependencies {
     implementation("org.postgresql:postgresql:42.4.0")
     implementation("com.zaxxer:HikariCP:3.4.5")
     implementation("org.flywaydb:flyway-core:6.5.0")
+
+    testImplementation("io.mockk:mockk:1.12.4")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }

@@ -42,6 +42,14 @@ class PlayerDao(
             }.toList()
         }
     }
+
+    fun updateScore(playerId: Long){
+        dataSource.connection.use {
+            it.prepareStatement(SELECT_PLAYERS).apply {
+                setLong(1, playerId)
+            }.executeQuery()
+        }
+    }
 }
 
 
@@ -56,11 +64,17 @@ private object QueriesPlayer {
     val SELECT_PLAYERS = """
         select * 
         from player
-        where game_id = ?
+        where pin = ?
+    """.trimIndent()
+
+    val UPDATE_PLAYER_SCORE = """
+        UPDATE table_name 
+        SET score = score + 1
+        WHERE id = ?;
     """.trimIndent()
 
     val INSERT_PLAYER = """
-        INSERT INTO player(name, score, game_id)
+        INSERT INTO player(name, score, pin)
         VALUES (?, ?, ?);
     """.trimIndent()
 
