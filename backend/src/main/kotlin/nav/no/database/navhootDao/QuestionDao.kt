@@ -12,7 +12,7 @@ class QuestionDao(
 ) {
 
     fun getQuestion(quizId: Long, id: Long): Question {
-        return dataSource.connection.use {
+        dataSource.connection.use {
             val rs = it.prepareStatement(SELECT_QUESTION)
                 .apply {
                     setLong(1, id)
@@ -22,7 +22,6 @@ class QuestionDao(
                 Question(
                     rs.getLong("id"),
                     rs.getString("description"),
-                    emptyList(),
                     rs.getLong("quiz_id"),
                     rs.getInt("sort_order")
                 )
@@ -33,7 +32,7 @@ class QuestionDao(
     }
 
     fun getQuestions(quizId: Long): List<Question> {
-        return dataSource.connection.use {
+        dataSource.connection.use {
             return it.prepareStatement(SELECT_QUESTIONS)
                 .apply {
                     setLong(1, quizId)
@@ -42,7 +41,6 @@ class QuestionDao(
                     Question(
                         getLong("id"),
                         getString("description"),
-                        emptyList(),
                         getLong("quiz_id"),
                         getInt("sort_order")
                     )
