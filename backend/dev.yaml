@@ -16,7 +16,8 @@ spec:
     sqlInstances:
       - type: POSTGRES_14
         databases:
-          - name: navhoot-db
+          - name: navhoot
+            envVarPrefix: DB
   liveness:
     initialDelay: 30
     path: isalive
@@ -25,5 +26,3 @@ spec:
     path: isready
   ingresses:
     - https://navhoot-backend.dev.nav.no/
-  #image: ghcr.io/navikt/myapplication:417dcaa2c839b9da72e0189e2cfdd4e90e9cc6fd
-  #       ^--- interpolated from the ${{ env.docker_image }} variable in the action
