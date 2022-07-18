@@ -17,7 +17,7 @@ class QuizDao(
         return dataSource.connection.use {
             return it.prepareStatement(SELECT_ALL_QUIZ).executeQuery().toList {
                 Quiz(
-                    getString("name"), getLong("id"), getString("description"), emptyList(), rs.getBoolean("is_draft")
+                    getString("name"), getLong("id"), getString("description"), emptyList(), getBoolean("is_draft")
                 )
             }
         }
