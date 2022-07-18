@@ -16,23 +16,23 @@ class QuizDao(
     private val dataSource: DataSource,
 ) {
     fun getQuizzes(): List<Quiz> {
-        return dataSource.connection.use {
+        dataSource.connection.use {
             return it.prepareStatement(SELECT_ALL_QUIZ).executeQuery().toList {
                 Quiz(
-                    getString("name"), getLong("id"), getString("description"), emptyList(), getBoolean("is_draft")
+                    getString("name"), getLong("id"), getString("description"), getBoolean("is_draft")
                 )
             }
         }
     }
 
     fun getQuiz(id: Long): Quiz {
-        return dataSource.connection.use {
+        dataSource.connection.use {
             val rs = it.prepareStatement(SELECT_QUIZ).apply {
                 setLong(1, id)
             }.executeQuery()
             return if (rs.next()) {
                 Quiz(
-                    rs.getString("name"), rs.getLong("id"), rs.getString("description"), emptyList(), rs.getBoolean("is_draft")
+                    rs.getString("name"), rs.getLong("id"), rs.getString("description"), rs.getBoolean("is_draft")
                 )
             } else {
                 throw Exception("The quiz does not exist")

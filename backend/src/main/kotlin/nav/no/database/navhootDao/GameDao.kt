@@ -9,6 +9,7 @@ import javax.sql.DataSource
 class GameDao(
     private val dataSource: DataSource,
 ) {
+
     fun getGame(id: Long): Game {
         return dataSource.connection.use {
             val rs = it.prepareStatement(SELECT_GAME).apply {
