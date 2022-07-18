@@ -42,3 +42,4 @@ node_modules
 .cache/
 public/build/
 .env
+web/app/styles/app.css

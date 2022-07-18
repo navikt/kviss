@@ -4,8 +4,8 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import nav.no.database.GameDao
-import nav.no.database.PlayerDao
+import nav.no.database.navhootDao.GameDao
+import nav.no.database.navhootDao.PlayerDao
 import nav.no.models.Game
 import nav.no.models.Player
 
