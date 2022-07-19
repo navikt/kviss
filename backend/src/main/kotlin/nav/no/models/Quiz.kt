@@ -25,6 +25,28 @@ data class Quiz(
 )
 
 @Serializable
+data class ConsumerQuiz(
+    val name: String,
+    val id: Long,
+    val description: String?,
+    val questions: List<ConsumerQuestion>
+)
+
+@Serializable
+data class ConsumerQuestion(
+    val id: Long,
+    val description: String,
+    val quizId: Long,
+    val questions: List<ConsumerAlternative>
+)
+
+@Serializable
+data class ConsumerAlternative(
+    val id: Long,
+    val text: String,
+)
+
+@Serializable
 data class UpdateQuizRequest(
     val id: Long,
     val name: String,
@@ -45,6 +67,7 @@ data class Alternative(
     val text: String,
     val isCorrect: Boolean
 )
+
 
 @Serializable
 data class Player(

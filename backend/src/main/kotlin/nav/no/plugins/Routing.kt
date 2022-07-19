@@ -7,6 +7,7 @@ import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
 import nav.no.database.navhootDao.*
 import nav.no.routes.*
+import java.time.Duration
 import nav.no.services.QuizService
 import javax.sql.DataSource
 
