@@ -23,11 +23,21 @@ export default function QuizInformationForm({ quizInfo, setQuizInfo}: IProps) {
         <form className='flex flex-col'>
             <label>
                 Name: 
-                <input type="text" name="name" onChange={handleQuizInfoChange}/>
+                <input 
+                    type="text" 
+                    name="name" 
+                    value={quizInfo.name || ''} 
+                    onChange={handleQuizInfoChange}
+                />
             </label>
             <label>
                 Description:
-                <input type="text" name="name" onChange={handleQuizInfoChange}/>
+                <input 
+                    type="text" 
+                    name="name"
+                    value={quizInfo.description || ''} 
+                    onChange={handleQuizInfoChange}
+                />
             </label>
         </form>
     )
