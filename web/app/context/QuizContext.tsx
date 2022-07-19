@@ -68,12 +68,15 @@ const initQuestion: IQuestion = {
     quizId: 1,
     sortOrder: 1
 }
+const pin = 0
 
 const QuizContext = React.createContext({
     questions: [initQuestion],
     setQuestions: (_: any) => { },
     question: initQuestion,
     setQuestion: (_: any) => { },
+    pinCode: pin,
+    setPinCode: (_: any) => { }
 })
 
 
@@ -84,10 +87,11 @@ export function useQuiz() {
 export default function QuizProvider({ children }: { children: Array<ReactElement> | ReactElement }): ReactElement {
     const [questions, setQuestions] = useState<IQuestion[]>([initQuestion])
     const [question, setQuestion] = useState<IQuestion>(initQuestion)
+    const [pinCode, setPinCode] = useState<number>(pin)
 
 
     return (
-        <QuizContext.Provider value={{ questions, setQuestions, question, setQuestion }}>
+        <QuizContext.Provider value={{ questions, setQuestions, question, setQuestion, pinCode, setPinCode }}>
             {children}
         </QuizContext.Provider>
     )
