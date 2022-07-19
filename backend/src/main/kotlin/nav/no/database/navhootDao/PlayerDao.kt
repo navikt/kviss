@@ -46,7 +46,7 @@ class PlayerDao(
 
     fun updateScore(playerId: Long): Int{
         dataSource.connection.use {
-            it.prepareStatement(SELECT_PLAYERS).apply {
+            return it.prepareStatement(SELECT_PLAYERS).apply {
                 setLong(1, playerId)
             }.executeQuery().singleOrNull { getInt(1) }!!
         }
