@@ -14,7 +14,7 @@ import java.time.Duration
 
 fun main() {
     val datasourceBuilder = DataSourceBuilder(System.getenv())
-//    datasourceBuilder.migrate()
+    datasourceBuilder.migrate()
     val quizService = QuizService(QuestionDao(datasourceBuilder.dataSource), QuizDao(datasourceBuilder.dataSource), AlternativesDao(datasourceBuilder.dataSource))
 
     embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
