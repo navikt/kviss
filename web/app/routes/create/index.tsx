@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react'
+import QuizInformationForm from '~/components/quizAdministration/QuizInformationForm'
 import { IAlternative, IQuestion, IQuiz } from '~/context/QuizContext'
 
 interface IQuizInfo {
@@ -25,13 +26,6 @@ export default function CreateQuiz() {
     const [questions, setQuestions] = useState<IQuestion[]>([])
 
     const [quiz, setQuiz] = useState<IQuiz>()
-
-    const handleQuizInfoChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setQuizInfo({
-            ...quizInfo,
-            [event.target.name]: event.target.value
-        })
-    }
 
     const handleQuestionDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
         setQuestionDescription(event.target.value)
@@ -72,16 +66,7 @@ export default function CreateQuiz() {
     return (
         <div>
             <h2 className='text-2xl mb-2'>Quiz info</h2>
-            <form className='flex flex-col'>
-                <label>
-                    Name:
-                    <input type="text" name="name" onChange={handleQuizInfoChange} />
-                </label>
-                <label>
-                    Descrption:
-                    <input type="text" name="description" onChange={handleQuizInfoChange} />
-                </label>
-            </form>
+            <QuizInformationForm quizInfo={quizInfo} setQuizInfo={setQuizInfo} />
             <h2 className='text-2xl my-2'>Questions</h2>
             <div>
                 {questions.map((item, i) => {

@@ -4,11 +4,10 @@ import { IQuiz } from '~/context/QuizContext'
 
 
 export const loader: LoaderFunction = async () => {
-    const res = await fetch('https://navhoot-backend.dev.nav.no/quiz/')
+    const res = await fetch('https://navhoot-backend.dev.nav.no/quiz/1')
+    console.log(res)
     return json(await res.json())
 }
-
-
 
 export default function StartQuizIndexRoute() {
 
