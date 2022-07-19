@@ -25,7 +25,7 @@ fun Application.configureSockets(quizService: QuizService) {
 
     routing {
         val connections = Collections.synchronizedSet<SocketConnection?>(LinkedHashSet())
-        webSocket("/chat/{id}") {
+        webSocket("/game/{id}") {
             println("Adding player!")
             val thisConnection = SocketConnection(this, call.parameters["id"]!!.toInt())
             val param = call.parameters["id"]!!.toLong()

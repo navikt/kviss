@@ -2,6 +2,7 @@ package nav.no.database.navhootDao
 
 import nav.no.database.navhootDao.QueriesPlayer.SELECT_PLAYER
 import nav.no.database.navhootDao.QueriesPlayer.SELECT_PLAYERS
+import nav.no.database.singleOrNull
 import nav.no.models.Player
 import javax.sql.DataSource
 
@@ -43,11 +44,11 @@ class PlayerDao(
         }
     }
 
-    fun updateScore(playerId: Long){
+    fun updateScore(playerId: Long): Int{
         dataSource.connection.use {
             it.prepareStatement(SELECT_PLAYERS).apply {
                 setLong(1, playerId)
-            }.executeQuery()
+            }.executeQuery().singleOrNull { getInt(1) }!!
         }
     }
 }
@@ -70,12 +71,14 @@ private object QueriesPlayer {
     val UPDATE_PLAYER_SCORE = """
         UPDATE table_name 
         SET score = score + 1
-        WHERE id = ?;
+        WHERE id = ?
+        returns score;
     """.trimIndent()
 
     val INSERT_PLAYER = """
         INSERT INTO player(name, score, pin)
         VALUES (?, ?, ?);
     """.trimIndent()
+
 
 }

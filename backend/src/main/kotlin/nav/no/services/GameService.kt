@@ -1,9 +1,10 @@
 package nav.no.services
 
+import nav.no.database.domain.toModel
 import nav.no.database.navhootDao.GameDao
 import nav.no.database.navhootDao.PlayerDao
-import nav.no.database.domain.Game
-import nav.no.database.domain.Quiz
+import nav.no.models.Game
+import nav.no.models.Quiz
 import nav.no.database.navhootDao.AlternativesDao
 
 class GameService(
@@ -11,7 +12,9 @@ class GameService(
     private val playerDao: PlayerDao,
     private val gamedao: GameDao
 ) {
-
+    companion object {
+        private const val MAX_RETRIES = 3
+    }
 
     private fun generatePin(times: Int = MAX_RETRIES): Int {
         val generatedPin = (100000..999999).random()
@@ -37,16 +40,30 @@ class GameService(
         return alternativesDao.getAlternative(alternativeId).isCorrect
     }
 
-    fun increasePoint(playerId: Long){
+    fun increasePoint(playerId: Long): Int{
         return playerDao.updateScore(playerId)
+    }
+
+    fun checkAnswer(alternativeId: Long, playerId: Long): Int {
+        if (isCorrect(alternativeId)) {
+            return increasePoint(playerId)
+        } else {
+            return getPlayer(playerId).score
+        }
     }
 
     fun getPoints(playerId: Long): Int{
         return playerDao.getPlayer(playerId).score
     }
 
-    companion object {
-        private const val MAX_RETRIES = 3
-    }
+    fun getGame(id: Long): Game = gamedao.getGame(id).toModel()
+
+    fun getGamePin(id: Int) = gamedao.getGamePin(id)
+
+    fun getPlayers(gameId: Long) = playerDao.getPlayers(gameId)
+
+    fun getPlayer(playerId: Long) = playerDao.getPlayer(playerId)
+
+
 }
 
