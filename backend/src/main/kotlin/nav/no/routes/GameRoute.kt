@@ -27,12 +27,12 @@ fun Route.gameRoute(gameService: GameService) {
                     call.respondText("Players not found", status = HttpStatusCode(404, "Players not found"))
                 }
             }
-            get("game") {
+            get("gamestart") {
                 try {
-                    val players: List<Player> = gameService.getPlayers(call.parameters["id"]!!.toLong())
-                    call.respond(players)
+                    val gamePin: Int = gameService.getGamePin(call.parameters["id"]!!.toLong())
+                    call.respond(gamePin)
                 } catch (e: Exception) {
-                    call.respondText("Players not found", status = HttpStatusCode(404, "Players not found"))
+                    call.respondText("Error generating game", status = HttpStatusCode(500, "Players not found"))
                 }
             }
         }

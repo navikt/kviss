@@ -25,19 +25,19 @@ fun Application.configureSockets(quizService: QuizService) {
 
     routing {
         val connections = Collections.synchronizedSet<SocketConnection?>(LinkedHashSet())
-        webSocket("/game/{id}") {
+        webSocket("/game/{pin}") {
             println("Adding player!")
-            val thisConnection = SocketConnection(this, call.parameters["id"]!!.toInt())
-            val param = call.parameters["id"]!!.toLong()
+            val thisConnection = SocketConnection(this, call.parameters["pin"]!!.toInt())
+            val param = call.parameters["pin"]!!.toLong()
             connections += thisConnection
             try {
-                send("You are connected to WS ${call.parameters["id"]!!.toLong()}")
+                send("You are connected to WS ${call.parameters["pin"]!!.toLong()}")
                 sendSerialized(quizService.getConsumerQuiz(param))
                 for (frame in incoming) {
                     frame as? Frame.Text ?: continue
                     val receivedText = frame.readText()
                     val textWithUsername = "[${thisConnection.name}]: $receivedText"
-                    connections.filter { thisConnection.id == it.id }.forEach {
+                    connections.filter { thisConnection.pin == it.pin }.forEach {
                         it.session.send(textWithUsername)
                     }
                 }

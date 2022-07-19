@@ -18,7 +18,7 @@ class GameService(
 
     private fun generatePin(times: Int = MAX_RETRIES): Int {
         val generatedPin = (100000..999999).random()
-        val pinExist = gamedao.getGamePin(generatedPin) != null
+        val pinExist = gamedao.checkGamePin(generatedPin) != null
 
         return if (pinExist) {
             if (times > 1) generatePin(times - 1)
@@ -58,7 +58,7 @@ class GameService(
 
     fun getGame(id: Long): Game = gamedao.getGame(id).toModel()
 
-    fun getGamePin(id: Int) = gamedao.getGamePin(id)
+    fun getGamePin(id: Long): Int = gamedao.insertGame(id, createGamePin())
 
     fun getPlayers(gameId: Long) = playerDao.getPlayers(gameId)
 

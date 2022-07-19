@@ -7,7 +7,6 @@ import nav.no.database.navhootDao.PlayerDao
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.fail
 import kotlin.test.assertNotNull
 
 internal class GameServiceTest {
@@ -26,16 +25,16 @@ internal class GameServiceTest {
 
     @Test
     fun `No result in database`() {
-        every { gamedao.getGamePin(any()) } returns null
+        every { gamedao.checkGamePin(any()) } returns null
 
         service.createGamePin()
 
-        verify(exactly = 1) { gamedao.getGamePin(any()) }
+        verify(exactly = 1) { gamedao.checkGamePin(any()) }
     }
 
     @Test
     fun `exception after three tries`() {
-        every { gamedao.getGamePin(any()) }
+        every { gamedao.checkGamePin(any()) }
             .returns(1)
             .andThen(2)
             .andThen(3)
@@ -47,19 +46,19 @@ internal class GameServiceTest {
             assertNotNull(e)
         }
 
-        verify(exactly = 3) { gamedao.getGamePin(any()) }
+        verify(exactly = 3) { gamedao.checkGamePin(any()) }
     }
 
     @Test
     fun `match on first`() {
-        every { gamedao.getGamePin(any()) }
+        every { gamedao.checkGamePin(any()) }
             .returns(1234)
             .andThen(null)
 
         service.createGamePin()
 
 
-        verify(exactly = 2) { gamedao.getGamePin(any()) }
+        verify(exactly = 2) { gamedao.checkGamePin(any()) }
     }
 
 }
