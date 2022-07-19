@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import { ScoreboardProps, useQuiz } from '~/context/QuizContext'
+import { ScoreboardProps } from '~/context/QuizContext'
 
 
 export default function AnswerView(tb: ScoreboardProps): JSX.Element {
     const [correct, setCorrect] = useState<Boolean>(true)
     const [score, setScore] = useState<number>(69)
-    const { quiz } = useQuiz()
 
     const onNameClick = () => {
         tb.toggleScoreboard(false)

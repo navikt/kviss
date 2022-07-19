@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { IAlternative, IQuestion, IQuiz } from '~/context/QuizContext'
 
 interface IQuizInfo {
@@ -9,12 +10,12 @@ interface IQuizInfo {
 export default function CreateQuiz() {
 
     const [tempAlternativesArray, setTempAlternativesArray] = useState<IAlternative[] >([
-        { id: 1, text: '', isCorrect: false},
-        { id: 1, text: '', isCorrect: false},
-        { id: 1, text: '', isCorrect: false},
-        { id: 1, text: '', isCorrect: false}
+        { text: '', isCorrect: false},
+        { text: '', isCorrect: false},
+        { text: '', isCorrect: false},
+        { text: '', isCorrect: false}
     ])
-    
+
     const [quizInfo, setQuizInfo] = useState<IQuizInfo>({
         name: '',
         description: ''
@@ -24,7 +25,7 @@ export default function CreateQuiz() {
 
     const [questions, setQuestions] = useState<IQuestion[]>([])
 
-    const [quiz, setQuiz] = useState<IQuiz>()
+    const navigate = useNavigate()
 
     const handleQuizInfoChange = (event: ChangeEvent<HTMLInputElement>) => {
         setQuizInfo({
@@ -39,31 +40,53 @@ export default function CreateQuiz() {
 
     const replaceAlternativeTextAtIndex = (index: number, newAlternativeText: string) => {
         const alternatives = [...tempAlternativesArray]
-        alternatives[index] = {id: alternatives[index].id, text: newAlternativeText, isCorrect: alternatives[index].isCorrect}
+        alternatives[index] = { id: alternatives[index].id, text: newAlternativeText, isCorrect: alternatives[index].isCorrect }
         setTempAlternativesArray(alternatives)
     }
 
     const replaceAlternativeIsCorrectAtIndex = (index: number, newAlternativeIsCorrect: boolean) => {
         const alternatives = [...tempAlternativesArray]
-        alternatives[index] = {id: alternatives[index].id, text: alternatives[index].text, isCorrect: newAlternativeIsCorrect}
+        alternatives[index] = { id: alternatives[index].id, text: alternatives[index].text, isCorrect: newAlternativeIsCorrect }
         setTempAlternativesArray(alternatives)
     }
 
     const onAddQuestion = () => {
         setQuestions(questions.concat({
-            id: questions.length,
             description: questionDescription,
-            alternative: tempAlternativesArray
+            alternative: tempAlternativesArray,
+            sortOrder: questions.length
         }))
     }
     
-    const onCreateQuiz = () => {
-        setQuiz({
-            id: 1,
+    const onCreateQuiz = async () => {
+        const quiz = {
             name: quizInfo.name,
             description: quizInfo.description,
-            questions
+        }
+        
+        const quizId = await fetch('https://navhoot-backend.dev.nav.no/quiz', {
+            body: JSON.stringify(quiz),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST'
+        }).then((res: Response) => {
+            return res.json()
         })
+
+        // TODO: Add posting of quesitons when route is up and going
+        // await fetch('https://navhoot-backend.dev.nav.no/quiz/questions', {
+        //     body: JSON.stringify({
+        //         quizId,
+        //         questions
+        //     }),
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     method: 'POST'
+        // }).then(() => {
+        //     navigate('../')
+        // })
     }
 
     return (
@@ -83,7 +106,7 @@ export default function CreateQuiz() {
             <div>
                 {questions.map((item, i) => {
                     return (
-                        <div key={i}className='flex flex-col my-2'>
+                        <div key={i} className='flex flex-col my-2'>
                             <p>Question: {item.description}</p>
                             {item.alternative.map((alt, j) => {
                                 return <p key={j}>{`Alternative ${j + 1}: ${alt.text}. Correct?: ${alt.isCorrect}`}</p>
@@ -95,7 +118,7 @@ export default function CreateQuiz() {
             <form className='flex flex-col'>
                 <label className='mb-1'>
                     Description:
-                    <input type="text" onChange={handleQuestionDescriptionChange}/>
+                    <input type="text" onChange={handleQuestionDescriptionChange} />
                 </label>
                 {tempAlternativesArray.map((item, i) => {
                     return (
