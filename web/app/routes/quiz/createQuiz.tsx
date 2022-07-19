@@ -1,4 +1,3 @@
-import axios, { AxiosError } from 'axios'
 import { ChangeEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { IAlternative, IQuestion, IQuiz } from '~/context/QuizContext'
@@ -64,8 +63,6 @@ export default function CreateQuiz() {
             name: quizInfo.name,
             description: quizInfo.description,
         }
-
-        // Post quiz before routing
         
         const quizId = await fetch('https://navhoot-backend.dev.nav.no/quiz', {
             body: JSON.stringify(quiz),
@@ -76,13 +73,20 @@ export default function CreateQuiz() {
         }).then((res: Response) => {
             return res.json()
         })
-        console.log(quizId)
-        // axios.post('https://navhoot-backend.dev.nav.no/question', {
-        //     quizId,
-        //     questions
+
+        // TODO: Add posting of quesitons when route is up and going
+        // await fetch('https://navhoot-backend.dev.nav.no/quiz/questions', {
+        //     body: JSON.stringify({
+        //         quizId,
+        //         questions
+        //     }),
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     method: 'POST'
+        // }).then(() => {
+        //     navigate('../')
         // })
-        //navigate('../')
-        
     }
 
     return (
