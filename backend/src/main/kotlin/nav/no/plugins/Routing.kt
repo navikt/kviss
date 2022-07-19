@@ -7,9 +7,14 @@ import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.routing.*
 import javax.sql.DataSource
+import nav.no.database.navhootDao.GameDao
+import nav.no.database.navhootDao.PlayerDao
+import nav.no.database.navhootDao.QuestionDao
+import nav.no.database.navhootDao.QuizDao
 import nav.no.database.navhootDao.*
 import nav.no.routes.*
 import nav.no.services.QuizService
+
 
 fun Application.configureRouting(dataSource: DataSource) {
     install(ContentNegotiation) { json() }

@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { IAlternative, IQuestion, IQuiz } from '~/context/QuizContext'
 
 interface IQuizInfo {
@@ -8,11 +9,11 @@ interface IQuizInfo {
 
 export default function CreateQuiz() {
 
-    const [tempAlternativesArray, setTempAlternativesArray] = useState<IAlternative[]>([
-        { id: 1, text: '', isCorrect: false },
-        { id: 1, text: '', isCorrect: false },
-        { id: 1, text: '', isCorrect: false },
-        { id: 1, text: '', isCorrect: false }
+    const [tempAlternativesArray, setTempAlternativesArray] = useState<IAlternative[] >([
+        { text: '', isCorrect: false},
+        { text: '', isCorrect: false},
+        { text: '', isCorrect: false},
+        { text: '', isCorrect: false}
     ])
 
     const [quizInfo, setQuizInfo] = useState<IQuizInfo>({
@@ -24,7 +25,7 @@ export default function CreateQuiz() {
 
     const [questions, setQuestions] = useState<IQuestion[]>([])
 
-    const [quiz, setQuiz] = useState<IQuiz>()
+    const navigate = useNavigate()
 
     const handleQuizInfoChange = (event: ChangeEvent<HTMLInputElement>) => {
         setQuizInfo({
@@ -51,22 +52,41 @@ export default function CreateQuiz() {
 
     const onAddQuestion = () => {
         setQuestions(questions.concat({
-            quizId: 1,
-            id: questions.length,
             description: questionDescription,
             alternative: tempAlternativesArray,
-            sortOrder: 1
+            sortOrder: questions.length
         }))
     }
-
-    const onCreateQuiz = () => {
-        setQuiz({
-            id: 1,
+    
+    const onCreateQuiz = async () => {
+        const quiz = {
             name: quizInfo.name,
             description: quizInfo.description,
-            questions,
-            isDraft: false
+        }
+        
+        const quizId = await fetch('https://navhoot-backend.dev.nav.no/quiz', {
+            body: JSON.stringify(quiz),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST'
+        }).then((res: Response) => {
+            return res.json()
         })
+
+        // TODO: Add posting of quesitons when route is up and going
+        // await fetch('https://navhoot-backend.dev.nav.no/quiz/questions', {
+        //     body: JSON.stringify({
+        //         quizId,
+        //         questions
+        //     }),
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     method: 'POST'
+        // }).then(() => {
+        //     navigate('../')
+        // })
     }
 
     return (
