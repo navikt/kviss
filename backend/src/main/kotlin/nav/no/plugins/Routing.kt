@@ -27,7 +27,7 @@ fun Application.configureRouting(dataSource: DataSource) {
     val questionDao = QuestionDao(dataSource)
     val alternativesDao = AlternativesDao(dataSource)
     val quizService = QuizService(questionDao, quizDao, alternativesDao)
-    val gameService = GameService(alternativesDao, playerDao, gameDao)
+    val gameService = GameService(alternativesDao, playerDao, gameDao, quizService)
 
     routing {
         healthAPI()

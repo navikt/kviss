@@ -10,7 +10,8 @@ import nav.no.database.navhootDao.AlternativesDao
 class GameService(
     private val alternativesDao: AlternativesDao,
     private val playerDao: PlayerDao,
-    private val gamedao: GameDao
+    private val gamedao: GameDao,
+    private val quizService: QuizService
 ) {
     companion object {
         private const val MAX_RETRIES = 3
@@ -58,12 +59,14 @@ class GameService(
 
     fun getGame(id: Long): Game = gamedao.getGame(id).toModel()
 
+    fun getGameByPin(pin: Int): Game = gamedao.getGameByPin(pin).toModel()
     fun getGamePin(id: Long): Int = gamedao.insertGame(id, createGamePin())
 
     fun getPlayers(gameId: Long) = playerDao.getPlayers(gameId)
 
     fun getPlayer(playerId: Long) = playerDao.getPlayer(playerId)
 
+    fun getQuizByPin(pin: Int) = quizService.getConsumerQuiz(getGameByPin(pin).quizId)
 
 }
 

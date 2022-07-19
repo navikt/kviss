@@ -4,6 +4,7 @@ import nav.no.database.navhootDao.QueriesGame.CHECK_GAME_PIN
 import nav.no.database.navhootDao.QueriesGame.SELECT_GAME
 import nav.no.database.domain.Game
 import nav.no.database.navhootDao.QueriesGame.INSERT_GAME
+import nav.no.database.navhootDao.QueriesGame.SELECT_GAME_BY_PIN
 import nav.no.database.singleOrNull
 import javax.sql.DataSource
 
@@ -16,6 +17,24 @@ class GameDao(
             val rs = it.prepareStatement(SELECT_GAME).apply {
                     setLong(1, id)
                 }.executeQuery()
+            return if (rs.next()) {
+                Game(
+                    rs.getLong("id"),
+                    rs.getLong("quiz_id"),
+                    rs.getBoolean("is_active"),
+                    rs.getLong("pin"),
+                )
+            } else {
+                throw Exception("The Game does not exist")
+            }
+        }
+    }
+
+    fun getGameByPin(pin: Int): Game {
+        return dataSource.connection.use {
+            val rs = it.prepareStatement(SELECT_GAME_BY_PIN).apply {
+                setInt(1, pin)
+            }.executeQuery()
             return if (rs.next()) {
                 Game(
                     rs.getLong("id"),
@@ -55,6 +74,12 @@ private object QueriesGame {
        SELECT * 
        FROM game
        WHERE id = ?;
+    """.trimIndent()
+
+    val SELECT_GAME_BY_PIN = """
+       SELECT * 
+       FROM game
+       WHERE game_pin = ?;
     """.trimIndent()
 
     val CHECK_GAME_PIN = """
