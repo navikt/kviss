@@ -64,7 +64,7 @@ export default function CreateQuiz() {
     }
 
     return (
-        <div>
+        <div className='flex items-center h-screen flex-col'>
             <h2 className='text-2xl mb-2'>Quiz info</h2>
             <QuizInformationForm quizInfo={quizInfo} setQuizInfo={setQuizInfo} />
             <h2 className='text-2xl my-2'>Questions</h2>

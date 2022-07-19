@@ -4,8 +4,7 @@ import { IQuiz } from '~/context/QuizContext'
 
 
 export const loader: LoaderFunction = async () => {
-    const res = await fetch('https://navhoot-backend.dev.nav.no/quiz/1')
-    console.log(res)
+    const res = await fetch('https://navhoot-backend.dev.nav.no/quiz/5/questions')
     return json(await res.json())
 }
 

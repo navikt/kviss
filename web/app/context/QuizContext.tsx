@@ -1,5 +1,5 @@
-import React, { ReactElement, useState } from "react";
-import { useContext } from "react"
+import React, { ReactElement, useState } from 'react'
+import { useContext } from 'react'
 
 export interface IPlayer {
     id: number
@@ -34,18 +34,18 @@ export interface IQuiz {
 }
 
 const initQuiz: IQuiz = {
-    "name": "test quiz",
-    "id": 123,
-    "description": "test description",
-    "questions": [
+    'name': 'test quiz',
+    'id': 123,
+    'description': 'test description',
+    'questions': [
         {
-            "id": 1,
-            "description": "Spørsmål 1",
-            "alternative": [
+            'id': 1,
+            'description': 'Spørsmål 1',
+            'alternative': [
                 {
-                    "id": 1,
-                    "text": "Alternative 1",
-                    "isCorrect": true
+                    'id': 1,
+                    'text': 'Alternative 1',
+                    'isCorrect': true
                 },
             ],
             quizId: 1,
@@ -56,13 +56,13 @@ const initQuiz: IQuiz = {
 }
 
 const initQuestion: IQuestion = {
-    "id": 1,
-    "description": "Spørsmål 1",
-    "alternative": [
+    'id': 1,
+    'description': 'Spørsmål 1',
+    'alternative': [
         {
-            "id": 1,
-            "text": "Alternative 1",
-            "isCorrect": true
+            'id': 1,
+            'text': 'Alternative 1',
+            'isCorrect': true
         }
     ],
     quizId: 1,
@@ -92,6 +92,6 @@ export default function QuizProvider({ children }: { children: Array<ReactElemen
         <QuizContext.Provider value={{ questions, setQuestions, question, setQuestion }}>
             {children}
         </QuizContext.Provider>
-    );
+    )
 }
 
