@@ -58,11 +58,11 @@ class GameDao(
         }
     }
 
-    fun checkGamePin(pin: Int): Long {
+    fun checkGamePin(pin: Int): Long? {
         dataSource.connection.use {
             return it.prepareStatement(CHECK_GAME_PIN).apply {
                     setInt(1, pin)
-                }.executeQuery().singleOrNull { getLong("pin") }!!
+                }.executeQuery().singleOrNull { getLong("pin") }
         }
     }
 }
