@@ -1,22 +1,43 @@
 import { IQuestion, ScoreboardProps, useQuiz } from "~/context/QuizContext"
 import AnswerButton from "./AnswerButton"
+import axios from 'axios';
+
 
 
 export function Question(tb: ScoreboardProps): JSX.Element {
 
     const getIndex = (i: number | undefined): number => {
 
-        if (i ? i > quiz.questions.length : true) {
+        if (i ? i > questions.length : true) {
             return -1
         }
-        return quiz.questions.findIndex((obj: IQuestion) => obj.id === i)
+        return questions.findIndex((obj: IQuestion) => obj.id === i)
     }
 
-    const { setQuestion, question, quiz } = useQuiz()
+    const { setQuestion, question, questions } = useQuiz()
 
     const alternative = question.alternative
     const id = question.id
     const description = question.description
+
+
+    const sendAnswer = async (answerIndex: number) => {
+        // axios
+        //     .post<>(`https://navhoot-backend.dev.nav.no/quiz/${pinCode}/questions`, {
+        //         headers: {
+        //             "Content-Type": "text/html"
+        //         },
+        //     }).then(response => {
+        //         setQuestions(response.data);
+        //     }).catch(ex => {
+        //         const error =
+        //             ex.response.status === 404
+        //                 ? "Resource Not found"
+        //                 : "An unexpected error has occurred";
+        //     });
+    }
+
+
 
     const onQuestionAnswered = (answerIndex: number) => {
         if (alternative?.[answerIndex].isCorrect) {
@@ -29,7 +50,7 @@ export function Question(tb: ScoreboardProps): JSX.Element {
                 tb.toggleScoreboard(true)
                 return
             }
-            setQuestion(id ? quiz.questions[id] : 1)
+            setQuestion(id ? questions[id] : 1)
             tb.toggleScoreboard(true)
         }
 

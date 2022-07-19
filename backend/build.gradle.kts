@@ -1,6 +1,7 @@
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
+val kafkaVersion = "3.1.0"
 
 
 plugins {
@@ -54,6 +55,8 @@ repositories {
 }
 
 dependencies {
+    implementation("io.ktor:ktor-server-websockets:$ktor_version")
+
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktor_version")
@@ -62,6 +65,11 @@ dependencies {
     implementation("org.postgresql:postgresql:42.4.0")
     implementation("com.zaxxer:HikariCP:3.4.5")
     implementation("org.flywaydb:flyway-core:6.5.0")
+    implementation("io.ktor:ktor-server-cors:$ktor_version")
+    testImplementation("io.mockk:mockk:1.12.4")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }

@@ -59,7 +59,7 @@ create table game
     quiz_id    bigint
         constraint game_quiz_id_fk
             references quiz,
-    game_id    int,
+    pin    int,
     is_active  bool
 );
 create table player
