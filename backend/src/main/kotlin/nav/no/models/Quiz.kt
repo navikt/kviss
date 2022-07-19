@@ -70,18 +70,6 @@ data class Alternative(
 
 
 @Serializable
-data class SendQuestion(
-    val id: Long,
-    val description: String,
-    val alternative: List<SendAlternative>,
-)
-@Serializable
-data class SendAlternative(
-    val id: Long,
-    val text: String,
-)
-
-@Serializable
 data class Player(
     val id: Long,
     val name: String,

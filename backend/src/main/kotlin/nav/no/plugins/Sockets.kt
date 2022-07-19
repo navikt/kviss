@@ -32,7 +32,7 @@ fun Application.configureSockets(quizService: QuizService) {
             connections += thisConnection
             try {
                 send("You are connected to WS ${call.parameters["id"]!!.toLong()}")
-                sendSerialized(quizService.getQuestions(param))
+                sendSerialized(quizService.getConsumerQuiz(param))
                 for (frame in incoming) {
                     frame as? Frame.Text ?: continue
                     val receivedText = frame.readText()
