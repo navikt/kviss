@@ -1,28 +1,39 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { IAlternative, IQuestion } from '~/context/QuizContext'
 
 interface IProps {
     questions: IQuestion[]
     setQuestions: (question: IQuestion[]) => void
-    questionIndex: number
-    onQuestionAdd: () => void
 }
 
 export default function QuestionForm({
     questions,
-    setQuestions,
-    questionIndex,
-    onQuestionAdd,
+    setQuestions
 }: IProps) {
     
+    const [question, setQuestion] = useState<IQuestion>({
+        quizId: 1,
+        id: 1,
+        description: '',
+        alternative: [
+            { id: 1, text: '', isCorrect: false },
+            { id: 2, text: '', isCorrect: false },
+            { id: 3, text: '', isCorrect: false },
+            { id: 4, text: '', isCorrect: false }
+        ],
+        sortOrder: 1
+    })
+
+    // TODO: Check if edit mode, then load question from list
+
     const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const questionCopy: IQuestion = questions[questionIndex]
+        const questionCopy: IQuestion = question
         questionCopy.description = event.target.value
-        setQuestions(questions.concat(questionCopy))
+        setQuestion(questionCopy)
     }
 
     const replaceAlternativeTextAtIndex = (index: number, newAlternativeText: string) => {
-        const alternatives: IAlternative[] = questions[questionIndex].alternative
+        const alternatives: IAlternative[] = question.alternative
         
         alternatives[index] = { 
             id: alternatives[index].id,
@@ -30,13 +41,13 @@ export default function QuestionForm({
             isCorrect: alternatives[index].isCorrect
         }
 
-        const questionCopy = questions[questionIndex]
+        const questionCopy = question
         questionCopy.alternative = alternatives
-        setQuestions(questions.concat(questionCopy))
+        setQuestion(questionCopy)
     }
 
     const replaceAlternativeIsCorrectAtIndex = (index: number, newAlternativeIsCorrect: boolean) => {
-        const alternatives: IAlternative[] = questions[questionIndex].alternative
+        const alternatives: IAlternative[] = question.alternative
         
         alternatives[index] = { 
             id: alternatives[index].id,
@@ -44,9 +55,13 @@ export default function QuestionForm({
             isCorrect: newAlternativeIsCorrect
         }
 
-        const questionCopy = questions[questionIndex]
+        const questionCopy = question
         questionCopy.alternative = alternatives
-        setQuestions(questions.concat(questionCopy))
+        setQuestion(questionCopy)
+    }
+
+    const onQuestionAdd = () => {
+        setQuestions(questions.concat(question))
     }
 
     return (
@@ -56,18 +71,18 @@ export default function QuestionForm({
                     Description:
                     <input 
                         type="text" 
-                        value={questions[questionIndex].description || ''}
+                        value={question.description || ''}
                         onChange={handleDescriptionChange}
                     />
                 </label>
-                {questions[questionIndex].alternative.map((item, i) => {
+                {question.alternative.map((item, i) => {
                     return(
                         <div key={i} className="my-1">
                             <label>
                                 {`Alternative ${i + 1}:`}
                                 <input 
                                     type="text" 
-                                    value={questions[questionIndex].alternative[i].text || ''}
+                                    value={question.alternative[i].text || ''}
                                     onChange={e => replaceAlternativeTextAtIndex(i, e.target.value)}
                                 />
                             </label>
@@ -75,7 +90,7 @@ export default function QuestionForm({
                                 Correct:?
                                 <input 
                                     type="checkbox" 
-                                    checked={questions[questionIndex].alternative[i].isCorrect || false}
+                                    checked={question.alternative[i].isCorrect || false}
                                     onChange={e => replaceAlternativeIsCorrectAtIndex(i, e.target.checked)}
                                 />
                             </label>
