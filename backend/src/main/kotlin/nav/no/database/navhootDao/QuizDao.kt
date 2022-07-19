@@ -7,6 +7,7 @@ import nav.no.database.navhootDao.QuizDao.Queries.DELETE_QUIZ
 import nav.no.database.navhootDao.QuizDao.Queries.UPDATE_QUIZ
 import nav.no.database.toList
 import nav.no.database.domain.Quiz
+import nav.no.database.singleOrNull
 import nav.no.models.CreateQuizRequest
 import java.sql.ResultSet
 import javax.sql.DataSource
@@ -47,15 +48,7 @@ class QuizDao(
         }.executeQuery().singleOrNull { getLong(1) }!!
     }
 
-    private fun <T> ResultSet.singleOrNull(block: ResultSet.() -> T): T? {
-        return if (next()) {
-            block().also {
-                require(!next()) { "Skal være unik" }
-            }
-        } else {
-            null
-        }
-    }
+
     fun updateQuiz(quiz: Quiz) {
         dataSource.connection.use {
             it.prepareStatement(UPDATE_QUIZ).apply {

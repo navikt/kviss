@@ -11,6 +11,7 @@ class AlternativesDao(
 ) {
 
     fun getAlternatives(questionId: Long): List<Alternative> {
+
         dataSource.connection.use {
             return it.prepareStatement(SELECT_ALTERNATIVES)
                 .apply {
@@ -27,6 +28,7 @@ class AlternativesDao(
 
     fun getAlternative(id: Long): Alternative {
         dataSource.connection.use {
+        
             val rs = it.prepareStatement(SELECT_ALTERNATIVE).apply {
                 setLong(1, id)
             }.executeQuery()
