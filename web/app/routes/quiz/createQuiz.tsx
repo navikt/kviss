@@ -59,7 +59,7 @@ export default function CreateQuiz() {
         }))
     }
     
-    const onCreateQuiz = () => {
+    const onCreateQuiz = async () => {
         const quiz = {
             name: quizInfo.name,
             description: quizInfo.description,
@@ -67,12 +67,21 @@ export default function CreateQuiz() {
 
         // Post quiz before routing
         
-        const quizId = axios.post('https://navhoot-backend.dev.nav.no/quiz', quiz)
+        const quizId = await fetch('https://navhoot-backend.dev.nav.no/quiz', {
+            body: JSON.stringify(quiz),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST'
+        }).then((res: Response) => {
+            return res.json()
+        })
+        console.log(quizId)
         // axios.post('https://navhoot-backend.dev.nav.no/question', {
         //     quizId,
         //     questions
         // })
-        navigate('../')
+        //navigate('../')
         
     }
 
