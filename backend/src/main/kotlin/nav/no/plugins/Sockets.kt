@@ -32,11 +32,12 @@ fun Application.configureSockets(quizService: QuizService, gameService: GameServ
             val conPin: Int = call.parameters["pin"]!!.toInt()
             val quiz: ConsumerQuiz = gameService.getQuizByPin(conPin)
             fun isHost (): Boolean = connections.filter {it.pin == conPin}.isEmpty()
-            fun host (): SocketConnection = connections.first()
+//            fun host (): SocketConnection = connections.first()
+
             val thisConnection = SocketConnection(this, conPin, isHost())
             connections += thisConnection
             val consumerPlayer = receiveDeserialized<ConsumerPlayer>()
-            if (!thisConnection.isHost) host().session.send(thisConnection.session.incoming.receive())
+            if (!thisConnection.isHost) getHost(connections).session.send(thisConnection.session.incoming.receive())
 
             try {
                 send("You are connected to game ${conPin}")
@@ -59,4 +60,8 @@ fun Application.configureSockets(quizService: QuizService, gameService: GameServ
             }
         }
     }
+}
+
+fun getHost(connections: MutableSet<SocketConnection>): SocketConnection {
+    return connections.filter {it.isHost}.single()
 }
