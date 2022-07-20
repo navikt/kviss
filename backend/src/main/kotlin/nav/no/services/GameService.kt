@@ -67,6 +67,8 @@ class GameService(
 
     fun getPlayer(playerId: Long) = playerDao.getPlayer(playerId)
 
+    fun insertPlayer(playerId: Long) = playerDao.getPlayer(playerId)
+
     fun getQuizByPin(pin: Int) = quizService.getConsumerQuiz(getGameByPin(pin).quizId)
 
 }

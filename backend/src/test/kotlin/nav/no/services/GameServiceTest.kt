@@ -14,8 +14,9 @@ internal class GameServiceTest {
     private val alternativesDao = mockk<AlternativesDao>()
     private val playerDao = mockk<PlayerDao>()
     private val gamedao = mockk<GameDao>()
+    private val quizService = mockk<QuizService>()
 
-    private val service = GameService(alternativesDao, playerDao, gamedao)
+    private val service = GameService(alternativesDao, playerDao, gamedao, quizService)
 
     @AfterEach
     fun afterEach(){

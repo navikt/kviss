@@ -93,5 +93,4 @@ private object QueriesGame {
        VALUES (?, ?, ?)
        returning pin;
     """.trimIndent()
-
 }
