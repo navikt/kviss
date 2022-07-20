@@ -1,5 +1,6 @@
 package nav.no.database.navhootDao
 
+import nav.no.database.navhootDao.QueriesPlayer.INSERT_PLAYER
 import nav.no.database.navhootDao.QueriesPlayer.SELECT_PLAYER
 import nav.no.database.navhootDao.QueriesPlayer.SELECT_PLAYERS
 import nav.no.database.singleOrNull
@@ -51,6 +52,16 @@ class PlayerDao(
             }.executeQuery().singleOrNull { getInt(1) }!!
         }
     }
+
+    fun insertPlayer(player: Player, gameId: Long): Long {
+        dataSource.connection.use {
+            return it.prepareStatement(INSERT_PLAYER).apply {
+                setString(1, player.name)
+                setLong(2, 0)
+                setLong(3, gameId)
+            }.executeQuery().singleOrNull { getLong("id") }!!
+        }
+    }
 }
 
 
@@ -72,12 +83,13 @@ private object QueriesPlayer {
         UPDATE table_name 
         SET score = score + 1
         WHERE id = ?
-        returns score;
+        RETURNING score;
     """.trimIndent()
 
     val INSERT_PLAYER = """
         INSERT INTO player(name, score, game_id)
-        VALUES (?, ?, ?);
+        VALUES (?, ?, ?)
+        RETURNING id, name
     """.trimIndent()
 
 
