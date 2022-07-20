@@ -6,6 +6,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import nav.no.models.CreateQuestion
+import nav.no.models.CreateQuestionAlternative
 import nav.no.models.CreateQuizRequest
 import nav.no.models.Question
 import nav.no.services.QuizService
@@ -43,9 +44,9 @@ fun Route.quizRoute(quizService: QuizService) {
                     }
                 }
                 post {
-                    val source = call.receive<CreateQuestion>()
+                    val source = call.receive<CreateQuestionAlternative>()
                     val id = quizService.createQuestion(source)
-                    call.respond(id)
+                    call.respond(HttpStatusCode(200, "added question successfully"))
                 }
             }
         }

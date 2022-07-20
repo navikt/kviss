@@ -37,7 +37,13 @@ class QuizService(
 
     fun createQuiz(createQuizRequest: CreateQuizRequest) = quizDao.createQuiz(createQuizRequest)
 
-    fun createQuestion(createQuestion: CreateQuestion) = questionDao.addQuestions(createQuestion)
+    fun createQuestion(createQuestion: CreateQuestionAlternative) {
+        val id = questionDao.addQuestion(createQuestion.toCreateQuestion())
+
+        createQuestion.alternatives.map {
+            alternativesDao.addAlternative(id, it)
+        }
+    }
 
     fun getQuiz(id: Long) = quizDao.getQuiz(id)
 
