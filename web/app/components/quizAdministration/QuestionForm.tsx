@@ -24,8 +24,7 @@ export default function QuestionForm({
         sortOrder: 1
     })
 
-    // TODO: Check if edit mode, then load question from list
-
+    // TODO: Check if edit  mode, then load question from list
     const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
         const questionCopy: IQuestion = question
         questionCopy.description = event.target.value
@@ -61,7 +60,8 @@ export default function QuestionForm({
     }
 
     const onQuestionAdd = () => {
-        setQuestions(questions.concat(question))
+        setQuestions([...questions, question])
+        // TODO: Wipe data of question
     }
 
     return (
@@ -71,7 +71,6 @@ export default function QuestionForm({
                     Description:
                     <input 
                         type="text" 
-                        value={question.description || ''}
                         onChange={handleDescriptionChange}
                     />
                 </label>
@@ -82,7 +81,6 @@ export default function QuestionForm({
                                 {`Alternative ${i + 1}:`}
                                 <input 
                                     type="text" 
-                                    value={question.alternative[i].text || ''}
                                     onChange={e => replaceAlternativeTextAtIndex(i, e.target.value)}
                                 />
                             </label>
@@ -90,7 +88,6 @@ export default function QuestionForm({
                                 Correct:?
                                 <input 
                                     type="checkbox" 
-                                    checked={question.alternative[i].isCorrect || false}
                                     onChange={e => replaceAlternativeIsCorrectAtIndex(i, e.target.checked)}
                                 />
                             </label>
