@@ -40,7 +40,7 @@ class QuestionDao(
                 .executeQuery().toList {
                     Question(
                         getLong("id"),
-                        getString("description"),
+                        getString("description") ?: "",
                         getLong("quiz_id"),
                         getInt("sort_order")
                     )

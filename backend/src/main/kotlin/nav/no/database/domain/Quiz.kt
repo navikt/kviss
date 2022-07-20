@@ -15,6 +15,9 @@ data class Quiz(
     val isDraft: Boolean
 )
 
+fun Quiz.toModel(questions: List<nav.no.models.Question>) =
+    nav.no.models.Quiz(name, id, description, questions, isDraft)
+
 fun Quiz.toConsumerModel(questions: List<nav.no.models.ConsumerQuestion>) =
     nav.no.models.ConsumerQuiz(name, id, description, questions)
 
