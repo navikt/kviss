@@ -29,7 +29,6 @@ export default function LobbyView() {
         const ws = new WebSocket(`ws://localhost:8080/game/${pinCode}`);
         ws.onopen = (event) => {
             console.log("Hello world")
-            //ws.send(JSON.stringify(apiCall));
         };
         ws.onmessage = function (event) {
             console.log(event.data)

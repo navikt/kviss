@@ -68,7 +68,7 @@ export default function QuizIndexRoute() {
                     </div>
                 )}
             <button
-                onClick={e => navigate(`../quiz`)}>
+                onClick={e => navigate(`../game`)}>
                 Start Quiz
             </button>
         </div>
