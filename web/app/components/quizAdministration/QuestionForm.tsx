@@ -6,33 +6,36 @@ interface IProps {
     setQuestions: (question: IQuestion[]) => void
 }
 
+const emptyQuestion = {
+    quizId: 1,
+    id: 1,
+    description: '',
+    alternative: [
+        { id: 1, text: '', isCorrect: false },
+        { id: 2, text: '', isCorrect: false },
+        { id: 3, text: '', isCorrect: false },
+        { id: 4, text: '', isCorrect: false }
+    ],
+    sortOrder: 1
+}
+
 export default function QuestionForm({
     questions,
     setQuestions
 }: IProps) {
     
-    const [question, setQuestion] = useState<IQuestion>({
-        quizId: 1,
-        id: 1,
-        description: '',
-        alternative: [
-            { id: 1, text: '', isCorrect: false },
-            { id: 2, text: '', isCorrect: false },
-            { id: 3, text: '', isCorrect: false },
-            { id: 4, text: '', isCorrect: false }
-        ],
-        sortOrder: 1
-    })
+    const [question, setQuestion] = useState<IQuestion>(emptyQuestion)
 
     // TODO: Check if edit  mode, then load question from list
     const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const questionCopy: IQuestion = question
-        questionCopy.description = event.target.value
-        setQuestion(questionCopy)
+        setQuestion({
+            ...question, 
+            description: event.target.value
+        })
     }
 
     const replaceAlternativeTextAtIndex = (index: number, newAlternativeText: string) => {
-        const alternatives: IAlternative[] = question.alternative
+        const alternatives: IAlternative[] = [...question.alternative]
         
         alternatives[index] = { 
             id: alternatives[index].id,
@@ -40,13 +43,14 @@ export default function QuestionForm({
             isCorrect: alternatives[index].isCorrect
         }
 
-        const questionCopy = question
-        questionCopy.alternative = alternatives
-        setQuestion(questionCopy)
+        setQuestion({
+            ...question, 
+            alternative: alternatives
+        })
     }
 
     const replaceAlternativeIsCorrectAtIndex = (index: number, newAlternativeIsCorrect: boolean) => {
-        const alternatives: IAlternative[] = question.alternative
+        const alternatives: IAlternative[] = [...question.alternative]
         
         alternatives[index] = { 
             id: alternatives[index].id,
@@ -54,14 +58,16 @@ export default function QuestionForm({
             isCorrect: newAlternativeIsCorrect
         }
 
-        const questionCopy = question
-        questionCopy.alternative = alternatives
-        setQuestion(questionCopy)
+        setQuestion({
+            ...question, 
+            alternative: alternatives
+        })
     }
 
     const onQuestionAdd = () => {
         setQuestions([...questions, question])
         // TODO: Wipe data of question
+        setQuestion(emptyQuestion)
     }
 
     return (
@@ -71,6 +77,7 @@ export default function QuestionForm({
                     Description:
                     <input 
                         type="text" 
+                        value={question.description || ''}
                         onChange={handleDescriptionChange}
                     />
                 </label>
@@ -80,14 +87,16 @@ export default function QuestionForm({
                             <label>
                                 {`Alternative ${i + 1}:`}
                                 <input 
-                                    type="text" 
+                                    type="text"
+                                    value={question.alternative[i].text || ''}
                                     onChange={e => replaceAlternativeTextAtIndex(i, e.target.value)}
                                 />
                             </label>
                             <label className='ml-2'>
                                 Correct:?
                                 <input 
-                                    type="checkbox" 
+                                    type="checkbox"
+                                    checked={question.alternative[i].isCorrect || false}
                                     onChange={e => replaceAlternativeIsCorrectAtIndex(i, e.target.checked)}
                                 />
                             </label>
