@@ -76,7 +76,7 @@ private object QueriesPlayer {
     """.trimIndent()
 
     val INSERT_PLAYER = """
-        INSERT INTO player(name, score, pin)
+        INSERT INTO player(name, score, game_id)
         VALUES (?, ?, ?);
     """.trimIndent()
 

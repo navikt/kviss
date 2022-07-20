@@ -89,7 +89,7 @@ private object QueriesGame {
     """.trimIndent()
 
     val INSERT_GAME = """
-       INSERT INTO GAME(quiz_id, is_active, pin)
+       INSERT INTO game(quiz_id, is_active, pin)
        VALUES (?, ?, ?)
        returning pin;
     """.trimIndent()

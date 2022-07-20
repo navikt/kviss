@@ -8,6 +8,7 @@ import io.ktor.websocket.*
 import kotlinx.serialization.json.Json
 import nav.no.models.ConsumerQuiz
 import nav.no.models.CreateQuizRequest
+import nav.no.models.Player
 import nav.no.models.SocketConnection
 import nav.no.services.GameService
 import nav.no.services.QuizService
@@ -25,7 +26,9 @@ fun Application.configureSockets(quizService: QuizService, gameService: GameServ
 
     }
 
+
     routing {
+
         val connections = Collections.synchronizedSet<SocketConnection?>(LinkedHashSet())
         webSocket("/game/{pin}") {
             println("Adding player!")
@@ -33,8 +36,11 @@ fun Application.configureSockets(quizService: QuizService, gameService: GameServ
             val conPin: Int = call.parameters["pin"]!!.toInt()
             val quiz: ConsumerQuiz = gameService.getQuizByPin(call.parameters["pin"]!!.toInt())
             fun isHost (): Boolean = connections.filter {it.pin == conPin}.isEmpty()
+            fun host (): SocketConnection = connections.first()
             val thisConnection = SocketConnection(this, call.parameters["pin"]!!.toInt(), isHost())
             connections += thisConnection
+//            if (!thisConnection.isHost) host().session.send(thisConnection.name + " have been added")
+            if (!thisConnection.isHost) host().session.send(thisConnection.session.incoming.receive())
 
             try {
                 send("You are connected to game ${call.parameters["pin"]!!.toInt()}")
@@ -44,7 +50,7 @@ fun Application.configureSockets(quizService: QuizService, gameService: GameServ
                     frame as? Frame.Text ?: continue
                     val receivedText = frame.readText()
                     val textWithUsername = "[${thisConnection.name}]: $receivedText"
-                    connections.filter { thisConnection.pin == it.pin }.forEach {
+                    connections.filter { it.isHost }.forEach {
                         it.session.send(textWithUsername)
                     }
                 }
