@@ -4,6 +4,10 @@ import nav.no.database.navhootDao.QueriesAlternatives.SELECT_ALTERNATIVE
 import nav.no.database.navhootDao.QueriesAlternatives.SELECT_ALTERNATIVES
 import nav.no.database.toList
 import nav.no.database.domain.Alternative
+import nav.no.database.navhootDao.QueriesAlternatives.INSERT_ALTERNATIVE
+import nav.no.database.singleOrNull
+import nav.no.models.CreateAlternative
+import nav.no.models.CreateQuestion
 import javax.sql.DataSource
 
 class AlternativesDao(
@@ -42,6 +46,13 @@ class AlternativesDao(
                 throw Exception("The alternative does not exist")
             }
         }
+    }
+    fun addAlternative(questionId: Long, alternative: CreateAlternative): Long = dataSource.connection.use {
+        return it.prepareStatement(INSERT_ALTERNATIVE).apply {
+            setLong(1, alternative.questionId)
+            setString(2, alternative.text)
+            setBoolean(3, alternative.isCorrect)
+        }.executeQuery().singleOrNull { getLong("id") }!!
     }
 }
 

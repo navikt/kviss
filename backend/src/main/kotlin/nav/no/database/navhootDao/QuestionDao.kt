@@ -50,7 +50,7 @@ class QuestionDao(
         }
     }
 
-    fun addQuestions(question: CreateQuestion): Long = dataSource.connection.use {
+    fun addQuestion(question: CreateQuestion): Long = dataSource.connection.use {
             return it.prepareStatement(INSERT_QUESTION).apply {
                 setString(1, question.description)
                 setLong(2, question.quizId)
