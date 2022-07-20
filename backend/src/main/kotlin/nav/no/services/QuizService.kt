@@ -37,6 +37,8 @@ class QuizService(
 
     fun createQuiz(createQuizRequest: CreateQuizRequest) = quizDao.createQuiz(createQuizRequest)
 
+    fun createQuestion(createQuestion: CreateQuestion) = questionDao.addQuestions(createQuestion)
+
     fun getQuiz(id: Long) = quizDao.getQuiz(id)
 
     fun getConsumerQuiz(id: Long): ConsumerQuiz {

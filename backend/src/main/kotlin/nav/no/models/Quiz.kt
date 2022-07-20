@@ -61,6 +61,14 @@ data class Question(
     val quizId: Long,
     val sortOrder: Int
 )
+
+@Serializable
+data class CreateQuestion(
+    val description: String,
+    val quizId: Long,
+    val sortOrder: Int,
+)
+
 @Serializable
 data class Alternative(
     val id: Long,

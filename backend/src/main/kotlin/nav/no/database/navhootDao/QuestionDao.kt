@@ -5,6 +5,8 @@ import nav.no.database.navhootDao.QueriesQuestions.SELECT_QUESTION
 import nav.no.database.navhootDao.QueriesQuestions.SELECT_QUESTIONS
 import nav.no.database.toList
 import nav.no.database.domain.Question
+import nav.no.database.singleOrNull
+import nav.no.models.CreateQuestion
 import javax.sql.DataSource
 
 class QuestionDao(
@@ -48,18 +50,13 @@ class QuestionDao(
         }
     }
 
-    fun addQuestions(questions: List<Question>) {
-        //TODO: 🤔
-        for (question in questions) {
-            dataSource.connection.use {
-                it.prepareStatement(INSERT_QUESTION).apply {
-                    setString(1, question.description)
-                    setLong(2, question.quizId)
-                    setInt(3, question.sortOrder)
-                }.executeQuery()
-            }
+    fun addQuestions(question: CreateQuestion): Long = dataSource.connection.use {
+            return it.prepareStatement(INSERT_QUESTION).apply {
+                setString(1, question.description)
+                setLong(2, question.quizId)
+                setInt(3, question.sortOrder)
+            }.executeQuery().singleOrNull { getLong("id") }!!
         }
-    }
 
 }
 

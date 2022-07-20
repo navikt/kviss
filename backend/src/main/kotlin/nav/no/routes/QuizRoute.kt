@@ -5,6 +5,7 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import nav.no.models.CreateQuestion
 import nav.no.models.CreateQuizRequest
 import nav.no.models.Question
 import nav.no.services.QuizService
@@ -28,15 +29,23 @@ fun Route.quizRoute(quizService: QuizService) {
                     val quiz: DBQuiz = quizService.getQuiz(call.parameters["id"]!!.toLong())
                     call.respond(quiz)
                 } catch (e: Exception) {
-                    call.respond(HttpStatusCode(404, "Quiz not found"))                }
+                    call.respond(HttpStatusCode(404, "Quiz not found"))
+                }
             }
-            get("questions") {
-                try {
-                    val questions: List<Question> = quizService
-                        .getQuestions(call.parameters["id"]!!.toLong())
-                    call.respond(questions)
-                } catch (e: Exception) {
-                    call.respond(HttpStatusCode(404, "error getting questions"))
+            route("questions") {
+                get {
+                    try {
+                        val questions: List<Question> = quizService
+                            .getQuestions(call.parameters["id"]!!.toLong())
+                        call.respond(questions)
+                    } catch (e: Exception) {
+                        call.respond(HttpStatusCode(404, "error getting questions"))
+                    }
+                }
+                post {
+                    val source = call.receive<CreateQuestion>()
+                    val id = quizService.createQuestion(source)
+                    call.respond(id)
                 }
             }
         }
