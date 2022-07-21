@@ -7,7 +7,7 @@ data class Game(
     val id: Long,
     val quizId: Long,
     val isActive: Boolean,
-    val gamePin: Long
+    val gamePin: Int
 )
 @Serializable
 data class CreateQuizRequest (
@@ -61,6 +61,32 @@ data class Question(
     val quizId: Long,
     val sortOrder: Int
 )
+
+@Serializable
+data class CreateQuestion(
+    val description: String,
+    val quizId: Long,
+    val sortOrder: Int,
+)
+
+fun CreateQuestionAlternative.toCreateQuestion() =
+    CreateQuestion(description, quizId, sortOrder)
+
+@Serializable
+data class CreateQuestionAlternative(
+    val description: String,
+    val quizId: Long,
+    val sortOrder: Int,
+    val alternatives: List<CreateAlternative>
+)
+
+@Serializable
+data class CreateAlternative(
+    val text: String,
+    val isCorrect: Boolean,
+    val questionId: Long,
+)
+
 @Serializable
 data class Alternative(
     val id: Long,
@@ -77,6 +103,12 @@ data class Player(
 )
 
 @Serializable
+data class ConsumerPlayer(
+    val name: String,
+)
+
+@Serializable
 data class ScoreBoard(
     val scores: List<Player>,
 )
+

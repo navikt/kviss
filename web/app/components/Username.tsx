@@ -1,10 +1,22 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useQuiz } from "~/context/QuizContext"
 import { ButtonProps } from "../routes/join/index"
 
 
 export default function PinCode({ handleClick }: ButtonProps) {
 
     const [username, setUsername] = useState<string>("")
+    const { pinCode } = useQuiz()
+
+    useEffect(() => {
+        const ws = new WebSocket(`ws://localhost:8080/game/${pinCode}`);
+        ws.onopen = (event) => {
+            console.log("Hello world")
+        };
+        ws.onmessage = function (event) {
+            console.log(event.data)
+        };
+    }, [])
 
     return (
         <div className="text-center ">

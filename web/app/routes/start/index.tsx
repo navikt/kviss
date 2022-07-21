@@ -1,21 +1,25 @@
 import { json, LoaderFunction } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
-import { IQuiz } from '~/context/QuizContext'
+
+import { useLoaderData, useNavigate } from '@remix-run/react'
+import { IQuiz, useQuiz } from '~/context/QuizContext'
 
 
 export const loader: LoaderFunction = async () => {
-    const res = await fetch('https://navhoot-backend.dev.nav.no/quiz')
+    const res = await fetch('http://0.0.0.0:8080/quiz/')
     return json(await res.json())
 }
 
 export default function StartQuizIndexRoute() {
 
-
     const quizes: IQuiz[] = useLoaderData()
+    const navigate = useNavigate()
+    const { setPinCode } = useQuiz()
 
-    const startQuiz = (quizId: number) => {
-        console.log(quizId)
-        // To do: Start quiz post request
+
+    const startQuiz = async (quizId: number | undefined) => {
+        const res = await fetch(`http://0.0.0.0:8080/game/${quizId}/gamestart`)
+        setPinCode(await res.json())
+        navigate('../lobby')
     }
 
     return (
