@@ -45,7 +45,7 @@ class QuizService(
         }
     }
 
-    fun getQuiz(id: Long) = quizDao.getQuiz(id)
+    fun getQuiz(id: Long) = quizDao.getQuiz(id).toModel(getQuestions(id))
 
     fun getConsumerQuiz(id: Long): ConsumerQuiz {
         return quizDao.getQuiz(id).toConsumerModel(getConsumerQuestions(id))

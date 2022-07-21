@@ -7,7 +7,7 @@ data class Game(
     val id: Long,
     val quizId: Long,
     val isActive: Boolean,
-    val gamePin: Long
+    val gamePin: Int
 )
 @Serializable
 data class CreateQuizRequest (
