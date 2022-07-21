@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react'
 import QuestionForm from '~/components/quizAdministration/QuestionForm'
-import QuestionPreview from '~/components/quizAdministration/QuestionPreview'
+import QuestionsPreview from '~/components/quizAdministration/QuestionsPreview'
 import QuizInformationForm from '~/components/quizAdministration/QuizInformationForm'
 import { IAlternative, IQuestion, IQuiz } from '~/context/QuizContext'
 
@@ -35,7 +35,7 @@ export default function CreateQuiz() {
             <h2 className='text-2xl mb-2'>Quiz info</h2>
             <QuizInformationForm quizInfo={quizInfo} setQuizInfo={setQuizInfo} />
             <h2 className='text-2xl my-2'>Questions</h2>
-            <QuestionPreview questions={questions}/>
+            <QuestionsPreview questions={questions}/>
             <QuestionForm 
                 questions={questions}
                 setQuestions={setQuestions}
