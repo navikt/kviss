@@ -7,7 +7,7 @@ export default function PinCode({ handleClick }: ButtonProps) {
     const joinDetails: IGameProps = {} as IGameProps
 
     return (
-        <div className="text-center ">
+        <div className="text-center flex flex-col">
             <form>
                 <div>
                     <label>
@@ -21,7 +21,6 @@ export default function PinCode({ handleClick }: ButtonProps) {
                         onChange={(e) => joinDetails.username = e.target.value}
                     />
                 </div>
-                <br />
                 <label>
                     Pin code:
                 </label>
@@ -32,7 +31,6 @@ export default function PinCode({ handleClick }: ButtonProps) {
                         onChange={(e) => joinDetails.pincode = parseInt(e.target.value)}
                     />
                 </div>
-                <br />
                 <div>
                     <button type="submit"
                         onClick={event => handleClick(event, joinDetails)}>
