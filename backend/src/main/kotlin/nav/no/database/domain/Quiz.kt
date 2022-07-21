@@ -1,13 +1,14 @@
 package nav.no.database.domain
 
-import kotlinx.serialization.Serializable
+typealias GameId = Long
+typealias GamePin = Int
 
 data class Game(
-    val id: Long,
+    val id: GameId,
     val quizId: Long,
     val isActive: Boolean,
-    val gamePin: Int,
-    val hostId: Long,
+    val gamePin: GamePin
+
 )
 data class Quiz(
     val name: String,
@@ -22,13 +23,6 @@ fun Quiz.toModel(questions: List<nav.no.models.Question>) =
 fun Quiz.toConsumerModel(questions: List<nav.no.models.ConsumerQuestion>) =
     nav.no.models.ConsumerQuiz(name, id, description, questions)
 
-data class DatabaseQuiz(
-    val name: String,
-    val id: Long,
-    val description: String?,
-    val questions: List<Question>,
-    val isDraft: Boolean
-)
 data class Question(
     val id: Long,
     val description: String,

@@ -13,7 +13,7 @@ class GameDao(
 ) {
 
     fun getGame(id: Long): Game {
-        return dataSource.connection.use {
+         dataSource.connection.use {
             val rs = it.prepareStatement(SELECT_GAME).apply {
                     setLong(1, id)
                 }.executeQuery()
@@ -22,9 +22,7 @@ class GameDao(
                     rs.getLong("id"),
                     rs.getLong("quiz_id"),
                     rs.getBoolean("is_active"),
-                    rs.getInt("pin"),
-                    // TODO Fix this
-                    123
+                    rs.getInt("pin")
                 )
             } else {
                 throw Exception("The Game does not exist")
@@ -32,21 +30,19 @@ class GameDao(
         }
     }
 
-    fun getGameByPin(pin: Int): Game {
-        return dataSource.connection.use {
-            val rs = it.prepareStatement(SELECT_GAME_BY_PIN).apply {
+    fun getGameByPin(pin: Int): Game? {
+         dataSource.connection.use {
+            return it.prepareStatement(SELECT_GAME_BY_PIN).apply {
                 setInt(1, pin)
             }.executeQuery()
-            return if (rs.next()) {
-                Game(
-                    rs.getLong("id"),
-                    rs.getLong("quiz_id"),
-                    rs.getBoolean("is_active"),
-                    rs.getLong("pin"),
-                )
-            } else {
-                throw Exception("The Game does not exist")
-            }
+                .singleOrNull {
+                    Game(
+                        getLong("id"),
+                        getLong("quiz_id"),
+                        getBoolean("is_active"),
+                        getInt("pin"),
+                    )
+                }
         }
     }
 
