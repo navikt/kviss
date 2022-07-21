@@ -103,6 +103,12 @@ data class Player(
 )
 
 @Serializable
+data class ConsumerPlayer(
+    val name: String,
+)
+
+@Serializable
 data class ScoreBoard(
     val scores: List<Player>,
 )
+
