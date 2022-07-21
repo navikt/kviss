@@ -11,7 +11,7 @@ import {
 } from '@remix-run/react'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import QuizProvider from './context/QuizContext'
+import GameProvider from './context/GameContext'
 
 export function links() {
     return [{ rel: 'stylesheet', href: styles }]
@@ -31,7 +31,7 @@ export default function App() {
                 <Links />
             </head>
             <body className="bg-orange-100">
-                <QuizProvider>
+                <GameProvider>
                     {/** TODO: Add the implementation of header and footer */}
                     <Header />
                     <Outlet />
@@ -39,7 +39,7 @@ export default function App() {
                     <ScrollRestoration />
                     <Scripts />
                     <LiveReload />
-                </QuizProvider>
+                </GameProvider>
             </body>
         </html>
     )

@@ -77,8 +77,6 @@ const QuizContext = React.createContext({
     setQuestion: (_: any) => { },
     pinCode: pin,
     setPinCode: (_: any) => { },
-
-
 })
 
 
