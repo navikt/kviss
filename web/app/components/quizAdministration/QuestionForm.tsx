@@ -101,7 +101,7 @@ export default function QuestionForm({
                                     name='alternative'
                                     value={`alt-${i}`}
                                     checked={item.isCorrect}
-                                    onClick={() => handleCorrectAnswerChange(i)}
+                                    onChange={() => handleCorrectAnswerChange(i)}
                                 />
                             </label>
                         </div>
