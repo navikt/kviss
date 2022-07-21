@@ -10,7 +10,7 @@ import nav.no.services.QuizService
 import java.util.UUID
 
 fun Routing.gameSocket(connections: MutableSet<SocketConnection>, quizService: QuizService) {
-    webSocket("/chat/{id}") {
+    webSocket("/game/{id}") {
         println("Adding player!")
         val thisConnection = SocketConnection(this, call.parameters["id"]!!.toInt())
         val param = call.parameters["id"]!!.toInt()
