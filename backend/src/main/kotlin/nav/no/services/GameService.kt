@@ -37,6 +37,9 @@ class GameService(
         return TODO()
     }
 
+    fun gameExist(pin: Int): Boolean = gamedao.getGameByPin(pin)?.isActive ?: false
+
+
     fun isCorrect(alternativeId: Long): Boolean {
         return alternativesDao.getAlternative(alternativeId).isCorrect
     }
@@ -46,10 +49,10 @@ class GameService(
     }
 
     fun checkAnswer(alternativeId: Long, playerId: Long): Int {
-        if (isCorrect(alternativeId)) {
-            return increasePoint(playerId)
+        return if (isCorrect(alternativeId)) {
+            increasePoint(playerId)
         } else {
-            return getPlayer(playerId).score
+            getPlayer(playerId).score
         }
     }
 
@@ -59,7 +62,7 @@ class GameService(
 
     fun getGame(id: Long): Game = gamedao.getGame(id).toModel()
 
-    fun getGameByPin(pin: Int): Game = gamedao.getGameByPin(pin).toModel()
+    fun getGameByPin(pin: Int): Game = gamedao.getGameByPin(pin)!!.toModel()
 
     fun getGamePin(id: Long): Int = gamedao.insertGame(id, createGamePin())
 
