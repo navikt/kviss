@@ -1,4 +1,5 @@
 import { json, LoaderFunction } from '@remix-run/node'
+
 import { useLoaderData, useNavigate } from '@remix-run/react'
 import PinCode from '~/components/JoinGame'
 import { IGameProps, useGameContext } from '~/context/GameContext'
@@ -10,10 +11,7 @@ export const loader: LoaderFunction = async () => {
     return json(await res.json())
 }
 
-
-
 export default function StartQuizIndexRoute() {
-
 
     const quizes: IQuiz[] = useLoaderData()
     const navigate = useNavigate()

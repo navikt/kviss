@@ -29,3 +29,4 @@ fun Application.configureSockets(quizService: QuizService, gameService: GameServ
         gameSocket(connections, quizService)
     }
 }
+
