@@ -1,14 +1,14 @@
 
+import { json } from '@remix-run/node'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import PinCode from '~/components/PinCode'
-import Username from '~/components/Username'
-import { IQuiz, useQuiz } from '~/context/QuizContext'
+import JoinGame from '~/components/JoinGame'
+import { IJoinProps, useJoin } from '~/context/JoinContext';
 
 
 
 export type ButtonProps = {
-    handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, pinCode: string) => void;
+    handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, joinDetails: IJoinProps) => void;
 };
 
 
@@ -16,60 +16,38 @@ export type ButtonProps = {
 export default function QuizIndexRoute() {
 
 
-    const [pinCode, setPinCode] = useState<string>('')
-    const [nickname, setNickName] = useState<string>('')
-
     const navigate = useNavigate()
-    const { questions, setQuestions, setQuestion } = useQuiz()
+    const { setJoinProps } = useJoin()
 
-    const getQuiz = async (pinCode: string) => {
-        // axios
-        //     .get<IQuiz[]>(`https://navhoot-backend.dev.nav.no/quiz/${pinCode}/questions`, {
-        //         headers: {
-        //             "Content-Type": "text/html"
-        //         },
-        //     }).then(response => {
-        //         setQuestions(response.data);
-        //     }).catch(ex => {
-        //         const error =
-        //             ex.response.status === 404
-        //                 ? "Resource Not found"
-        //                 : "An unexpected error has occurred";
-        //     });
-    }
 
-    const handleClickPin = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, pc: string) => {
+    const handleClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, joinDetails: IJoinProps) => {
         event.preventDefault()
-        getQuiz(pc);
-        setPinCode(pc)
-    }
 
-    const handleClickNick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, username: string) => {
-        event.preventDefault()
-        setNickName(username)
-        setQuestions(questions)
-        setQuestion(questions[0])
+        const response = await fetch(`https://navhoot-backend.dev.nav.no/game/${joinDetails.pincode}/`, {
+            body: JSON.stringify(joinDetails),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST'
+        }).then((res: Response) => {
+            return res.json()
+        }).catch(ex => {
+            alert("Invalid pincode")
+            return "bad response"
+        });
 
+        //Check if response is good
+        console.log(response)
+        if (response == "bad response") return
+
+        setJoinProps(joinDetails)
+
+        navigate("../game")
     }
 
     return (
         <div className="flex flex-col h-screen justify-center items-center">
-
-            {pinCode === '' ?
-                <PinCode handleClick={handleClickPin} /> :
-                (nickname === '' ?
-                    <Username handleClick={handleClickNick} />
-                    :
-                    <div className="text-center ">
-                        See your name on the screen?
-                        <br />
-                        {nickname}
-                    </div>
-                )}
-            <button
-                onClick={e => navigate(`../game`)}>
-                Start Quiz
-            </button>
+            <JoinGame handleClick={handleClick} />
         </div>
     )
 }
