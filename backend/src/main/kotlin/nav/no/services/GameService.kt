@@ -1,11 +1,13 @@
 package nav.no.services
 
+import nav.no.database.domain.GamePin
 import nav.no.database.domain.toModel
 import nav.no.database.navhootDao.GameDao
 import nav.no.database.navhootDao.PlayerDao
 import nav.no.models.Game
 import nav.no.models.Quiz
 import nav.no.database.navhootDao.AlternativesDao
+import nav.no.models.Player
 
 class GameService(
     private val alternativesDao: AlternativesDao,
@@ -48,7 +50,7 @@ class GameService(
         return playerDao.updateScore(playerId)
     }
 
-    fun checkAnswer(alternativeId: Long, playerId: Long): Int {
+    fun checkAnswer(alternativeId: Long, playerId: Long): Int? {
         return if (isCorrect(alternativeId)) {
             increasePoint(playerId)
         } else {
@@ -56,7 +58,7 @@ class GameService(
         }
     }
 
-    fun getPoints(playerId: Long): Int{
+    fun getPoints(playerId: Long): Int? {
         return playerDao.getPlayer(playerId).score
     }
 
@@ -64,15 +66,26 @@ class GameService(
 
     fun getGameByPin(pin: Int): Game = gamedao.getGameByPin(pin)!!.toModel()
 
-    fun getGamePin(id: Long): Int = gamedao.insertGame(id, createGamePin())
 
-    fun getPlayers(gameId: Long) = playerDao.getPlayers(gameId)
+    fun getPlayers(gamePin: Int) = playerDao.getPlayers(gamePin)
 
     fun getPlayer(playerId: Long) = playerDao.getPlayer(playerId)
 
-    fun insertPlayer(playerId: Long) = playerDao.getPlayer(playerId)
+    fun createPlayer(playerName: String, gamePin: GamePin): Player {
+        val game = gamedao.getGameByPin(gamePin)
+        if (game?.isActive == true) {
+            val playerId = playerDao.insertPlayer(playerName, game.id)
+            return Player(playerId, playerName)
+        } else throw Exception("Cannot add player to non-existing game")
+    }
 
     fun getQuizByPin(pin: Int) = quizService.getConsumerQuiz(getGameByPin(pin).quizId)
+
+    fun createGame(quizId: Long) : Game {
+        val pin = generatePin()
+        val id = gamedao.insertGame(quizId, pin)
+        return Game(id, quizId, true, pin)
+    }
 
 }
 

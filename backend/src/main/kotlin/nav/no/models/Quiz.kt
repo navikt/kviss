@@ -9,8 +9,9 @@ data class Game(
     val isActive: Boolean,
     val gamePin: Int
 )
+
 @Serializable
-data class CreateQuizRequest (
+data class CreateQuizRequest(
     val name: String,
     val description: String?,
 )
@@ -53,6 +54,7 @@ data class UpdateQuizRequest(
     val description: String?,
     val isDraft: Boolean,
 )
+
 @Serializable
 data class Question(
     val id: Long,
@@ -99,7 +101,7 @@ data class Alternative(
 data class Player(
     val id: Long,
     val name: String,
-    val score: Int,
+    val score: Int? = null,
 )
 
 @Serializable

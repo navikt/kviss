@@ -46,13 +46,13 @@ class GameDao(
         }
     }
 
-    fun insertGame(quizId: Long, pin: Int): Int {
+    fun insertGame(quizId: Long, pin: Int): Long {
         dataSource.connection.use {
             return it.prepareStatement(INSERT_GAME).apply {
                 setLong(1, quizId)
                 setBoolean(2, true)
                 setInt(3, pin)
-            }.executeQuery().singleOrNull { getInt("pin") }!!
+            }.executeQuery().singleOrNull { getLong("id") }!!
         }
     }
 
@@ -89,6 +89,6 @@ private object QueriesGame {
     val INSERT_GAME = """
        INSERT INTO game(quiz_id, is_active, pin)
        VALUES (?, ?, ?)
-       returning pin;
+       returning id;
     """.trimIndent()
 }

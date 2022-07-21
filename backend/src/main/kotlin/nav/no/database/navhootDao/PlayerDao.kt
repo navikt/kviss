@@ -1,5 +1,6 @@
 package nav.no.database.navhootDao
 
+import nav.no.database.domain.GamePin
 import nav.no.database.navhootDao.QueriesPlayer.INSERT_PLAYER
 import nav.no.database.navhootDao.QueriesPlayer.SELECT_PLAYER
 import nav.no.database.navhootDao.QueriesPlayer.SELECT_PLAYERS
@@ -26,10 +27,10 @@ class PlayerDao(
             }
         }
     }
-    fun getPlayers(gameId: Long): List<Player> {
+    fun getPlayers(gameId: Int): List<Player> {
         dataSource.connection.use {
             val rs = it.prepareStatement(SELECT_PLAYERS).apply {
-                setLong(1, gameId)
+                setInt(1, gameId)
             }.executeQuery()
             return generateSequence {
                 if (rs.next()) {
@@ -53,12 +54,11 @@ class PlayerDao(
         }
     }
 
-    fun insertPlayer(player: Player, gameId: Long): Long {
+    fun insertPlayer(playerName: String, gameId: Long): Long {
         dataSource.connection.use {
             return it.prepareStatement(INSERT_PLAYER).apply {
-                setString(1, player.name)
-                setLong(2, 0)
-                setLong(3, gameId)
+                setString(1, playerName)
+                setLong(2, gameId)
             }.executeQuery().singleOrNull { getLong("id") }!!
         }
     }
@@ -87,9 +87,9 @@ private object QueriesPlayer {
     """.trimIndent()
 
     val INSERT_PLAYER = """
-        INSERT INTO player(name, score, game_id)
-        VALUES (?, ?, ?)
-        RETURNING id, name
+        INSERT INTO player(name, game_id)
+        VALUES (?, ?)
+        RETURNING id;
     """.trimIndent()
 
 
