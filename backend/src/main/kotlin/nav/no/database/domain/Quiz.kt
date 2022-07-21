@@ -60,3 +60,6 @@ data class Player(
 data class ScoreBoard(
     val scores: List<Player>,
 )
+
+fun Game.toModel() =
+    nav.no.models.Game(id, quizId, isActive, gamePin)

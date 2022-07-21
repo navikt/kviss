@@ -7,6 +7,7 @@ import nav.no.database.navhootDao.QuizDao.Queries.DELETE_QUIZ
 import nav.no.database.navhootDao.QuizDao.Queries.UPDATE_QUIZ
 import nav.no.database.toList
 import nav.no.database.domain.Quiz
+import nav.no.database.domain.toModel
 import nav.no.database.singleOrNull
 import nav.no.models.CreateQuizRequest
 import java.sql.ResultSet
@@ -19,7 +20,7 @@ class QuizDao(
         dataSource.connection.use {
             return it.prepareStatement(SELECT_ALL_QUIZ).executeQuery().toList {
                 Quiz(
-                    getString("name"), getLong("id"), getString("description"), getBoolean("is_draft")
+                    getString("name"), getLong("id"), getString("description") ?: "", getBoolean("is_draft")
                 )
             }
         }

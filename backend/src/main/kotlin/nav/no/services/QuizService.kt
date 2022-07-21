@@ -29,13 +29,13 @@ class QuizService(
                 }
             it.toConsumerModel(alternatives)
         }
-
     fun getQuizzes(): List<Quiz> = quizDao.getQuizzes().map {
         val questions = getQuestions(it.id)
         it.toModel(questions)
     }
 
     fun createQuiz(createQuizRequest: CreateQuizRequest) = quizDao.createQuiz(createQuizRequest)
+
 
     fun createQuestion(createQuestion: CreateQuestionAlternative) {
         val id = questionDao.addQuestion(createQuestion.toCreateQuestion())
