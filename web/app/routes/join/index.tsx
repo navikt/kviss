@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import PinCode from '~/components/PinCode'
 import Username from '~/components/Username'
 import { IQuiz, useQuiz } from '~/context/QuizContext'
-import axios from 'axios';
 
 
 
@@ -24,19 +23,19 @@ export default function QuizIndexRoute() {
     const { questions, setQuestions, setQuestion } = useQuiz()
 
     const getQuiz = async (pinCode: string) => {
-        axios
-            .get<IQuiz[]>(`https://navhoot-backend.dev.nav.no/quiz/${pinCode}/questions`, {
-                headers: {
-                    "Content-Type": "text/html"
-                },
-            }).then(response => {
-                setQuestions(response.data);
-            }).catch(ex => {
-                const error =
-                    ex.response.status === 404
-                        ? "Resource Not found"
-                        : "An unexpected error has occurred";
-            });
+        // axios
+        //     .get<IQuiz[]>(`https://navhoot-backend.dev.nav.no/quiz/${pinCode}/questions`, {
+        //         headers: {
+        //             "Content-Type": "text/html"
+        //         },
+        //     }).then(response => {
+        //         setQuestions(response.data);
+        //     }).catch(ex => {
+        //         const error =
+        //             ex.response.status === 404
+        //                 ? "Resource Not found"
+        //                 : "An unexpected error has occurred";
+        //     });
     }
 
     const handleClickPin = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, pc: string) => {
@@ -68,7 +67,7 @@ export default function QuizIndexRoute() {
                     </div>
                 )}
             <button
-                onClick={e => navigate(`../quiz`)}>
+                onClick={e => navigate(`../game`)}>
                 Start Quiz
             </button>
         </div>
