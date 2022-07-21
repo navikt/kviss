@@ -61,6 +61,32 @@ data class Question(
     val quizId: Long,
     val sortOrder: Int
 )
+
+@Serializable
+data class CreateQuestion(
+    val description: String,
+    val quizId: Long,
+    val sortOrder: Int,
+)
+
+fun CreateQuestionAlternative.toCreateQuestion() =
+    CreateQuestion(description, quizId, sortOrder)
+
+@Serializable
+data class CreateQuestionAlternative(
+    val description: String,
+    val quizId: Long,
+    val sortOrder: Int,
+    val alternatives: List<CreateAlternative>
+)
+
+@Serializable
+data class CreateAlternative(
+    val text: String,
+    val isCorrect: Boolean,
+    val questionId: Long,
+)
+
 @Serializable
 data class Alternative(
     val id: Long,

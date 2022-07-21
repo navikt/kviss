@@ -5,10 +5,7 @@ import nav.no.database.domain.toModel
 import nav.no.database.navhootDao.AlternativesDao
 import nav.no.database.navhootDao.QuestionDao
 import nav.no.database.navhootDao.QuizDao
-import nav.no.models.ConsumerQuestion
-import nav.no.models.ConsumerQuiz
-import nav.no.models.CreateQuizRequest
-import nav.no.models.Question
+import nav.no.models.*
 
 class QuizService(
     private val questionDao: QuestionDao,
@@ -32,14 +29,23 @@ class QuizService(
                 }
             it.toConsumerModel(alternatives)
         }
-
-    fun getQuizzes() = quizDao.getQuizzes().map {
-        it.toModel(getQuestions(it.id))
+    fun getQuizzes(): List<Quiz> = quizDao.getQuizzes().map {
+        val questions = getQuestions(it.id)
+        it.toModel(questions)
     }
 
     fun createQuiz(createQuizRequest: CreateQuizRequest) = quizDao.createQuiz(createQuizRequest)
 
-    fun getQuiz(id: Long) = quizDao.getQuiz(id).toModel(getQuestions(id))
+
+    fun createQuestion(createQuestion: CreateQuestionAlternative) {
+        val id = questionDao.addQuestion(createQuestion.toCreateQuestion())
+
+        createQuestion.alternatives.map {
+            alternativesDao.addAlternative(id, it)
+        }
+    }
+
+    fun getQuiz(id: Long) = quizDao.getQuiz(id)
 
     fun getConsumerQuiz(id: Long): ConsumerQuiz {
         return quizDao.getQuiz(id).toConsumerModel(getConsumerQuestions(id))
