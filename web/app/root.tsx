@@ -35,7 +35,7 @@ export default function App() {
                     {/** TODO: Add the implementation of header and footer */}
                     <Header />
                     <Outlet />
-                    {/* <Footer /> */}
+                    <Footer />
                     <ScrollRestoration />
                     <Scripts />
                     <LiveReload />

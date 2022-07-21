@@ -34,7 +34,7 @@ export default function CreateQuiz() {
      * TODO: Wrap in context for questions, currently a lot of prop drilling
      */
     return (
-        <div className='flex items-center h-screen flex-col'>
+        <div className='flex flex-col h-screen justify-center items-center'>
             <h2 className='text-2xl mb-2'>Quiz info</h2>
             <QuizInformationForm quizInfo={quizInfo} setQuizInfo={setQuizInfo} />
             <h2 className='text-2xl my-2'>Questions</h2>
