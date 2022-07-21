@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react"
-import { IJoinProps } from "~/context/JoinContext"
-import { useQuiz } from "~/context/QuizContext"
+import { IGameProps } from "~/context/GameContext"
 import { ButtonProps } from "../routes/join/index"
 
 
 export default function PinCode({ handleClick }: ButtonProps) {
 
-    const joinDetails: IJoinProps = {} as IJoinProps
-
+    const joinDetails: IGameProps = {} as IGameProps
 
     return (
         <div className="text-center ">
@@ -44,7 +41,5 @@ export default function PinCode({ handleClick }: ButtonProps) {
                 </div>
             </form>
         </div>
-
     )
-
 }

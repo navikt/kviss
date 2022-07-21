@@ -1,12 +1,13 @@
 import { json, LoaderFunction } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
+import { useGameContext } from "~/context/GameContext"
 import { useQuiz } from "~/context/QuizContext"
 
 
 export const loader: LoaderFunction = async () => {
 
-    const { quiz } = useQuiz()
-    const res = await fetch(`https://navhoot-backend.dev.nav.no/game/${quiz.id}/players`)
+    const { gameProps } = useGameContext()
+    const res = await fetch(`https://navhoot-backend.dev.nav.no/game/${gameProps.pincode}/players`)
 
     return json(await res.json())
 }

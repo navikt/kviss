@@ -18,13 +18,8 @@ export default function LobbyView() {
 
     const startGame = () => {
 
-        //const socket = io.connect(`ws://localhost:8080/game/${pinCode}`)
-        //console.log(socket.id)
-
-
-
-
     }
+
     useEffect(() => {
         const ws = new WebSocket(`ws://localhost:8080/game/${pinCode}`);
         ws.onopen = (event) => {

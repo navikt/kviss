@@ -1,26 +1,20 @@
 
-import { json } from '@remix-run/node'
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import JoinGame from '~/components/JoinGame'
-import { IJoinProps, useJoin } from '~/context/JoinContext';
-
+import { IGameProps, useGameContext } from '~/context/GameContext';
 
 
 export type ButtonProps = {
-    handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, joinDetails: IJoinProps) => void;
+    handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, joinDetails: IGameProps) => void;
 };
-
 
 
 export default function QuizIndexRoute() {
 
-
     const navigate = useNavigate()
-    const { setJoinProps } = useJoin()
+    const { setGameProps } = useGameContext()
 
-
-    const handleClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, joinDetails: IJoinProps) => {
+    const handleClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, joinDetails: IGameProps) => {
         event.preventDefault()
 
         const response = await fetch(`https://navhoot-backend.dev.nav.no/game/${joinDetails.pincode}/`, {
@@ -40,7 +34,7 @@ export default function QuizIndexRoute() {
         console.log(response)
         if (response == "bad response") return
 
-        setJoinProps(joinDetails)
+        setGameProps(joinDetails)
 
         navigate("../game")
     }

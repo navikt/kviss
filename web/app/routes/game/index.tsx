@@ -10,15 +10,6 @@ export default function QuizView() {
         ws?.send("Hello")
     }
 
-    useEffect(() => {
-        if (!ws) return;
-        // ws.onmessage = (event) => {
-        //     console.log(event)
-        // };
-
-
-    }, [ws])
-
     return (
         <div className="flex flex-col h-screen justify-center items-center">
             <button onClick={send}>
