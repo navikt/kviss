@@ -36,9 +36,9 @@ fun Route.gameRoute(gameService: GameService) {
                     call.respondText("Error generating game", status = HttpStatusCode(500, "Players not found"))
                 }
             }
-            get("game-exist") {
+            get("exist") {
                 try {
-                    val gameExist: Boolean = gameService.gameExist(call.parameters["id"]!!.toInt())
+                    val gameExist: Boolean = gameService.gameExist(call.parameters["pin"]!!.toInt())
                     call.respond(gameExist)
                 } catch (e: Exception) {
                     call.respondText("Error checking the the game", status = HttpStatusCode(500, "Game not found"))
