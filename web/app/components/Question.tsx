@@ -1,6 +1,6 @@
-import { IQuestion, ScoreboardProps, useQuiz } from "~/context/QuizContext"
-import AnswerButton from "./AnswerButton"
-import axios from 'axios';
+import { IQuestion, ScoreboardProps, useQuiz } from '~/context/QuizContext'
+import AnswerButton from './AnswerButton'
+import axios from 'axios'
 
 
 
@@ -61,7 +61,7 @@ export function Question(tb: ScoreboardProps): JSX.Element {
             <h1 className="text-2xl mb-4">{description}</h1>
             {alternative?.map((answer: any, i: number) => {
                 return <AnswerButton
-                    quizId={"1"}
+                    quizId={'1'}
                     key={i}
                     answerText={answer.text}
                     onButtonClick={() => onQuestionAnswered(i)}

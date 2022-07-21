@@ -49,17 +49,15 @@ export default function QuestionForm({
         })
     }
 
-    const replaceAlternativeIsCorrectAtIndex = (index: number, newAlternativeIsCorrect: boolean) => {
+    const handleCorrectAnswerChange = (index: number) => {
         const alternatives: IAlternative[] = [...question.alternative]
-        
-        alternatives[index] = { 
-            id: alternatives[index].id,
-            text: alternatives[index].text,
-            isCorrect: newAlternativeIsCorrect
-        }
+            .map((item, i) => {
+                if(i === index) return {...item, isCorrect: true}
+                else return {...item, isCorrect: false}
+            })
 
         setQuestion({
-            ...question, 
+            ...question,
             alternative: alternatives
         })
     }
@@ -88,16 +86,18 @@ export default function QuestionForm({
                                 {`Alternative ${i + 1}:`}
                                 <input 
                                     type="text"
-                                    value={question.alternative[i].text || ''}
+                                    value={item.text || ''}
                                     onChange={e => replaceAlternativeTextAtIndex(i, e.target.value)}
                                 />
                             </label>
                             <label className='ml-2'>
                                 Correct:?
                                 <input 
-                                    type="checkbox"
-                                    checked={question.alternative[i].isCorrect || false}
-                                    onChange={e => replaceAlternativeIsCorrectAtIndex(i, e.target.checked)}
+                                    type="radio"
+                                    name='alternative'
+                                    value={`alt-${i}`}
+                                    checked={item.isCorrect}
+                                    onClick={() => handleCorrectAnswerChange(i)}
                                 />
                             </label>
                         </div>
