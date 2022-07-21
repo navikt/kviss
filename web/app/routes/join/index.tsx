@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import PinCode from '~/components/PinCode'
 import Username from '~/components/Username'
 import { IQuiz, useQuiz } from '~/context/QuizContext'
-import axios from 'axios';
 
 
 
