@@ -34,7 +34,7 @@ export default function QuizInformationForm({ quizInfo, setQuizInfo}: IProps) {
                 Description:
                 <input 
                     type="text" 
-                    name="name"
+                    name="description"
                     value={quizInfo.description || ''} 
                     onChange={handleQuizInfoChange}
                 />
