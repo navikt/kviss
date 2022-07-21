@@ -19,16 +19,14 @@ fun Routing.gameSocket(connections: MutableSet<SocketConnection>, quizService: Q
         try {
             send("You are connected to WS ${call.parameters["id"]!!.toLong()}")
             sendSerialized(quizService.getConsumerQuiz(param.toLong()))
-            if (isHost != null) {
-
-            }
+            sendPlayer(this, connections, param)
 
             for (frame in incoming) {
                 frame as? Frame.Text ?: continue
                 val receivedText = frame.readText()
                 val textWithUsername = "[${thisConnection.name}]: $receivedText"
                 connections.filter { thisConnection.pin == it.pin }.forEach {
-                    it.session.send("new player joined")
+                    it.session.send(textWithUsername)
                 }
             }
         } catch (e: Exception) {

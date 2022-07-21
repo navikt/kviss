@@ -3,7 +3,8 @@ package nav.no.models
 import io.ktor.websocket.*
 import java.util.concurrent.atomic.AtomicInteger
 
-class SocketConnection(val session: DefaultWebSocketSession, val pin: Int, val isHost: Boolean = false) {
+@kotlinx.serialization.Serializable
+class SocketConnection(val session: DefaultWebSocketSession, val pin: Int, val player: Player) {
     companion object {
         var lastId = AtomicInteger(0)
     }
