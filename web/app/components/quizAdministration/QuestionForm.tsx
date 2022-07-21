@@ -69,7 +69,7 @@ export default function QuestionForm({
         const questionsCopy: IQuestion[] = [...questions]
         questionsCopy[questionIndex] = question
         setQuestions(questionsCopy)
-        setEdit(false)
+        setEdit(true)
     }
 
     return (
