@@ -1,4 +1,5 @@
 import { json, LoaderFunction } from '@remix-run/node'
+
 import { useLoaderData, useNavigate } from '@remix-run/react'
 import { IQuiz, useQuiz } from '~/context/QuizContext'
 
@@ -8,10 +9,7 @@ export const loader: LoaderFunction = async () => {
     return json(await res.json())
 }
 
-
-
 export default function StartQuizIndexRoute() {
-
 
     const quizes: IQuiz[] = useLoaderData()
     const navigate = useNavigate()
@@ -21,7 +19,7 @@ export default function StartQuizIndexRoute() {
     const startQuiz = async (quizId: number | undefined) => {
         const res = await fetch(`http://0.0.0.0:8080/game/${quizId}/gamestart`)
         setPinCode(await res.json())
-        navigate("../lobby")
+        navigate('../lobby')
     }
 
     return (
