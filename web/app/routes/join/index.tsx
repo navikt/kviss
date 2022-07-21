@@ -24,19 +24,19 @@ export default function QuizIndexRoute() {
     const { questions, setQuestions, setQuestion } = useQuiz()
 
     const getQuiz = async (pinCode: string) => {
-        axios
-            .get<IQuiz[]>(`https://navhoot-backend.dev.nav.no/quiz/${pinCode}/questions`, {
-                headers: {
-                    "Content-Type": "text/html"
-                },
-            }).then(response => {
-                setQuestions(response.data);
-            }).catch(ex => {
-                const error =
-                    ex.response.status === 404
-                        ? "Resource Not found"
-                        : "An unexpected error has occurred";
-            });
+        // axios
+        //     .get<IQuiz[]>(`https://navhoot-backend.dev.nav.no/quiz/${pinCode}/questions`, {
+        //         headers: {
+        //             "Content-Type": "text/html"
+        //         },
+        //     }).then(response => {
+        //         setQuestions(response.data);
+        //     }).catch(ex => {
+        //         const error =
+        //             ex.response.status === 404
+        //                 ? "Resource Not found"
+        //                 : "An unexpected error has occurred";
+        //     });
     }
 
     const handleClickPin = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, pc: string) => {
