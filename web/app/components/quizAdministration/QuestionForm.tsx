@@ -38,9 +38,8 @@ export default function QuestionForm({
         const alternatives: IAlternative[] = [...question.alternative]
         
         alternatives[index] = { 
-            id: alternatives[index].id,
-            text: newAlternativeText,
-            isCorrect: alternatives[index].isCorrect
+            ...alternatives[index],
+            text: newAlternativeText
         }
 
         setQuestion({
