@@ -35,11 +35,7 @@ export default function CreateQuiz() {
             <h2 className='text-2xl mb-2'>Quiz info</h2>
             <QuizInformationForm quizInfo={quizInfo} setQuizInfo={setQuizInfo} />
             <h2 className='text-2xl my-2'>Questions</h2>
-            <QuestionsPreview questions={questions}/>
-            <QuestionForm 
-                questions={questions}
-                setQuestions={setQuestions}
-            />
+            <QuestionsPreview questions={questions} setQuestions={setQuestions}/>
             <button className='flex flex-col border-2 border-black rounded mt-2' onClick={onCreateQuiz}>
                 <h1 className='text-2xl my-2'>CREATE QUIZ</h1>
             </button>

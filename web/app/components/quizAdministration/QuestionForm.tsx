@@ -4,6 +4,8 @@ import { IAlternative, IQuestion } from '~/context/QuizContext'
 interface IProps {
     questions: IQuestion[]
     setQuestions: (question: IQuestion[]) => void
+    questionIndex: number
+    setEdit: (edit: boolean) => void
 }
 
 const emptyQuestion = {
@@ -21,10 +23,12 @@ const emptyQuestion = {
 
 export default function QuestionForm({
     questions,
-    setQuestions
+    setQuestions,
+    questionIndex,
+    setEdit
 }: IProps) {
     
-    const [question, setQuestion] = useState<IQuestion>(emptyQuestion)
+    const [question, setQuestion] = useState<IQuestion>(questions[questionIndex] || emptyQuestion)
 
     // TODO: Check if edit  mode, then load question from list
     const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -61,10 +65,11 @@ export default function QuestionForm({
         })
     }
 
-    const onQuestionAdd = () => {
-        setQuestions([...questions, question])
-        // TODO: Wipe data of question
-        setQuestion(emptyQuestion)
+    const onQuestionSaved = () => {
+        const questionsCopy: IQuestion[] = [...questions]
+        questionsCopy[questionIndex] = question
+        setQuestions(questionsCopy)
+        setEdit(false)
     }
 
     return (
@@ -102,10 +107,14 @@ export default function QuestionForm({
                         </div>
                     )
                 })}
+                <button
+                    className='border-2 border-black rounded my-2'
+                    onClick={onQuestionSaved}
+                    type="button"
+                >
+                    Save question
+                </button>
             </form>
-            <button className='border-2 border-black rounded mt-2' onClick={onQuestionAdd}>
-                Add question
-            </button>
         </div>
     )
 }
