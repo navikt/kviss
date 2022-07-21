@@ -14,13 +14,11 @@ fun Routing.gameSocket(connections: MutableSet<SocketConnection>, quizService: Q
         println("Adding player!")
         val thisConnection = SocketConnection(this, call.parameters["id"]!!.toInt())
         val param = call.parameters["id"]!!.toInt()
-        val isHost = connections.singleOrNull { it.pin == param }
         connections += thisConnection
         try {
             send("You are connected to WS ${call.parameters["id"]!!.toLong()}")
+            sendPlayers(connections, param)
 //            sendSerialized(quizService.getConsumerQuiz(param.toLong()))
-            sendPlayer(this, connections, param)
-
             for (frame in incoming) {
                 frame as? Frame.Text ?: continue
                 val receivedText = frame.readText()
@@ -38,16 +36,10 @@ fun Routing.gameSocket(connections: MutableSet<SocketConnection>, quizService: Q
     }
 }
 
-fun generateHostId(gamePin: Int): Int {
-    val hostid = (100000..999999).random()
-
-
-    return hostid
-}
-
-suspend fun sendPlayer(session: DefaultWebSocketServerSession, connections: MutableSet<SocketConnection>, pin: Int) {
-    connections.filter { it.pin == pin }.forEach {
-        session.send(it.name)
+suspend fun sendPlayers(connections: MutableSet<SocketConnection>, pin: Int) {
+    val players = connections.filter { it.pin == pin }.map { it.name }
+    connections.forEach{
+        (it.session as WebSocketServerSession).sendSerialized(players)
     }
 }
 

@@ -20,7 +20,9 @@ class GameDao(
                     rs.getLong("id"),
                     rs.getLong("quiz_id"),
                     rs.getBoolean("is_active"),
-                    rs.getLong("pin"),
+                    rs.getInt("pin"),
+                    // TODO Fix this
+                    123
                 )
             } else {
                 throw Exception("The Game does not exist")
