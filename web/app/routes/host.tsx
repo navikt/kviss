@@ -2,12 +2,9 @@ import { Outlet } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { useGameContext } from "~/context/GameContext";
 import SocketContextProvider from "~/context/SocketContext";
-//import WebSocket from "ws"
 
 
-
-
-export default function GameView() {
+export default function HostView() {
     const [socket, setSocket] = useState<WebSocket>()
     const { gameProps } = useGameContext()
 
@@ -25,7 +22,9 @@ export default function GameView() {
         };
         socket.onmessage = (event) => {
             console.log(event)
+            // TODO: Make big ass state context and reducer 
         };
+
 
     }, [socket])
 
