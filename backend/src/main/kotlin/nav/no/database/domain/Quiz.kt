@@ -8,6 +8,7 @@ data class Game(
     val quizId: Long,
     val isActive: Boolean,
     val gamePin: GamePin
+
 )
 data class Quiz(
     val name: String,
