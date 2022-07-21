@@ -29,7 +29,3 @@ fun Application.configureSockets(quizService: QuizService, gameService: GameServ
         gameSocket(connections, quizService)
     }
 }
-
-fun getHost(connections: MutableSet<SocketConnection>): SocketConnection {
-    return connections.filter {it.isHost}.single()
-}
