@@ -4,9 +4,16 @@ import { ActionTypes, Game, IGameAction, StegProps } from './game'
 const initialState: Game = {}
 
 const reducer = (state: Game, action: IGameAction) => {
+    const { type, payload } = action
     switch (action.type) {
         case ActionTypes.RESET: {
             return {}
+        }
+        case ActionTypes.SET_PINCODE: {
+            return { ...state, pin: payload?.pin }
+        }
+        case ActionTypes.SET_USERNAME: {
+            return { ...state, username: payload?.username }
         }
         default:
             return { ...state }
@@ -16,7 +23,6 @@ const reducer = (state: Game, action: IGameAction) => {
 const GameContext = createContext<StegProps>({
     state: initialState,
     dispatch: () => {
-        /* do nothing */
     },
 })
 

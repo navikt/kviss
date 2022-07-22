@@ -1,6 +1,6 @@
 import { useNavigate } from "@remix-run/react";
 import { useEffect, useState } from "react";
-import { useGameContext } from "~/context/GameContext";
+import { useGameContext } from "~/context/game/GameContext";
 import { IPlayer, useQuiz } from "~/context/QuizContext";
 import { useWebSocket } from "~/context/SocketContext";
 
@@ -13,7 +13,7 @@ const initPlayer: IPlayer = {
 export default function LobbyView() {
 
     const [players, setPlayers] = useState<IPlayer[]>([initPlayer])
-    const { gameProps } = useGameContext()
+    const { state } = useGameContext()
 
     // TODO: add new players when they join the game
 
@@ -23,7 +23,7 @@ export default function LobbyView() {
 
     return <>
         <div className={`flex flex-col h-screen justify-center items-center`}>
-            {gameProps.pincode}
+            {state.pin}
             <div className="flex flex-col h-40 p-60">
                 {players.map((player) => {
                     return <div key={player.name}>

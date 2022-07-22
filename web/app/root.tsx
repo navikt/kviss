@@ -4,7 +4,7 @@ import styles from './styles/app.css'
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import GameProvider from './context/GameContext'
+import { GameProvider } from './context/game/GameContext'
 
 export function links() {
     return [{ rel: 'stylesheet', href: styles }]

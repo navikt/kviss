@@ -1,29 +1,25 @@
 
 import { useNavigate } from 'react-router-dom'
 import JoinGame from '~/components/JoinGame'
-import { IGameProps, useGameContext } from '~/context/GameContext';
+import { ActionTypes } from '~/context/game/game';
+import { useGameContext } from '~/context/game/GameContext';
 
 
 export type ButtonProps = {
-    handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, joinDetails: IGameProps) => void;
+    handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, username: string, pincode: number) => void;
 };
 
 
 export default function QuizIndexRoute() {
 
     const navigate = useNavigate()
-    const { setGameProps } = useGameContext()
+    const { state, dispatch } = useGameContext()
 
-    const handleClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, joinDetails: IGameProps) => {
+    const handleClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, username: string, pincode: number) => {
         event.preventDefault()
 
-        const response = await fetch(`https://navhoot-backend.dev.nav.no/game/${joinDetails.pincode}/`, {
-            body: JSON.stringify(joinDetails),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: 'POST'
-        }).then((res: Response) => {
+        const response: boolean = await fetch(`https://navhoot-backend.dev.nav.no/game/${pincode}/exist`
+        ).then((res: Response) => {
             return res.json()
         }).catch(ex => {
             alert("Invalid pincode")
@@ -32,9 +28,17 @@ export default function QuizIndexRoute() {
 
         //Check if response is good
         console.log(response)
-        if (response == "bad response") return
+        if (!response) return
 
-        setGameProps(joinDetails)
+        dispatch({
+            type: ActionTypes.SET_PINCODE,
+            payload: { ...state, pin: pincode }
+        })
+
+        dispatch({
+            type: ActionTypes.SET_USERNAME,
+            payload: { ...state, username: username }
+        })
 
         navigate("../game")
     }

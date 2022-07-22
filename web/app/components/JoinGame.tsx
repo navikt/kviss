@@ -1,41 +1,38 @@
-import { IGameProps } from "~/context/GameContext"
+import { useState } from "react"
 import { ButtonProps } from "../routes/join/index"
+import Button from "./common/Button"
+import Input from "./common/Input"
 
 
 export default function PinCode({ handleClick }: ButtonProps) {
-
-    const joinDetails: IGameProps = {} as IGameProps
+    const [username, setUsername] = useState<string>("")
+    const [pincode, setPinCode] = useState<number>(0)
 
     return (
         <div className="text-center flex flex-col">
             <form>
                 <div>
-                    <label>
-                        Brukernavn:
-                    </label>
-                </div>
-                <div>
-                    <input
+                    <Input
+                        label="Brukernavn"
                         name="username"
                         type="text"
-                        onChange={(e) => joinDetails.username = e.target.value}
+                        onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
-                <label>
-                    Pin code:
-                </label>
+
                 <div>
-                    <input
+                    <Input
+                        label="Pinkode"
                         name="pinCode"
                         type="text"
-                        onChange={(e) => joinDetails.pincode = parseInt(e.target.value)}
+                        onChange={(e) => setPinCode(parseInt(e.target.value))}
                     />
                 </div>
                 <div>
-                    <button type="submit"
-                        onClick={event => handleClick(event, joinDetails)}>
-                        Nest
-                    </button>
+                    <Button type="submit"
+                        onClick={event => handleClick(event, username, pincode)}>
+                        Neste
+                    </Button>
                 </div>
             </form>
         </div>
