@@ -73,7 +73,7 @@ export default function CreateQuiz() {
             description: quizInfo.description,
         }
 
-        const quizId = await fetch('https://kviss-backend.dev.nav.no/quiz', {
+        const quizId = await fetch('https://kviss-api.dev.nav.no/quiz', {
             body: JSON.stringify(quiz),
             headers: {
                 'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ export default function CreateQuiz() {
         })
 
         // TODO: Add posting of quesitons when route is up and going
-        // await fetch('https://kviss-backend.dev.nav.no/quiz/questions', {
+        // await fetch('https://kviss-api.dev.nav.no/quiz/questions', {
         //     body: JSON.stringify({
         //         quizId,
         //         questions

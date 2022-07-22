@@ -5,7 +5,7 @@ import { useQuiz } from '~/context/QuizContext'
 
 export const loader: LoaderFunction = async () => {
     const { gameProps } = useGameContext()
-    const res = await fetch(`https://kviss-backend.dev.nav.no/game/${gameProps.pincode}/players`)
+    const res = await fetch(`https://kviss-api.dev.nav.no/game/${gameProps.pincode}/players`)
 
     return json(await res.json())
 }

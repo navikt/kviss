@@ -1,12 +1,12 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: kviss-backend
+  name: kviss-api
   namespace: team-tolk
   labels:
     team: team-tolk
 spec:
-  image: { { image } }
+  image: {{ image }}
   port: 8080
   replicas:
     cpuThresholdPercentage: 90
@@ -25,4 +25,4 @@ spec:
     initialDelay: 30
     path: isready
   ingresses:
-    - https://kviss-backend.dev.nav.no/
+    - https://kviss-api.dev.nav.no/

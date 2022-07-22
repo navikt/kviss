@@ -13,7 +13,7 @@ export default function QuizIndexRoute() {
     const handleClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, joinDetails: IGameProps) => {
         event.preventDefault()
 
-        const response = await fetch(`https://kviss-backend.dev.nav.no/game/${joinDetails.pincode}/`, {
+        const response = await fetch(`https://kviss-api.dev.nav.no/game/${joinDetails.pincode}/`, {
             body: JSON.stringify(joinDetails),
             headers: {
                 'Content-Type': 'application/json',
