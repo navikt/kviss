@@ -13,7 +13,7 @@ export const useQuizById = (id: number) => {
 }
 
 export const useCreateQuiz = async (quiz: IQuiz) => {
-    const { data, error } = await poster<IQuiz>('/quiz', quiz)
+    const { data, error } = await poster<IQuiz>('https://navhoot-backend.dev.nav.no/quiz', quiz)
 
     return {
         response: data,

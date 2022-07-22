@@ -29,8 +29,8 @@ export interface IQuiz {
     name: string,
     id?: number,
     description: string,
-    questions: IQuestion[],
-    isDraft: boolean
+    questions?: IQuestion[],
+    isDraft?: boolean
 }
 
 const initQuiz: IQuiz = {
@@ -72,11 +72,17 @@ const pin = 0
 
 const QuizContext = React.createContext({
     questions: [initQuestion],
-    setQuestions: (_: any) => { },
+    setQuestions: (_: any) => { 
+        //
+    },
     question: initQuestion,
-    setQuestion: (_: any) => { },
+    setQuestion: (_: any) => { 
+        //
+    },
     pinCode: pin,
-    setPinCode: (_: any) => { },
+    setPinCode: (_: any) => {
+        //
+    },
 })
 
 

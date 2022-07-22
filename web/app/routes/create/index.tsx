@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react'
+import { useCreateQuiz } from '~/api/hooks/useQuiz'
 import QuestionForm from '~/components/quizAdministration/QuestionForm'
 import QuestionsPreview from '~/components/quizAdministration/QuestionsPreview'
 import QuizInformationForm from '~/components/quizAdministration/QuizInformationForm'
@@ -20,14 +21,12 @@ export default function CreateQuiz() {
 
     const [quiz, setQuiz] = useState<IQuiz>()
 
-    const onCreateQuiz = () => {
-        setQuiz({
-            id: 1,
+    const onCreateQuiz = async () => {
+        const {response, error} = await useCreateQuiz({
             name: quizInfo.name,
             description: quizInfo.description,
-            questions,
-            isDraft: false
         })
+        console.log(response)
     }
 
     /**

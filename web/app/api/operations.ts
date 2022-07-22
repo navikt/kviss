@@ -19,6 +19,7 @@ export const poster = async <T>(url: string, data: T): Promise<{ data: T | undef
         headers: {
             'Content-Type': 'application/json',
         },
+        method: 'POST',
     })
         .then((res: Response) => {
             resData = res.json() as unknown as T
