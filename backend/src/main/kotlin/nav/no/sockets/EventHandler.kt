@@ -43,9 +43,12 @@ class EventHandler(
                 println("${event.playerName} has left the building")
             }
             is SendQuestionEvent -> {
-                connections.filter { it.pin == gamePin }.map {
+                connections.filter { it.pin == gamePin }.forEach {
                     (it.session as WebSocketServerSession).sendSerialized(event.question)
                 }
+            }
+            is SelectAnswerEvent -> {
+                context.gameService.checkAnswer(event.alternativeId, event.playerId)
             }
         }
     }

@@ -67,6 +67,14 @@ data class SendQuestionEvent(
 }
 
 @Serializable
+data class SelectAnswerEvent(
+    val alternativeId: Long,
+    val playerId: Long
+) : Event{
+    override val type = EventType.SELECT_ANSWER_EVENT
+}
+
+@Serializable
 data class EndGameEvent(
     val gamePin: GamePin
 ) : Event {

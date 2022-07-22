@@ -2,6 +2,7 @@ package nav.no.sockets
 
 import nav.no.models.SocketConnection
 import io.ktor.server.websocket.*
+import nav.no.models.ConsumerQuestion
 
 
 suspend fun MutableSet<SocketConnection>.sendAllSessionEvent(pin: Int, event: Event) {
@@ -19,9 +20,3 @@ suspend fun sendPlayers(connections: MutableSet<SocketConnection>, pin: Int) {
     }
 }
 
-suspend fun sendQuestion(connections: MutableSet<SocketConnection>, pin: Int, question: ConsumerQuestion) {
-    val players = connections.filter { it.pin == pin }.map { it.name }
-    connections.forEach{
-        (it.session as WebSocketServerSession).sendSerialized(players)
-    }
-}
