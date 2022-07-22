@@ -18,3 +18,10 @@ suspend fun sendPlayers(connections: MutableSet<SocketConnection>, pin: Int) {
         (it.session as WebSocketServerSession).sendSerialized(players)
     }
 }
+
+suspend fun sendQuestion(connections: MutableSet<SocketConnection>, pin: Int, question: ConsumerQuestion) {
+    val players = connections.filter { it.pin == pin }.map { it.name }
+    connections.forEach{
+        (it.session as WebSocketServerSession).sendSerialized(players)
+    }
+}
