@@ -24,7 +24,7 @@ export default function GameView() {
             console.log(event)
         };
         socket.onmessage = (event) => {
-            console.log(event)
+            console.log(event.data)
         };
 
     }, [socket])

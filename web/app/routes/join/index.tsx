@@ -33,7 +33,7 @@ export default function QuizIndexRoute() {
 
     return (
         <div className="flex flex-col h-screen justify-center items-center">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={((e) => handleSubmit(e))}>
                 <Input
                     label="Brukernavn"
                     name="username"
@@ -54,7 +54,7 @@ export default function QuizIndexRoute() {
                     })}
                 />
 
-                <Button>
+                <Button type='submit'>
                     Neste
                 </Button>
             </form>
