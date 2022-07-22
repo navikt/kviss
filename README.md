@@ -1,6 +1,6 @@
-# NavHoot
+# kviss
 
-NavHoot is an internal quiz application for the employees of NAV, and can be accessed at [https://navhoot-web.dev.intern.nav.no/](https://navhoot-web.dev.intern.nav.no/)
+kviss is an internal quiz application for the employees of NAV, and can be accessed at [https://navhoot-web.dev.intern.nav.no/](https://navhoot-web.dev.intern.nav.no/)
 
 
 ## Apps
