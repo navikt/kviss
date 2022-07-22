@@ -1,13 +1,22 @@
 import useSWR from 'swr'
 import { IQuiz } from '~/context/QuizContext'
-import { fetcher } from '../operations'
+import { fetcher, poster } from '../operations'
 
-export const useQuiz = (id: number) => {
+export const useQuizById = (id: number) => {
     const { data, error } = useSWR<IQuiz, Error>(`/quiz/${id}`, fetcher)
 
     return {
         quiz: data,
         loading: !error && !data,
+        error,
+    }
+}
+
+export const useCreateQuiz = async (quiz: IQuiz) => {
+    const { data, error } = await poster<IQuiz>('/quiz', quiz)
+
+    return {
+        response: data,
         error,
     }
 }
