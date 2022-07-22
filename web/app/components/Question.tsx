@@ -22,19 +22,7 @@ export function Question(tb: ScoreboardProps): JSX.Element {
 
 
     const sendAnswer = async (answerIndex: number) => {
-        // axios
-        //     .post<>(`https://navhoot-backend.dev.nav.no/quiz/${pinCode}/questions`, {
-        //         headers: {
-        //             "Content-Type": "text/html"
-        //         },
-        //     }).then(response => {
-        //         setQuestions(response.data);
-        //     }).catch(ex => {
-        //         const error =
-        //             ex.response.status === 404
-        //                 ? "Resource Not found"
-        //                 : "An unexpected error has occurred";
-        //     });
+
     }
 
 

@@ -1,6 +1,8 @@
 import { json, LoaderFunction } from '@remix-run/node'
 
 import { useLoaderData, useNavigate } from '@remix-run/react'
+import PinCode from '~/components/JoinGame'
+import { IGameProps, useGameContext } from '~/context/GameContext'
 import { IQuiz, useQuiz } from '~/context/QuizContext'
 
 
@@ -15,11 +17,21 @@ export default function StartQuizIndexRoute() {
     const navigate = useNavigate()
     const { setPinCode } = useQuiz()
 
+    const { setGameProps } = useGameContext()
+
 
     const startQuiz = async (quizId: number | undefined) => {
         const res = await fetch(`http://0.0.0.0:8080/game/${quizId}/gamestart`)
-        setPinCode(await res.json())
-        navigate('../lobby')
+
+        const result = (await res.json())
+
+        const gameProps: IGameProps = {
+            username: result.hostID,
+            pincode: result
+        }
+        setGameProps(gameProps)
+        console.log(result)
+        navigate("../host")
     }
 
     return (
