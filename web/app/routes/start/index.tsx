@@ -1,7 +1,6 @@
 import { json, LoaderFunction } from '@remix-run/node'
 
 import { useLoaderData, useNavigate } from '@remix-run/react'
-import PinCode from '~/components/JoinGame'
 import { IQuiz, useQuiz } from '~/context/QuizContext'
 
 
@@ -14,7 +13,6 @@ export default function StartQuizIndexRoute() {
 
     const quizes: IQuiz[] = useLoaderData()
     const navigate = useNavigate()
-    const { setPinCode } = useQuiz()
 
 
     const startQuiz = async (quizId: number | undefined) => {

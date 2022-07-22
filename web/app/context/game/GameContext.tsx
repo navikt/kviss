@@ -5,15 +5,15 @@ const initialState: Game = {}
 
 const reducer = (state: Game, action: IGameAction) => {
     const { type, payload } = action
-    switch (action.type) {
+    switch (type) {
         case ActionTypes.RESET: {
             return {}
         }
         case ActionTypes.SET_PINCODE: {
-            return { ...state, pin: payload?.pin }
+            return { ...state, pin: payload }
         }
         case ActionTypes.SET_USERNAME: {
-            return { ...state, username: payload?.username }
+            return { ...state, username: payload }
         }
         default:
             return { ...state }

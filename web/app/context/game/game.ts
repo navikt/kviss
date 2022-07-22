@@ -11,7 +11,7 @@ export enum ActionTypes {
 
 export interface IGameAction {
     type: ActionTypes
-    payload?: Game
+    payload?: any
 }
 
 export interface StegProps {
