@@ -1,10 +1,10 @@
-package nav.no.database.navhootDao
+package nav.no.database.kvissDao
 
-import nav.no.database.navhootDao.QueriesGame.CHECK_GAME_PIN
-import nav.no.database.navhootDao.QueriesGame.SELECT_GAME
+import nav.no.database.kvissDao.QueriesGame.CHECK_GAME_PIN
+import nav.no.database.kvissDao.QueriesGame.SELECT_GAME
 import nav.no.database.domain.Game
-import nav.no.database.navhootDao.QueriesGame.INSERT_GAME
-import nav.no.database.navhootDao.QueriesGame.SELECT_GAME_BY_PIN
+import nav.no.database.kvissDao.QueriesGame.INSERT_GAME
+import nav.no.database.kvissDao.QueriesGame.SELECT_GAME_BY_PIN
 import nav.no.database.singleOrNull
 import javax.sql.DataSource
 

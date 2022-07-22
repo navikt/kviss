@@ -1,11 +1,11 @@
 package nav.no
 
 import nav.no.database.DataSourceBuilder
-import nav.no.database.navhootDao.AlternativesDao
-import nav.no.database.navhootDao.GameDao
-import nav.no.database.navhootDao.PlayerDao
-import nav.no.database.navhootDao.QuestionDao
-import nav.no.database.navhootDao.QuizDao
+import nav.no.database.kvissDao.AlternativesDao
+import nav.no.database.kvissDao.GameDao
+import nav.no.database.kvissDao.PlayerDao
+import nav.no.database.kvissDao.QuestionDao
+import nav.no.database.kvissDao.QuizDao
 
 import nav.no.services.GameService
 import nav.no.services.QuizService

@@ -1,10 +1,10 @@
-package nav.no.database.navhootDao
+package nav.no.database.kvissDao
 
 import nav.no.database.toList
 import nav.no.database.domain.Question
-import nav.no.database.navhootDao.QueriesQuestions.INSERT_QUESTION
-import nav.no.database.navhootDao.QueriesQuestions.SELECT_QUESTION
-import nav.no.database.navhootDao.QueriesQuestions.SELECT_QUESTIONS
+import nav.no.database.kvissDao.QueriesQuestions.INSERT_QUESTION
+import nav.no.database.kvissDao.QueriesQuestions.SELECT_QUESTION
+import nav.no.database.kvissDao.QueriesQuestions.SELECT_QUESTIONS
 import nav.no.database.singleOrNull
 import nav.no.models.CreateQuestion
 import javax.sql.DataSource

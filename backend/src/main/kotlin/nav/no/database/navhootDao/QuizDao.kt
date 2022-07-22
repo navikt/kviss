@@ -1,10 +1,10 @@
-package nav.no.database.navhootDao
+package nav.no.database.kvissDao
 
-import nav.no.database.navhootDao.QuizDao.Queries.POST_QUIZ
-import nav.no.database.navhootDao.QuizDao.Queries.SELECT_ALL_QUIZ
-import nav.no.database.navhootDao.QuizDao.Queries.SELECT_QUIZ
-import nav.no.database.navhootDao.QuizDao.Queries.DELETE_QUIZ
-import nav.no.database.navhootDao.QuizDao.Queries.UPDATE_QUIZ
+import nav.no.database.kvissDao.QuizDao.Queries.POST_QUIZ
+import nav.no.database.kvissDao.QuizDao.Queries.SELECT_ALL_QUIZ
+import nav.no.database.kvissDao.QuizDao.Queries.SELECT_QUIZ
+import nav.no.database.kvissDao.QuizDao.Queries.DELETE_QUIZ
+import nav.no.database.kvissDao.QuizDao.Queries.UPDATE_QUIZ
 import nav.no.database.toList
 import nav.no.database.domain.Quiz
 import nav.no.database.domain.toModel

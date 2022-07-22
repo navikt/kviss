@@ -1,9 +1,9 @@
 package nav.no.services
 
 import io.mockk.*
-import nav.no.database.navhootDao.AlternativesDao
-import nav.no.database.navhootDao.GameDao
-import nav.no.database.navhootDao.PlayerDao
+import nav.no.database.kvissDao.AlternativesDao
+import nav.no.database.kvissDao.GameDao
+import nav.no.database.kvissDao.PlayerDao
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test

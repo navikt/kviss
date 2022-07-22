@@ -5,7 +5,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.websocket.*
 import nav.no.database.DataSourceBuilder
-import nav.no.database.navhootDao.*
+import nav.no.database.kvissDao.*
 import nav.no.plugins.*
 import nav.no.services.GameService
 import nav.no.services.QuizService

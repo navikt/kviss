@@ -1,12 +1,12 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: navhoot-backend
+  name: kviss-backend
   namespace: team-tolk
   labels:
     team: team-tolk
 spec:
-  image: {{ image }}
+  image: { { image } }
   port: 8080
   replicas:
     cpuThresholdPercentage: 90
@@ -16,7 +16,7 @@ spec:
     sqlInstances:
       - type: POSTGRES_14
         databases:
-          - name: navhoot
+          - name: kviss
             envVarPrefix: DB
   liveness:
     initialDelay: 30
@@ -25,4 +25,4 @@ spec:
     initialDelay: 30
     path: isready
   ingresses:
-    - https://navhoot-backend.dev.nav.no/
+    - https://kviss-backend.dev.nav.no/

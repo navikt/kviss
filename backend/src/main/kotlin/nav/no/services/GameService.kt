@@ -2,11 +2,11 @@ package nav.no.services
 
 import nav.no.database.domain.GamePin
 import nav.no.database.domain.toModel
-import nav.no.database.navhootDao.GameDao
-import nav.no.database.navhootDao.PlayerDao
+import nav.no.database.kvissDao.GameDao
+import nav.no.database.kvissDao.PlayerDao
 import nav.no.models.Game
 import nav.no.models.Quiz
-import nav.no.database.navhootDao.AlternativesDao
+import nav.no.database.kvissDao.AlternativesDao
 import nav.no.models.Player
 
 class GameService(

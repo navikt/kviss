@@ -2,9 +2,9 @@ package nav.no.services
 
 import nav.no.database.domain.toConsumerModel
 import nav.no.database.domain.toModel
-import nav.no.database.navhootDao.AlternativesDao
-import nav.no.database.navhootDao.QuestionDao
-import nav.no.database.navhootDao.QuizDao
+import nav.no.database.kvissDao.AlternativesDao
+import nav.no.database.kvissDao.QuestionDao
+import nav.no.database.kvissDao.QuizDao
 import nav.no.models.*
 
 class QuizService(

@@ -8,7 +8,7 @@ import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.routing.*
 import nav.no.ApplicationContext
 import javax.sql.DataSource
-import nav.no.database.navhootDao.*
+import nav.no.database.kvissDao.*
 import nav.no.routes.*
 
 

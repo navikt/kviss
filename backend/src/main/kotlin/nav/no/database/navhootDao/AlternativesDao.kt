@@ -1,10 +1,10 @@
-package nav.no.database.navhootDao
+package nav.no.database.kvissDao
 
-import nav.no.database.navhootDao.QueriesAlternatives.SELECT_ALTERNATIVE
-import nav.no.database.navhootDao.QueriesAlternatives.SELECT_ALTERNATIVES
+import nav.no.database.kvissDao.QueriesAlternatives.SELECT_ALTERNATIVE
+import nav.no.database.kvissDao.QueriesAlternatives.SELECT_ALTERNATIVES
 import nav.no.database.toList
 import nav.no.database.domain.Alternative
-import nav.no.database.navhootDao.QueriesAlternatives.INSERT_ALTERNATIVE
+import nav.no.database.kvissDao.QueriesAlternatives.INSERT_ALTERNATIVE
 import nav.no.database.singleOrNull
 import nav.no.models.CreateAlternative
 import nav.no.models.CreateQuestion

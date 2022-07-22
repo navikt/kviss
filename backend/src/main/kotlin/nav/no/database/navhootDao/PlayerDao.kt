@@ -1,10 +1,10 @@
-package nav.no.database.navhootDao
+package nav.no.database.kvissDao
 
 import nav.no.database.domain.GamePin
-import nav.no.database.navhootDao.QueriesPlayer.INSERT_PLAYER
-import nav.no.database.navhootDao.QueriesPlayer.SELECT_PLAYER
-import nav.no.database.navhootDao.QueriesPlayer.SELECT_PLAYERS
-import nav.no.database.navhootDao.QueriesPlayer.UPDATE_PLAYER_SCORE
+import nav.no.database.kvissDao.QueriesPlayer.INSERT_PLAYER
+import nav.no.database.kvissDao.QueriesPlayer.SELECT_PLAYER
+import nav.no.database.kvissDao.QueriesPlayer.SELECT_PLAYERS
+import nav.no.database.kvissDao.QueriesPlayer.UPDATE_PLAYER_SCORE
 import nav.no.database.singleOrNull
 import nav.no.models.Player
 import javax.sql.DataSource
