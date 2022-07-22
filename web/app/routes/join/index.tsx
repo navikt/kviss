@@ -1,4 +1,3 @@
-
 import { useNavigate } from 'react-router-dom'
 import JoinGame from '~/components/JoinGame'
 import { ActionTypes } from '~/context/game/game';
@@ -11,7 +10,6 @@ export type ButtonProps = {
 
 
 export default function QuizIndexRoute() {
-
     const navigate = useNavigate()
     const { state, dispatch } = useGameContext()
 
@@ -40,7 +38,7 @@ export default function QuizIndexRoute() {
             payload: { ...state, username: username }
         })
 
-        navigate("../game")
+        navigate('../game')
     }
 
     return (
