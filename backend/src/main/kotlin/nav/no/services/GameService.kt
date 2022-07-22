@@ -83,4 +83,6 @@ class GameService(
         val id = gamedao.insertGame(quizId, pin)
         return Game(id, quizId, true, pin)
     }
+
+    fun setGameFinished(gamePin: GamePin) = gamedao.setGameFinished(gamePin)
 }
