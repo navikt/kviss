@@ -1,11 +1,7 @@
 export default function Footer() {
-
     return (
-        <footer className="absolute bottom-0 h-10 w-full pb-10 pt-5 bg-sky-800" >
-            <div className="text-center text-white">
-                NavHoot™
-            </div>
+        <footer className="h-10 w-full pb-10 pt-5 border-t border-slate-600">
+            <div className="text-center text-slate-400">NavHoot™</div>
         </footer>
     )
-
 }

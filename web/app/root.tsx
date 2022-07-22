@@ -1,14 +1,7 @@
 import type { MetaFunction } from '@remix-run/node'
 import styles from './styles/app.css'
 
-import {
-    Links,
-    LiveReload,
-    Meta,
-    Outlet,
-    Scripts,
-    ScrollRestoration,
-} from '@remix-run/react'
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import GameProvider from './context/GameContext'
@@ -25,17 +18,22 @@ export const meta: MetaFunction = () => ({
 
 export default function App() {
     return (
-        <html lang="en">
+        <html lang="en" className={'h-screen dark'}>
             <head>
                 <Meta />
                 <Links />
             </head>
-            <body className="bg-orange-100">
+            <body className="bg-slate-800 flex flex-col h-screen justify-between">
                 <GameProvider>
                     {/** TODO: Add the implementation of header and footer */}
                     <Header />
-                    <Outlet />
+
+                    <div className={'container mx-auto'}>
+                        <Outlet />
+                    </div>
+
                     <Footer />
+
                     <ScrollRestoration />
                     <Scripts />
                     <LiveReload />
