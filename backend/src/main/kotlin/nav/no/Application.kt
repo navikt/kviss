@@ -12,22 +12,9 @@ import nav.no.services.QuizService
 import java.time.Duration
 
 fun main() {
-    val datasourceBuilder = DataSourceBuilder(System.getenv())
-    datasourceBuilder.migrate()
-    val quizService = QuizService(
-        QuestionDao(datasourceBuilder.dataSource),
-        QuizDao(datasourceBuilder.dataSource),
-        AlternativesDao(datasourceBuilder.dataSource)
-    )
-    val gameService = GameService(
-        AlternativesDao(datasourceBuilder.dataSource),
-        PlayerDao(datasourceBuilder.dataSource),
-        GameDao(datasourceBuilder.dataSource),
-        quizService
-    )
-
+    val context = ApplicationContext(System.getenv())
     embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
-        configureRouting(datasourceBuilder.dataSource)
-        configureSockets(quizService, gameService)
+        configureRouting(context)
+        configureSockets(context)
     }.start(wait = true)
 }

@@ -1,10 +1,10 @@
 package nav.no.database.navhootDao
 
+import nav.no.database.toList
+import nav.no.database.domain.Question
 import nav.no.database.navhootDao.QueriesQuestions.INSERT_QUESTION
 import nav.no.database.navhootDao.QueriesQuestions.SELECT_QUESTION
 import nav.no.database.navhootDao.QueriesQuestions.SELECT_QUESTIONS
-import nav.no.database.toList
-import nav.no.database.domain.Question
 import nav.no.database.singleOrNull
 import nav.no.models.CreateQuestion
 import javax.sql.DataSource
@@ -13,25 +13,25 @@ class QuestionDao(
     private val dataSource: DataSource,
 ) {
 
-    fun getQuestion(quizId: Long, id: Long): Question {
+    fun getQuestion(id: Long): Question? {
         dataSource.connection.use {
-            val rs = it.prepareStatement(SELECT_QUESTION)
+            return it.prepareStatement(SELECT_QUESTION)
                 .apply {
                     setLong(1, id)
                 }
                 .executeQuery()
-            return if (rs.next()) {
-                Question(
-                    rs.getLong("id"),
-                    rs.getString("description"),
-                    rs.getLong("quiz_id"),
-                    rs.getInt("sort_order")
-                )
-            } else {
-                throw Exception("The Question does not exist")
-            }
+                .singleOrNull {
+                    Question(
+                        getLong("id"),
+                        getString("description"),
+                        getLong("quiz_id"),
+                        getInt("sort_order")
+                    )
+                }
+
         }
     }
+
 
     fun getQuestions(quizId: Long): List<Question> {
         dataSource.connection.use {

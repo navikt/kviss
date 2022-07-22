@@ -21,6 +21,8 @@ class QuizService(
             it.toModel(alternatives)
         }
 
+
+
     fun getConsumerQuestions(quizId: Long): List<ConsumerQuestion> = questionDao.getQuestions(quizId)
         .map {
             val alternatives = alternativesDao.getAlternatives(it.id)
@@ -50,5 +52,16 @@ class QuizService(
     fun getConsumerQuiz(id: Long): ConsumerQuiz {
         return quizDao.getQuiz(id).toConsumerModel(getConsumerQuestions(id))
     }
+
+    fun getQuestion(id: Long): ConsumerQuestion {
+        val alternatives = alternativesDao.getAlternatives(id).map {
+            it.toConsumerModel()
+        }
+        return questionDao.getQuestion(id)?.toConsumerModel(alternatives)
+            ?: throw Exception("The question (id=$id) does not exist")
+    }
+
+
+
 
 }

@@ -13,10 +13,10 @@ class GameDao(
 ) {
 
     fun getGame(id: Long): Game {
-         dataSource.connection.use {
+        dataSource.connection.use {
             val rs = it.prepareStatement(SELECT_GAME).apply {
-                    setLong(1, id)
-                }.executeQuery()
+                setLong(1, id)
+            }.executeQuery()
             return if (rs.next()) {
                 Game(
                     rs.getLong("id"),
@@ -31,7 +31,7 @@ class GameDao(
     }
 
     fun getGameByPin(pin: Int): Game? {
-         dataSource.connection.use {
+        dataSource.connection.use {
             return it.prepareStatement(SELECT_GAME_BY_PIN).apply {
                 setInt(1, pin)
             }.executeQuery()
@@ -59,8 +59,8 @@ class GameDao(
     fun checkGamePin(pin: Int): Long? {
         dataSource.connection.use {
             return it.prepareStatement(CHECK_GAME_PIN).apply {
-                    setInt(1, pin)
-                }.executeQuery().singleOrNull { getLong("pin") }
+                setInt(1, pin)
+            }.executeQuery().singleOrNull { getLong("pin") }
         }
     }
 }
