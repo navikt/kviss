@@ -27,7 +27,7 @@ export default function Checkbox({ label, ...rest }: CheckboxProps) {
                 <div className="flex items-center h-5">
                     <input {...rest} type="checkbox" className={cl(inputClasses)} />
                 </div>
-                <label className="ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">{label}</label>
+                <label className="ml-2 text-md font-medium text-gray-500 dark:text-gray-300">{label}</label>
             </div>
         </>
     )

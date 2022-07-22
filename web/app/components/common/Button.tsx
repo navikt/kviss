@@ -29,7 +29,7 @@ export default function Button({ children, color, ...rest }: ButtonProps) {
         'focus:outline-none',
         'active:ring-2',
         'rounded-full',
-        'text-sm',
+        'text-md',
         'px-6',
         'py-3',
         'text-center',
