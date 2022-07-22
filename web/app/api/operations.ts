@@ -1,14 +1,11 @@
-export const fetcher = async (url: string) => {
+export const fetcher = async (url: string) =>
     await fetch(url, {
-        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         },
+        method: 'GET',
     })
-        .then((res: Response) => {
-            return res.json()
-        })
+        .then((res: Response) => res.json())
         .catch((error: Error) => {
             throw error
         })
-}
