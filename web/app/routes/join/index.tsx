@@ -40,7 +40,7 @@ export default function QuizIndexRoute() {
 
     const handleClickPin = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, pc: string) => {
         event.preventDefault()
-        getQuiz(pc);
+        getQuiz(pc)
         setPinCode(pc)
     }
 
@@ -67,7 +67,7 @@ export default function QuizIndexRoute() {
                     </div>
                 )}
             <button
-                onClick={e => navigate(`../game`)}>
+                onClick={e => navigate('../game')}>
                 Start Quiz
             </button>
         </div>
