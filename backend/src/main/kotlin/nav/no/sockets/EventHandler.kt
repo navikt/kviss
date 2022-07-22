@@ -8,6 +8,7 @@ import nav.no.models.ConsumerQuestion
 import nav.no.services.GameService
 import nav.no.services.QuizService
 import nav.no.ApplicationContext
+import nav.no.models.ConsumerAlternative
 import nav.no.sockets.*
 
 class EventHandler(
@@ -45,6 +46,13 @@ class EventHandler(
             is SendQuestionEvent -> {
                 connections.filter { it.pin == gamePin }.forEach {
                     (it.session as WebSocketServerSession).sendSerialized(event.question)
+                }
+            }
+            is ShowAlternativesEvent -> {
+                val alternatives: List<ConsumerAlternative> = context.quizService.getQuestion(event.questionId).alternatives
+
+                connections.filter { it.pin == gamePin }.forEach {
+                    (it.session as WebSocketServerSession).sendSerialized(alternatives)
                 }
             }
             is SelectAnswerEvent -> {

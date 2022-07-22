@@ -67,6 +67,13 @@ data class SendQuestionEvent(
 }
 
 @Serializable
+data class ShowAlternativesEvent(
+    val questionId: Long
+) : Event{
+    override val type = EventType.SHOW_ALTERNATIVES_EVENT
+}
+
+@Serializable
 data class SelectAnswerEvent(
     val alternativeId: Long,
     val playerId: Long
