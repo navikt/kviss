@@ -27,7 +27,7 @@ data class PlayerJoinedEvent(
 ) : OutgoingEvent()
 
 @Serializable
-@SerialName("SEND_PLAYER_LEFT")
-data class SendPlayerLeft(
+@SerialName("PLAYER_LEFT_EVENT")
+data class PlayerLeftEvent(
     val playerName: String
 ) : OutgoingEvent()
