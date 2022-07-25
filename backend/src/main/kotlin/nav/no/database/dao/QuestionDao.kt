@@ -60,32 +60,18 @@ class QuestionDao(
 
 private object QueriesQuestions {
 
-    val SELECT_QUESTION =
-            """
-       SELECT * 
-       FROM question
-       WHERE id = ?;
-    """.trimIndent()
+    val SELECT_QUESTION = "SELECT * FROM question WHERE id = ?;"
 
-    val SELECT_QUESTIONS =
-            """
-       SELECT * 
-       FROM question
-       WHERE quiz_id = ?;
-    """.trimIndent()
+    val SELECT_QUESTIONS = "SELECT * FROM question WHERE quiz_id = ?;"
 
-    val INSERT_QUESTION =
-            """
+    val INSERT_QUESTION = """
        INSERT INTO question(description, quiz_id, sort_order)
        VALUES (?, ?, ?)
        RETURNING id;
     """.trimIndent()
 
-    val DELETE_QUESTIONS = """
-        DELETE FROM question WHERE quiz_id = ?;
-    """.trimIndent()
+    val DELETE_QUESTIONS = "DELETE FROM question WHERE quiz_id = ?;"
 
-    val DELETE_QUESTION = """
-        DELETE FROM question WHERE id = ?;
-    """.trimIndent()
+    val DELETE_QUESTION = "DELETE FROM question WHERE id = ?;"
+
 }
