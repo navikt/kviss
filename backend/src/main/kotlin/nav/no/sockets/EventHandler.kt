@@ -4,6 +4,7 @@ import nav.no.models.SocketConnection
 import nav.no.models.ConsumerQuestion
 import nav.no.ApplicationContext
 import nav.no.models.ConsumerAlternative
+import java.lang.reflect.Executable
 
 class EventHandler(
 
@@ -24,6 +25,7 @@ class EventHandler(
                 SendQuestionEvent(question)
             }
             is JoinGameEvent -> {
+                // TODO: This will be moved to an api call
                 context.gameService.createPlayer(event.playerName, gamePin)
                 println("Player ${event.playerName} joined")
                 PlayerJoinedEvent(event.playerName)
