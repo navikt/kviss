@@ -10,7 +10,7 @@ const reducer = (state: Game, action: IGameAction) => {
             return {}
         }
         case ActionTypes.SET_PINCODE: {
-            return { ...state, pin: payload }
+            return { ...state, pin: parseInt(payload) }
         }
         case ActionTypes.SET_USERNAME: {
             return { ...state, username: payload }
