@@ -26,8 +26,8 @@ class EventHandler(
             }
             is JoinGameEvent -> {
                 // TODO: This will be moved to an api call
-                context.gameService.createPlayer(event.playerName, gamePin)
-                println("Player ${event.playerName} joined")
+//                context.gameService.createPlayer(event.playerName, gamePin)
+//                println("Player ${event.playerName} joined")
                 PlayerJoinedEvent(event.playerName)
 
 
