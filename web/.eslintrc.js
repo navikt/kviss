@@ -36,6 +36,11 @@ module.exports = {
         'semi': [
             'error',
             'never'
-        ]
+        ],
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
+        '@typescript-eslint/no-explicit-any': ['error'],
+        'no-console': ['warn', { 'allow': ['warn', 'error'] }]
     }
 }
