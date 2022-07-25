@@ -4,7 +4,7 @@ import nav.no.models.SocketConnection
 import io.ktor.server.websocket.*
 
 
-suspend fun MutableSet<SocketConnection>.sendAllSessionEvent(pin: Int, event: Event) {
+suspend fun MutableSet<SocketConnection>.sendAllSessionEvent(pin: Int, event: OutgoingEvent) {
     filter { con: SocketConnection ->
         con.pin == pin
     }.forEach {
