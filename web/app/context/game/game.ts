@@ -1,3 +1,5 @@
+import { gameSocketInterfaces } from "./gameSocketInterfaces"
+
 export interface Game {
     username?: string
     pin?: number
@@ -19,10 +21,12 @@ export enum ActionTypes {
 
 export interface IGameAction {
     type: ActionTypes
-    payload: string // This might have to change as we get more complex data structers
+    payload: gameSocketInterfaces
 }
 
 export interface StegProps {
     state: Game
     dispatch: (action: IGameAction) => void
 }
+
+
