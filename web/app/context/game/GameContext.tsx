@@ -1,12 +1,16 @@
 import { createContext, FC, useContext, useReducer } from 'react'
-import { ActionTypes, Game, IGameAction, StegProps } from './game'
+import { ActionTypes, ElectionAction, Game, StegProps } from './game'
 
 const initialState: Game = {}
 
-const reducer = (state: Game, action: IGameAction) => {
-    switch (action.type) {
-        case ActionTypes.RESET: {
-            return {}
+const reducer = (state: Game, action: ElectionAction) => {
+    const { type, payload } = action
+    switch (type) {
+        case ActionTypes.SET_PINCODE: {
+            return { ...state, pin: payload }
+        }
+        case ActionTypes.SET_USERNAME: {
+            return { ...state, username: payload }
         }
         default:
             return { ...state }
@@ -16,7 +20,6 @@ const reducer = (state: Game, action: IGameAction) => {
 const GameContext = createContext<StegProps>({
     state: initialState,
     dispatch: () => {
-        /* do nothing */
     },
 })
 
