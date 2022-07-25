@@ -1,7 +1,5 @@
 import { IQuestion, ScoreboardProps, useQuiz } from '~/context/QuizContext'
 import AnswerButton from './AnswerButton'
-import axios from 'axios'
-
 
 
 export function Question(tb: ScoreboardProps): JSX.Element {
@@ -24,8 +22,6 @@ export function Question(tb: ScoreboardProps): JSX.Element {
     const sendAnswer = async (answerIndex: number) => {
 
     }
-
-
 
     const onQuestionAnswered = (answerIndex: number) => {
         if (alternative?.[answerIndex].isCorrect) {
