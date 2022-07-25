@@ -16,7 +16,7 @@ export default function StartQuizIndexRoute() {
 
 
     const startQuiz = async (quizId: number | undefined) => {
-        const res = await fetch(`http://0.0.0.0:8080/game/${quizId}/gamestart`)
+        const res = await fetch(`https://kviss-api.dev.nav.no/game/${quizId}/gamestart`)
 
         const result = (await res.json())
 
