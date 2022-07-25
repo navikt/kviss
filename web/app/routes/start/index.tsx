@@ -1,6 +1,8 @@
 import { json, LoaderFunction } from '@remix-run/node'
 
 import { useLoaderData, useNavigate } from '@remix-run/react'
+import { ActionTypes } from '~/context/game/game'
+import { useGameContext } from '~/context/game/GameContext'
 import { IQuiz, useQuiz } from '~/context/QuizContext'
 
 
@@ -11,19 +13,24 @@ export const loader: LoaderFunction = async () => {
 
 export default function StartQuizIndexRoute() {
 
+    const { dispatch } = useGameContext()
     const quizes: IQuiz[] = useLoaderData()
     const navigate = useNavigate()
 
 
     const startQuiz = async (quizId: number | undefined) => {
-        const res = await fetch(`https://kviss-api.dev.nav.no/game/${quizId}/gamestart`)
+        fetch(`http://0.0.0.0:8080//game?quizid=${quizId}`, {
+            method: "POST"
+        })
+            .then(res => res.json())
+            .then(res => {
+                const pin = res.gamePin
+                dispatch({ type: ActionTypes.SET_PINCODE, payload: pin })
+            })
+            .finally(() => navigate("../host"))
 
-        const result = (await res.json())
 
         // To do: set pin to context
-
-        console.log(result)
-        navigate("../host")
     }
 
     return (

@@ -14,7 +14,7 @@ export default function QuizIndexRoute() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        const response = await fetch(`https://kviss-api.dev.nav.no/game/${state.pin}/exist`
+        const response = await fetch(`http://0.0.0.0:8080/game/${state.pin}/exist`
         ).then((res: Response) => {
             return res.json()
         }).catch(ex => {
