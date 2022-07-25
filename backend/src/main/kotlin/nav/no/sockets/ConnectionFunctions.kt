@@ -2,7 +2,6 @@ package nav.no.sockets
 
 import nav.no.models.SocketConnection
 import io.ktor.server.websocket.*
-import nav.no.models.ConsumerQuestion
 
 
 suspend fun MutableSet<SocketConnection>.sendAllSessionEvent(pin: Int, event: Event) {
