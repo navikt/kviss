@@ -45,7 +45,7 @@ fun Routing.gameSocket(
         } finally {
             println("Removing $thisConnection!")
             connections -= thisConnection
-            connections.sendAllSessionEvent(gamePin, PlayerLeftEvent(thisConnection.name))
+            connections.sendAllSessionEvent(gamePin, SendPlayerLeft(thisConnection.name))
         }
     }
 }
