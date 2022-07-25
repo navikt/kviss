@@ -1,6 +1,5 @@
 package nav.no.database.dao
 
-import nav.no.database.domain.GamePin
 import nav.no.database.dao.QueriesPlayer.INSERT_PLAYER
 import nav.no.database.dao.QueriesPlayer.SELECT_PLAYER
 import nav.no.database.dao.QueriesPlayer.SELECT_PLAYERS
@@ -92,6 +91,5 @@ private object QueriesPlayer {
         VALUES (?, ?)
         RETURNING id;
     """.trimIndent()
-
 
 }
