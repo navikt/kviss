@@ -1,17 +1,15 @@
-package nav.no.database.navhootDao
+package nav.no.database.dao
 
-import nav.no.database.navhootDao.QuizDao.Queries.POST_QUIZ
-import nav.no.database.navhootDao.QuizDao.Queries.SELECT_ALL_QUIZ
-import nav.no.database.navhootDao.QuizDao.Queries.SELECT_QUIZ
-import nav.no.database.navhootDao.QuizDao.Queries.DELETE_QUIZ
-import nav.no.database.navhootDao.QuizDao.Queries.UPDATE_QUIZ
-import nav.no.database.toList
-import nav.no.database.domain.Quiz
-import nav.no.database.domain.toModel
-import nav.no.database.singleOrNull
-import nav.no.models.CreateQuizRequest
-import java.sql.ResultSet
 import javax.sql.DataSource
+import nav.no.database.dao.QuizDao.Queries.DELETE_QUIZ
+import nav.no.database.dao.QuizDao.Queries.POST_QUIZ
+import nav.no.database.dao.QuizDao.Queries.SELECT_ALL_QUIZ
+import nav.no.database.dao.QuizDao.Queries.SELECT_QUIZ
+import nav.no.database.dao.QuizDao.Queries.UPDATE_QUIZ
+import nav.no.database.domain.Quiz
+import nav.no.database.singleOrNull
+import nav.no.database.toList
+import nav.no.models.CreateQuizRequest
 
 class QuizDao(
     private val dataSource: DataSource,
@@ -69,15 +67,9 @@ class QuizDao(
     }
 
     private object Queries {
-        val SELECT_ALL_QUIZ = """
-       SELECT * FROM quiz;
-    """.trimIndent()
+        val SELECT_ALL_QUIZ = "SELECT * FROM quiz;"
 
-        val SELECT_QUIZ = """
-           SELECT * 
-           FROM quiz
-           WHERE id = ?;
-    """.trimIndent()
+        val SELECT_QUIZ = "SELECT * FROM quiz WHERE id = ?;"
 
         val POST_QUIZ = """
             insert into quiz
@@ -87,18 +79,11 @@ class QuizDao(
         """.trimIndent()
 
         val UPDATE_QUIZ = """
-        UPDATE quiz
-        SET name = ?, description = ?, is_draft = ?
-        WHERE id = ?;
-    """.trimIndent()
+            UPDATE quiz
+            SET name = ?, description = ?, is_draft = ?
+            WHERE id = ?;
+        """.trimIndent()
 
-        val INSERT_QUIZ = """
-       INSERT INTO quiz(name, description, is_draft)
-       VALUES (?, ?, ?);
-    """.trimIndent()
-
-        val DELETE_QUIZ = """
-        DELETE FROM quiz WHERE id = ?;
-    """.trimIndent()
+        val DELETE_QUIZ = "DELETE FROM quiz WHERE id = ?;"
     }
 }

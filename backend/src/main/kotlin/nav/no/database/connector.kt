@@ -2,9 +2,7 @@ package nav.no.database
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import io.ktor.network.sockets.*
 import org.flywaydb.core.Flyway
-import java.sql.DriverManager
 import javax.sql.DataSource
 
 

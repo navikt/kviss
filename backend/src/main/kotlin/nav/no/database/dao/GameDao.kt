@@ -1,22 +1,23 @@
-package nav.no.database.navhootDao
+package nav.no.database.dao
 
-import nav.no.database.navhootDao.QueriesGame.CHECK_GAME_PIN
-import nav.no.database.navhootDao.QueriesGame.SELECT_GAME
-import nav.no.database.domain.Game
-import nav.no.database.navhootDao.QueriesGame.INSERT_GAME
-import nav.no.database.navhootDao.QueriesGame.SELECT_GAME_BY_PIN
-import nav.no.database.singleOrNull
 import javax.sql.DataSource
+import nav.no.database.dao.QueriesGame.CHECK_GAME_PIN
+import nav.no.database.dao.QueriesGame.INSERT_GAME
+import nav.no.database.dao.QueriesGame.SELECT_GAME
+import nav.no.database.dao.QueriesGame.SELECT_GAME_BY_PIN
+import nav.no.database.dao.QueriesGame.UPDATE_TO_FINISHED
+import nav.no.database.domain.Game
+import nav.no.database.singleOrNull
 
 class GameDao(
     private val dataSource: DataSource,
 ) {
 
     fun getGame(id: Long): Game {
-         dataSource.connection.use {
+        dataSource.connection.use {
             val rs = it.prepareStatement(SELECT_GAME).apply {
-                    setLong(1, id)
-                }.executeQuery()
+                setLong(1, id)
+            }.executeQuery()
             return if (rs.next()) {
                 Game(
                     rs.getLong("id"),
@@ -31,7 +32,7 @@ class GameDao(
     }
 
     fun getGameByPin(pin: Int): Game? {
-         dataSource.connection.use {
+        dataSource.connection.use {
             return it.prepareStatement(SELECT_GAME_BY_PIN).apply {
                 setInt(1, pin)
             }.executeQuery()
@@ -59,8 +60,16 @@ class GameDao(
     fun checkGamePin(pin: Int): Long? {
         dataSource.connection.use {
             return it.prepareStatement(CHECK_GAME_PIN).apply {
-                    setInt(1, pin)
-                }.executeQuery().singleOrNull { getLong("pin") }
+                setInt(1, pin)
+            }.executeQuery().singleOrNull { getLong("pin") }
+        }
+    }
+
+    fun setGameFinished(pin: Int) {
+        dataSource.connection.use {
+            it.prepareStatement(UPDATE_TO_FINISHED).apply {
+                setInt(1, pin)
+            }.executeQuery()
         }
     }
 }
@@ -90,5 +99,11 @@ private object QueriesGame {
        INSERT INTO game(quiz_id, is_active, pin)
        VALUES (?, ?, ?)
        returning id;
+    """.trimIndent()
+
+    val UPDATE_TO_FINISHED = """
+       UPDATE game
+       SET is_active = FALSE
+       WHERE pin = ?
     """.trimIndent()
 }

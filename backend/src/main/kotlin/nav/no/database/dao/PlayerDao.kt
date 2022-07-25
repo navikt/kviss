@@ -1,9 +1,9 @@
-package nav.no.database.navhootDao
+package nav.no.database.dao
 
-import nav.no.database.domain.GamePin
-import nav.no.database.navhootDao.QueriesPlayer.INSERT_PLAYER
-import nav.no.database.navhootDao.QueriesPlayer.SELECT_PLAYER
-import nav.no.database.navhootDao.QueriesPlayer.SELECT_PLAYERS
+import nav.no.database.dao.QueriesPlayer.INSERT_PLAYER
+import nav.no.database.dao.QueriesPlayer.SELECT_PLAYER
+import nav.no.database.dao.QueriesPlayer.SELECT_PLAYERS
+import nav.no.database.dao.QueriesPlayer.UPDATE_PLAYER_SCORE
 import nav.no.database.singleOrNull
 import nav.no.models.Player
 import javax.sql.DataSource
@@ -48,9 +48,9 @@ class PlayerDao(
 
     fun updateScore(playerId: Long): Int{
         dataSource.connection.use {
-            return it.prepareStatement(SELECT_PLAYERS).apply {
+            return it.prepareStatement(UPDATE_PLAYER_SCORE).apply {
                 setLong(1, playerId)
-            }.executeQuery().singleOrNull { getInt(1) }!!
+            }.executeQuery().singleOrNull { getInt("score") }!!
         }
     }
 
@@ -80,7 +80,7 @@ private object QueriesPlayer {
     """.trimIndent()
 
     val UPDATE_PLAYER_SCORE = """
-        UPDATE table_name 
+        UPDATE player 
         SET score = score + 1
         WHERE id = ?
         RETURNING score;
@@ -91,6 +91,5 @@ private object QueriesPlayer {
         VALUES (?, ?)
         RETURNING id;
     """.trimIndent()
-
 
 }

@@ -1,13 +1,13 @@
 package nav.no.services
 
 import io.mockk.*
-import nav.no.database.navhootDao.AlternativesDao
-import nav.no.database.navhootDao.GameDao
-import nav.no.database.navhootDao.PlayerDao
+import kotlin.test.assertNotNull
+import nav.no.database.dao.AlternativesDao
+import nav.no.database.dao.GameDao
+import nav.no.database.dao.PlayerDao
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import kotlin.test.assertNotNull
 
 internal class GameServiceTest {
 
@@ -19,7 +19,7 @@ internal class GameServiceTest {
     private val service = GameService(alternativesDao, playerDao, gamedao, quizService)
 
     @AfterEach
-    fun afterEach(){
+    fun afterEach() {
         confirmVerified(gamedao)
         clearAllMocks()
     }
@@ -35,10 +35,7 @@ internal class GameServiceTest {
 
     @Test
     fun `exception after three tries`() {
-        every { gamedao.checkGamePin(any()) }
-            .returns(1)
-            .andThen(2)
-            .andThen(3)
+        every { gamedao.checkGamePin(any()) }.returns(1).andThen(2).andThen(3)
 
         try {
             service.createGamePin()
@@ -52,14 +49,10 @@ internal class GameServiceTest {
 
     @Test
     fun `match on first`() {
-        every { gamedao.checkGamePin(any()) }
-            .returns(1234)
-            .andThen(null)
+        every { gamedao.checkGamePin(any()) }.returns(1234).andThen(null)
 
         service.createGamePin()
 
-
         verify(exactly = 2) { gamedao.checkGamePin(any()) }
     }
-
 }
