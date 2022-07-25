@@ -35,10 +35,10 @@ class EventHandler(
             is JoinGameEvent -> {
                 // val host = context.gameService.createPlayer(event.playerName, gamePin)
                 // TODO: context.gameService.setHost(host, gamePin)
-            }
-            is PlayerJoinedEvent -> {
                 context.gameService.createPlayer(event.playerName, gamePin)
-                connections.sendAllSessionEvent(gamePin, this.event)
+                println("Player ${event.playerName} joined")
+                connections.sendAllSessionEvent(gamePin, PlayerJoinedEvent(event.playerName))
+
             }
 
             is PlayerLeftEvent -> {

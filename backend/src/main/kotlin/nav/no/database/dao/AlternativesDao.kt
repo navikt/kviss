@@ -47,7 +47,7 @@ class AlternativesDao(
             dataSource.connection.use {
                 return it.prepareStatement(INSERT_ALTERNATIVE)
                         .apply {
-                            setLong(1, alternative.questionId)
+                            setLong(1, questionId)
                             setString(2, alternative.text)
                             setBoolean(3, alternative.isCorrect)
                         }
