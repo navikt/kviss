@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react'
+import { useCreateQuestion } from '~/api/hooks/useQuestion'
 import { useCreateQuiz } from '~/api/hooks/useQuiz'
 import QuestionForm from '~/components/quizAdministration/QuestionForm'
 import QuestionsPreview from '~/components/quizAdministration/QuestionsPreview'
@@ -19,14 +20,18 @@ export default function CreateQuiz() {
 
     const [questions, setQuestions] = useState<IQuestion[]>([])
 
-    const [quiz, setQuiz] = useState<IQuiz>()
-
     const onCreateQuiz = async () => {
         const {response, error} = await useCreateQuiz({
             name: quizInfo.name,
             description: quizInfo.description,
         })
-        console.log(response)
+
+        Promise.resolve(response).then(async (value) => {
+            // 1. Set quizId to all questions
+            questions.map((item) => item.quizId = value)
+            console.log(questions)
+            questions.map(async (item) => await useCreateQuestion(item, value as number))
+        })
     }
 
     /**

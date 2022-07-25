@@ -8,17 +8,16 @@ export interface IPlayer {
 }
 
 export interface IAlternative {
-    id?: number,
     text: string,
     isCorrect: boolean
 }
 
 export interface IQuestion {
-    id?: number
     description: string
-    alternative: IAlternative[]
     quizId?: number,
     sortOrder: number
+    alternatives: IAlternative[]
+    id?: number
 }
 
 export type ScoreboardProps = {
@@ -41,7 +40,7 @@ const initQuiz: IQuiz = {
         {
             'id': 1,
             'description': 'Spørsmål 1',
-            'alternative': [
+            'alternatives': [
                 {
                     'id': 1,
                     'text': 'Alternative 1',
@@ -58,7 +57,7 @@ const initQuiz: IQuiz = {
 const initQuestion: IQuestion = {
     'id': 1,
     'description': 'Spørsmål 1',
-    'alternative': [
+    'alternatives': [
         {
             'id': 1,
             'text': 'Alternative 1',

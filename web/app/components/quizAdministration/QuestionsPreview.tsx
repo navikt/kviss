@@ -4,9 +4,8 @@ import QuestionPreview from './QuestionPreview'
 
 const emptyQuestion = {
     quizId: 1,
-    id: 1,
     description: '',
-    alternative: [
+    alternatives: [
         { id: 1, text: '', isCorrect: false },
         { id: 2, text: '', isCorrect: false },
         { id: 3, text: '', isCorrect: false },
@@ -24,7 +23,9 @@ export default function QuestionsPreview({
 }) {
 
     const onAddQuestion = () => {
-        setQuestions([...questions, emptyQuestion])
+        setQuestions([...questions, {
+            ...emptyQuestion, sortOrder: questions.length+1
+        }])
     }
 
     return(

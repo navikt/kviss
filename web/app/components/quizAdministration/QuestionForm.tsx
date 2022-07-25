@@ -12,11 +12,11 @@ const emptyQuestion = {
     quizId: 1,
     id: 1,
     description: '',
-    alternative: [
-        { id: 1, text: '', isCorrect: false },
-        { id: 2, text: '', isCorrect: false },
-        { id: 3, text: '', isCorrect: false },
-        { id: 4, text: '', isCorrect: false }
+    alternatives: [
+        { text: '', isCorrect: false },
+        { text: '', isCorrect: false },
+        { text: '', isCorrect: false },
+        { text: '', isCorrect: false }
     ],
     sortOrder: 1
 }
@@ -39,7 +39,7 @@ export default function QuestionForm({
     }
 
     const replaceAlternativeTextAtIndex = (index: number, newAlternativeText: string) => {
-        const alternatives: IAlternative[] = [...question.alternative]
+        const alternatives: IAlternative[] = [...question.alternatives]
         
         alternatives[index] = { 
             ...alternatives[index],
@@ -48,12 +48,12 @@ export default function QuestionForm({
 
         setQuestion({
             ...question, 
-            alternative: alternatives
+            alternatives
         })
     }
 
     const handleCorrectAnswerChange = (index: number) => {
-        const alternatives: IAlternative[] = [...question.alternative]
+        const alternatives: IAlternative[] = [...question.alternatives]
             .map((item, i) => {
                 if(i === index) return {...item, isCorrect: true}
                 else return {...item, isCorrect: false}
@@ -61,7 +61,7 @@ export default function QuestionForm({
 
         setQuestion({
             ...question,
-            alternative: alternatives
+            alternatives
         })
     }
 
@@ -83,7 +83,7 @@ export default function QuestionForm({
                         onChange={handleDescriptionChange}
                     />
                 </label>
-                {question.alternative.map((item, i) => {
+                {question.alternatives.map((item, i) => {
                     return(
                         <div key={i} className="my-1">
                             <label>

@@ -19,7 +19,7 @@ export default function QuestionPreview({
             {edit
                 ? <div className='flex flex-col my-2'>
                     <p>Question: {questions[questionIndex].description}</p>
-                    {questions[questionIndex].alternative.map((alt, i) => {
+                    {questions[questionIndex].alternatives.map((alt, i) => {
                         return <p key={i}>{`Alternative ${i + 1}: ${alt.text}. Correct?: ${alt.isCorrect}`}</p>
                     })}
                     <button 

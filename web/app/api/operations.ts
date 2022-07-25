@@ -10,7 +10,10 @@ export const fetcher = async (url: string) =>
             throw error
         })
 
-export const poster = async <T>(url: string, data: T): Promise<{ data: T | undefined; error: Error | undefined }> => {
+export const poster = async <T>(
+    url: string,
+    data: unknown,
+): Promise<{ data: T | undefined; error: Error | undefined }> => {
     let resData: T | undefined = undefined
     let resError: Error | undefined = undefined
 
