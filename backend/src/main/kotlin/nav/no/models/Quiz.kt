@@ -122,7 +122,8 @@ data class ConsumerPlayer(
 )
 
 @Serializable
-data class ScoreBoard(
-    val scores: List<Player>,
+data class Scoreboard(
+    val gamePin: Int,
+    val players: List<Player>,
 )
 
