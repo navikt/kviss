@@ -1,4 +1,4 @@
-import { gameSocketInterfaces } from "./gameSocketInterfaces"
+import { gameSocketInterfaces } from "./gameSocketTypes"
 
 export interface Game {
     username?: string
@@ -19,14 +19,20 @@ export enum ActionTypes {
     END_GAME_EVENT = 'END_GAME_EVENT'
 }
 
-export interface IGameAction {
-    type: ActionTypes
-    payload: gameSocketInterfaces
-}
+export type ElectionAction =
+    | { type: ActionTypes.SET_USERNAME; payload: string }
+    | { type: ActionTypes.SET_PINCODE; payload: number }
+
+
+
+// export interface IGameAction {
+//     type: ActionTypes
+//     payload: any
+// }
 
 export interface StegProps {
     state: Game
-    dispatch: (action: IGameAction) => void
+    dispatch: (action: ElectionAction) => void
 }
 
 

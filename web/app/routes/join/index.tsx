@@ -50,7 +50,7 @@ export default function QuizIndexRoute() {
                     type="text"
                     onChange={(e) => dispatch({
                         type: ActionTypes.SET_PINCODE,
-                        payload: e.target.value
+                        payload: parseInt(e.target.value)
                     })}
                 />
 

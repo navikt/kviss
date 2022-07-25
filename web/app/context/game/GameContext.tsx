@@ -1,13 +1,13 @@
 import { createContext, FC, useContext, useReducer } from 'react'
-import { ActionTypes, Game, IGameAction, StegProps } from './game'
+import { ActionTypes, ElectionAction, Game, StegProps } from './game'
 
 const initialState: Game = {}
 
-const reducer = (state: Game, action: IGameAction) => {
+const reducer = (state: Game, action: ElectionAction) => {
     const { type, payload } = action
     switch (type) {
         case ActionTypes.SET_PINCODE: {
-            return { ...state, pin: parseInt(payload) }
+            return { ...state, pin: payload }
         }
         case ActionTypes.SET_USERNAME: {
             return { ...state, username: payload }
