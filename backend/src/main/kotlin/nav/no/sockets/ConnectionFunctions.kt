@@ -18,3 +18,4 @@ suspend fun sendPlayers(connections: MutableSet<SocketConnection>, pin: Int) {
         (it.session as WebSocketServerSession).sendSerialized(players)
     }
 }
+

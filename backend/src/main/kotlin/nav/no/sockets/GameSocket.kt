@@ -4,6 +4,8 @@ import io.ktor.network.sockets.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import io.ktor.websocket.*
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import nav.no.ApplicationContext
 import nav.no.database.domain.GamePin
 import nav.no.models.Game
@@ -22,18 +24,20 @@ fun Routing.gameSocket(
         val gamePin = call.parameters["pin"]!!.toInt()
         val thisConnection = SocketConnection(this, gamePin)
         connections += thisConnection
+
         try {
             send("You are connected to WS ${gamePin}")
             sendPlayers(connections, gamePin)
 
-            val event = receiveDeserialized<Event>()
+//            val event = receiveDeserialized<Event>()
 
             for (frame in incoming) {
                 frame as? Frame.Text ?: continue
-                val receivedText = frame.readText()
-                val textWithUsername = "[${thisConnection.name}]: $receivedText"
+                val event = Json.decodeFromString<Event>(frame.readText())
+                val eventHandler = EventHandler(event, connections, gamePin, context)
+                eventHandler.handle()
                 connections.filter { thisConnection.pin == it.pin }.forEach {
-                    it.session.send(textWithUsername)
+//                    it.session.send(textWithUsername)
                 }
             }
         } catch (e: Exception) {
