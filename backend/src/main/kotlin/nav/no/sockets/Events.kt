@@ -1,5 +1,6 @@
 package nav.no.sockets
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import nav.no.database.domain.GamePin
 import nav.no.models.*
@@ -17,79 +18,88 @@ enum class EventType {
     END_GAME_EVENT,
 }
 
-interface Event {
-    val type: EventType
-}
+@Serializable
+sealed class Event(val type: EventType)
 
 @Serializable
+@SerialName("JOIN_GAME_EVENT")
 data class JoinGameEvent(
     val playerName: String
-) : Event {
-    override val type = EventType.JOIN_GAME_EVENT
-}
+) : Event(
+    type = EventType.JOIN_GAME_EVENT
+)
 
 
 @Serializable
+@SerialName("PLAYER_JOINED_EVENT")
 data class PlayerJoinedEvent(
     val playerName: String
-) : Event {
-    override val type = EventType.PLAYER_JOINED_EVENT
-}
+) : Event(
+    type = EventType.PLAYER_JOINED_EVENT
+)
 
 @Serializable
+@SerialName("PLAYER_LEFT_EVENT")
 data class PlayerLeftEvent(
     val playerName: String
-) : Event {
-    override val type = EventType.PLAYER_LEFT_EVENT
-}
+) : Event(
+    type = EventType.PLAYER_LEFT_EVENT
+)
 
 @Serializable
+@SerialName("START_GAME_EVENT")
 data class StartGameEvent(
     val hostId: Long,
-) : Event {
-    override val type = EventType.START_GAME_EVENT
-}
+) : Event(
+    type = EventType.START_GAME_EVENT
+)
 
 @Serializable
+@SerialName("NEXT_QUESTION_EVENT")
 data class NextQuestionEvent(
     val questionId: Long
-): Event {
-    override val type = EventType.NEXT_QUESTION_EVENT
-}
+) : Event(
+    type = EventType.NEXT_QUESTION_EVENT
+)
 
 @Serializable
+@SerialName("SEND_QUESTION_EVENT")
 data class SendQuestionEvent(
     val question: ConsumerQuestion
-): Event {
-    override val type = EventType.SEND_QUESTION_EVENT
-}
+) : Event(
+    type = EventType.SEND_QUESTION_EVENT
+)
 
 @Serializable
+@SerialName("SHOW_ALTERNATIVES_EVENT")
 data class ShowAlternativesEvent(
     val questionId: Long
-) : Event{
-    override val type = EventType.SHOW_ALTERNATIVES_EVENT
-}
+) : Event(
+    type = EventType.SHOW_ALTERNATIVES_EVENT
+)
 
 @Serializable
+@SerialName("SEND_ALTERNATIVES_EVENT")
 data class SendAlternativesEvent(
     val alternatives: List<ConsumerAlternative>
-) : Event {
-    override val type = EventType.SEND_ALTERNATIVES_EVENT
-}
+) : Event(
+    type = EventType.SEND_ALTERNATIVES_EVENT
+)
+
 
 
 @Serializable
+@SerialName("END_GAME_EVENT")
+data class EndGameEvent(
+    val gamePin: GamePin
+) : Event(
+    type = EventType.END_GAME_EVENT
+)
+@Serializable
+@SerialName("SELECT_ANSWER_EVENT")
 data class SelectAnswerEvent(
     val alternativeId: Long,
     val playerId: Long
-) : Event{
-    override val type = EventType.SELECT_ANSWER_EVENT
-}
-
-@Serializable
-data class EndGameEvent(
-    val gamePin: GamePin
-) : Event {
-    override val type = EventType.END_GAME_EVENT
-}
+) : Event(
+    type = EventType.SELECT_ANSWER_EVENT
+)

@@ -52,6 +52,8 @@ class EventHandler(
             }
             is SelectAnswerEvent -> {
                 context.gameService.checkAnswer(event.alternativeId, event.playerId)
+            } else -> {
+                throw Exception("Unknown event")
             }
         }
     }
