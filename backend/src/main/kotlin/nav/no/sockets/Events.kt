@@ -29,18 +29,6 @@ data class JoinGameEvent(
 
 
 @Serializable
-@SerialName("PLAYER_JOINED_EVENT")
-data class PlayerJoinedEvent(
-    val playerName: String
-) : Event()
-
-@Serializable
-@SerialName("PLAYER_LEFT_EVENT")
-data class PlayerLeftEvent(
-    val playerName: String
-) : Event()
-
-@Serializable
 @SerialName("START_GAME_EVENT")
 data class StartGameEvent(
     val hostId: Long,
@@ -52,11 +40,6 @@ data class NextQuestionEvent(
     val questionId: Long
 ) : Event()
 
-@Serializable
-@SerialName("SEND_QUESTION_EVENT")
-data class SendQuestionEvent(
-    val question: ConsumerQuestion
-) : Event()
 
 @Serializable
 @SerialName("SHOW_ALTERNATIVES_EVENT")
@@ -65,12 +48,10 @@ data class ShowAlternativesEvent(
 ) : Event()
 
 @Serializable
-@SerialName("SEND_ALTERNATIVES_EVENT")
-data class SendAlternativesEvent(
-    val alternatives: List<ConsumerAlternative>
+@SerialName("PLAYER_LEFT_EVENT")
+data class PlayerLeftEvent(
+    val playerName: String
 ) : Event()
-
-
 
 @Serializable
 @SerialName("END_GAME_EVENT")
