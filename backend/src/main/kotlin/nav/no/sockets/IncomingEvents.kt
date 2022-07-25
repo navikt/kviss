@@ -34,12 +34,6 @@ data class ShowAlternativesEvent(
 ) : IncomingEvent()
 
 @Serializable
-@SerialName("PLAYER_LEFT_EVENT")
-data class PlayerLeftEvent(
-    val playerName: String
-) : IncomingEvent()
-
-@Serializable
 @SerialName("END_GAME_EVENT")
 data class EndGameEvent(
     val gamePin: GamePin
