@@ -6,9 +6,6 @@ const initialState: Game = {}
 const reducer = (state: Game, action: IGameAction) => {
     const { type, payload } = action
     switch (type) {
-        case ActionTypes.RESET: {
-            return {}
-        }
         case ActionTypes.SET_PINCODE: {
             return { ...state, pin: payload }
         }
