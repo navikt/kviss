@@ -27,10 +27,10 @@ export default function StartQuizIndexRoute() {
     }
 
     return (
-        <div className="flex flex-col h-screen justify-center items-center">
-            <table className="border-separate border-spacing-2 border border-slate-500 bg-amber-100 md:border-spacing-4">
+        <div className="flex flex-col">
+            <table className="border-separate border-spacing-2 border border-slate-500 text-white">
                 <thead>
-                    <tr>
+                    <tr className="text-left">
                         <th>Quiz name</th>
                         <th>Description</th>
                         <th>Er utkast</th>
