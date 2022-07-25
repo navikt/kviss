@@ -2,10 +2,7 @@ package nav.no.sockets
 
 import kotlinx.serialization.Serializable
 import nav.no.database.domain.GamePin
-import nav.no.models.ConsumerQuestion
-import nav.no.models.Game
-import nav.no.models.Player
-import nav.no.models.Question
+import nav.no.models.*
 
 enum class EventType {
     JOIN_GAME_EVENT,
@@ -15,6 +12,7 @@ enum class EventType {
     NEXT_QUESTION_EVENT,
     SEND_QUESTION_EVENT,
     SHOW_ALTERNATIVES_EVENT,
+    SEND_ALTERNATIVES_EVENT,
     SELECT_ANSWER_EVENT,
     END_GAME_EVENT,
 }
@@ -72,6 +70,14 @@ data class ShowAlternativesEvent(
 ) : Event{
     override val type = EventType.SHOW_ALTERNATIVES_EVENT
 }
+
+@Serializable
+data class SendAlternativesEvent(
+    val alternatives: List<ConsumerAlternative>
+) : Event {
+    override val type = EventType.SEND_ALTERNATIVES_EVENT
+}
+
 
 @Serializable
 data class SelectAnswerEvent(
