@@ -21,7 +21,7 @@ fun Routing.gameSocket(
         try {
             send("You are connected to WS ${gamePin}")
             sendPlayers(connections, gamePin)
-            
+
             val eventHandler = EventHandler(gamePin, context)
             for (frame in incoming) {
                 frame as? Frame.Text ?: continue
