@@ -40,8 +40,8 @@ class EventHandler(
 //                context.gameService.checkAnswer(event.alternativeId, event.playerId)
                 TODO()
             }
-            else -> {
-                throw Exception("Unknown event")
+            is EndGameEvent -> {
+                GameEndedEvent(emptyList())
             }
         }
 }

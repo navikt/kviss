@@ -38,6 +38,7 @@ data class ShowAlternativesEvent(
 data class EndGameEvent(
     val gamePin: GamePin
 ) : IncomingEvent()
+
 @Serializable
 @SerialName("SELECT_ANSWER_EVENT")
 data class SelectAnswerEvent(

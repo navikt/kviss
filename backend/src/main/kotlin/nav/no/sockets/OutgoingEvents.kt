@@ -4,6 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import nav.no.models.ConsumerAlternative
 import nav.no.models.ConsumerQuestion
+import nav.no.models.Player
 
 @Serializable
 sealed class OutgoingEvent
@@ -31,3 +32,7 @@ data class PlayerJoinedEvent(
 data class PlayerLeftEvent(
     val playerName: String
 ) : OutgoingEvent()
+
+@Serializable
+@SerialName("GAME_ENDED_EVENT")
+data class GameEndedEvent(val scores: List<Player>) : OutgoingEvent()
