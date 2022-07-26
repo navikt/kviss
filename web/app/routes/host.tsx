@@ -9,11 +9,12 @@ export default function HostView() {
     const { state } = useGameContext()
 
     useEffect(() => {
+        console.log(state.pin)
         const ws = new WebSocket(`ws://localhost:8080/game/${state.pin}`);
 
         setSocket(ws)
         return () => { ws.close() }
-    }, [])
+    }, [state.pin])
 
     useEffect(() => {
         if (!socket) return;

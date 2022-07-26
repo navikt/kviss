@@ -61,7 +61,11 @@ class GameService(
     fun getPlayer(playerId: Long) = playerDao.getPlayer(playerId)
 
     fun createPlayer(playerName: String, gamePin: GamePin): Player {
+        if (getPlayers(gamePin).any { it.name == playerName })
+            throw Exception("Playername is taken")
+
         val game = gameDao.getGameByPin(gamePin)
+
         if (game?.isActive == true) {
             val playerId = playerDao.insertPlayer(playerName, game.id)
             return Player(playerId, playerName)

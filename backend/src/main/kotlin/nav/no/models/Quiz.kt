@@ -98,7 +98,6 @@ data class CreateQuestionAlternative(
 data class CreateAlternative(
     val text: String,
     val isCorrect: Boolean,
-//    val questionId: Long,
 )
 
 @Serializable
