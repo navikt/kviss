@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from 'react'
 import { useCreateQuestion } from '~/api/hooks/useQuestion'
 import { useCreateQuiz } from '~/api/hooks/useQuiz'
+import { poster } from '~/api/operations'
 import QuestionForm from '~/components/quizAdministration/QuestionForm'
 import QuestionsPreview from '~/components/quizAdministration/QuestionsPreview'
 import QuizInformationForm from '~/components/quizAdministration/QuizInformationForm'
@@ -27,10 +28,10 @@ export default function CreateQuiz() {
         })
 
         Promise.resolve(response).then(async (value) => {
-            // 1. Set quizId to all questions
-            questions.map((item) => item.quizId = value)
-            console.log(questions)
-            questions.map(async (item) => await useCreateQuestion(item, value as number))
+            questions.map(async (item) => {
+                item.quizId = value
+                await poster(`http://localhost:8080/quiz/${value as number}/questions`, item)
+            })
         })
     }
 

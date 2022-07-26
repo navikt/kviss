@@ -38,11 +38,9 @@ const initQuiz: IQuiz = {
     'description': 'test description',
     'questions': [
         {
-            'id': 1,
             'description': 'Spørsmål 1',
             'alternatives': [
                 {
-                    'id': 1,
                     'text': 'Alternative 1',
                     'isCorrect': true
                 },
@@ -55,11 +53,9 @@ const initQuiz: IQuiz = {
 }
 
 const initQuestion: IQuestion = {
-    'id': 1,
     'description': 'Spørsmål 1',
     'alternatives': [
         {
-            'id': 1,
             'text': 'Alternative 1',
             'isCorrect': true
         }

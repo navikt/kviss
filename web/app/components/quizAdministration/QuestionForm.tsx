@@ -8,9 +8,8 @@ interface IProps {
     setEdit: (edit: boolean) => void
 }
 
-const emptyQuestion = {
+const emptyQuestion: IQuestion = {
     quizId: 1,
-    id: 1,
     description: '',
     alternatives: [
         { text: '', isCorrect: false },
