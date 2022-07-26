@@ -38,19 +38,15 @@ class QuizService(
     fun createQuiz(createQuizRequest: CreateQuizRequest) = quizDao.createQuiz(createQuizRequest)
 
     fun createQuestion(createQuestion: CreateQuestionAlternative) {
-        if (checkMaxFourAlternative(createQuestion.alternatives)) {
+        if (createQuestion.alternatives.size == 4) {
             val id = questionDao.addQuestion(createQuestion.toCreateQuestion())
             createQuestion.alternatives.map { alternativesDao.addAlternative(id, it) }
         } else throw Exception("Each question must contain four alternatives")
 
     }
 
-    private fun <E> checkMaxFourAlternative(alternatives: List<E>): Boolean{
-        return alternatives.size == 4
-    }
-
     fun updateQuestion(updateQuestion: EditQuestionAlternative) {
-        if (checkMaxFourAlternative(updateQuestion.alternatives)) {
+        if (updateQuestion.alternatives.size == 4) {
             questionDao.updateQuestion(updateQuestion)
             updateQuestion.alternatives.map {
                 alternativesDao.updateAlternative(it)
