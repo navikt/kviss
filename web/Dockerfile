@@ -1,5 +1,7 @@
 FROM node:14.17.0
 
+ENV API_URL=https://kviss-api.dev.nav.no
+
 COPY . .
 
 RUN yarn
