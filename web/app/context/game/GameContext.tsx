@@ -12,6 +12,9 @@ const reducer = (state: Game, action: ElectionAction) => {
         case ActionTypes.SET_USERNAME: {
             return { ...state, username: payload }
         }
+        case ActionTypes.SEND_QUESTION_EVENT: {
+            return { ...state, currentQuestion: payload }
+        }
         default:
             return { ...state }
     }
