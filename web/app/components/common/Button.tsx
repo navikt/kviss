@@ -8,17 +8,17 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 function getColorScheme(color: string | undefined): string[] {
     switch (color) {
-        case 'primary':
-            return ['bg-sky-600', 'hover:bg-sky-700', 'active:ring-sky-200']
-        case 'success':
-            return ['bg-emerald-600', 'hover:bg-emerald-700', 'active:ring-emerald-200']
-        case 'warning':
-            return ['bg-amber-500', 'hover:bg-amber-600', 'active:ring-amber-800']
-        case 'danger':
-            return ['bg-rose-500', 'hover:bg-rose-600', 'active:ring-rose-100']
-        case 'default':
-        default:
-            return ['bg-gray-500', 'hover:bg-gray-800', 'active:ring-gray-300']
+    case 'primary':
+        return ['bg-sky-600', 'hover:bg-sky-700', 'active:ring-sky-200']
+    case 'success':
+        return ['bg-emerald-600', 'hover:bg-emerald-700', 'active:ring-emerald-200']
+    case 'warning':
+        return ['bg-amber-500', 'hover:bg-amber-600', 'active:ring-amber-800']
+    case 'danger':
+        return ['bg-rose-500', 'hover:bg-rose-600', 'active:ring-rose-100']
+    case 'default':
+    default:
+        return ['bg-gray-500', 'hover:bg-gray-800', 'active:ring-gray-300']
     }
 }
 

@@ -1,4 +1,5 @@
 import { ChangeEvent } from 'react'
+import Input from '../common/Input'
 
 interface IQuizInfo {
     name: string
@@ -21,24 +22,20 @@ export default function QuizInformationForm({ quizInfo, setQuizInfo}: IProps) {
 
     return (
         <form className='flex flex-col'>
-            <label>
-                Name: 
-                <input 
-                    type="text" 
-                    name="name" 
-                    value={quizInfo.name || ''} 
-                    onChange={handleQuizInfoChange}
-                />
-            </label>
-            <label>
-                Description:
-                <input 
-                    type="text" 
-                    name="description"
-                    value={quizInfo.description || ''} 
-                    onChange={handleQuizInfoChange}
-                />
-            </label>
+            <Input 
+                label='Name:'
+                type="text" 
+                name="name" 
+                value={quizInfo.name || ''} 
+                onChange={handleQuizInfoChange}
+            />
+            <Input
+                label='Description:'
+                type="text" 
+                name="description"
+                value={quizInfo.description || ''} 
+                onChange={handleQuizInfoChange}
+            />
         </form>
     )
 }
