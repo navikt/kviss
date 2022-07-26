@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from 'react'
 import { IAlternative, IQuestion } from '~/context/QuizContext'
+import { emptyQuestion } from '~/mock'
 import Button from '../common/Button'
 import Input from '../common/Input'
 import Radio from '../common/Radio'
@@ -9,18 +10,6 @@ interface IProps {
     setQuestions: (question: IQuestion[]) => void
     questionIndex: number
     setEdit: (edit: boolean) => void
-}
-
-const emptyQuestion: IQuestion = {
-    quizId: 1,
-    description: '',
-    alternatives: [
-        { text: '', isCorrect: false },
-        { text: '', isCorrect: false },
-        { text: '', isCorrect: false },
-        { text: '', isCorrect: false }
-    ],
-    sortOrder: 1
 }
 
 export default function QuestionForm({

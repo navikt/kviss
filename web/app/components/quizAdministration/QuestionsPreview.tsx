@@ -1,19 +1,8 @@
 import { useState } from 'react'
 import { IQuestion } from '~/context/QuizContext'
+import { emptyQuestion } from '~/mock'
 import Button from '../common/Button'
 import QuestionPreview from './QuestionPreview'
-
-const emptyQuestion: IQuestion = {
-    quizId: 1,
-    description: '',
-    alternatives: [
-        { text: '', isCorrect: false },
-        { text: '', isCorrect: false },
-        { text: '', isCorrect: false },
-        { text: '', isCorrect: false }
-    ],
-    sortOrder: 1
-}
 
 export default function QuestionsPreview({ 
     questions,
