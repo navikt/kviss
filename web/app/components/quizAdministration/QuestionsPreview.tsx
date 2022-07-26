@@ -1,19 +1,8 @@
 import { useState } from 'react'
 import { IQuestion } from '~/context/QuizContext'
+import { emptyQuestion } from '~/mock'
+import Button from '../common/Button'
 import QuestionPreview from './QuestionPreview'
-
-const emptyQuestion = {
-    quizId: 1,
-    id: 1,
-    description: '',
-    alternative: [
-        { id: 1, text: '', isCorrect: false },
-        { id: 2, text: '', isCorrect: false },
-        { id: 3, text: '', isCorrect: false },
-        { id: 4, text: '', isCorrect: false }
-    ],
-    sortOrder: 1
-}
 
 export default function QuestionsPreview({ 
     questions,
@@ -24,7 +13,9 @@ export default function QuestionsPreview({
 }) {
 
     const onAddQuestion = () => {
-        setQuestions([...questions, emptyQuestion])
+        setQuestions([...questions, {
+            ...emptyQuestion, sortOrder: questions.length+1
+        }])
     }
 
     return(
@@ -37,12 +28,11 @@ export default function QuestionsPreview({
                     questionIndex={i}
                 />
             })}
-            <button 
-                className='border-2 border-black rounded my-2'
+            <Button
                 onClick={onAddQuestion}
             >
                 Add question
-            </button>
+            </Button>
         </div>
     )
 }

@@ -8,17 +8,16 @@ export interface IPlayer {
 }
 
 export interface IAlternative {
-    id?: number,
     text: string,
     isCorrect?: boolean
 }
 
 export interface IQuestion {
-    id?: number
     description: string
-    alternative: IAlternative[]
     quizId?: number,
     sortOrder: number
+    alternatives: IAlternative[]
+    id?: number
 }
 
 export type ScoreboardProps = {
@@ -29,7 +28,7 @@ export interface IQuiz {
     name: string,
     id?: number,
     description: string,
-    questions: IQuestion[],
-    isDraft: boolean
+    questions?: IQuestion[],
+    isDraft?: boolean
 }
 

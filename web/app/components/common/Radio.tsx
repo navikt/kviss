@@ -5,7 +5,7 @@ interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>
     label: string
 }
 
-export default function Radio({ label }: RadioProps) {
+export default function Radio({ label, ...rest }: RadioProps) {
     const inputClasses = [
         'w-4',
         'h-4',
@@ -21,9 +21,9 @@ export default function Radio({ label }: RadioProps) {
     ]
 
     return (
-        <div className="flex items-center mb-4">
-            <input type="radio" className={cl(inputClasses)} />
-            <label className="ml-2 text-md font-medium text-gray-900 dark:text-gray-300">{label}</label>
-        </div>
+        <label className="flex items-center mb-4 ml-2 text-md font-medium text-gray-900 dark:text-gray-300">
+            {label}
+            <input type="radio" {...rest} className={cl(inputClasses)} />
+        </label>
     )
 }
