@@ -16,6 +16,12 @@ data class SendAlternativesEvent(
 ) : OutgoingEvent()
 
 @Serializable
+@SerialName("SEND_ERROR_EVENT")
+data class SendErrorEvent(
+    val errorMessage: String
+) : OutgoingEvent()
+
+@Serializable
 @SerialName("SEND_QUESTION_EVENT")
 data class SendQuestionEvent(
     val question: ConsumerQuestion

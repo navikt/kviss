@@ -15,7 +15,10 @@ class EventHandler(
         when (event) {
             is StartGameEvent -> {
                 val quiz = context.gameService.getQuizByPin(gamePin)
-                SendQuestionEvent(quiz.questions[0])
+                val game = context.gameService.getGameByPin(gamePin)
+                if (event.hostId == game.hostId) {
+                    SendQuestionEvent(quiz.questions[0])
+                } else SendErrorEvent("Invalid host ID")
             }
             is NextQuestionEvent -> {
                 val question: ConsumerQuestion = context.quizService.getQuestion(event.questionId)

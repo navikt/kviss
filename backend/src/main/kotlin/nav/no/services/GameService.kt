@@ -56,7 +56,7 @@ class GameService(
 
     fun getGame(id: Long): Game = gameDao.getGame(id).toModel()
 
-    private fun getGameByPin(pin: Int): Game = gameDao.getGameByPin(pin)!!.toModel()
+    fun getGameByPin(pin: Int): Game = gameDao.getGameByPin(pin)!!.toModel()
 
     fun getPlayers(gamePin: Int) = playerDao.getPlayersByPin(gamePin)
 
