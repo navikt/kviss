@@ -36,3 +36,11 @@ data class PlayerLeftEvent(
 @Serializable
 @SerialName("GAME_ENDED_EVENT")
 data class GameEndedEvent(val scores: List<Player>) : OutgoingEvent()
+
+@Serializable
+@SerialName("SEND_ANSWER_EVENT")
+data class SendAnswerEvent(
+    val playerId: Long,
+    val score: Int,
+    val correct: Boolean
+) : OutgoingEvent()

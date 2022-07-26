@@ -40,11 +40,11 @@ class GameService(
         return playerDao.updateScore(playerId)
     }
 
-    fun checkAnswer(alternativeId: Long, playerId: Long): Int? {
+    fun checkAnswer(alternativeId: Long, playerId: Long): Pair<Int, Boolean> {
         return if (isCorrect(alternativeId)) {
-            increasePoint(playerId)
+            increasePoint(playerId) to true
         } else {
-            getPlayer(playerId).score
+            (getPlayer(playerId).score ?: 0) to false
         }
     }
 
