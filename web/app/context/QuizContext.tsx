@@ -31,4 +31,3 @@ export interface IQuiz {
     questions?: IQuestion[],
     isDraft?: boolean
 }
-
