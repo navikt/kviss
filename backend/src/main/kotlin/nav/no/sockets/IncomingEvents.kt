@@ -23,7 +23,8 @@ data class StartGameEvent(
 @Serializable
 @SerialName("NEXT_QUESTION_EVENT")
 data class NextQuestionEvent(
-    val questionId: Long
+    val questionId: Long,
+    val hostId: String
 ) : IncomingEvent()
 
 
