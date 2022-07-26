@@ -1,5 +1,5 @@
-import LobbyView from "~/components/Lobby"
-import { useWebSocket } from "~/context/SocketContext"
+import LobbyView from '~/components/Lobby'
+import { useWebSocket } from '~/context/SocketContext'
 
 
 export default function HostView() {
@@ -7,7 +7,7 @@ export default function HostView() {
     const ws = useWebSocket()
 
     const send = () => {
-        ws?.send("Hello")
+        ws?.send('Hello')
     }
 
     return (

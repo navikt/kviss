@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useContext } from "react";
+import React, { ReactElement, ReactNode, useContext } from 'react'
 
 interface ProviderProps {
     socket: WebSocket | undefined,
@@ -17,5 +17,5 @@ export default function SocketContextProvider({ children, socket }: ProviderProp
         <context.Provider value={socket}>
             {children}
         </context.Provider>
-    );
-};
+    )
+}

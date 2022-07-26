@@ -1,7 +1,7 @@
-import { Outlet } from "@remix-run/react";
-import { useEffect, useState } from "react";
-import { useGameContext } from "~/context/game/GameContext";
-import SocketContextProvider from "~/context/SocketContext";
+import { Outlet } from '@remix-run/react'
+import { useEffect, useState } from 'react'
+import { useGameContext } from '~/context/game/GameContext'
+import SocketContextProvider from '~/context/SocketContext'
 
 
 export default function HostView() {
@@ -10,21 +10,21 @@ export default function HostView() {
 
     useEffect(() => {
         console.log(state.pin)
-        const ws = new WebSocket(`ws://localhost:8080/game/${state.pin}`);
+        const ws = new WebSocket(`ws://localhost:8080/game/${state.pin}`)
 
         setSocket(ws)
         return () => { ws.close() }
     }, [state.pin])
 
     useEffect(() => {
-        if (!socket) return;
+        if (!socket) return
         socket.onopen = (event) => {
             console.log(event)
-        };
+        }
         socket.onmessage = (event) => {
             console.log(event)
             // TODO: Make big ass state context and reducer 
-        };
+        }
 
 
     }, [socket])
