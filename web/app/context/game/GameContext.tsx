@@ -1,5 +1,5 @@
 import { createContext, FC, useContext, useReducer } from 'react'
-import { ActionTypes, GameAction, Game, StegProps } from './game'
+import { ActionTypes, GameAction, Game, GameProps } from './game'
 
 const initialState: Game = {}
 
@@ -9,18 +9,24 @@ const reducer = (state: Game, action: GameAction) => {
     case ActionTypes.SET_PINCODE: {
         return { ...state, pin: payload }
     }
-    case ActionTypes.SET_USERNAME: {
-        return { ...state, username: payload }
+    case ActionTypes.SET_PLAYER: {
+        return { ...state, player: payload}
     }
     case ActionTypes.SEND_QUESTION_EVENT: {
         return { ...state, currentQuestion: payload }
+    }
+    case ActionTypes.PLAYER_JOINED_EVENT: {
+        return { ...state, players: [...(state.players || []), payload] }
+    }
+    case ActionTypes.SET_HOST_ID: {
+        return { ...state, hostId: payload }
     }
     default:
         return { ...state }
     }
 }
 
-const GameContext = createContext<StegProps>({
+const GameContext = createContext<GameProps>({
     state: initialState,
     dispatch: () => {
         /* Do nothing */

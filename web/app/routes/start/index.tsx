@@ -7,7 +7,7 @@ import { IQuiz } from '~/context/QuizContext'
 
 
 export const loader: LoaderFunction = async () => {
-    const res = await fetch('http://0.0.0.0:8080/quiz/')
+    const res = await fetch(`${process.env.API_URL}/quiz/`)
     return json(await res.json())
 }
 
@@ -19,18 +19,15 @@ export default function StartQuizIndexRoute() {
 
 
     const startQuiz = async (quizId: number | undefined) => {
-        fetch(`http://0.0.0.0:8080//game?quizid=${quizId}`, {
+        fetch(`http://localhost:8080/game?quizid=${quizId}`, {
             method: 'POST'
         })
             .then(res => res.json())
             .then(res => {
-                const pin = res.gamePin
-                dispatch({ type: ActionTypes.SET_PINCODE, payload: pin })
+                dispatch({ type: ActionTypes.SET_PINCODE, payload: res.gamePin })
+                dispatch({ type: ActionTypes.SET_HOST_ID, payload: res.hostId })
             })
-            .finally(() => navigate('../host'))
-
-
-        // To do: set pin to context
+            .finally(() => navigate('../game/lobby/host'))
     }
 
     return (

@@ -1,7 +1,7 @@
-import { Outlet } from '@remix-run/react'
-import { useEffect, useState } from 'react'
-import { ActionTypes, IQuestion } from '~/context/game/game'
-import { useGameContext } from '~/context/game/GameContext'
+import {Outlet} from '@remix-run/react'
+import {useEffect, useState} from 'react'
+import {ActionTypes, IQuestion} from '~/context/game/game'
+import {useGameContext} from '~/context/game/GameContext'
 import SocketContextProvider from '~/context/SocketContext'
 
 
@@ -13,7 +13,10 @@ export default function GameView() {
         const ws = new WebSocket(`ws://localhost:8080/game/${state.pin}`)
 
         setSocket(ws)
-        return () => { ws.close() }
+        return () => {
+            console.log('ws.close()')
+            ws.close()
+        }
     }, [])
 
     useEffect(() => {
@@ -31,6 +34,17 @@ export default function GameView() {
                 dispatch({
                     type: ActionTypes.SEND_QUESTION_EVENT,
                     payload: JSON.parse(event.data).question as IQuestion
+                })
+                break
+            }
+            case ActionTypes.SET_PINCODE: {
+                dispatch({type: ActionTypes.SET_PINCODE, payload: event.data.playerName})
+                break
+            }
+            case ActionTypes.PLAYER_JOINED_EVENT: {
+                dispatch({
+                    type: ActionTypes.PLAYER_JOINED_EVENT,
+                    payload: JSON.parse(event.data).playerName as string
                 })
             }
             }

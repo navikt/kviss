@@ -1,12 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import { useContext } from 'react'
 
-export interface IPlayer {
-    id: number
-    name: string
-    score: number
-}
-
 export interface IAlternative {
     text: string,
     isCorrect?: boolean
