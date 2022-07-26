@@ -1,10 +1,8 @@
 package nav.no.sockets
 
-import nav.no.models.SocketConnection
 import nav.no.models.ConsumerQuestion
 import nav.no.ApplicationContext
 import nav.no.models.ConsumerAlternative
-import java.lang.reflect.Executable
 
 class EventHandler(
 
@@ -37,8 +35,9 @@ class EventHandler(
                 SendAlternativesEvent(alternatives)
             }
             is SelectAnswerEvent -> {
-//                context.gameService.checkAnswer(event.alternativeId, event.playerId)
-                TODO()
+                val (score, isCorrect) = context.gameService.checkAnswer(event.alternativeId, event.playerId)
+                SendAnswerEvent(event.playerId,
+                    score, isCorrect)
             }
             is EndGameEvent -> {
                 GameEndedEvent(emptyList())
