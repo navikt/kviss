@@ -1,49 +1,23 @@
-import { IQuestion, ScoreboardProps, useQuiz } from '~/context/QuizContext'
+import { useGameContext } from '~/context/game/GameContext'
+import { IAlternative, ScoreboardProps } from '~/context/QuizContext'
 import AnswerButton from './AnswerButton'
 
 
 export function Question(tb: ScoreboardProps): JSX.Element {
 
-    const getIndex = (i: number | undefined): number => {
-
-        if (i ? i > questions.length : true) {
-            return -1
-        }
-        return questions.findIndex((obj: IQuestion) => obj.id === i)
-    }
-
-    const { setQuestion, question, questions } = useQuiz()
-
-    const alternative = question.alternative
-    const id = question.id
-    const description = question.description
+    const { state } = useGameContext()
 
 
-    const sendAnswer = async (answerIndex: number) => {
-
-    }
+    const sendAnswer = async (answerIndex: number) => { /* void */}
 
     const onQuestionAnswered = (answerIndex: number) => {
-        if (alternative?.[answerIndex].isCorrect) {
-            // TODO: Route to result screen with displaying that answer is correct
-            //navigate(`./result`, { replace: true })
-        }
-        // TODO: Route to to result screen with displaying that answer is incorrect
-        if (getIndex(id ? id + 1 : -1)) {
-            if (getIndex(id ? id + 1 : -1) === -1) {
-                tb.toggleScoreboard(true)
-                return
-            }
-            setQuestion(id ? questions[id] : 1)
-            tb.toggleScoreboard(true)
-        }
-
+        /* void (for now) */
     }
 
     return (
         <div className="flex flex-col h-screen justify-center items-center">
-            <h1 className="text-2xl mb-4">{description}</h1>
-            {alternative?.map((answer: any, i: number) => {
+            <h1 className="text-2xl mb-4">{state.currentQuestion?.description}</h1>
+            {state.currentQuestion?.alternatives?.map((answer: IAlternative, i: number) => {
                 return <AnswerButton
                     quizId={'1'}
                     key={i}

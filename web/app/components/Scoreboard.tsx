@@ -1,11 +1,10 @@
 import { json, LoaderFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { useGameContext } from '~/context/GameContext'
-import { useQuiz } from '~/context/QuizContext'
+import { useGameContext } from '~/context/game/GameContext'
 
 export const loader: LoaderFunction = async () => {
-    const { gameProps } = useGameContext()
-    const res = await fetch(`https://kviss-api.dev.nav.no/game/${gameProps.pincode}/players`)
+    const { state } = useGameContext()
+    const res = await fetch(`https://kviss-api.dev.nav.no/game/${state.pin}/players`)
 
     return json(await res.json())
 }

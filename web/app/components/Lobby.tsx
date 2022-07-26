@@ -1,12 +1,12 @@
-import { useNavigate } from "@remix-run/react";
-import { useEffect, useState } from "react";
-import { useGameContext } from "~/context/game/GameContext";
-import { IPlayer, useQuiz } from "~/context/QuizContext";
-import { useWebSocket } from "~/context/SocketContext";
+import { useNavigate } from '@remix-run/react'
+import { useEffect, useState } from 'react'
+import { useGameContext } from '~/context/game/GameContext'
+import { IPlayer } from '~/context/QuizContext'
+import { useWebSocket } from '~/context/SocketContext'
 
 const initPlayer: IPlayer = {
-    "id": 1,
-    name: "Hans Solobrus",
+    'id': 1,
+    name: 'Hans Solobrus',
     score: 0
 }
 
@@ -17,12 +17,10 @@ export default function LobbyView() {
 
     // TODO: add new players when they join the game
 
-    const startGame = () => {
-
-    }
+    const startGame = () => { /* void */}
 
     return <>
-        <div className={`flex flex-col h-screen justify-center items-center`}>
+        <div className={'flex flex-col h-screen justify-center items-center'}>
             {state.pin}
             <div className="flex flex-col h-40 p-60">
                 {players.map((player) => {
@@ -41,5 +39,5 @@ export default function LobbyView() {
 }
 
 function socketIOClient(arg0: string) {
-    throw new Error("Function not implemented.");
+    throw new Error('Function not implemented.')
 }

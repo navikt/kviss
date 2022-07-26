@@ -1,8 +1,8 @@
-
 export interface Game {
     username?: string
     pin?: number
     currentQuestion?: IQuestion
+    joinedGame?: boolean
 }
 
 export enum ActionTypes {
@@ -16,32 +16,29 @@ export enum ActionTypes {
     SEND_QUESTION_EVENT = 'SEND_QUESTION_EVENT',
     SHOW_ALTERNATIVES_EVENT = 'SHOW_ALTERNATIVES_EVENT',
     SELECT_ANSWER_EVENT = 'SELECT_ANSWER_EVENT',
-    END_GAME_EVENT = 'END_GAME_EVENT'
+    END_GAME_EVENT = 'END_GAME_EVENT',
 }
 
-export type ElectionAction =
+export type GameAction =
     | { type: ActionTypes.SET_USERNAME; payload: string }
     | { type: ActionTypes.SET_PINCODE; payload: number }
     | { type: ActionTypes.SEND_QUESTION_EVENT; payload: IQuestion }
-
-
+    | { type: ActionTypes.PLAYER_JOINED_EVENT; payload: boolean }
 
 export interface StegProps {
     state: Game
-    dispatch: (action: ElectionAction) => void
+    dispatch: (action: GameAction) => void
 }
 
 interface IAlternative {
-    id?: number,
-    text: string,
+    id?: number
+    text: string
 }
 
 export interface IQuestion {
     id?: number
     description: string
     alternatives: IAlternative[]
-    quizId?: number,
+    quizId?: number
     sortOrder: number
 }
-
-

@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
-import Button from '~/components/common/Button';
-import Input from '~/components/common/Input';
-import { ActionTypes } from '~/context/game/game';
-import { useGameContext } from '~/context/game/GameContext';
+import Button from '~/components/common/Button'
+import Input from '~/components/common/Input'
+import { ActionTypes } from '~/context/game/game'
+import { useGameContext } from '~/context/game/GameContext'
 
 
 
@@ -19,12 +19,12 @@ export default function QuizIndexRoute() {
             return res.json()
         }).catch(ex => {
             return false
-        });
+        })
 
         //Check if response is good
         console.log(response)
         if (!response) {
-            alert("Spill ikke funnet")
+            alert('Spill ikke funnet')
             return
         }
 

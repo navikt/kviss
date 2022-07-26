@@ -1,9 +1,8 @@
-import { json } from "@remix-run/node";
-import { Outlet } from "@remix-run/react";
-import { useEffect, useState } from "react";
-import { ActionTypes, IQuestion } from "~/context/game/game";
-import { useGameContext } from "~/context/game/GameContext";
-import SocketContextProvider from "~/context/SocketContext";
+import { Outlet } from '@remix-run/react'
+import { useEffect, useState } from 'react'
+import { ActionTypes, IQuestion } from '~/context/game/game'
+import { useGameContext } from '~/context/game/GameContext'
+import SocketContextProvider from '~/context/SocketContext'
 
 
 export default function GameView() {
@@ -11,7 +10,7 @@ export default function GameView() {
     const { state, dispatch } = useGameContext()
 
     useEffect(() => {
-        const ws = new WebSocket(`ws://localhost:8080/game/${state.pin}`);
+        const ws = new WebSocket(`ws://localhost:8080/game/${state.pin}`)
 
         setSocket(ws)
         return () => { ws.close() }
@@ -28,14 +27,14 @@ export default function GameView() {
             const type: string = JSON.parse(event.data).type
 
             switch (type) {
-                case ActionTypes.SEND_QUESTION_EVENT: {
-                    dispatch({
-                        type: ActionTypes.SEND_QUESTION_EVENT,
-                        payload: JSON.parse(event.data).question as IQuestion
-                    })
-                }
+            case ActionTypes.SEND_QUESTION_EVENT: {
+                dispatch({
+                    type: ActionTypes.SEND_QUESTION_EVENT,
+                    payload: JSON.parse(event.data).question as IQuestion
+                })
             }
-        };
+            }
+        }
 
     }, [socket])
 
