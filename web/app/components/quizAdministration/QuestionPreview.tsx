@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { IQuestion } from '~/context/QuizContext'
+import Button from '../common/Button'
 import QuestionForm from './QuestionForm'
 
 export default function QuestionPreview({ 
@@ -20,14 +21,15 @@ export default function QuestionPreview({
                 ? <div className='flex flex-col my-2'>
                     <p>Question: {questions[questionIndex].description}</p>
                     {questions[questionIndex].alternatives.map((alt, i) => {
-                        return <p key={i}>{`Alternative ${i + 1}: ${alt.text}. Correct?: ${alt.isCorrect}`}</p>
+                        return (
+                            <p key={i} className='text-gray-900 dark:text-gray-300'>
+                                {`Alternative ${i + 1}: ${alt.text}. Correct?: ${alt.isCorrect}`}
+                            </p>
+                        )
                     })}
-                    <button 
-                        className='border-2 border-black rounded my-2'
-                        onClick={() => {setEdit(false)}}
-                    >
+                    <Button onClick={() => {setEdit(false)}}>
                         Edit question
-                    </button>
+                    </Button>
                 </div>
                 : <div>
                     <QuestionForm 

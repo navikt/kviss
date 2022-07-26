@@ -1,5 +1,8 @@
 import { ChangeEvent, useState } from 'react'
 import { IAlternative, IQuestion } from '~/context/QuizContext'
+import Button from '../common/Button'
+import Input from '../common/Input'
+import Radio from '../common/Radio'
 
 interface IProps {
     questions: IQuestion[]
@@ -74,45 +77,34 @@ export default function QuestionForm({
     return (
         <div>
             <form className="flex flex-col">
-                <label className="mb-1">
-                    Description:
-                    <input 
-                        type="text" 
-                        value={question.description || ''}
-                        onChange={handleDescriptionChange}
-                    />
-                </label>
+                <Input 
+                    label='Description:'
+                    type="text" 
+                    value={question.description || ''}
+                    onChange={handleDescriptionChange}
+                />
                 {question.alternatives.map((item, i) => {
                     return(
-                        <div key={i} className="my-1">
-                            <label>
-                                {`Alternative ${i + 1}:`}
-                                <input 
-                                    type="text"
-                                    value={item.text || ''}
-                                    onChange={e => replaceAlternativeTextAtIndex(i, e.target.value)}
-                                />
-                            </label>
-                            <label className='ml-2'>
-                                Correct:?
-                                <input 
-                                    type="radio"
-                                    name='alternative'
-                                    value={`alt-${i}`}
-                                    checked={item.isCorrect}
-                                    onChange={() => handleCorrectAnswerChange(i)}
-                                />
-                            </label>
+                        <div key={i} className="flex flex-row my-1">
+                            <Input 
+                                label={`Alternative ${i + 1}:`}
+                                type="text"
+                                value={item.text || ''}
+                                onChange={e => replaceAlternativeTextAtIndex(i, e.target.value)}
+                            />
+                            <Radio 
+                                label='Correct?:'
+                                name='alternative'
+                                value={`alt-${i}`}
+                                checked={item.isCorrect}
+                                onChange={() => handleCorrectAnswerChange(i)}
+                            />
                         </div>
                     )
                 })}
-                <button
-                    className='border-2 border-black rounded my-2'
-                    onClick={onQuestionSaved}
-                    type="button"
-                >
+                <Button onClick={onQuestionSaved} >
                     Save question
-                </button>
+                </Button>
             </form>
         </div>
     )

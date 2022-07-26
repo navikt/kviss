@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { IQuestion } from '~/context/QuizContext'
+import Button from '../common/Button'
 import QuestionPreview from './QuestionPreview'
 
 const emptyQuestion: IQuestion = {
@@ -38,12 +39,11 @@ export default function QuestionsPreview({
                     questionIndex={i}
                 />
             })}
-            <button 
-                className='border-2 border-black rounded my-2'
+            <Button
                 onClick={onAddQuestion}
             >
                 Add question
-            </button>
+            </Button>
         </div>
     )
 }
