@@ -43,6 +43,14 @@ class QuizService(
         createQuestion.alternatives.map { alternativesDao.addAlternative(id, it) }
     }
 
+    fun updateQuestion(updateQuestion: EditQuestionAlternative) {
+        questionDao.updateQuestion(updateQuestion)
+
+        updateQuestion.alternatives.map {
+            alternativesDao.updateAlternative(it)
+        }
+    }
+
     fun getQuiz(id: Long) = quizDao.getQuiz(id).toModel(getQuestions(id))
 
     fun getConsumerQuiz(id: Long): ConsumerQuiz {

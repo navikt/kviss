@@ -4,10 +4,13 @@ import javax.sql.DataSource
 import nav.no.database.dao.QueriesAlternatives.INSERT_ALTERNATIVE
 import nav.no.database.dao.QueriesAlternatives.SELECT_ALTERNATIVE
 import nav.no.database.dao.QueriesAlternatives.SELECT_ALTERNATIVES
+import nav.no.database.dao.QueriesAlternatives.UPDATE_ALTERNATIVE
 import nav.no.database.domain.Alternative
 import nav.no.database.singleOrNull
 import nav.no.database.toList
 import nav.no.models.CreateAlternative
+import nav.no.models.EditAlternative
+import nav.no.models.EditQuestionAlternative
 
 class AlternativesDao(
         private val dataSource: DataSource,
@@ -54,6 +57,16 @@ class AlternativesDao(
                         .executeQuery()
                         .singleOrNull { getLong("id") }!!
             }
+
+    fun updateAlternative(alternative: EditAlternative) {
+        dataSource.connection.use {
+            it.prepareStatement(UPDATE_ALTERNATIVE).apply {
+                setString(1, alternative.text)
+                setBoolean(2, alternative.isCorrect)
+                setLong(3, alternative.id)
+            }.executeUpdate()
+        }
+    }
 }
 
 private object QueriesAlternatives {
@@ -77,6 +90,12 @@ private object QueriesAlternatives {
         INSERT INTO alternative(question_id, description, is_correct)
         VALUES (?, ?, ?)
         RETURNING id;
+    """.trimIndent()
+
+    val UPDATE_ALTERNATIVE = """
+        UPDATE alternative
+        SET description = ?, is_correct = ?
+        WHERE id = ?;
     """.trimIndent()
 
     val DELETE_ALTERNATIVE = """

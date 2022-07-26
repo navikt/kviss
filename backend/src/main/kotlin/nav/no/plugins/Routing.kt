@@ -21,7 +21,6 @@ fun Application.configureRouting(context: ApplicationContext) {
     routing {
         healthAPI()
         helloWorldRoute()
-        dbRoute()
         quizRoute(context.quizService)
         playerRoute(context.gameService)
         gameRoute(context.gameService)
