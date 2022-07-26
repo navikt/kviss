@@ -29,12 +29,6 @@ class EventHandler(
 //                context.gameService.createPlayer(event.playerName, gamePin)
 //                println("Player ${event.playerName} joined")
                 PlayerJoinedEvent(event.playerName)
-
-
-            }
-            is PlayerLeftEvent -> {
-                println("${event.playerName} has left the building")
-                SendPlayerLeft(event.playerName)
             }
             is ShowAlternativesEvent -> {
                 val alternatives: List<ConsumerAlternative> =
@@ -46,8 +40,8 @@ class EventHandler(
 //                context.gameService.checkAnswer(event.alternativeId, event.playerId)
                 TODO()
             }
-            else -> {
-                throw Exception("Unknown event")
+            is EndGameEvent -> {
+                GameEndedEvent(emptyList())
             }
         }
 }
