@@ -7,7 +7,8 @@ data class Game(
     val id: Long,
     val quizId: Long,
     val isActive: Boolean,
-    val gamePin: Int
+    val gamePin: Int,
+    val hostId: String = ""
 )
 
 @Serializable

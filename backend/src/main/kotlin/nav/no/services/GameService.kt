@@ -3,11 +3,13 @@ package nav.no.services
 import nav.no.database.dao.AlternativesDao
 import nav.no.database.dao.GameDao
 import nav.no.database.dao.PlayerDao
+import nav.no.database.domain.GameId
 import nav.no.database.domain.GamePin
 import nav.no.database.domain.toModel
 import nav.no.models.Game
 import nav.no.models.Player
 import nav.no.models.Scoreboard
+import java.util.UUID
 
 class GameService(
     private val alternativesDao: AlternativesDao,
@@ -76,8 +78,9 @@ class GameService(
 
     fun createGame(quizId: Long): Game {
         val pin = generatePin()
-        val id = gameDao.insertGame(quizId, pin)
-        return Game(id, quizId, true, pin)
+        val hostId = UUID.randomUUID().toString()
+        val id = gameDao.insertGame(quizId, pin, hostId)
+        return Game(id, quizId, true, pin, hostId)
     }
 
     fun setGameFinished(gamePin: GamePin) = gameDao.setGameFinished(gamePin)
