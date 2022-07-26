@@ -60,7 +60,8 @@ create table game
         constraint game_quiz_id_fk
             references quiz,
     pin    int,
-    is_active  bool
+    is_active  bool,
+    host_id text
 );
 create table player
 (

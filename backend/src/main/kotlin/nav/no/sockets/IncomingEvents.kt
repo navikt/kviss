@@ -17,13 +17,14 @@ data class JoinGameEvent(
 @Serializable
 @SerialName("START_GAME_EVENT")
 data class StartGameEvent(
-    val hostId: Long,
+    val hostId: String,
 ) : IncomingEvent()
 
 @Serializable
 @SerialName("NEXT_QUESTION_EVENT")
 data class NextQuestionEvent(
-    val questionId: Long
+    val questionId: Long,
+    val hostId: String
 ) : IncomingEvent()
 
 
