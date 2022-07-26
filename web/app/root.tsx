@@ -1,7 +1,7 @@
-import type { MetaFunction } from '@remix-run/node'
+import { json, MetaFunction } from '@remix-run/node'
 import styles from './styles/app.css'
 
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import { GameProvider } from './context/game/GameContext'
@@ -16,7 +16,16 @@ export const meta: MetaFunction = () => ({
     viewport: 'width=device-width,initial-scale=1',
 })
 
+export async function loader() {
+    return json({
+        ENV: {
+            API_URL: process.env.API_URL
+        }
+    })
+}
+
 export default function App() {
+    const envData = useLoaderData()
     return (
         <html lang="en" className={'h-screen dark'}>
             <head>
@@ -25,16 +34,19 @@ export default function App() {
             </head>
             <body className="bg-slate-800 flex flex-col h-screen justify-between">
                 <GameProvider>
-                    {/** TODO: Add the implementation of header and footer */}
                     <Header />
-
                     <div className={'container mx-auto'}>
                         <Outlet />
                     </div>
-
                     <Footer />
-
                     <ScrollRestoration />
+                    <script 
+                        dangerouslySetInnerHTML={{
+                            __html: `window.ENV = ${JSON.stringify(
+                                envData.ENV
+                            )}`
+                        }}
+                    />
                     <Scripts />
                     <LiveReload />
                 </GameProvider>

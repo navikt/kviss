@@ -30,7 +30,7 @@ export default function CreateQuiz() {
         Promise.resolve(response).then(async (value) => {
             questions.map(async (item) => {
                 item.quizId = value
-                await poster(`http://localhost:8080/quiz/${value as number}/questions`, item)
+                await poster(`${process.env.API_URL}/quiz/${value as number}/questions`, item)
             })
         })
     }

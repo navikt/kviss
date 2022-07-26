@@ -19,7 +19,9 @@ export default function QuestionPreview({
         <div>
             {edit
                 ? <div className='flex flex-col my-2'>
-                    <p>Question: {questions[questionIndex].description}</p>
+                    <p className='text-gray-900 dark:text-gray-300'>
+                        Question: {questions[questionIndex].description}
+                    </p>
                     {questions[questionIndex].alternatives.map((alt, i) => {
                         return (
                             <p key={i} className='text-gray-900 dark:text-gray-300'>
