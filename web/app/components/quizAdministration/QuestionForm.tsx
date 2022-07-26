@@ -1,24 +1,15 @@
 import { ChangeEvent, useState } from 'react'
 import { IAlternative, IQuestion } from '~/context/QuizContext'
+import { emptyQuestion } from '~/mock'
+import Button from '../common/Button'
+import Input from '../common/Input'
+import Radio from '../common/Radio'
 
 interface IProps {
     questions: IQuestion[]
     setQuestions: (question: IQuestion[]) => void
     questionIndex: number
     setEdit: (edit: boolean) => void
-}
-
-const emptyQuestion = {
-    quizId: 1,
-    id: 1,
-    description: '',
-    alternative: [
-        { id: 1, text: '', isCorrect: false },
-        { id: 2, text: '', isCorrect: false },
-        { id: 3, text: '', isCorrect: false },
-        { id: 4, text: '', isCorrect: false }
-    ],
-    sortOrder: 1
 }
 
 export default function QuestionForm({
@@ -39,7 +30,7 @@ export default function QuestionForm({
     }
 
     const replaceAlternativeTextAtIndex = (index: number, newAlternativeText: string) => {
-        const alternatives: IAlternative[] = [...question.alternative]
+        const alternatives: IAlternative[] = [...question.alternatives]
         
         alternatives[index] = { 
             ...alternatives[index],
@@ -48,12 +39,12 @@ export default function QuestionForm({
 
         setQuestion({
             ...question, 
-            alternative: alternatives
+            alternatives
         })
     }
 
     const handleCorrectAnswerChange = (index: number) => {
-        const alternatives: IAlternative[] = [...question.alternative]
+        const alternatives: IAlternative[] = [...question.alternatives]
             .map((item, i) => {
                 if(i === index) return {...item, isCorrect: true}
                 else return {...item, isCorrect: false}
@@ -61,7 +52,7 @@ export default function QuestionForm({
 
         setQuestion({
             ...question,
-            alternative: alternatives
+            alternatives
         })
     }
 
@@ -75,45 +66,34 @@ export default function QuestionForm({
     return (
         <div>
             <form className="flex flex-col">
-                <label className="mb-1">
-                    Description:
-                    <input 
-                        type="text" 
-                        value={question.description || ''}
-                        onChange={handleDescriptionChange}
-                    />
-                </label>
-                {question.alternative.map((item, i) => {
+                <Input 
+                    label='Description:'
+                    type="text" 
+                    value={question.description || ''}
+                    onChange={handleDescriptionChange}
+                />
+                {question.alternatives.map((item, i) => {
                     return(
-                        <div key={i} className="my-1">
-                            <label>
-                                {`Alternative ${i + 1}:`}
-                                <input 
-                                    type="text"
-                                    value={item.text || ''}
-                                    onChange={e => replaceAlternativeTextAtIndex(i, e.target.value)}
-                                />
-                            </label>
-                            <label className='ml-2'>
-                                Correct:?
-                                <input 
-                                    type="radio"
-                                    name='alternative'
-                                    value={`alt-${i}`}
-                                    checked={item.isCorrect}
-                                    onChange={() => handleCorrectAnswerChange(i)}
-                                />
-                            </label>
+                        <div key={i} className="flex flex-row my-1">
+                            <Input 
+                                label={`Alternative ${i + 1}:`}
+                                type="text"
+                                value={item.text || ''}
+                                onChange={e => replaceAlternativeTextAtIndex(i, e.target.value)}
+                            />
+                            <Radio 
+                                label='Correct?:'
+                                name='alternative'
+                                value={`alt-${i}`}
+                                checked={item.isCorrect}
+                                onChange={() => handleCorrectAnswerChange(i)}
+                            />
                         </div>
                     )
                 })}
-                <button
-                    className='border-2 border-black rounded my-2'
-                    onClick={onQuestionSaved}
-                    type="button"
-                >
+                <Button onClick={onQuestionSaved} >
                     Save question
-                </button>
+                </Button>
             </form>
         </div>
     )

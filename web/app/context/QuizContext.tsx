@@ -8,17 +8,16 @@ export interface IPlayer {
 }
 
 export interface IAlternative {
-    id?: number,
     text: string,
     isCorrect: boolean
 }
 
 export interface IQuestion {
-    id?: number
     description: string
-    alternative: IAlternative[]
     quizId?: number,
     sortOrder: number
+    alternatives: IAlternative[]
+    id?: number
 }
 
 export type ScoreboardProps = {
@@ -29,8 +28,8 @@ export interface IQuiz {
     name: string,
     id?: number,
     description: string,
-    questions: IQuestion[],
-    isDraft: boolean
+    questions?: IQuestion[],
+    isDraft?: boolean
 }
 
 const initQuiz: IQuiz = {
@@ -39,11 +38,9 @@ const initQuiz: IQuiz = {
     'description': 'test description',
     'questions': [
         {
-            'id': 1,
             'description': 'Spørsmål 1',
-            'alternative': [
+            'alternatives': [
                 {
-                    'id': 1,
                     'text': 'Alternative 1',
                     'isCorrect': true
                 },
@@ -56,11 +53,9 @@ const initQuiz: IQuiz = {
 }
 
 const initQuestion: IQuestion = {
-    'id': 1,
     'description': 'Spørsmål 1',
-    'alternative': [
+    'alternatives': [
         {
-            'id': 1,
             'text': 'Alternative 1',
             'isCorrect': true
         }
@@ -72,11 +67,17 @@ const pin = 0
 
 const QuizContext = React.createContext({
     questions: [initQuestion],
-    setQuestions: (_: any) => { },
+    setQuestions: (_: any) => { 
+        //
+    },
     question: initQuestion,
-    setQuestion: (_: any) => { },
+    setQuestion: (_: any) => { 
+        //
+    },
     pinCode: pin,
-    setPinCode: (_: any) => { },
+    setPinCode: (_: any) => {
+        //
+    },
 })
 
 

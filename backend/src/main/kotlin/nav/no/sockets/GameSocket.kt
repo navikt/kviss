@@ -19,7 +19,7 @@ fun Routing.gameSocket(
         connections += thisConnection
 
         try {
-            send("You are connected to WS ${gamePin}")
+//            send("You are connected to WS ${gamePin}")
             sendPlayers(connections, gamePin)
 
             val eventHandler = EventHandler(gamePin, context)
