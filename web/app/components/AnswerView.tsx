@@ -3,15 +3,15 @@ import { ScoreboardProps } from '~/context/QuizContext'
 
 
 export default function AnswerView(tb: ScoreboardProps): JSX.Element {
-    const [correct, setCorrect] = useState<Boolean>(true)
+    const [correct, setCorrect] = useState<boolean>(true)
     const [score, setScore] = useState<number>(69)
 
     const onNameClick = () => {
         tb.toggleScoreboard(false)
-    };
+    }
 
-    const backroundColor = correct ? "bg-lime-500" : "bg-rose-500"
-    const feedbackText = correct ? "Correct answer!" : "Wrong answer :("
+    const backroundColor = correct ? 'bg-lime-500' : 'bg-rose-500'
+    const feedbackText = correct ? 'Correct answer!' : 'Wrong answer :('
 
     return <>
         <div className={`flex flex-col h-screen justify-center items-center ${backroundColor}`}>

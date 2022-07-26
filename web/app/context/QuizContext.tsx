@@ -1,15 +1,9 @@
 import React, { ReactElement, useState } from 'react'
 import { useContext } from 'react'
 
-export interface IPlayer {
-    id: number
-    name: string
-    score: number
-}
-
 export interface IAlternative {
     text: string,
-    isCorrect: boolean
+    isCorrect?: boolean
 }
 
 export interface IQuestion {
@@ -31,70 +25,3 @@ export interface IQuiz {
     questions?: IQuestion[],
     isDraft?: boolean
 }
-
-const initQuiz: IQuiz = {
-    'name': 'test quiz',
-    'id': 123,
-    'description': 'test description',
-    'questions': [
-        {
-            'description': 'Spørsmål 1',
-            'alternatives': [
-                {
-                    'text': 'Alternative 1',
-                    'isCorrect': true
-                },
-            ],
-            quizId: 1,
-            sortOrder: 1
-        }
-    ],
-    isDraft: false
-}
-
-const initQuestion: IQuestion = {
-    'description': 'Spørsmål 1',
-    'alternatives': [
-        {
-            'text': 'Alternative 1',
-            'isCorrect': true
-        }
-    ],
-    quizId: 1,
-    sortOrder: 1
-}
-const pin = 0
-
-const QuizContext = React.createContext({
-    questions: [initQuestion],
-    setQuestions: (_: any) => { 
-        //
-    },
-    question: initQuestion,
-    setQuestion: (_: any) => { 
-        //
-    },
-    pinCode: pin,
-    setPinCode: (_: any) => {
-        //
-    },
-})
-
-
-export function useQuiz() {
-    return useContext(QuizContext)
-}
-
-export default function QuizProvider({ children }: { children: Array<ReactElement> | ReactElement }): ReactElement {
-    const [questions, setQuestions] = useState<IQuestion[]>([initQuestion])
-    const [question, setQuestion] = useState<IQuestion>(initQuestion)
-    const [pinCode, setPinCode] = useState<number>(pin)
-
-
-    return (
-        <QuizContext.Provider value={{ questions, setQuestions, question, setQuestion, pinCode, setPinCode }}>
-            {children}
-        </QuizContext.Provider>
-    )
-}
-

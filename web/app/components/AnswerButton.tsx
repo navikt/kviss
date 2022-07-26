@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 
 interface IAnswerButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     answerText: string
     quizId: string
-    onButtonClick: Function
+    onButtonClick: () => void
 }
 
 export default function AnswerButton(
