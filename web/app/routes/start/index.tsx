@@ -19,7 +19,7 @@ export default function StartQuizIndexRoute() {
 
 
     const startQuiz = async (quizId: number | undefined) => {
-        fetch(`http://localhost:8080/game?quizid=${quizId}`, {
+        fetch(`${process.env.API_URL}/game?quizid=${quizId}`, {
             method: 'POST'
         })
             .then(res => res.json())

@@ -4,13 +4,14 @@ import {ActionTypes, IQuestion} from '~/context/game/game'
 import {useGameContext} from '~/context/game/GameContext'
 import SocketContextProvider from '~/context/SocketContext'
 
+const websocketUrl = process.env.WS_URL || 'ws://localhost:8080'
 
 export default function GameView() {
     const [socket, setSocket] = useState<WebSocket>()
     const {state, dispatch} = useGameContext()
 
     useEffect(() => {
-        const ws = new WebSocket(`ws://localhost:8080/game/${state.pin}`)
+        const ws = new WebSocket(`${websocketUrl}/game/${state.pin}`)
 
         setSocket(ws)
         return () => {
