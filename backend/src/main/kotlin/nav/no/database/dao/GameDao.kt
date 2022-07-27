@@ -8,6 +8,7 @@ import nav.no.database.dao.QueriesGame.SELECT_GAME_BY_PIN
 import nav.no.database.dao.QueriesGame.UPDATE_TO_FINISHED
 import nav.no.database.domain.Game
 import nav.no.database.singleOrNull
+import java.util.*
 
 class GameDao(
     private val dataSource: DataSource,
@@ -47,7 +48,7 @@ class GameDao(
         }
     }
 
-    fun insertGame(quizId: Long, pin: Int): Long {
+    fun insertGame(quizId: Long, pin: Int, hostId: String): Long {
         dataSource.connection.use {
             return it.prepareStatement(INSERT_GAME).apply {
                 setLong(1, quizId)
@@ -96,8 +97,8 @@ private object QueriesGame {
     """.trimIndent()
 
     val INSERT_GAME = """
-       INSERT INTO game(quiz_id, is_active, pin)
-       VALUES (?, ?, ?)
+       INSERT INTO game(quiz_id, is_active, pin, host_id)
+       VALUES (?, ?, ?, ?)
        returning id;
     """.trimIndent()
 
