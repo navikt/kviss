@@ -1,5 +1,6 @@
 package nav.no.database.dao
 
+import nav.no.database.dao.QueriesPlayer.DELETE_PLAYER
 import nav.no.database.dao.QueriesPlayer.INSERT_PLAYER
 import nav.no.database.dao.QueriesPlayer.SELECT_PLAYER
 import nav.no.database.dao.QueriesPlayer.SELECT_PLAYERS
@@ -29,6 +30,7 @@ class PlayerDao(
             }
         }
     }
+
     fun getPlayers(gameId: Int): List<Player> {
         dataSource.connection.use {
             val rs = it.prepareStatement(SELECT_PLAYERS).apply {
@@ -61,11 +63,19 @@ class PlayerDao(
     }
 
 
-    fun updateScore(playerId: Long): Int{
+    fun updateScore(playerId: Long): Int {
         dataSource.connection.use {
             return it.prepareStatement(UPDATE_PLAYER_SCORE).apply {
                 setLong(1, playerId)
             }.executeQuery().singleOrNull { getInt("score") }!!
+        }
+    }
+
+    fun deletePlayer(playerId: Long) {
+        dataSource.connection.use {
+            it.prepareStatement(DELETE_PLAYER).apply {
+                setLong(1, playerId)
+            }.executeQuery()
         }
     }
 
@@ -81,6 +91,8 @@ class PlayerDao(
 
 
 private object QueriesPlayer {
+
+    val DELETE_PLAYER = "delete from player WHERE id = ?;"
 
     val SELECT_PLAYER = """
         select * 
