@@ -36,7 +36,7 @@ data class PlayerJoinedEvent(
 @Serializable
 @SerialName("PLAYER_LEFT_EVENT")
 data class PlayerLeftEvent(
-    val playerName: String
+    val player: Player
 ) : OutgoingEvent()
 
 @Serializable
