@@ -22,12 +22,8 @@ export default function StartQuizIndexRoute() {
     }, [])
 
     const startQuiz = async (quizId: number | undefined) => {
-<<<<<<< Updated upstream
         // @ts-ignore
         fetch(`${window.env.API_URL}/game?quizid=${quizId}`, {
-=======
-        fetch(`https://kviss-api.dev.nav.no/game?quizid=${quizId}`, {
->>>>>>> Stashed changes
             method: 'POST'
         })
             .then(res => res.json())
