@@ -1,6 +1,11 @@
 import { json, LoaderFunction } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
-import { IQuiz } from '~/context/QuizContext'
+import { useLoaderData, useNavigate } from '@remix-run/react'
+import { useState } from 'react'
+import Button from '~/components/common/Button'
+import QuestionsPreview from '~/components/quizAdministration/QuestionsPreview'
+import QuizInformationForm from '~/components/quizAdministration/QuizInformationForm'
+import { IQuestion, IQuiz } from '~/context/QuizContext'
+import { IQuizInfo } from '../create'
 
 export const loader: LoaderFunction = async ({ params }) => {
     const res = await fetch(`https://kviss-api.dev.nav.no/quiz/${params.quizId}`)
@@ -9,11 +14,36 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 export default function EditQuiz() {
 
+    const navigate = useNavigate()
+
     const quiz: IQuiz = useLoaderData()
 
+    const [quizInfo, setQuizInfo] = useState<IQuizInfo>({
+        name: quiz.name,
+        description: quiz.description
+    })
+
+    const [questions, setQuestions] = useState<IQuestion[]>(quiz.questions || [])
+
+    const onUpdateQuiz = () => {
+        questions.map(async (question) => {
+            await fetch(`https://kviss-api.dev.nav.no/quiz/${quiz.id}/questions`, {
+                body: JSON.stringify(question),
+                method: 'PATCH'
+            })
+        })
+        navigate('../start')
+    }
+
     return (
-        <div>
-            {quiz.name}
+        <div className='flex flex-col justify-center items-center my-4'>
+            <h2 className='text-2xl mb-2 text-gray-900 dark:text-gray-300'>Quiz info</h2>
+            <QuizInformationForm quizInfo={quizInfo} setQuizInfo={setQuizInfo}/>
+            <h2 className='text-2xl my-2 text-gray-900 dark:text-gray-300'>Questions</h2>
+            <QuestionsPreview questions={questions} setQuestions={setQuestions}/>
+            <Button onClick={onUpdateQuiz}>
+                <h1 className='text-2xl my-2'>SAVE QUIZ</h1>
+            </Button>
         </div>
     )
 }

@@ -8,7 +8,7 @@ import QuestionsPreview from '~/components/quizAdministration/QuestionsPreview'
 import QuizInformationForm from '~/components/quizAdministration/QuizInformationForm'
 import { IAlternative, IQuestion, IQuiz } from '~/context/QuizContext'
 
-interface IQuizInfo {
+export interface IQuizInfo {
     name: string
     description: string
 }
@@ -38,9 +38,6 @@ export default function CreateQuiz() {
         }).then(() => navigate('../start'))
     }
 
-    /**
-     * TODO: Wrap in context for questions, currently a lot of prop drilling
-     */
     return (
         <div className='flex flex-col h-screen justify-center items-center'>
             <h2 className='text-2xl mb-2 text-gray-900 dark:text-gray-300'>Quiz info</h2>

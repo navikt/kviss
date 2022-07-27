@@ -4,6 +4,7 @@ import { useContext } from 'react'
 export interface IAlternative {
     text: string,
     isCorrect?: boolean
+    id?: number
 }
 
 export interface IQuestion {
