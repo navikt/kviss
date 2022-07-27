@@ -75,7 +75,7 @@ class PlayerDao(
         dataSource.connection.use {
             it.prepareStatement(DELETE_PLAYER).apply {
                 setLong(1, playerId)
-            }.executeQuery()
+            }.executeUpdate()
         }
     }
 
