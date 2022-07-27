@@ -9,7 +9,8 @@ export default function GameView() {
     const {state, dispatch} = useGameContext()
 
     useEffect(() => {
-        const ws = new WebSocket(`ws://kviss-api.dev.nav.no/game/${state.pin}`)
+        // @ts-ignore
+        const ws = new WebSocket(`${window.env.WS_URL}/game/${state.pin}`)
 
         setSocket(ws)
         return () => {
