@@ -2,7 +2,9 @@ import {useNavigate} from '@remix-run/react'
 import {ActionTypes} from '~/context/game/game'
 import {useGameContext} from '~/context/game/GameContext'
 import {IQuiz} from '~/context/QuizContext'
-import {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react'
+import EditIcon from '~/components/common/icons/EditIcon'
+import DeleteIcon from '~/components/common/icons/DeleteIcon'
 
 export default function StartQuizIndexRoute() {
     const { dispatch } = useGameContext()
@@ -30,6 +32,16 @@ export default function StartQuizIndexRoute() {
             .finally(() => navigate('../game/lobby/host'))
     }
 
+    const onDeleteQuiz = async (quizId: number | undefined) => {
+        await fetch(`https://kviss-api.dev.nav.no/quiz/${quizId}`, {
+            method: 'DELETE'
+        }).then(async res => {
+            await fetch('https://kviss-api.dev.nav.no/quiz')
+                .then(res => res.json())
+                .then((res: IQuiz[]) => setQuizes(res))
+        })
+    }
+
     return (
         <div className="flex flex-col">
             <table className="border-separate border-spacing-2 border border-slate-500 text-white">
@@ -37,7 +49,6 @@ export default function StartQuizIndexRoute() {
                     <tr className="text-left">
                         <th>Quiz name</th>
                         <th>Description</th>
-                        <th>Er utkast</th>
                         <th className="mt-3">Start</th>
                     </tr>
                 </thead>
@@ -50,22 +61,19 @@ export default function StartQuizIndexRoute() {
                             <td>
                                 {quiz.description}
                             </td>
-
-                            <td>
-                                {`${quiz.isDraft}`}
-                            </td>
-                            <td>
-                                {!quiz.isDraft ?
-                                    <button
-                                        onClick={e => startQuiz(quiz.id)}
-                                        className="bg-lime-600 text-black font-bold py-2 px-4 rounded">
+                            <td className='flex flex-row'>
+                                <button
+                                    onClick={() => startQuiz(quiz.id)}
+                                    className="bg-lime-600 text-black font-bold py-2 px-4 rounded"
+                                >
                                         Start Quiz
-                                    </button>
-                                    : <button
-                                        className="bg-lime-600 cursor-not-allowed text-black font-bold py-2 px-4 rounded opacity-50">
-                                        Start Quiz
-                                    </button>
-                                }
+                                </button>
+                                <button className='ml-4'>
+                                    <EditIcon />
+                                </button>
+                                <button className='ml-4' onClick={() => onDeleteQuiz(quiz.id)}>
+                                    <DeleteIcon />
+                                </button>
                             </td>
                         </tr>
                     })}
