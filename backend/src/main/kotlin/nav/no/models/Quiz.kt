@@ -23,7 +23,7 @@ data class Quiz(
     val id: Long,
     val description: String?,
     val questions: List<Question>,
-    val isDraft: Boolean
+//    val isDraft: Boolean
 )
 
 @Serializable
