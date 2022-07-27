@@ -15,6 +15,7 @@ fun Route.quizRoute(quizService: QuizService) {
             val quizList = quizService.getQuizzes()
             call.respond(quizList)
         }
+
         post {
             val source = call.receive<CreateQuizRequest>()
             val id = quizService.createQuiz(source)
@@ -31,6 +32,13 @@ fun Route.quizRoute(quizService: QuizService) {
                     call.respond(HttpStatusCode(404, "Quiz not found"))
                 }
             }
+
+            delete {
+                val quizId = call.parameters["id"]!!.toLong()
+                quizService.deleteQuiz(quizId)
+                call.respond(HttpStatusCode(200, "Quiz deleted successfully"))
+            }
+
             route("questions") {
                 get {
                     try {
