@@ -1,29 +1,29 @@
-import { json, LoaderFunction } from '@remix-run/node'
-
-import { useLoaderData, useNavigate } from '@remix-run/react'
-import DeleteIcon from '~/components/common/icons/DeleteIcon'
-import EditIcon from '~/components/common/icons/EditIcon'
-import LikeIcon from '~/components/common/icons/LikeIcon'
+import {useNavigate} from '@remix-run/react'
+import {ActionTypes} from '~/context/game/game'
+import {useGameContext} from '~/context/game/GameContext'
+import {IQuiz} from '~/context/QuizContext'
+import {useEffect, useState} from 'react'
 import UnlikeIcon from '~/components/common/icons/UnlikeIcon'
-import { ActionTypes } from '~/context/game/game'
-import { useGameContext } from '~/context/game/GameContext'
-import { IQuiz } from '~/context/QuizContext'
-
-
-export const loader: LoaderFunction = async () => {
-    const res = await fetch(`${process.env.API_URL}/quiz/`)
-    return json(await res.json())
-}
+import LikeIcon from '~/components/common/icons/LikeIcon'
+import EditIcon from '~/components/common/icons/EditIcon'
+import DeleteIcon from '~/components/common/icons/DeleteIcon'
 
 export default function StartQuizIndexRoute() {
-
     const { dispatch } = useGameContext()
-    const quizes: IQuiz[] = useLoaderData()
+    const [quizes, setQuizes] = useState<IQuiz[]>([])
+
     const navigate = useNavigate()
 
+    useEffect(() => {
+        // @ts-ignore
+        fetch(`${window.env.API_URL}/quiz`)
+            .then(res => res.json())
+            .then((res: IQuiz[]) => setQuizes(res))
+    }, [])
 
     const startQuiz = async (quizId: number | undefined) => {
-        fetch(`http://localhost:8080/game?quizid=${quizId}`, {
+        // @ts-ignore
+        fetch(`${window.env.API_URL}/game?quizid=${quizId}`, {
             method: 'POST'
         })
             .then(res => res.json())

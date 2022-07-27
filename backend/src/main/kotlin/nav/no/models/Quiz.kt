@@ -102,6 +102,22 @@ data class CreateAlternative(
 )
 
 @Serializable
+data class EditAlternative(
+    val id: Long,
+    val text: String,
+    val isCorrect: Boolean,
+)
+
+@Serializable
+data class EditQuestionAlternative(
+    val id: Long,
+    val description: String,
+    val quizId: Long,
+    val sortOrder: Int,
+    val alternatives: List<EditAlternative>
+)
+
+@Serializable
 data class Alternative(
     val id: Long,
     val text: String,

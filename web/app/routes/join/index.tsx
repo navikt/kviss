@@ -16,7 +16,8 @@ export default function QuizIndexRoute() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        const gameExists: boolean = await fetch(`http://0.0.0.0:8080/game/${pin}/exist`
+        // @ts-ignore
+        const gameExists: boolean = await fetch(`${window.env.API_URL}/game/${pin}/exist`
         ).then((res: Response) => res.json())
             .then(exists => JSON.parse(exists))
             .catch(ex => {
@@ -25,8 +26,8 @@ export default function QuizIndexRoute() {
             })
 
         if (!gameExists) return
-
-        const player: IPlayer = await fetch(`http://0.0.0.0:8080/game/${pin}/player?playername=${username}`, {
+        // @ts-ignore
+        const player: IPlayer = await fetch(`${window.env.API_URL}/game/${pin}/player?playername=${username}`, {
             method: 'POST'
         }).then((res: Response) => {
             if (res.status === 200) {

@@ -4,13 +4,13 @@ import {ActionTypes, IQuestion} from '~/context/game/game'
 import {useGameContext} from '~/context/game/GameContext'
 import SocketContextProvider from '~/context/SocketContext'
 
-
 export default function GameView() {
     const [socket, setSocket] = useState<WebSocket>()
-    const { state, dispatch } = useGameContext()
+    const {state, dispatch} = useGameContext()
 
     useEffect(() => {
-        const ws = new WebSocket(`ws://localhost:8080/game/${state.pin}`)
+        // @ts-ignore
+        const ws = new WebSocket(`${window.env.WS_URL}/game/${state.pin}`)
 
         setSocket(ws)
         return () => {
@@ -23,7 +23,15 @@ export default function GameView() {
         if (!socket) return
         socket.onopen = (event) => {
             console.log(event)
+
+            if (state.player) {
+                socket.send(JSON.stringify({
+                    'type': 'JOIN_GAME_EVENT',
+                    'playerName': state.player?.name
+                }))
+            }
         }
+
         socket.onmessage = (event) => {
             console.log(event.data)
 
@@ -50,11 +58,15 @@ export default function GameView() {
             }
         }
 
+        socket.onclose = () => {
+            // do something ... ?
+        }
+
     }, [socket])
 
     return (
         <SocketContextProvider socket={socket}>
-            <Outlet />
+            <Outlet/>
         </SocketContextProvider>
     )
 }

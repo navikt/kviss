@@ -33,6 +33,10 @@ class EventHandler(
 //                println("Player ${event.playerName} joined")
                 PlayerJoinedEvent(event.playerName)
             }
+            is LeaveGameEvent -> {
+                context.gameService.deletePlayer(event.player.id)
+                PlayerLeftEvent(event.player)
+            }
             is ShowAlternativesEvent -> {
                 val alternatives: List<ConsumerAlternative> =
                     context.quizService.getQuestion(event.questionId).alternatives
@@ -45,7 +49,8 @@ class EventHandler(
                     score, isCorrect)
             }
             is EndGameEvent -> {
-                GameEndedEvent(emptyList())
+                context.gameService.setGameFinished(gamePin)
+                GameEndedEvent(context.gameService.getPlayers(gamePin))
             }
         }
 }

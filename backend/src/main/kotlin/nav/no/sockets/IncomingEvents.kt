@@ -3,6 +3,7 @@ package nav.no.sockets
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import nav.no.database.domain.GamePin
+import nav.no.models.Player
 
 @Serializable
 sealed class IncomingEvent
@@ -32,6 +33,12 @@ data class NextQuestionEvent(
 @SerialName("SHOW_ALTERNATIVES_EVENT")
 data class ShowAlternativesEvent(
     val questionId: Long
+) : IncomingEvent()
+
+@Serializable
+@SerialName("LEAVE_GAME_EVENT")
+data class LeaveGameEvent(
+    val player: Player
 ) : IncomingEvent()
 
 @Serializable

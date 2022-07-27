@@ -54,6 +54,7 @@ class GameDao(
                 setLong(1, quizId)
                 setBoolean(2, true)
                 setInt(3, pin)
+                setString(4, hostId)
             }.executeQuery().singleOrNull { getLong("id") }!!
         }
     }
@@ -70,7 +71,7 @@ class GameDao(
         dataSource.connection.use {
             it.prepareStatement(UPDATE_TO_FINISHED).apply {
                 setInt(1, pin)
-            }.executeQuery()
+            }.executeUpdate()
         }
     }
 }

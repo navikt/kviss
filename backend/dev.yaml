@@ -26,3 +26,7 @@ spec:
     path: isready
   ingresses:
     - https://kviss-api.dev.nav.no/
+  accessPolicy:
+    inbound:
+      rules:
+        - application: kviss
