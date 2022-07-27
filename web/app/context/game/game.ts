@@ -25,6 +25,7 @@ export enum ActionTypes {
     SHOW_ALTERNATIVES_EVENT = 'SHOW_ALTERNATIVES_EVENT',
     SELECT_ANSWER_EVENT = 'SELECT_ANSWER_EVENT',
     END_GAME_EVENT = 'END_GAME_EVENT',
+    SEND_ANSWER_EVENT = 'SEND_ANSWER_EVENT',
 }
 
 export type GameAction =
@@ -34,6 +35,7 @@ export type GameAction =
     | { type: ActionTypes.PLAYER_JOINED_EVENT; payload: string }
     | { type: ActionTypes.SET_HOST_ID; payload: string }
     | { type: ActionTypes.SET_LAST_EVENT; payload: string }
+    | { type: ActionTypes.SEND_ANSWER_EVENT; payload: number }
 
 export interface GameProps {
     state: Game

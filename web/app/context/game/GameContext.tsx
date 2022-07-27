@@ -24,6 +24,13 @@ const reducer = (state: Game, action: GameAction) => {
     case ActionTypes.SET_LAST_EVENT: {
         return { ...state, lastEvent: payload }
     }
+    case ActionTypes.SEND_ANSWER_EVENT: {
+        const p = state.player
+        p ? p.score = payload : state.player?.score
+        return { ...state, 
+            player: p // TODO: Check if this works when backend sends correct score
+        }
+    }
     default:
         return { ...state }
     }

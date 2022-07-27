@@ -58,6 +58,18 @@ export default function GameView() {
                     type: ActionTypes.PLAYER_JOINED_EVENT,
                     payload: JSON.parse(event.data).playerName as string
                 })
+                break
+            }
+            case ActionTypes.SEND_ANSWER_EVENT: {
+                dispatch({
+                    type: ActionTypes.SEND_ANSWER_EVENT,
+                    payload: JSON.parse(event.data).score as number
+                })
+                dispatch({
+                    type: ActionTypes.SET_LAST_EVENT,
+                    payload: ActionTypes.SEND_ANSWER_EVENT
+                })
+                break 
             }
             }
         }
