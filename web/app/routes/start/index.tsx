@@ -22,8 +22,12 @@ export default function StartQuizIndexRoute() {
     }, [])
 
     const startQuiz = async (quizId: number | undefined) => {
+<<<<<<< Updated upstream
         // @ts-ignore
         fetch(`${window.env.API_URL}/game?quizid=${quizId}`, {
+=======
+        fetch(`https://kviss-api.dev.nav.no/game?quizid=${quizId}`, {
+>>>>>>> Stashed changes
             method: 'POST'
         })
             .then(res => res.json())
@@ -32,6 +36,15 @@ export default function StartQuizIndexRoute() {
                 dispatch({ type: ActionTypes.SET_HOST_ID, payload: res.hostId })
             })
             .finally(() => navigate('../game/lobby/host'))
+    }
+
+    const onDeleteQuiz = async (quizId: number | undefined) => {
+        await fetch(`https://kviss-api.dev.nav.no/quiz/${quizId}`, {
+            method: 'DELETE'
+        }).then(res => {
+            res.json()
+            console.log(res)
+        })
     }
 
     return (
@@ -75,7 +88,7 @@ export default function StartQuizIndexRoute() {
                                 <button className='ml-4'>
                                     <EditIcon />
                                 </button>
-                                <button className='ml-4'>
+                                <button className='ml-4' onClick={() => onDeleteQuiz(quiz.id)}>
                                     <DeleteIcon />
                                 </button>
                             </td>
