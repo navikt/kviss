@@ -32,6 +32,10 @@ export default function StartQuizIndexRoute() {
             .finally(() => navigate('../game/lobby/host'))
     }
 
+    const onEditQuiz = (quizId: number | undefined) => {
+        navigate(`../edit/${quizId}`)
+    }
+
     const onDeleteQuiz = async (quizId: number | undefined) => {
         await fetch(`https://kviss-api.dev.nav.no/quiz/${quizId}`, {
             method: 'DELETE'
@@ -68,7 +72,9 @@ export default function StartQuizIndexRoute() {
                                 >
                                         Start Quiz
                                 </button>
-                                <button className='ml-4'>
+                            </td>
+                            <td>
+                                <button className='ml-4' onClick={() => onEditQuiz(quiz.id)}>
                                     <EditIcon />
                                 </button>
                                 <button className='ml-4' onClick={() => onDeleteQuiz(quiz.id)}>
