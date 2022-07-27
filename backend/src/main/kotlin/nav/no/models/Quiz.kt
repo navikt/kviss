@@ -23,7 +23,7 @@ data class Quiz(
     val id: Long,
     val description: String?,
     val questions: List<Question>,
-    val isDraft: Boolean
+//    val isDraft: Boolean
 )
 
 @Serializable
@@ -60,7 +60,7 @@ data class UpdateQuizRequest(
 data class Question(
     val id: Long,
     val description: String,
-    val alternative: List<Alternative>,
+    val alternatives: List<Alternative>,
     val quizId: Long,
     val sortOrder: Int
 )

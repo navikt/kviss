@@ -15,8 +15,7 @@ create table quiz
         constraint quiz_pk
             primary key,
     name        text,
-    description text,
-    is_draft    bool
+    description text
 );
 
 create unique index quiz_id_uindex on quiz (id);
