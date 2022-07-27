@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useCreateQuiz } from '~/api/hooks/useQuiz'
 import { poster } from '~/api/operations'
 import Button from '~/components/common/Button'
@@ -13,6 +14,8 @@ interface IQuizInfo {
 }
 
 export default function CreateQuiz() {
+
+    const navigate = useNavigate()
 
     const [quizInfo, setQuizInfo] = useState<IQuizInfo>({
         name: '',
@@ -30,9 +33,9 @@ export default function CreateQuiz() {
         Promise.resolve(response).then(async (value) => {
             questions.map(async (item) => {
                 item.quizId = value
-                await poster(`${process.env.API_URL}/quiz/${value as number}/questions`, item)
+                await poster(`https://kviss-api.dev.nav.no/quiz/${value as number}/questions`, item)
             })
-        })
+        }).then(() => navigate('../start'))
     }
 
     /**
