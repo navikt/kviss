@@ -18,7 +18,7 @@ class QuizDao(
         dataSource.connection.use {
             return it.prepareStatement(SELECT_ALL_QUIZ).executeQuery().toList {
                 Quiz(
-                    getString("name"), getLong("id"), getString("description") ?: "", getBoolean("is_draft")
+                    getString("name"), getLong("id"), getString("description") ?: ""
                 )
             }
         }
@@ -31,7 +31,7 @@ class QuizDao(
             }.executeQuery()
             return if (rs.next()) {
                 Quiz(
-                    rs.getString("name"), rs.getLong("id"), rs.getString("description"), rs.getBoolean("is_draft")
+                    rs.getString("name"), rs.getLong("id"), rs.getString("description")
                 )
             } else {
                 throw Exception("The quiz does not exist")
@@ -43,7 +43,6 @@ class QuizDao(
         return it.prepareStatement(POST_QUIZ).apply {
             setString(1, quiz.name)
             setString(2, quiz.description)
-            setBoolean(3, true)
         }.executeQuery().singleOrNull { getLong(1) }!!
     }
 
@@ -53,7 +52,6 @@ class QuizDao(
             it.prepareStatement(UPDATE_QUIZ).apply {
                 setString(1, quiz.name)
                 setString(2, quiz.description)
-                setBoolean(3, quiz.isDraft)
             }.executeQuery()
         }
     }
@@ -73,14 +71,14 @@ class QuizDao(
 
         val POST_QUIZ = """
             insert into quiz
-            (name, description, is_draft)
+            (name, description)
             values (
-            ?, ?, ?) returning id
+            ?, ?) returning id
         """.trimIndent()
 
         val UPDATE_QUIZ = """
             UPDATE quiz
-            SET name = ?, description = ?, is_draft = ?
+            SET name = ?, description = ?
             WHERE id = ?;
         """.trimIndent()
 
