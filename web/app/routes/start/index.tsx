@@ -51,7 +51,6 @@ export default function StartQuizIndexRoute() {
                     <tr className="text-left">
                         <th>Quiz name</th>
                         <th>Description</th>
-                        <th>Utkast</th>
                         <th className="mt-3">Start</th>
                     </tr>
                 </thead>
@@ -64,24 +63,13 @@ export default function StartQuizIndexRoute() {
                             <td>
                                 {quiz.description}
                             </td>
-                            <td className=''>
-                                {!quiz.isDraft 
-                                    ? <UnlikeIcon />
-                                    : <LikeIcon />
-                                }
-                            </td>
                             <td className='flex flex-row'>
-                                {!quiz.isDraft 
-                                    ? <button
-                                        onClick={e => startQuiz(quiz.id)}
-                                        className="bg-lime-600 text-black font-bold py-2 px-4 rounded">
+                                <button
+                                    onClick={() => startQuiz(quiz.id)}
+                                    className="bg-lime-600 text-black font-bold py-2 px-4 rounded"
+                                >
                                         Start Quiz
-                                    </button>
-                                    : <button
-                                        className="bg-lime-600 cursor-not-allowed text-black font-bold py-2 px-4 rounded opacity-50">
-                                        Start Quiz
-                                    </button>
-                                }
+                                </button>
                                 <button className='ml-4'>
                                     <EditIcon />
                                 </button>
