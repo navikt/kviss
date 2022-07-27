@@ -1,6 +1,10 @@
 import { json, LoaderFunction } from '@remix-run/node'
 
 import { useLoaderData, useNavigate } from '@remix-run/react'
+import DeleteIcon from '~/components/common/icons/DeleteIcon'
+import EditIcon from '~/components/common/icons/EditIcon'
+import LikeIcon from '~/components/common/icons/LikeIcon'
+import UnlikeIcon from '~/components/common/icons/UnlikeIcon'
 import { ActionTypes } from '~/context/game/game'
 import { useGameContext } from '~/context/game/GameContext'
 import { IQuiz } from '~/context/QuizContext'
@@ -37,7 +41,7 @@ export default function StartQuizIndexRoute() {
                     <tr className="text-left">
                         <th>Quiz name</th>
                         <th>Description</th>
-                        <th>Er utkast</th>
+                        <th>Utkast</th>
                         <th className="mt-3">Start</th>
                     </tr>
                 </thead>
@@ -50,13 +54,15 @@ export default function StartQuizIndexRoute() {
                             <td>
                                 {quiz.description}
                             </td>
-
-                            <td>
-                                {`${quiz.isDraft}`}
+                            <td className=''>
+                                {!quiz.isDraft 
+                                    ? <UnlikeIcon />
+                                    : <LikeIcon />
+                                }
                             </td>
-                            <td>
-                                {!quiz.isDraft ?
-                                    <button
+                            <td className='flex flex-row'>
+                                {!quiz.isDraft 
+                                    ? <button
                                         onClick={e => startQuiz(quiz.id)}
                                         className="bg-lime-600 text-black font-bold py-2 px-4 rounded">
                                         Start Quiz
@@ -66,6 +72,12 @@ export default function StartQuizIndexRoute() {
                                         Start Quiz
                                     </button>
                                 }
+                                <button className='ml-4'>
+                                    <EditIcon />
+                                </button>
+                                <button className='ml-4'>
+                                    <DeleteIcon />
+                                </button>
                             </td>
                         </tr>
                     })}
