@@ -43,6 +43,10 @@ export default function GameView() {
                     type: ActionTypes.SEND_QUESTION_EVENT,
                     payload: JSON.parse(event.data).question as IQuestion
                 })
+                dispatch({
+                    type: ActionTypes.SET_LAST_EVENT,
+                    payload: ActionTypes.SEND_QUESTION_EVENT
+                })
                 break
             }
             case ActionTypes.SET_PINCODE: {

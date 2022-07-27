@@ -21,6 +21,9 @@ const reducer = (state: Game, action: GameAction) => {
     case ActionTypes.SET_HOST_ID: {
         return { ...state, hostId: payload }
     }
+    case ActionTypes.SET_LAST_EVENT: {
+        return { ...state, lastEvent: payload }
+    }
     default:
         return { ...state }
     }

@@ -1,16 +1,21 @@
+import { IAlternative } from '../QuizContext'
+
 export interface Game {
     player?: IPlayer
     pin?: number
     currentQuestion?: IQuestion
+    answer?: object
     joinedGame?: boolean
     players?: string[]
     hostId?: string
+    lastEvent?: string
 }
 
 export enum ActionTypes {
     SET_PLAYER = 'SET_PLAYER',
     SET_PINCODE = 'SET_PINCODE',
     SET_HOST_ID = 'SET_HOST_ID',
+    SET_LAST_EVENT = 'SET_LAST_EVENT',
     JOIN_GAME_EVENT = 'JOIN_GAME_EVENT',
     PLAYER_JOINED_EVENT = 'PLAYER_JOINED_EVENT',
     PLAYER_LEFT_EVENT = 'PLAYER_LEFT_EVENT',
@@ -28,15 +33,11 @@ export type GameAction =
     | { type: ActionTypes.SEND_QUESTION_EVENT; payload: IQuestion }
     | { type: ActionTypes.PLAYER_JOINED_EVENT; payload: string }
     | { type: ActionTypes.SET_HOST_ID; payload: string }
+    | { type: ActionTypes.SET_LAST_EVENT; payload: string }
 
 export interface GameProps {
     state: Game
     dispatch: (action: GameAction) => void
-}
-
-interface IAlternative {
-    id?: number
-    text: string
 }
 
 export interface IQuestion {
