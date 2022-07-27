@@ -9,7 +9,7 @@ export default function PlayerLobbyIndexRoute() {
     const ws = useWebSocket()
     const {state} = useGameContext()
 
-    useEffect(() => {
+    /*useEffect(() => {
         console.log(`ws?.readyState: ${ws?.readyState}`)
         console.log(state.player?.name)
         if (ws?.readyState === 1) {
@@ -18,7 +18,7 @@ export default function PlayerLobbyIndexRoute() {
                 'playerName': state.player?.name
             }))
         }
-    }, [ws?.readyState])
+    }, [ws?.readyState])*/
 
     return (
         <div className="flex flex-col h-screen justify-center items-center">
