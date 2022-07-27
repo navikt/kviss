@@ -13,7 +13,7 @@ export const useQuizById = (id: number) => {
 }
 
 export const useCreateQuiz = async (quiz: IQuiz) => {
-    const { data, error } = await poster<number>('http://localhost:8080/quiz', quiz)
+    const { data, error } = await poster<number>('https://kviss-api.dev.nav.no/quiz', quiz)
 
     return {
         response: data,
