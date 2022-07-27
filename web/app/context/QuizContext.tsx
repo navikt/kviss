@@ -23,5 +23,5 @@ export interface IQuiz {
     id?: number,
     description: string,
     questions?: IQuestion[],
-    isDraft?: boolean
+    //isDraft?: boolean
 }

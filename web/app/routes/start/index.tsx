@@ -3,8 +3,6 @@ import {ActionTypes} from '~/context/game/game'
 import {useGameContext} from '~/context/game/GameContext'
 import {IQuiz} from '~/context/QuizContext'
 import {useEffect, useState} from 'react'
-import UnlikeIcon from '~/components/common/icons/UnlikeIcon'
-import LikeIcon from '~/components/common/icons/LikeIcon'
 import EditIcon from '~/components/common/icons/EditIcon'
 import DeleteIcon from '~/components/common/icons/DeleteIcon'
 
