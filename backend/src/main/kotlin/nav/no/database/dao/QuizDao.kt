@@ -62,7 +62,7 @@ class QuizDao(
         dataSource.connection.use {
             it.prepareStatement(DELETE_QUIZ).apply {
                 setLong(1, id)
-            }.executeQuery()
+            }.executeUpdate()
         }
     }
 
