@@ -7,7 +7,7 @@ import { IQuiz } from '~/context/QuizContext'
 
 
 export const loader: LoaderFunction = async () => {
-    const res = await fetch(`${process.env.API_URL}/quiz/`)
+    const res = await fetch('http://kviss.dev.intern.nav.no/quiz/')
     return json(await res.json())
 }
 
@@ -19,7 +19,7 @@ export default function StartQuizIndexRoute() {
 
 
     const startQuiz = async (quizId: number | undefined) => {
-        fetch(`${process.env.API_URL}/game?quizid=${quizId}`, {
+        fetch(`http://kviss.dev.intern.nav.no/game?quizid=${quizId}`, {
             method: 'POST'
         })
             .then(res => res.json())

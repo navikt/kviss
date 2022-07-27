@@ -16,7 +16,18 @@ export const meta: MetaFunction = () => ({
     viewport: 'width=device-width,initial-scale=1',
 })
 
+export async function loader() {
+    return json({
+        env: {
+            API_URL: process.env.API_URL || 'localhost:8080',
+            WS_URL: process.env.WS_URL || 'ws://localhost:8080',
+        },
+    })
+}
+
 export default function App() {
+    const data = useLoaderData()
+
     return (
         <html lang="en" className={'h-screen dark'}>
             <head>
@@ -34,6 +45,14 @@ export default function App() {
                     <Scripts />
                     <LiveReload />
                 </GameProvider>
+
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `window.env = ${JSON.stringify(
+                            data.env
+                        )}`,
+                    }}
+                />
             </body>
         </html>
     )
