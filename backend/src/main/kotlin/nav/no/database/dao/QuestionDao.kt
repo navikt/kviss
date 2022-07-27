@@ -4,10 +4,13 @@ import javax.sql.DataSource
 import nav.no.database.dao.QueriesQuestions.INSERT_QUESTION
 import nav.no.database.dao.QueriesQuestions.SELECT_QUESTION
 import nav.no.database.dao.QueriesQuestions.SELECT_QUESTIONS
+import nav.no.database.dao.QueriesQuestions.UPDATE_QUESTION
 import nav.no.database.domain.Question
+import nav.no.database.domain.Quiz
 import nav.no.database.singleOrNull
 import nav.no.database.toList
 import nav.no.models.CreateQuestion
+import nav.no.models.EditQuestionAlternative
 
 class QuestionDao(
         private val dataSource: DataSource,
@@ -56,6 +59,16 @@ class QuestionDao(
                         .executeQuery()
                         .singleOrNull { getLong("id") }!!
             }
+
+    fun updateQuestion(question: EditQuestionAlternative) {
+        dataSource.connection.use {
+            it.prepareStatement(UPDATE_QUESTION).apply {
+                setString(1, question.description)
+                setInt(2, question.sortOrder)
+                setLong(3, question.id)
+            }.executeUpdate()
+        }
+    }
 }
 
 private object QueriesQuestions {
@@ -68,6 +81,12 @@ private object QueriesQuestions {
        INSERT INTO question(description, quiz_id, sort_order)
        VALUES (?, ?, ?)
        RETURNING id;
+    """.trimIndent()
+
+    val UPDATE_QUESTION = """
+        UPDATE question 
+        SET description = ?, sort_order = ? 
+        WHERE id = ?;
     """.trimIndent()
 
     val DELETE_QUESTIONS = "DELETE FROM question WHERE quiz_id = ?;"

@@ -34,6 +34,8 @@ class GameService(
 
     fun gameExist(pin: Int): Boolean = gameDao.getGameByPin(pin)?.isActive ?: false
 
+    fun setGameFinished(gamePin: GamePin) = gameDao.setGameFinished(gamePin)
+
     private fun isCorrect(alternativeId: Long): Boolean {
         return alternativesDao.getAlternative(alternativeId).isCorrect
     }
@@ -83,7 +85,6 @@ class GameService(
         return Game(id, quizId, true, pin, hostId)
     }
 
-    fun setGameFinished(gamePin: GamePin) = gameDao.setGameFinished(gamePin)
 
     fun getScoreboard(gamePin: GamePin): Scoreboard {
         return Scoreboard(gamePin, playerDao.getPlayersByPin(gamePin))

@@ -164,7 +164,7 @@ VALUES ((SELECT max(id) FROM question), 'Kroatia, USA og Frankrike', false);
 -- QUIZ 6 --
 ------------
 INSERT INTO public.quiz (name, description, is_draft)
-VALUES ('FIFA MEN’S WORLD CUP QUIZ', 'Quiz about mens world cup', false);
+VALUES ('Fifa men’s world cup quiz', 'Quiz about mens world cup', false);
 
 -- NEXT QUESTION
 INSERT INTO public.question (quiz_id, description, sort_order)

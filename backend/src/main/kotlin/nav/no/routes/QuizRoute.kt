@@ -5,11 +5,7 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import nav.no.models.CreateQuestion
-import nav.no.models.CreateQuestionAlternative
-import nav.no.models.CreateQuizRequest
-import nav.no.models.Question
-import nav.no.models.Quiz
+import nav.no.models.*
 import nav.no.services.QuizService
 import nav.no.database.domain.Quiz as DBQuiz
 
@@ -24,6 +20,7 @@ fun Route.quizRoute(quizService: QuizService) {
             val id = quizService.createQuiz(source)
             call.respond(id)
         }
+
 
         route("{id}") {
             get {
@@ -44,10 +41,17 @@ fun Route.quizRoute(quizService: QuizService) {
                         call.respond(HttpStatusCode(404, "error getting questions"))
                     }
                 }
+
                 post {
                     val source = call.receive<CreateQuestionAlternative>()
                     val id = quizService.createQuestion(source)
                     call.respond(HttpStatusCode(200, "added question successfully"))
+                }
+
+                patch {
+                    val source = call.receive<EditQuestionAlternative>()
+                    quizService.updateQuestion(source)
+                    call.respond(HttpStatusCode(200, "Question successfully updated"))
                 }
             }
         }

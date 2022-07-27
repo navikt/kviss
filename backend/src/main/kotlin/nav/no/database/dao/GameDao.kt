@@ -71,7 +71,7 @@ class GameDao(
         dataSource.connection.use {
             it.prepareStatement(UPDATE_TO_FINISHED).apply {
                 setInt(1, pin)
-            }.executeQuery()
+            }.executeUpdate()
         }
     }
 }
