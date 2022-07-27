@@ -49,7 +49,8 @@ class EventHandler(
                     score, isCorrect)
             }
             is EndGameEvent -> {
-                GameEndedEvent(emptyList())
+                context.gameService.setGameFinished(gamePin)
+                GameEndedEvent(context.gameService.getPlayers(gamePin))
             }
         }
 }
