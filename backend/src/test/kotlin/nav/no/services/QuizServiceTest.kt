@@ -13,6 +13,10 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
 
+import nav.no.database.domain.Question as DBQuestion
+import nav.no.database.domain.Alternative as DBAlternative
+import nav.no.database.domain.Quiz as DBQuiz
+
 internal class QuizServiceTest {
 
     private val alternativesDao = mockk<AlternativesDao>()
@@ -102,19 +106,19 @@ internal class QuizServiceTest {
     }
 
     @Test
-    fun `get question using valid id`(){
+    fun `get question using valid id`() {
 //        every { nav.no.database.domain.Alternative.toConsumerModel() } returns mockk()
         every { alternativesDao.getAlternatives(any()) }.returns(
             listOf(nav.no.database.domain.Alternative(123, "", false))
         )
         every { questionDao.getQuestion(any()) }.returns(
-            nav.no.database.domain.Question(123,"",1,1)
+            nav.no.database.domain.Question(123, "", 1, 1)
         )
 
         service.getQuestion(123)
 
-        verify(exactly = 1) {questionDao.getQuestion(123)}
-        verify(exactly = 1) {alternativesDao.getAlternatives(123)}
+        verify(exactly = 1) { questionDao.getQuestion(123) }
+        verify(exactly = 1) { alternativesDao.getAlternatives(123) }
     }
 
     @Test
@@ -123,23 +127,30 @@ internal class QuizServiceTest {
             listOf(nav.no.database.domain.Alternative(123, "", false))
         )
         every { questionDao.getQuestions(any()) }.returns(
-            listOf(nav.no.database.domain.Question(123,"",1,1),
-                nav.no.database.domain.Question(1234,"",1,1))
+            listOf(
+                nav.no.database.domain.Question(123, "", 1, 1),
+                nav.no.database.domain.Question(1234, "", 1, 1)
+            )
         )
 
         service.getQuestions(1)
 
-        verify(exactly = 1) {questionDao.getQuestions(any())}
+        verify(exactly = 1) { questionDao.getQuestions(any()) }
     }
 
     @Test
     fun `Test getting quizzes`() {
-        every { service.getQuestions(any()) } returns listOf(Question(123,"", alternatives,1,1),
-                    Question(1234,"", alternatives,1,1))
+        val alternatives = emptyList<Alternative>()
+        every { service.getQuestions(any()) } returns listOf(
+            Question(123, "", alternatives, 1, 1),
+            Question(1234, "", alternatives, 1, 1)
+        )
 
         every { questionDao.getQuestions(any()) }.returns(
-            listOf(nav.no.database.domain.Question(123,"",1,1),
-                nav.no.database.domain.Question(1234,"",1,1))
+            listOf(
+                nav.no.database.domain.Question(123, "", 1, 1),
+                nav.no.database.domain.Question(1234, "", 1, 1)
+            )
         )
         every { alternativesDao.getAlternatives(any()) }.returns(
             listOf(nav.no.database.domain.Alternative(123, "", false))
@@ -147,7 +158,68 @@ internal class QuizServiceTest {
 
         every { quizDao.getQuizzes() } returns listOf(Quiz("name", 1, "desc"))
 
-        verify(exactly = 1) {quizDao.getQuizzes()}
+        service.getQuizzes()
+        verify(exactly = 1) { quizDao.getQuizzes() }
 
+    }
+
+    @Test
+    fun `Test getting consumerQuestions`() {
+        every { questionDao.getQuestions(any()) }.returns(
+            listOf(
+                nav.no.database.domain.Question(123, "", 1, 1),
+                nav.no.database.domain.Question(1234, "", 1, 1)
+            )
+        )
+        every { alternativesDao.getAlternatives(any()) }.returns(
+            listOf(nav.no.database.domain.Alternative(123, "", false))
+        )
+
+        service.getConsumerQuestions(123)
+
+        verify(exactly = 1) { questionDao.getQuestions(123) }
+    }
+
+    @Test
+    fun `test getQuiz`() {
+        every { questionDao.getQuestions(any()) } returns listOf(
+            DBQuestion(123, "",  1, 1),
+            DBQuestion(1234, "",  1, 1)
+        )
+
+        every { alternativesDao.getAlternatives(any()) }.returns(
+            listOf(nav.no.database.domain.Alternative(123, "", false))
+        )
+        every { quizDao.getQuiz(any()) } returns Quiz("name", 123, "desc")
+
+        service.getQuiz(123)
+
+        verify(exactly = 1) { quizDao.getQuiz(123) }
+    }
+
+    @Test
+    fun `test deletequiz`() {
+        justRun { quizDao.deleteQuiz(any()) }
+
+        service.deleteQuiz(123)
+
+        verify(exactly = 1) {quizDao.deleteQuiz(any())}
+    }
+
+    @Test
+    fun `Test getting consumerQuiz`() {
+        every { quizDao.getQuiz(any()) } returns DBQuiz("nbame", 123, "desc")
+        every { questionDao.getQuestions(any()) } returns listOf(
+            DBQuestion(123, "",  1, 1),
+            DBQuestion(1234, "",  1, 1)
+        )
+
+        every { alternativesDao.getAlternatives(any()) }.returns(
+            listOf(nav.no.database.domain.Alternative(123, "", false))
+        )
+
+        service.getConsumerQuiz(123)
+
+        verify(exactly = 1) {quizDao.getQuiz(any())}
     }
 }
