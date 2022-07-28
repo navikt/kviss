@@ -1,5 +1,6 @@
 package nav.no.database.dao
 
+import nav.no.database.dao.QueriesQuestions.DELETE_QUESTION
 import javax.sql.DataSource
 import nav.no.database.dao.QueriesQuestions.INSERT_QUESTION
 import nav.no.database.dao.QueriesQuestions.SELECT_QUESTION
@@ -66,6 +67,14 @@ class QuestionDao(
                 setString(1, question.description)
                 setInt(2, question.sortOrder)
                 setLong(3, question.id)
+            }.executeUpdate()
+        }
+    }
+
+    fun deleteQuestion(questionId: Long) {
+        dataSource.connection.use {
+            it.prepareStatement(DELETE_QUESTION).apply {
+                setLong(1, questionId)
             }.executeUpdate()
         }
     }

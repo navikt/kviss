@@ -39,7 +39,8 @@ data class ConsumerQuestion(
     val id: Long,
     val description: String,
     val quizId: Long,
-    val alternatives: List<ConsumerAlternative>
+    val alternatives: List<ConsumerAlternative>,
+    val sortOrder: Int
 )
 
 @Serializable

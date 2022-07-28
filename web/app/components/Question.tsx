@@ -1,30 +1,41 @@
+import { ReactElement } from 'react'
+import { ActionTypes } from '~/context/game/game'
 import { useGameContext } from '~/context/game/GameContext'
-import { IAlternative, ScoreboardProps } from '~/context/QuizContext'
+import { IAlternative } from '~/context/QuizContext'
+import { useWebSocket } from '~/context/SocketContext'
 import AnswerButton from './AnswerButton'
 
 
-export function Question(tb: ScoreboardProps): JSX.Element {
+export function Question(): ReactElement {
 
     const { state } = useGameContext()
+    const ws = useWebSocket()
 
 
-    const sendAnswer = async (answerIndex: number) => { /* void */}
-
-    const onQuestionAnswered = (answerIndex: number) => {
-        /* void (for now) */
+    const sendAnswer = async (answer: IAlternative) => { 
+        ws?.send(JSON.stringify({
+            'type': ActionTypes.SELECT_ANSWER_EVENT,
+            'alternativeId': answer.id,
+            'playerId': state.player?.id
+        }))
     }
+
 
     return (
         <div className="flex flex-col h-screen justify-center items-center">
-            <h1 className="text-2xl mb-4">{state.currentQuestion?.description}</h1>
-            {state.currentQuestion?.alternatives?.map((answer: IAlternative, i: number) => {
-                return <AnswerButton
-                    quizId={'1'}
-                    key={i}
-                    answerText={answer.text}
-                    onButtonClick={() => onQuestionAnswered(i)}
-                />
-            })}
+            { !state.hostId ? 
+                state.currentQuestion?.alternatives?.map((answer: IAlternative, i: number) => {
+                    return <AnswerButton
+                        key={i}
+                        answerText={answer.text}
+                        onButtonClick={() => sendAnswer(answer)}
+                    />
+                })
+                :
+                <h1 className="text-2xl mb-4 text-white">{state.currentQuestion?.description}</h1>
+            }
+            
+            
         </div>
     )
 }
