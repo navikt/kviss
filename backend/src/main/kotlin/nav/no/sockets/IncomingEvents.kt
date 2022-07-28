@@ -53,3 +53,9 @@ data class SelectAnswerEvent(
     val alternativeId: Long,
     val playerId: Long
 ) : IncomingEvent()
+
+@Serializable
+@SerialName("TRIGGER_ANSWER_EVENT")
+data class TriggerAnswerEvent(
+    val hostId: String
+) : IncomingEvent()

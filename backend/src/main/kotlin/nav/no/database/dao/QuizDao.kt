@@ -10,6 +10,7 @@ import nav.no.database.domain.Quiz
 import nav.no.database.singleOrNull
 import nav.no.database.toList
 import nav.no.models.CreateQuizRequest
+import nav.no.models.UpdateQuizRequest
 
 class QuizDao(
     private val dataSource: DataSource,
@@ -47,12 +48,13 @@ class QuizDao(
     }
 
 
-    fun updateQuiz(quiz: Quiz) {
+    fun updateQuiz(quiz: UpdateQuizRequest) {
         dataSource.connection.use {
             it.prepareStatement(UPDATE_QUIZ).apply {
                 setString(1, quiz.name)
                 setString(2, quiz.description)
-            }.executeQuery()
+                setLong(3, quiz.id)
+            }.executeUpdate()
         }
     }
 
