@@ -19,7 +19,7 @@ class QuizService(
                             alternative.toModel()
                         }
                 it.toModel(alternatives)
-            }
+            }.sortedBy { it.sortOrder }
 
     fun getConsumerQuestions(quizId: Long): List<ConsumerQuestion> =
             questionDao.getQuestions(quizId).map {
