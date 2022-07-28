@@ -30,3 +30,4 @@ spec:
     inbound:
       rules:
         - application: kviss
+        - application: kviss-vite-frontend
