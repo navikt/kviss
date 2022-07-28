@@ -5,6 +5,7 @@ import {IQuiz} from '~/context/QuizContext'
 import {useEffect, useState} from 'react'
 import EditIcon from '~/components/common/icons/EditIcon'
 import DeleteIcon from '~/components/common/icons/DeleteIcon'
+import { fetcher } from '~/api/operations'
 
 export default function StartQuizIndexRoute() {
     const { dispatch } = useGameContext()
@@ -20,6 +21,12 @@ export default function StartQuizIndexRoute() {
     }, [])
 
     const startQuiz = async (quizId: number | undefined) => {
+        // @ts-ignore
+        fetcher(`${window.env.API_URL}/quiz/${quizId}`)
+            .then(res => {
+                console.log(res)
+                dispatch({ type: ActionTypes.SET_CURRENT_QUIZ, payload: res as IQuiz })
+            })
         // @ts-ignore
         fetch(`${window.env.API_URL}/game?quizid=${quizId}`, {
             method: 'POST'
