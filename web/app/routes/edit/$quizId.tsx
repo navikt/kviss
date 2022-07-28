@@ -30,7 +30,11 @@ export default function EditQuiz() {
         // Update quiz info
         // @ts-ignore
         await fetch(`${window.env.API_URL}/quiz/${quiz.id}`, {
-            body: JSON.stringify(quizInfo),
+            body: JSON.stringify({
+                id: quiz.id,
+                name: quizInfo.name,
+                description: quizInfo.description
+            }),
             headers: {
                 'Content-Type': 'application/json'
             },
