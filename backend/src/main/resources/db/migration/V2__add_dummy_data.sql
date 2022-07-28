@@ -2,8 +2,8 @@
 ------------
 -- QUIZ 1 --
 ------------
-INSERT INTO public.quiz (name, description, is_draft)
-VALUES ('Hva kan du om Norge?', 'Quiz med spørsmål om vårt kjære fedreland', false);
+INSERT INTO public.quiz (name, description)
+VALUES ('Hva kan du om Norge?', 'Quiz med spørsmål om vårt kjære fedreland');
 
 -- NEXT QUESTION
 INSERT INTO public.question (quiz_id, description, sort_order)
@@ -50,8 +50,8 @@ VALUES ((SELECT max(id) FROM question), 'Egil', false);
 ------------
 -- QUIZ 2 --
 ------------
-INSERT INTO public.quiz (name, description, is_draft)
-VALUES ('Fredagsquiz', 'En liten fredagsquiz før helgen', true);
+INSERT INTO public.quiz (name, description)
+VALUES ('Fredagsquiz', 'En liten fredagsquiz før helgen');
 
 INSERT INTO public.question (quiz_id, description, sort_order)
 VALUES ((SELECT max(id) FROM quiz), null, 1);
@@ -60,15 +60,15 @@ VALUES ((SELECT max(id) FROM quiz), null, 1);
 ------------
 -- QUIZ 3 --
 ------------
-INSERT INTO public.quiz (name, description, is_draft)
-VALUES ('test quiz', null, true);
+INSERT INTO public.quiz (name, description)
+VALUES ('test quiz', null);
 
 
 ------------
 -- QUIZ 4 --
 ------------
-INSERT INTO public.quiz (name, description, is_draft)
-VALUES ('FYA1', 'Spørsmål om FYA1', true);
+INSERT INTO public.quiz (name, description)
+VALUES ('FYA1', 'Spørsmål om FYA1');
 
 INSERT INTO public.question (quiz_id, description, sort_order)
 VALUES ((SELECT max(id) FROM quiz), null, 1);
@@ -78,8 +78,8 @@ VALUES ((SELECT max(id) FROM quiz), null, 1);
 ------------
 -- QUIZ 5 --
 ------------
-INSERT INTO public.quiz (name, description, is_draft)
-VALUES ('Lofoten', 'Quiz om Lofoten', false);
+INSERT INTO public.quiz (name, description)
+VALUES ('Lofoten', 'Quiz om Lofoten');
 
 -- NEXT QUESTION
 INSERT INTO public.question (quiz_id, description, sort_order)
@@ -163,8 +163,8 @@ VALUES ((SELECT max(id) FROM question), 'Kroatia, USA og Frankrike', false);
 ------------
 -- QUIZ 6 --
 ------------
-INSERT INTO public.quiz (name, description, is_draft)
-VALUES ('Fifa men’s world cup quiz', 'Quiz about mens world cup', false);
+INSERT INTO public.quiz (name, description)
+VALUES ('Fifa men’s world cup quiz', 'Quiz about mens world cup');
 
 -- NEXT QUESTION
 INSERT INTO public.question (quiz_id, description, sort_order)

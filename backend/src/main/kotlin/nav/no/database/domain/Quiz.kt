@@ -14,11 +14,11 @@ data class Quiz(
     val name: String,
     val id: Long,
     val description: String?,
-    val isDraft: Boolean
+//    val isDraft: Boolean
 )
 
 fun Quiz.toModel(questions: List<nav.no.models.Question>) =
-    nav.no.models.Quiz(name, id, description, questions, isDraft)
+    nav.no.models.Quiz(name, id, description, questions)
 
 fun Quiz.toConsumerModel(questions: List<nav.no.models.ConsumerQuestion>) =
     nav.no.models.ConsumerQuiz(name, id, description, questions)
@@ -34,7 +34,7 @@ fun Question.toModel(alternatives: List<nav.no.models.Alternative>) =
     nav.no.models.Question(id, description, alternatives, quizId, sortOrder)
 
 fun Question.toConsumerModel(alternatives: List<nav.no.models.ConsumerAlternative>) =
-    nav.no.models.ConsumerQuestion(id, description, quizId, alternatives)
+    nav.no.models.ConsumerQuestion(id, description, quizId, alternatives, sortOrder)
 
 data class Alternative(
     val id: Long,
