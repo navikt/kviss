@@ -37,10 +37,12 @@ export default function StartQuizIndexRoute() {
     }
 
     const onDeleteQuiz = async (quizId: number | undefined) => {
-        await fetch(`https://kviss-api.dev.nav.no/quiz/${quizId}`, {
+        // @ts-ignore
+        await fetch(`${window.env.API_URL}/quiz/${quizId}`, {
             method: 'DELETE'
-        }).then(async res => {
-            await fetch('https://kviss-api.dev.nav.no/quiz')
+        }).then(async () => {
+            // @ts-ignore
+            await fetch(`${window.env.API_URL}/quiz`)
                 .then(res => res.json())
                 .then((res: IQuiz[]) => setQuizes(res))
         })

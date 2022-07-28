@@ -17,7 +17,7 @@ export default function EditQuiz() {
     const navigate = useNavigate()
 
     const quiz: IQuiz = useLoaderData()
-
+    
     const [quizInfo, setQuizInfo] = useState<IQuizInfo>({
         name: quiz.name,
         description: quiz.description
@@ -30,9 +30,9 @@ export default function EditQuiz() {
             await fetch(`https://kviss-api.dev.nav.no/quiz/${quiz.id}/questions`, {
                 body: JSON.stringify(question),
                 method: 'PATCH'
-            })
+            }).catch(err => console.log(err))
         })
-        navigate('../start')
+        //navigate('../start')
     }
 
     return (

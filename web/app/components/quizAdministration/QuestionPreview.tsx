@@ -17,7 +17,7 @@ export default function QuestionPreview({
 
     return (
         <div>
-            {edit
+            {!edit
                 ? <div className='flex flex-col my-2'>
                     <p className='text-gray-900 dark:text-gray-300'>
                         Question: {questions[questionIndex].description}
@@ -29,7 +29,7 @@ export default function QuestionPreview({
                             </p>
                         )
                     })}
-                    <Button onClick={() => {setEdit(false)}}>
+                    <Button onClick={() => {setEdit(true)}}>
                         Edit question
                     </Button>
                 </div>
