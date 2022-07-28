@@ -8,7 +8,7 @@ import { IQuestion, IQuiz } from '~/context/QuizContext'
 import { IQuizInfo } from '../create'
 
 export const loader: LoaderFunction = async ({ params }) => {
-    const res = await fetch(`https://kviss-api.dev.nav.no/quiz/${params.quizId}`)
+    const res = await fetch(`${process.env.API_URL}/quiz/${params.quizId}`)
     return json(await res.json())
 }
 
@@ -27,12 +27,16 @@ export default function EditQuiz() {
 
     const onUpdateQuiz = () => {
         questions.map(async (question) => {
-            await fetch(`https://kviss-api.dev.nav.no/quiz/${quiz.id}/questions`, {
+            // @ts-ignore
+            await fetch(`${window.env.API_URL}/quiz/${quiz.id}/questions`, {
                 body: JSON.stringify(question),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 method: 'PATCH'
-            }).catch(err => console.log(err))
+            })
         })
-        //navigate('../start')
+        navigate('../start')
     }
 
     return (
