@@ -37,9 +37,7 @@ export default function App() {
             <body className="bg-slate-800 flex flex-col h-screen justify-between">
                 <GameProvider>
                     <Header />
-                    <div className={'container mx-auto'}>
-                        <Outlet />
-                    </div>
+                    <Outlet />
                     <Footer />
                     <ScrollRestoration />
                     <Scripts />

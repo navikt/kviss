@@ -34,6 +34,9 @@ const reducer = (state: Game, action: GameAction) => {
     case ActionTypes.SET_CURRENT_QUIZ: {
         return { ...state, currentQuiz: payload }
     }
+    case ActionTypes.IS_QUESTION_CORRECT: {
+        return { ...state, isQuestionCorrect: payload }
+    }
     default:
         return { ...state }
     }

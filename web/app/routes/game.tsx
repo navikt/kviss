@@ -1,6 +1,6 @@
 import {Outlet} from '@remix-run/react'
 import {useEffect, useState} from 'react'
-import {ActionTypes} from '~/context/game/game'
+import {ActionTypes, IAnswerEvent, IPlayer} from '~/context/game/game'
 import {useGameContext} from '~/context/game/GameContext'
 import { IQuestion } from '~/context/QuizContext'
 import SocketContextProvider from '~/context/SocketContext'
@@ -28,7 +28,7 @@ export default function GameView() {
             if (state.player) {
                 socket.send(JSON.stringify({
                     'type': 'JOIN_GAME_EVENT',
-                    'playerName': state.player?.name
+                    'player': state.player
                 }))
             }
         }
@@ -57,20 +57,32 @@ export default function GameView() {
             case ActionTypes.PLAYER_JOINED_EVENT: {
                 dispatch({
                     type: ActionTypes.PLAYER_JOINED_EVENT,
-                    payload: JSON.parse(event.data).playerName as string
+                    payload: JSON.parse(event.data).player as IPlayer
                 })
                 break
             }
             case ActionTypes.SEND_ANSWER_EVENT: {
-                dispatch({
-                    type: ActionTypes.SEND_ANSWER_EVENT,
-                    payload: JSON.parse(event.data).score as number
-                })
-                if (!state.hostId) {
+                if (state.player?.id === JSON.parse(event.data).playerId as number) {
                     dispatch({
-                        type: ActionTypes.SET_LAST_EVENT,
-                        payload: ActionTypes.SEND_ANSWER_EVENT
+                        type: ActionTypes.SEND_ANSWER_EVENT,
+                        payload: JSON.parse(event.data).score as number
                     })
+                    dispatch({
+                        type: ActionTypes.IS_QUESTION_CORRECT,
+                        payload: JSON.parse(event.data).correct as boolean
+                    })
+                    if (state.hostId) {
+                        dispatch ({
+                            type: ActionTypes.UPDATE_PLAYER_SCORE_EVENT,
+                            payload: JSON.parse(event.data) as IAnswerEvent
+                        })
+                    }
+                    // if (!state.hostId) {
+                    //     dispatch({
+                    //         type: ActionTypes.SET_LAST_EVENT,
+                    //         payload: ActionTypes.SEND_ANSWER_EVENT
+                    //     })
+                    // }
                 }
                 break 
             }
