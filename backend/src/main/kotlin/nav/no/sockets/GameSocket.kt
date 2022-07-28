@@ -12,7 +12,7 @@ fun Routing.gameSocket(
     connections: MutableSet<SocketConnection>,
     context: ApplicationContext
 ) {
-    webSocket("/game/{pin}") {
+    webSocket("/websocket/game/{pin}") {
         println("Adding player!")
         val gamePin = call.parameters["pin"]!!.toInt()
         val thisConnection = SocketConnection(this, gamePin)

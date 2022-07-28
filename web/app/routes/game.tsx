@@ -10,7 +10,7 @@ export default function GameView() {
 
     useEffect(() => {
         // @ts-ignore
-        const ws = new WebSocket(`${window.env.WS_URL}/game/${state.pin}`)
+        const ws = new WebSocket(`${window.env.WS_URL}/websocket/game/${state.pin}`)
 
         setSocket(ws)
         return () => {
