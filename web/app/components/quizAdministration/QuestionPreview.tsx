@@ -15,6 +15,12 @@ export default function QuestionPreview({
 
     const [edit, setEdit] = useState<boolean>(false)
 
+    const onDeleteQuestion = () => {
+        const questionsCopy = [...questions]
+        questionsCopy.splice(questionIndex, 1)
+        setQuestions(questionsCopy)
+    }
+
     return (
         <div>
             {!edit
@@ -29,9 +35,14 @@ export default function QuestionPreview({
                             </p>
                         )
                     })}
-                    <Button onClick={() => {setEdit(true)}}>
-                        Edit question
-                    </Button>
+                    <div>
+                        <Button onClick={() => {setEdit(true)}}>
+                            Edit question
+                        </Button>
+                        <Button onClick={onDeleteQuestion}>
+                            Delete
+                        </Button>
+                    </div>
                 </div>
                 : <div>
                     <QuestionForm 

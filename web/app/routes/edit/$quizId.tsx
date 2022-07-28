@@ -1,6 +1,7 @@
 import { json, LoaderFunction } from '@remix-run/node'
 import { useLoaderData, useNavigate } from '@remix-run/react'
 import { useState } from 'react'
+import { poster } from '~/api/operations'
 import Button from '~/components/common/Button'
 import QuestionsPreview from '~/components/quizAdministration/QuestionsPreview'
 import QuizInformationForm from '~/components/quizAdministration/QuizInformationForm'
@@ -24,19 +25,48 @@ export default function EditQuiz() {
     })
 
     const [questions, setQuestions] = useState<IQuestion[]>(quiz.questions || [])
-
+    
     const onUpdateQuiz = () => {
-        questions.map(async (question) => {
-            // @ts-ignore
-            await fetch(`${window.env.API_URL}/quiz/${quiz.id}/questions`, {
-                body: JSON.stringify(question),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                method: 'PATCH'
-            })
+        // Check if question is new question or existing being updated
+        questions.map(async (question: IQuestion) => {
+            if (question.id === undefined) {
+                // @ts-ignore
+                await poster(`${window.env.API_URL}/quiz/${quiz.id}/questions`, question)
+            } else {
+                // @ts-ignore
+                await fetch(`${window.env.API_URL}/quiz/${quiz.id}/questions`, {
+                    body: JSON.stringify(question),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'PATCH'
+                })
+            }
         })
+
+        // Check if a question has been deleted
+        quiz.questions?.filter(x => !questions.includes(x)).map(async (question: IQuestion) => {
+            // @ts-ignore
+            if (question.id) {
+                // @ts-ignore
+                await fetch(`${window.env.API_URL}/quiz/${quiz.id}/questions?questionid=${question.id}`,{
+                    method: 'DELETE'
+                })
+            }
+        })
+
         navigate('../start')
+
+        // questions.map(async (question) => {
+        //     // @ts-ignore
+        //     await fetch(`${window.env.API_URL}/quiz/${quiz.id}/questions`, {
+        //         body: JSON.stringify(question),
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         method: 'PATCH'
+        //     })
+        // })
     }
 
     return (
