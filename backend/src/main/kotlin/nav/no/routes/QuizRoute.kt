@@ -38,6 +38,12 @@ fun Route.quizRoute(quizService: QuizService) {
                 call.respond(HttpStatusCode(200, "Quiz deleted successfully"))
             }
 
+            patch {
+                val source = call.receive<UpdateQuizRequest>()
+                quizService.updateQuiz(source)
+                call.respond(HttpStatusCode(200, "Question successfully updated"))
+            }
+
             route("questions") {
                 get {
                     try {
