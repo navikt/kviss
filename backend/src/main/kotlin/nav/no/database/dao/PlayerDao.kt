@@ -84,6 +84,7 @@ class PlayerDao(
             return it.prepareStatement(INSERT_PLAYER).apply {
                 setString(1, playerName)
                 setLong(2, gameId)
+                setInt(3, 0)
             }.executeQuery().singleOrNull { getLong("id") }!!
         }
     }
@@ -120,8 +121,8 @@ private object QueriesPlayer {
     """.trimIndent()
 
     val INSERT_PLAYER = """
-        INSERT INTO player(name, game_id)
-        VALUES (?, ?)
+        INSERT INTO player(name, game_id, score)
+        VALUES (?, ?, ?)
         RETURNING id;
     """.trimIndent()
 
