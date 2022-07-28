@@ -33,7 +33,8 @@ export default function CreateQuiz() {
         Promise.resolve(response).then(async (value) => {
             questions.map(async (item) => {
                 item.quizId = value
-                await poster(`https://kviss-api.dev.nav.no/quiz/${value as number}/questions`, item)
+                // @ts-ignore
+                await poster(`${window.env.API_URL}/quiz/${value as number}/questions`, item)
             })
         }).then(() => navigate('../start'))
     }

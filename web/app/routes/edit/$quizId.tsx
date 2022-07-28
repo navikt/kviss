@@ -26,7 +26,17 @@ export default function EditQuiz() {
 
     const [questions, setQuestions] = useState<IQuestion[]>(quiz.questions || [])
     
-    const onUpdateQuiz = () => {
+    const onUpdateQuiz = async () => {
+        // Update quiz info
+        // @ts-ignore
+        await fetch(`${window.env.API_URL}/quiz/${quiz.id}`, {
+            body: JSON.stringify(quizInfo),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'PATCH'
+        })
+
         // Check if question is new question or existing being updated
         questions.map(async (question: IQuestion) => {
             if (question.id === undefined) {
@@ -56,17 +66,6 @@ export default function EditQuiz() {
         })
 
         navigate('../start')
-
-        // questions.map(async (question) => {
-        //     // @ts-ignore
-        //     await fetch(`${window.env.API_URL}/quiz/${quiz.id}/questions`, {
-        //         body: JSON.stringify(question),
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         method: 'PATCH'
-        //     })
-        // })
     }
 
     return (
