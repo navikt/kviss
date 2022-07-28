@@ -139,6 +139,11 @@ data class ConsumerPlayer(
 )
 
 @Serializable
+data class DeleteQuestion(
+    val id: Long,
+)
+
+@Serializable
 data class Scoreboard(
     val gamePin: Int,
     val players: List<Player>,

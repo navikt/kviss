@@ -7,7 +7,6 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import nav.no.models.*
 import nav.no.services.QuizService
-import nav.no.database.domain.Quiz as DBQuiz
 
 fun Route.quizRoute(quizService: QuizService) {
     route("quiz") {
@@ -62,13 +61,13 @@ fun Route.quizRoute(quizService: QuizService) {
                     call.respond(HttpStatusCode(200, "Question successfully updated"))
                 }
 
-                route("{questionid}") {
-                    delete {
-                        val questionId = call.request.queryParameters["pin"]?.toLong()
-                        if (questionId != null) {
-                            quizService.deleteQuestion(questionId)
-                            call.respond(HttpStatusCode(200, "Question deleted successfully"))
-                        }
+                delete() {
+                    val questionId = call.request.queryParameters["questionid"]?.toLong()
+                    if (questionId != null) {
+                        quizService.deleteQuestion(questionId)
+                        call.respond(HttpStatusCode(200, "Question deleted successfully"))
+                    } else {
+                        call.respond(HttpStatusCode(502, "Question cannot be null"))
                     }
                 }
             }
