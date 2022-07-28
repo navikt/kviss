@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import { useContext } from 'react'
 
 export interface IAlternative {
-    id: number
+    id?: number
     text: string,
     isCorrect?: boolean
 }
