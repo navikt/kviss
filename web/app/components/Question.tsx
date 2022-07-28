@@ -1,3 +1,4 @@
+import { ReactElement } from 'react'
 import { ActionTypes } from '~/context/game/game'
 import { useGameContext } from '~/context/game/GameContext'
 import { IAlternative } from '~/context/QuizContext'
@@ -5,7 +6,7 @@ import { useWebSocket } from '~/context/SocketContext'
 import AnswerButton from './AnswerButton'
 
 
-export function Question(): JSX.Element {
+export function Question(): ReactElement {
 
     const { state } = useGameContext()
     const ws = useWebSocket()
