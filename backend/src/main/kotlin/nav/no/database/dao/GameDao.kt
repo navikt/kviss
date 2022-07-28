@@ -43,6 +43,7 @@ class GameDao(
                         getLong("quiz_id"),
                         getBoolean("is_active"),
                         getInt("pin"),
+                        getString("host_id")
                     )
                 }
         }
