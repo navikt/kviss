@@ -50,3 +50,9 @@ data class SendAnswerEvent(
     val score: Int,
     val correct: Boolean
 ) : OutgoingEvent()
+
+@Serializable
+@SerialName("SHOW_ANSWERS_EVENT")
+data class ShowAnswersEvent(
+    val show: Boolean
+) : OutgoingEvent()

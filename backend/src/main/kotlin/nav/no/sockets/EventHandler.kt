@@ -14,8 +14,8 @@ class EventHandler(
 
     fun handle(event: IncomingEvent): OutgoingEvent =
 
-    when (event) {
-        is StartGameEvent -> {
+        when (event) {
+            is StartGameEvent -> {
                 if (event.hostId == game.hostId) {
                     SendQuestionEvent(quiz.questions[0])
                 } else SendErrorEvent("Invalid host ID")
@@ -45,12 +45,19 @@ class EventHandler(
             }
             is SelectAnswerEvent -> {
                 val (score, isCorrect) = context.gameService.checkAnswer(event.alternativeId, event.playerId)
-                SendAnswerEvent(event.playerId,
-                    score, isCorrect)
+                SendAnswerEvent(
+                    event.playerId,
+                    score, isCorrect
+                )
             }
             is EndGameEvent -> {
                 context.gameService.setGameFinished(gamePin)
                 GameEndedEvent(context.gameService.getPlayers(gamePin))
+            }
+            is TriggerAnswerEvent -> {
+                if (event.hostId == game.hostId) {
+                    ShowAnswersEvent(true)
+                } else SendErrorEvent("Invalid host id")
             }
         }
 }
