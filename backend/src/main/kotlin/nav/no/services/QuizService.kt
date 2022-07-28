@@ -67,4 +67,7 @@ class QuizService(
         return questionDao.getQuestion(id)?.toConsumerModel(alternatives)
                 ?: throw Exception("The question (id=$id) does not exist")
     }
+
+    fun deleteQuestion(id: Long) = questionDao.deleteQuestion(id)
+
 }

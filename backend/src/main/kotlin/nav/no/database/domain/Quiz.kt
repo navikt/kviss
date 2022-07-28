@@ -34,7 +34,7 @@ fun Question.toModel(alternatives: List<nav.no.models.Alternative>) =
     nav.no.models.Question(id, description, alternatives, quizId, sortOrder)
 
 fun Question.toConsumerModel(alternatives: List<nav.no.models.ConsumerAlternative>) =
-    nav.no.models.ConsumerQuestion(id, description, quizId, alternatives)
+    nav.no.models.ConsumerQuestion(id, description, quizId, alternatives, sortOrder)
 
 data class Alternative(
     val id: Long,
