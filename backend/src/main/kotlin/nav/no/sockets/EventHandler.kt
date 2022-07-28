@@ -31,7 +31,7 @@ class EventHandler(
                 // TODO: This will be moved to an api call
 //                context.gameService.createPlayer(event.playerName, gamePin)
 //                println("Player ${event.playerName} joined")
-                PlayerJoinedEvent(event.playerName)
+                PlayerJoinedEvent(context.gameService.getPlayers(gamePin))
             }
             is LeaveGameEvent -> {
                 context.gameService.deletePlayer(event.player.id)
