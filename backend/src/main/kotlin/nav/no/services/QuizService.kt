@@ -37,6 +37,8 @@ class QuizService(
 
     fun createQuiz(createQuizRequest: CreateQuizRequest) = quizDao.createQuiz(createQuizRequest)
 
+    fun updateQuiz(updatedQuiz: UpdateQuizRequest) = quizDao.updateQuiz(updatedQuiz)
+
     fun createQuestion(createQuestion: CreateQuestionAlternative) {
         if (createQuestion.alternatives.size == 4) {
             val id = questionDao.addQuestion(createQuestion.toCreateQuestion())

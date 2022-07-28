@@ -54,7 +54,6 @@ data class UpdateQuizRequest(
     val id: Long,
     val name: String,
     val description: String?,
-    val isDraft: Boolean,
 )
 
 @Serializable
