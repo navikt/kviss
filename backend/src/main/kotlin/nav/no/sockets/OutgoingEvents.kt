@@ -30,7 +30,7 @@ data class SendQuestionEvent(
 @Serializable
 @SerialName("PLAYER_JOINED_EVENT")
 data class PlayerJoinedEvent(
-    val player: List<Player>
+    val playerPlayer: Player
 ) : OutgoingEvent()
 
 @Serializable
