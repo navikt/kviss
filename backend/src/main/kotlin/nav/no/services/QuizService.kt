@@ -19,7 +19,7 @@ class QuizService(
                             alternative.toModel()
                         }
                 it.toModel(alternatives)
-            }
+            }.sortedBy { it.sortOrder }
 
     fun getConsumerQuestions(quizId: Long): List<ConsumerQuestion> =
             questionDao.getQuestions(quizId).map {
@@ -67,4 +67,7 @@ class QuizService(
         return questionDao.getQuestion(id)?.toConsumerModel(alternatives)
                 ?: throw Exception("The question (id=$id) does not exist")
     }
+
+    fun deleteQuestion(id: Long) = questionDao.deleteQuestion(id)
+
 }
