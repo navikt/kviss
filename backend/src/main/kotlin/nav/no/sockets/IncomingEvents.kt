@@ -11,7 +11,7 @@ sealed class IncomingEvent
 @Serializable
 @SerialName("JOIN_GAME_EVENT")
 data class JoinGameEvent(
-    val playerName: String
+    val player: Player
 ) : IncomingEvent()
 
 
