@@ -1,14 +1,6 @@
 import {Outlet} from '@remix-run/react'
 import {useEffect, useState} from 'react'
-<<<<<<< HEAD
-<<<<<<< HEAD
 import {ActionTypes, IAnswerEvent, IPlayer} from '~/context/game/game'
-=======
-import {ActionTypes} from '~/context/game/game'
->>>>>>> 96b057a8e014d23f8cc498b94ffb16da81922c8b
-=======
-import {ActionTypes, IAnswerEvent, IPlayer} from '~/context/game/game'
->>>>>>> 2949cfd9c0c76accd356519ad816a5bd2e5d84a2
 import {useGameContext} from '~/context/game/GameContext'
 import { IQuestion } from '~/context/QuizContext'
 import SocketContextProvider from '~/context/SocketContext'
@@ -70,10 +62,6 @@ export default function GameView() {
                 break
             }
             case ActionTypes.SEND_ANSWER_EVENT: {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 2949cfd9c0c76accd356519ad816a5bd2e5d84a2
                 if (state.hostId) {
                     dispatch ({
                         type: ActionTypes.UPDATE_PLAYER_SCORE_EVENT,
@@ -95,20 +83,6 @@ export default function GameView() {
                             payload: ActionTypes.HAS_ANSWERED_EVENT
                         })
                     }
-<<<<<<< HEAD
-=======
-                dispatch({
-                    type: ActionTypes.SEND_ANSWER_EVENT,
-                    payload: JSON.parse(event.data).score as number
-                })
-                if (!state.hostId) {
-                    dispatch({
-                        type: ActionTypes.SET_LAST_EVENT,
-                        payload: ActionTypes.SEND_ANSWER_EVENT
-                    })
->>>>>>> 96b057a8e014d23f8cc498b94ffb16da81922c8b
-=======
->>>>>>> 2949cfd9c0c76accd356519ad816a5bd2e5d84a2
                 }
                 break 
             }

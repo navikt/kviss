@@ -34,11 +34,6 @@ const reducer = (state: Game, action: GameAction) => {
     case ActionTypes.SET_CURRENT_QUIZ: {
         return { ...state, currentQuiz: payload }
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 2949cfd9c0c76accd356519ad816a5bd2e5d84a2
     case ActionTypes.IS_QUESTION_CORRECT: {
         return { ...state, isQuestionCorrect: payload }
     }
@@ -52,11 +47,6 @@ const reducer = (state: Game, action: GameAction) => {
         })
         return { ...state }
     }
-<<<<<<< HEAD
-=======
->>>>>>> 96b057a8e014d23f8cc498b94ffb16da81922c8b
-=======
->>>>>>> 2949cfd9c0c76accd356519ad816a5bd2e5d84a2
     default:
         return { ...state }
     }
