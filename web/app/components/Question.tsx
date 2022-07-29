@@ -9,7 +9,7 @@ import Button from './common/Button'
 
 export function Question(): ReactElement {
 
-    const { state } = useGameContext()
+    const { state, dispatch } = useGameContext()
     const ws = useWebSocket()
 
 
@@ -18,6 +18,21 @@ export function Question(): ReactElement {
             'type': ActionTypes.SELECT_ANSWER_EVENT,
             'alternativeId': answer.id,
             'playerId': state.player?.id
+        }))
+        dispatch({ 
+            type: ActionTypes.SET_LAST_EVENT,
+            payload: ActionTypes.HAS_ANSWERED_EVENT
+        })
+    }
+
+    const finishQuestion = async () => {
+        dispatch({ 
+            type: ActionTypes.SET_LAST_EVENT,
+            payload: ActionTypes.FINISH_QUESTION_EVENT
+        })
+        ws?.send(JSON.stringify({
+            'type': ActionTypes.TRIGGER_ANSWER_EVENT,
+            'hostId': state.hostId
         }))
     }
 
@@ -50,9 +65,9 @@ export function Question(): ReactElement {
                 <>
                     <h1 className="text-2xl mb-4 text-white">{state.currentQuestion?.description}</h1>
                     <Button 
-                        onClick={nextQuestion} 
+                        onClick={finishQuestion} 
                     >
-                        <h1 className='text-2xl my-2'>Neste spørsmål</h1>
+                        <h1 className='text-2xl my-2'>Neste</h1>
                     </Button>
                 </>
             }
