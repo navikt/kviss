@@ -27,6 +27,12 @@ spec:
   ingresses:
     - https://kviss-api.dev.nav.no/
     - https://kviss-api.dev.intern.nav.no/
+  template: 
+    metadata:
+      labels:
+        app: kviss-api
+      annotations:
+        likerd.io/inject: "false"
   accessPolicy:
     inbound:
       rules:
