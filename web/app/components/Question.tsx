@@ -68,7 +68,6 @@ export function Question(): ReactElement {
                         onClick={finishQuestion} 
                     >
                         <h1 className='text-2xl my-2'>Neste</h1>
-
                     </Button>
                 </>
             }
