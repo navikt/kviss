@@ -31,6 +31,9 @@ const reducer = (state: Game, action: GameAction) => {
             player: p // TODO: Check if this works when backend sends correct score
         }
     }
+    case ActionTypes.SET_CURRENT_QUIZ: {
+        return { ...state, currentQuiz: payload }
+    }
     default:
         return { ...state }
     }

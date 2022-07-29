@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import { useGameContext } from '~/context/game/GameContext'
-import Button from '~/components/common/Button'
 
 export default function LobbyView() {
     const { state } = useGameContext()

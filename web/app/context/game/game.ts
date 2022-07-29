@@ -1,9 +1,10 @@
-import { IAlternative } from '../QuizContext'
+import { IAlternative, IQuestion, IQuiz } from '../QuizContext'
 
 export interface Game {
     player?: IPlayer
     pin?: number
     currentQuestion?: IQuestion
+    currentQuiz?: IQuiz
     answer?: object
     joinedGame?: boolean
     players?: string[]
@@ -16,6 +17,7 @@ export enum ActionTypes {
     SET_PINCODE = 'SET_PINCODE',
     SET_HOST_ID = 'SET_HOST_ID',
     SET_LAST_EVENT = 'SET_LAST_EVENT',
+    SET_CURRENT_QUIZ = 'SET_CURRENT_QUIZ',
     JOIN_GAME_EVENT = 'JOIN_GAME_EVENT',
     PLAYER_JOINED_EVENT = 'PLAYER_JOINED_EVENT',
     PLAYER_LEFT_EVENT = 'PLAYER_LEFT_EVENT',
@@ -35,19 +37,12 @@ export type GameAction =
     | { type: ActionTypes.PLAYER_JOINED_EVENT; payload: string }
     | { type: ActionTypes.SET_HOST_ID; payload: string }
     | { type: ActionTypes.SET_LAST_EVENT; payload: string }
+    | { type: ActionTypes.SET_CURRENT_QUIZ; payload: IQuiz }
     | { type: ActionTypes.SEND_ANSWER_EVENT; payload: number }
 
 export interface GameProps {
     state: Game
     dispatch: (action: GameAction) => void
-}
-
-export interface IQuestion {
-    id?: number
-    description: string
-    alternatives: IAlternative[]
-    quizId?: number
-    sortOrder: number
 }
 
 export interface IPlayer {

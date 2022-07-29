@@ -1,7 +1,8 @@
 import {Outlet} from '@remix-run/react'
 import {useEffect, useState} from 'react'
-import {ActionTypes, IQuestion} from '~/context/game/game'
+import {ActionTypes} from '~/context/game/game'
 import {useGameContext} from '~/context/game/GameContext'
+import { IQuestion } from '~/context/QuizContext'
 import SocketContextProvider from '~/context/SocketContext'
 
 export default function GameView() {
@@ -65,10 +66,12 @@ export default function GameView() {
                     type: ActionTypes.SEND_ANSWER_EVENT,
                     payload: JSON.parse(event.data).score as number
                 })
-                dispatch({
-                    type: ActionTypes.SET_LAST_EVENT,
-                    payload: ActionTypes.SEND_ANSWER_EVENT
-                })
+                if (!state.hostId) {
+                    dispatch({
+                        type: ActionTypes.SET_LAST_EVENT,
+                        payload: ActionTypes.SEND_ANSWER_EVENT
+                    })
+                }
                 break 
             }
             }
