@@ -17,7 +17,7 @@ spec:
   template:
     metadata:
       annotations:
-        linkerd.io/inject: "false"
+        linkerd.io/inject: disabled
   accessPolicy:
     outbound:
       rules:
