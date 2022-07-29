@@ -28,8 +28,8 @@ export default function EditQuiz() {
     
     const onUpdateQuiz = async () => {
         // Update quiz info
-        // @ts-ignore
         if (questions.length !== 0) {
+            // @ts-ignore
             await fetch(`${window.env.API_URL}/quiz/${quiz.id}`, {
                 body: JSON.stringify({
                     id: quiz.id,
@@ -62,7 +62,6 @@ export default function EditQuiz() {
 
             // Check if a question has been deleted
             quiz.questions?.filter(x => !questions.includes(x)).map(async (question: IQuestion) => {
-            // @ts-ignore
                 if (question.id) {
                 // @ts-ignore
                     await fetch(`${window.env.API_URL}/quiz/${quiz.id}/questions?questionid=${question.id}`,{

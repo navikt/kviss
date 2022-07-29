@@ -5,7 +5,6 @@ export interface IAlternative {
     id?: number
     text: string,
     isCorrect?: boolean
-    id?: number
 }
 
 export interface IQuestion {
