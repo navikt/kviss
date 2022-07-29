@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { IPlayer } from '~/context/game/game'
 import { useGameContext } from '~/context/game/GameContext'
+import CrownIcon from '../components/common/icons/crown.svg'
 
 const mockPlayers: IPlayer[] = [
     {
@@ -32,16 +33,28 @@ export default function FinalScoreboard() {
             <h2 className="text-6xl pb-8 text-white">Final tally!</h2>
             <div className='flex justify-center items-end'>
                 <div className='w-52'>
-                    <p className='text-center text-white pb-1'>{players[1].name}</p>
-                    <div className='flex justify-center items-center text-4xl text-white h-52 bg-[#aaa9ad]'>2</div>
+                    <p className='text-center text-white pb-1 mb-1'>{players[1].name}</p>
+                    <div className='flex flex-col justify-center items-center text-white h-52 bg-[#aaa9ad]'>
+                        <p className='text-4xl'>2.</p>
+                        <p className='my-2'>{players[1].score} points!</p>
+                    </div>
                 </div>
                 <div className='w-52'>
-                    <p className='text-center text-white pb-1'>{players[0].name}</p>
-                    <div className='flex justify-center items-center text-6xl text-white h-80 bg-[#d4af37]'>1</div>
+                    <div className='flex justify-center items-center mb-1'>
+                        <p className='text-center text-white pb-1'>{players[0].name}</p>
+                        <img src={CrownIcon} className='ml-3'/>
+                    </div>
+                    <div className='flex flex-col justify-center items-center text-white h-80 bg-[#d4af37]'>
+                        <p className='text-6xl'>1.</p>
+                        <p className='my-2'>{players[0].score} points!</p>
+                    </div>
                 </div>
                 <div className='w-52'>
-                    <p className='text-center text-white pb-1'>{players[2].name}</p>
-                    <div className='flex justify-center items-center text-4xl text-white h-28 bg-[#b08d57]'>3</div>
+                    <p className='text-center text-white pb-1 mb-1'>{players[2].name}</p>
+                    <div className='flex flex-col justify-center items-center text-white h-28 bg-[#b08d57]'>
+                        <p className='text-4xl'>3.</p>
+                        <p className='my-2'>{players[2].score} points!</p>
+                    </div>
                 </div>
             </div>
         </div>
