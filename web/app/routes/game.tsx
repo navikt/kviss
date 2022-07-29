@@ -67,6 +67,10 @@ export default function GameView() {
                         type: ActionTypes.UPDATE_PLAYER_SCORE_EVENT,
                         payload: JSON.parse(event.data) as IAnswerEvent
                     })
+                    dispatch ({
+                        type: ActionTypes.PLAYER_ANSWERED_EVENT,
+                        payload: true
+                    })
                 }
                 if (state.player?.id === JSON.parse(event.data).playerId as number) {
                     dispatch({
