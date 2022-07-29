@@ -5,6 +5,8 @@ metadata:
   namespace: team-tolk
   labels:
     team: team-tolk
+  annotations:
+    linkerd.io/inject: "false"
 spec:
   image: {{ image }}
   port: 3000
@@ -14,12 +16,6 @@ spec:
     cpuThresholdPercentage: 90
     max: 1
     min: 1
-  template:
-    metadata:
-      labels:
-        app: kviss
-      annotations:
-        linkerd.io/inject: "false"
   accessPolicy:
     outbound:
       rules:
