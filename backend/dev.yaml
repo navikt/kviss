@@ -5,6 +5,8 @@ metadata:
   namespace: team-tolk
   labels:
     team: team-tolk
+  annotations:
+    likerd.io/inject: "false"
 spec:
   image: {{ image }}
   port: 8080
@@ -26,6 +28,7 @@ spec:
     path: isready
   ingresses:
     - https://kviss-api.dev.nav.no/
+    - https://kviss-api.dev.intern.nav.no/
   accessPolicy:
     inbound:
       rules:

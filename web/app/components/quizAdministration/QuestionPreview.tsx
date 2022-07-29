@@ -15,9 +15,15 @@ export default function QuestionPreview({
 
     const [edit, setEdit] = useState<boolean>(false)
 
+    const onDeleteQuestion = () => {
+        const questionsCopy = [...questions]
+        questionsCopy.splice(questionIndex, 1)
+        setQuestions(questionsCopy)
+    }
+
     return (
         <div>
-            {edit
+            {!edit
                 ? <div className='flex flex-col my-2'>
                     <p className='text-gray-900 dark:text-gray-300'>
                         Question: {questions[questionIndex].description}
@@ -29,9 +35,14 @@ export default function QuestionPreview({
                             </p>
                         )
                     })}
-                    <Button onClick={() => {setEdit(false)}}>
-                        Edit question
-                    </Button>
+                    <div>
+                        <Button onClick={() => {setEdit(true)}}>
+                            Edit question
+                        </Button>
+                        <Button onClick={onDeleteQuestion}>
+                            Delete
+                        </Button>
+                    </div>
                 </div>
                 : <div>
                     <QuestionForm 
