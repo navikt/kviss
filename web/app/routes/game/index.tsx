@@ -1,4 +1,5 @@
 import AnswerView from '~/components/AnswerView'
+import FinalScoreboard from '~/components/FinalScoreboard'
 import { Question } from '~/components/Question'
 import Scoreboard from '~/components/Scoreboard'
 import WaitingView from '~/components/WaitingView'
@@ -17,6 +18,8 @@ export default function QuizView() {
             { state.lastEvent === ActionTypes.SHOW_ANSWERS_EVENT && <AnswerView />}
             { state.lastEvent === ActionTypes.HAS_ANSWERED_EVENT && <WaitingView/>}
             { state.lastEvent === ActionTypes.FINISH_QUESTION_EVENT && <Scoreboard/>}
+
+            <FinalScoreboard />
 
             {/* Other views... */}
             {/* - Lobby */}
