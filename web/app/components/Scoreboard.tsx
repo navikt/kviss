@@ -21,7 +21,7 @@ export default function Scoreboard() {
                 if (state.currentQuestion?.sortOrder === question.sortOrder - 1) {
                     ws?.send(JSON.stringify({
                         'type': ActionTypes.NEXT_QUESTION_EVENT,
-                        'questionId': question.sortOrder,
+                        'questionId': question.id,
                         'hostId': state.hostId
                     }))
                 }
