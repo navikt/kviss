@@ -14,9 +14,10 @@ spec:
     cpuThresholdPercentage: 90
     max: 1
     min: 1
-  metadata:
-    annotations:
-      linkerd.io/inject: "false"
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: "false"
   accessPolicy:
     outbound:
       rules:

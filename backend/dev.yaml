@@ -8,9 +8,10 @@ metadata:
   annotations:
     likerd.io/inject: "false"
 spec:
-  metadata:
-    annotations:
-      linkerd.io/inject: "false"
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: "false"
   image: {{ image }}
   port: 8080
   replicas:
