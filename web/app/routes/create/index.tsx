@@ -8,7 +8,7 @@ import QuestionsPreview from '~/components/quizAdministration/QuestionsPreview'
 import QuizInformationForm from '~/components/quizAdministration/QuizInformationForm'
 import { IAlternative, IQuestion, IQuiz } from '~/context/QuizContext'
 
-interface IQuizInfo {
+export interface IQuizInfo {
     name: string
     description: string
 }
@@ -33,14 +33,12 @@ export default function CreateQuiz() {
         Promise.resolve(response).then(async (value) => {
             questions.map(async (item) => {
                 item.quizId = value
-                await poster(`https://kviss-api.dev.nav.no/quiz/${value as number}/questions`, item)
+                // @ts-ignore
+                await poster(`${window.env.API_URL}/quiz/${value as number}/questions`, item)
             })
         }).then(() => navigate('../start'))
     }
 
-    /**
-     * TODO: Wrap in context for questions, currently a lot of prop drilling
-     */
     return (
         <div className='flex flex-col h-screen justify-center items-center'>
             <h2 className='text-2xl mb-2 text-gray-900 dark:text-gray-300'>Quiz info</h2>

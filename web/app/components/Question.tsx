@@ -36,6 +36,20 @@ export function Question(): ReactElement {
         }))
     }
 
+    const nextQuestion = async () => {
+        if (state.hostId) {
+            state.currentQuiz?.questions?.map((question: IQuestion) => {
+                if (state.currentQuestion?.sortOrder === question.sortOrder - 1) {
+                    ws?.send(JSON.stringify({
+                        'type': ActionTypes.NEXT_QUESTION_EVENT,
+                        'questionId': question.sortOrder,
+                        'hostId': state.hostId
+                    }))
+                }
+            })
+        }
+    }
+
 
     return (
         <div className="flex flex-col h-screen justify-center items-center">
@@ -54,6 +68,7 @@ export function Question(): ReactElement {
                         onClick={finishQuestion} 
                     >
                         <h1 className='text-2xl my-2'>Neste</h1>
+
                     </Button>
                 </>
             }
