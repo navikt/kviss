@@ -14,7 +14,7 @@ export default function QuizView() {
         <div className="justify-center items-center">
 
             { state.lastEvent === ActionTypes.SEND_QUESTION_EVENT && <Question />}
-            { state.lastEvent === ActionTypes.SEND_ANSWER_EVENT && <AnswerView />}
+            { state.lastEvent === ActionTypes.SHOW_ANSWERS_EVENT && <AnswerView />}
             { state.lastEvent === ActionTypes.HAS_ANSWERED_EVENT && <WaitingView/>}
             { state.lastEvent === ActionTypes.FINISH_QUESTION_EVENT && <Scoreboard/>}
 

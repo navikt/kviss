@@ -8,11 +8,12 @@ import Button from './common/Button'
 
 
 export default function Scoreboard() {
-    const players = useLoaderData()
 
     // TODO: change tmp json with players from the loader function once we can recieve data from backend
     const { state } = useGameContext()
     const ws = useWebSocket()
+    const players = state.players
+    players?.sort((a, b) => b.score - a.score)
 
     const nextQuestion = async () => {
         if (state.hostId) {
@@ -31,13 +32,13 @@ export default function Scoreboard() {
     return (
         <>
             <div className="flex flex-col h-screen justify-center items-center">
-                <h2 className="text-6xl pb-8">Leaderboard</h2>
-                <div className="w-80">
-                    {state.players?.slice(0, 5).map((player, i) => {
+                <h2 className="text-6xl pb-8 text-white">Leaderboard</h2>
+                <div className="w-80 text-white">
+                    {players?.slice(0, 5).map((player, i) => {
                         // Shows top 5 players
                         return (
                             <div key={player.name}>
-                                <p className="inline">{player.name}</p>
+                                <p className="inline">{i+1}. {player.name}</p>
                                 <p className="inline float-right">{player.score}</p>
                             </div>
                         )

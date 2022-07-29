@@ -30,6 +30,10 @@ export function Question(): ReactElement {
             type: ActionTypes.SET_LAST_EVENT,
             payload: ActionTypes.FINISH_QUESTION_EVENT
         })
+        ws?.send(JSON.stringify({
+            'type': ActionTypes.TRIGGER_ANSWER_EVENT,
+            'hostId': state.hostId
+        }))
     }
 
 

@@ -37,6 +37,16 @@ const reducer = (state: Game, action: GameAction) => {
     case ActionTypes.IS_QUESTION_CORRECT: {
         return { ...state, isQuestionCorrect: payload }
     }
+    case ActionTypes.UPDATE_PLAYER_SCORE_EVENT: {
+        state.players?.map((player) => {
+            if (player.id === payload.playerId) {
+                const p = player
+                p.score = payload.score
+                return { ...state, player: p }
+            }
+        })
+        return { ...state }
+    }
     default:
         return { ...state }
     }
