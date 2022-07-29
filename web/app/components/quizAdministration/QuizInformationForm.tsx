@@ -30,13 +30,6 @@ export default function QuizInformationForm({ quizInfo, setQuizInfo}: IProps) {
                 value={quizInfo.name || ''} 
                 onChange={handleQuizInfoChange}
             />
-            {/* <Input
-                label='Description:'
-                type="text" 
-                name="description"
-                value={quizInfo.description || ''} 
-                onChange={handleQuizInfoChange}
-            /> */}
             <TextArea 
                 label='Description:'
                 name='description'

@@ -4,6 +4,7 @@ import { emptyQuestion } from '~/mock'
 import Button from '../common/Button'
 import Input from '../common/Input'
 import Radio from '../common/Radio'
+import TextArea from '../common/TextArea'
 
 interface IProps {
     questions: IQuestion[]
@@ -22,7 +23,7 @@ export default function QuestionForm({
     const [question, setQuestion] = useState<IQuestion>(questions[questionIndex] || emptyQuestion)
 
     // TODO: Check if edit  mode, then load question from list
-    const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         setQuestion({
             ...question, 
             description: event.target.value
@@ -66,15 +67,15 @@ export default function QuestionForm({
     return (
         <div>
             <form className="flex flex-col">
-                <Input 
+                <TextArea 
                     label='Description:'
-                    type="text" 
+                    name='description'
                     value={question.description || ''}
                     onChange={handleDescriptionChange}
                 />
                 {question.alternatives.map((item, i) => {
                     return(
-                        <div key={i} className="flex flex-row my-1">
+                        <div key={i} className="flex flex-row my-1 justify-between">
                             <Input 
                                 label={`Alternative ${i + 1}:`}
                                 type="text"
