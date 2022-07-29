@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react'
 import Input from '../common/Input'
+import TextArea from '../common/TextArea'
 
 interface IQuizInfo {
     name: string
@@ -13,7 +14,7 @@ interface IProps {
 
 export default function QuizInformationForm({ quizInfo, setQuizInfo}: IProps) {
 
-    const handleQuizInfoChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleQuizInfoChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setQuizInfo({
             ...quizInfo,
             [event.target.name]: event.target.value
@@ -29,11 +30,17 @@ export default function QuizInformationForm({ quizInfo, setQuizInfo}: IProps) {
                 value={quizInfo.name || ''} 
                 onChange={handleQuizInfoChange}
             />
-            <Input
+            {/* <Input
                 label='Description:'
                 type="text" 
                 name="description"
                 value={quizInfo.description || ''} 
+                onChange={handleQuizInfoChange}
+            /> */}
+            <TextArea 
+                label='Description:'
+                name='description'
+                value={quizInfo.description || ''}
                 onChange={handleQuizInfoChange}
             />
         </form>
