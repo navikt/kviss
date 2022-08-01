@@ -70,8 +70,18 @@ VALUES ('test quiz', null);
 INSERT INTO public.quiz (name, description)
 VALUES ('FYA1', 'Spørsmål om FYA1');
 
+-- NEXT QUESTION
 INSERT INTO public.question (quiz_id, description, sort_order)
-VALUES ((SELECT max(id) FROM quiz), null, 1);
+VALUES ((SELECT max(id) FROM quiz), 'Er det lov til å ta med mat opp fra kantina?', 1);
+
+INSERT INTO public.alternative (question_id, description, is_correct)
+VALUES ((SELECT max(id) FROM question), 'Ja', false);
+INSERT INTO public.alternative (question_id, description, is_correct)
+VALUES ((SELECT max(id) FROM question), 'Nei', true);
+INSERT INTO public.alternative (question_id, description, is_correct)
+VALUES ((SELECT max(id) FROM question), 'Kanskje', false);
+INSERT INTO public.alternative (question_id, description, is_correct)
+VALUES ((SELECT max(id) FROM question), 'Vet ikke', false);
 
 
 
