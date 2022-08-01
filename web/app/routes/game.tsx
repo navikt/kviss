@@ -16,6 +16,10 @@ export default function GameView() {
         setSocket(ws)
         return () => {
             console.log('ws.close()')
+            ws.send(JSON.stringify({
+                'type': ActionTypes.LEAVE_GAME_EVENT,
+                'player': state.player 
+            }))
             ws.close()
         }
     }, [])
@@ -98,6 +102,12 @@ export default function GameView() {
                     })
                 }
                 break
+            }
+            case ActionTypes.PLAYER_LEFT_EVENT: {
+                dispatch({
+                    type: ActionTypes.PLAYER_LEFT_EVENT,
+                    payload: JSON.parse(event.data) as IPlayer
+                })
             }
             }
         }

@@ -5,8 +5,7 @@ import { useGameContext } from '~/context/game/GameContext'
 export default function AnswerView(): ReactElement {
     const { state } = useGameContext()
 
-    const onNameClick = () => {
-    }
+    const onNameClick = () => { /* void */}
 
     const backroundColor = state.isQuestionCorrect ? 'bg-lime-500' : 'bg-rose-500'
     const feedbackText = state.isQuestionCorrect ? 'Correct answer!' : 'Wrong answer :('
