@@ -15,7 +15,7 @@ export default function PlayerLobbyIndexRoute() {
     },[state.lastEvent])
 
     return (
-        <div className="flex flex-col h-screen justify-center items-center">
+        <div className="flex flex-col justify-center items-center">
             <Lobby></Lobby>
         </div>
     )

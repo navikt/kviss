@@ -23,7 +23,7 @@ export default function HostView() {
 
     return (
         <>
-            <div className={'flex flex-col h-screen justify-center items-center'}>
+            <div className={'flex flex-col justify-center items-center'}>
                 <LobbyView/>
                 <Button
                     onClick={() => startGame()}>

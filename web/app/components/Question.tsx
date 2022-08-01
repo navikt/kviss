@@ -38,7 +38,7 @@ export function Question(): ReactElement {
 
 
     return (
-        <div className="flex flex-col h-screen justify-center items-center">
+        <div className="flex flex-col justify-center items-center">
             { !state.hostId ? 
                 state.currentQuestion?.alternatives?.map((answer: IAlternative, i: number) => {
                     return <AnswerButton
