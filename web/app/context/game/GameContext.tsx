@@ -13,7 +13,7 @@ const reducer = (state: Game, action: GameAction) => {
         return { ...state, player: payload}
     }
     case ActionTypes.SEND_QUESTION_EVENT: {
-        return { ...state, currentQuestion: payload }
+        return { ...state, currentQuestion: payload, answeredNumber: 0 }
     }
     case ActionTypes.PLAYER_JOINED_EVENT: {
         return { ...state, players: [...(state.players || []), payload] }
@@ -31,6 +31,29 @@ const reducer = (state: Game, action: GameAction) => {
             player: p // TODO: Check if this works when backend sends correct score
         }
     }
+    case ActionTypes.SET_CURRENT_QUIZ: {
+        return { ...state, currentQuiz: payload }
+    }
+    case ActionTypes.IS_QUESTION_CORRECT: {
+        return { ...state, isQuestionCorrect: payload }
+    }
+    case ActionTypes.UPDATE_PLAYER_SCORE_EVENT: {
+        state.players?.map((player) => {
+            if (player.id === payload.playerId) {
+                const p = player
+                p.score = payload.score
+                return { ...state, player: p }
+            }
+        })
+        return { ...state }
+    }
+
+    case ActionTypes.PLAYER_ANSWERED_EVENT: {
+        var n: number
+        state.answeredNumber ? n = state.answeredNumber + 1 : n = 1
+        return { ...state, answeredNumber: n }
+    }
+
     default:
         return { ...state }
     }

@@ -40,7 +40,7 @@ export default function CreateQuiz() {
     }
 
     return (
-        <div className='flex flex-col h-screen justify-center items-center'>
+        <div className='flex flex-col justify-center items-center'>
             <h2 className='text-2xl mb-2 text-gray-900 dark:text-gray-300'>Quiz info</h2>
             <QuizInformationForm quizInfo={quizInfo} setQuizInfo={setQuizInfo} />
             <h2 className='text-2xl my-2 text-gray-900 dark:text-gray-300'>Questions</h2>
