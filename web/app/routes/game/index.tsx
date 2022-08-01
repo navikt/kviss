@@ -1,3 +1,4 @@
+
 import AnswerView from '~/components/AnswerView'
 import FinalScoreboard from '~/components/FinalScoreboard'
 import { Question } from '~/components/Question'
@@ -14,12 +15,17 @@ export default function QuizView() {
     return (
         <div className="justify-center items-center">
 
-            { state.lastEvent === ActionTypes.SEND_QUESTION_EVENT && <Question />}
-            { state.lastEvent === ActionTypes.SHOW_ANSWERS_EVENT && <AnswerView />}
-            { state.lastEvent === ActionTypes.HAS_ANSWERED_EVENT && <WaitingView/>}
-            { state.lastEvent === ActionTypes.FINISH_QUESTION_EVENT && <Scoreboard/>}
+            { state.currentQuestion!.sortOrder === state.currentQuiz?.questions!.length ?
+            <FinalScoreboard/>
+            :
+            <>
+                {state.lastEvent === ActionTypes.SEND_QUESTION_EVENT && <Question />}
+                {state.lastEvent === ActionTypes.SHOW_ANSWERS_EVENT && <AnswerView />}
+                {state.lastEvent === ActionTypes.HAS_ANSWERED_EVENT && <WaitingView/>}
+                {state.lastEvent === ActionTypes.FINISH_QUESTION_EVENT && <Scoreboard/>}
+            </>
+            }
 
-            <FinalScoreboard />
 
             {/* Other views... */}
             {/* - Lobby */}
