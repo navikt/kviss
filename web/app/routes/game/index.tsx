@@ -1,4 +1,6 @@
 
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import AnswerView from '~/components/AnswerView'
 import FinalScoreboard from '~/components/FinalScoreboard'
 import { Question } from '~/components/Question'
@@ -8,14 +10,23 @@ import { ActionTypes } from '~/context/game/game'
 import {useGameContext} from '~/context/game/GameContext'
 
 
+
 export default function QuizView() {
 
     const { state } = useGameContext()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (state.pin === undefined) {
+            console.log(state.pin)
+            navigate('../../')
+        }
+    }, [])
 
     return (
         <div className="justify-center items-center">
 
-            { state.currentQuestion!.sortOrder === state.currentQuiz?.questions!.length ?
+            { state.currentQuestion && state.currentQuestion.sortOrder === state.currentQuiz?.questions!.length && state.lastEvent == ActionTypes.FINISH_QUESTION_EVENT ?
             <FinalScoreboard/>
             :
             <>
@@ -27,9 +38,6 @@ export default function QuizView() {
             }
 
 
-            {/* Other views... */}
-            {/* - Lobby */}
-            {/* - Scoreboard */}
         </div>
     )
 }
