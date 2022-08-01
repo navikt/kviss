@@ -18,7 +18,6 @@ export default function QuizView() {
 
     useEffect(() => {
         if (state.pin === undefined) {
-            console.log(state.pin)
             navigate('../../')
         }
     }, [])
