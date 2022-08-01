@@ -11,6 +11,7 @@ export interface Game {
     hostId?: string
     lastEvent?: string
     isQuestionCorrect?: boolean
+    answeredNumber?: number
 }
 
 export enum ActionTypes {
@@ -35,6 +36,7 @@ export enum ActionTypes {
     UPDATE_PLAYER_SCORE_EVENT = 'UPDATE_PLAYER_SCORE_EVENT',
     TRIGGER_ANSWER_EVENT = 'TRIGGER_ANSWER_EVENT',
     SHOW_ANSWERS_EVENT = 'SHOW_ANSWERS_EVENT',
+    PLAYER_ANSWERED_EVENT = 'PLAYER_ANSWERED_EVENT',
 }
 
 export type GameAction =
@@ -48,6 +50,7 @@ export type GameAction =
     | { type: ActionTypes.SEND_ANSWER_EVENT; payload: number }
     | { type: ActionTypes.IS_QUESTION_CORRECT; payload: boolean }
     | { type: ActionTypes.UPDATE_PLAYER_SCORE_EVENT; payload: IAnswerEvent }
+    | { type: ActionTypes.PLAYER_ANSWERED_EVENT; payload: boolean }
 
 export interface GameProps {
     state: Game

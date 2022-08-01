@@ -13,7 +13,7 @@ const reducer = (state: Game, action: GameAction) => {
         return { ...state, player: payload}
     }
     case ActionTypes.SEND_QUESTION_EVENT: {
-        return { ...state, currentQuestion: payload }
+        return { ...state, currentQuestion: payload, answeredNumber: 0 }
     }
     case ActionTypes.PLAYER_JOINED_EVENT: {
         return { ...state, players: [...(state.players || []), payload] }
@@ -47,6 +47,13 @@ const reducer = (state: Game, action: GameAction) => {
         })
         return { ...state }
     }
+
+    case ActionTypes.PLAYER_ANSWERED_EVENT: {
+        var n: number
+        state.answeredNumber ? n = state.answeredNumber + 1 : n = 1
+        return { ...state, answeredNumber: n }
+    }
+
     default:
         return { ...state }
     }
