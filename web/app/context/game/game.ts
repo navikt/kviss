@@ -37,6 +37,7 @@ export enum ActionTypes {
     TRIGGER_ANSWER_EVENT = 'TRIGGER_ANSWER_EVENT',
     SHOW_ANSWERS_EVENT = 'SHOW_ANSWERS_EVENT',
     PLAYER_ANSWERED_EVENT = 'PLAYER_ANSWERED_EVENT',
+    LEAVE_GAME_EVENT = 'LEAVE_GAME_EVENT',
 }
 
 export type GameAction =
@@ -51,6 +52,7 @@ export type GameAction =
     | { type: ActionTypes.IS_QUESTION_CORRECT; payload: boolean }
     | { type: ActionTypes.UPDATE_PLAYER_SCORE_EVENT; payload: IAnswerEvent }
     | { type: ActionTypes.PLAYER_ANSWERED_EVENT; payload: boolean }
+    | { type: ActionTypes.PLAYER_LEFT_EVENT; payload: IPlayer }
 
 export interface GameProps {
     state: Game
