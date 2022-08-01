@@ -38,22 +38,27 @@ const reducer = (state: Game, action: GameAction) => {
         return { ...state, isQuestionCorrect: payload }
     }
     case ActionTypes.UPDATE_PLAYER_SCORE_EVENT: {
+        const playersAnswered: number = state.answeredNumber!
         state.players?.map((player) => {
             if (player.id === payload.playerId) {
                 const p = player
-                p.score = payload.score
+                if (isNaN(p.score)) p.score = 0
+                p.score = 1000 - (playersAnswered * 50)
                 return { ...state, player: p }
             }
         })
         return { ...state }
     }
-
     case ActionTypes.PLAYER_ANSWERED_EVENT: {
-        var n: number
+        let n: number
         state.answeredNumber ? n = state.answeredNumber + 1 : n = 1
         return { ...state, answeredNumber: n }
     }
-
+    case ActionTypes.PLAYER_LEFT_EVENT: {
+        console.log('Player left event with player ', payload)
+        return { ...state,
+            players: state.players?.filter(player => player.id !== payload.id), answeredNumber: state.answeredNumber! - 1 }
+    }
     default:
         return { ...state }
     }
