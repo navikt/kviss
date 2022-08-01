@@ -123,17 +123,8 @@ VALUES ((SELECT max(id) FROM question), '3,5 milliarder år gamle', true);
 
 -- NEXT QUESTION
 INSERT INTO public.question (quiz_id, description, sort_order)
-VALUES ((SELECT max(id) FROM quiz), 'Floraen i Lofoten er også veldig gammel. Finnes det planter i Lofoten som har overlevd istiden?', 4);
-
-INSERT INTO public.alternative (question_id, description, is_correct)
-VALUES ((SELECT max(id) FROM question), 'Ja', true);
-INSERT INTO public.alternative (question_id, description, is_correct)
-VALUES ((SELECT max(id) FROM question), 'Nei', false);
-
--- NEXT QUESTION
-INSERT INTO public.question (quiz_id, description, sort_order)
 VALUES ((SELECT max(id) FROM quiz), 'Lofoten blir ofte omtalt i sammenheng med Vesterålen, som er nærmeste nabo. Hvilken fjord er det både ' ||
-                                    'Lofoten og Vesterålen har lyst til å kalle sin.', 5);
+                                    'Lofoten og Vesterålen har lyst til å kalle sin.', 4);
 
 INSERT INTO public.alternative (question_id, description, is_correct)
 VALUES ((SELECT max(id) FROM question), 'Vestfjorden', false);
