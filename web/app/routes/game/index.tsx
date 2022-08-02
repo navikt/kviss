@@ -1,15 +1,12 @@
-
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import AnswerView from '~/components/AnswerView'
-import FinalScoreboard from '~/components/FinalScoreboard'
-import { Question } from '~/components/Question'
-import Scoreboard from '~/components/Scoreboard'
-import WaitingView from '~/components/WaitingView'
-import { ActionTypes } from '~/context/game/game'
-import {useGameContext} from '~/context/game/GameContext'
-
-
+import AnswerView from '../../components/AnswerView'
+import FinalScoreboard from '../../components/FinalScoreboard'
+import { Question } from '../../components/Question'
+import Scoreboard from '../../components/Scoreboard'
+import WaitingView from '../../components/WaitingView'
+import { ActionTypes } from '../../context/game/game'
+import { useGameContext } from '../../context/game/GameContext'
 
 export default function QuizView() {
 
@@ -18,12 +15,12 @@ export default function QuizView() {
 
     useEffect(() => {
         if (state.pin === undefined) {
-            navigate('../../')
+            navigate('/join')
         }
     }, [])
 
     return (
-        <div className="justify-center items-center">
+        <div className="justify-center h-full items-center">
 
             { state.currentQuestion && state.currentQuestion.sortOrder === state.currentQuiz?.questions!.length && state.lastEvent == ActionTypes.FINISH_QUESTION_EVENT ?
                 <FinalScoreboard/>

@@ -1,4 +1,4 @@
-import { IQuestion } from '~/context/QuizContext'
+import { IQuestion } from '../context/QuizContext'
 
 export const emptyQuestion: IQuestion = {
     quizId: 1,

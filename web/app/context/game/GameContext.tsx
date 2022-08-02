@@ -1,4 +1,4 @@
-import { createContext, FC, useContext, useReducer } from 'react'
+import { createContext, FC, ReactNode, useContext, useReducer } from 'react'
 import { ActionTypes, GameAction, Game, GameProps } from './game'
 
 const initialState: Game = {}
@@ -16,7 +16,7 @@ const reducer = (state: Game, action: GameAction) => {
         return { ...state, currentQuestion: payload, answeredNumber: 0 }
     }
     case ActionTypes.PLAYER_JOINED_EVENT: {
-        return { ...state, players: [...(state.players || []), payload] }
+        return { ...state, players: payload }
     }
     case ActionTypes.SET_HOST_ID: {
         return { ...state, hostId: payload }
@@ -73,7 +73,7 @@ const GameContext = createContext<GameProps>({
 
 const useGameContext = () => useContext(GameContext)
 
-const GameProvider: FC = ({ children }) => {
+const GameProvider = ({ children }: { children: ReactNode }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
 
     return <GameContext.Provider value={{ state, dispatch }}>{children}</GameContext.Provider>

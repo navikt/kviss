@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { IQuestion } from '~/context/QuizContext'
+import { IQuestion } from '../../context/QuizContext'
 import Button from '../common/Button'
 import QuestionForm from './QuestionForm'
 

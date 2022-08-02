@@ -1,8 +1,8 @@
 import { ReactElement } from 'react'
-import { ActionTypes } from '~/context/game/game'
-import { useGameContext } from '~/context/game/GameContext'
-import { IAlternative, IQuestion } from '~/context/QuizContext'
-import { useWebSocket } from '~/context/SocketContext'
+import { ActionTypes } from '../context/game/game'
+import { useGameContext } from '../context/game/GameContext'
+import { IAlternative } from '../context/QuizContext'
+import { useWebSocket } from '../context/SocketContext'
 import AnswerButton from './AnswerButton'
 import Button from './common/Button'
 
@@ -12,13 +12,12 @@ export function Question(): ReactElement {
     const { state, dispatch } = useGameContext()
     const ws = useWebSocket()
 
-    const colors = ["bg-red-800", "bg-sky-700", "bg-yellow-500", "bg-green-800"]
+    const colors = ["bg-[#BF616A]", "bg-[#5E81AC]", "bg-[#EBCB8B]", "bg-[#A3BE8C]"]
     const sendAnswer = async (answer: IAlternative) => { 
-        ws?.send(JSON.stringify({
-            'type': ActionTypes.SELECT_ANSWER_EVENT,
+        ws?.emit('SELECT_ANSWER_EVENT', {
             'alternativeId': answer.id,
             'playerId': state.player?.id
-        }))
+        })
         dispatch({ 
             type: ActionTypes.SET_LAST_EVENT,
             payload: ActionTypes.HAS_ANSWERED_EVENT
@@ -30,15 +29,14 @@ export function Question(): ReactElement {
             type: ActionTypes.SET_LAST_EVENT,
             payload: ActionTypes.FINISH_QUESTION_EVENT
         })
-        ws?.send(JSON.stringify({
-            'type': ActionTypes.TRIGGER_ANSWER_EVENT,
+        ws?.emit('TRIGGER_ANSWER_EVENT', {
             'hostId': state.hostId
-        }))
+        })
     }
 
 
     return (
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col h-full justify-center items-center">
             { !state.hostId ? 
                 state.currentQuestion?.alternatives?.map((answer: IAlternative, i: number) => {
                     return <AnswerButton

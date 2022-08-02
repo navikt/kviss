@@ -1,9 +1,10 @@
-import {useNavigate} from 'react-router-dom'
-import Button from '~/components/common/Button'
-import Input from '~/components/common/Input'
-import {ActionTypes, IPlayer} from '~/context/game/game'
-import {useGameContext} from '~/context/game/GameContext'
-import {useState} from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import Button from '../../components/common/Button'
+import Input from '../../components/common/Input'
+import { ActionTypes } from '../../context/game/game'
+import { useGameContext } from '../../context/game/GameContext'
+import { createPlayer, gameExists } from '../../api/api'
 
 export default function QuizIndexRoute() {
     const navigate = useNavigate()
@@ -16,30 +17,19 @@ export default function QuizIndexRoute() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        // @ts-ignore
-        const gameExists: boolean = await fetch(`${window.env.API_URL}/game/${pin}/exist`
-        ).then((res: Response) => res.json())
-            .then(exists => JSON.parse(exists))
+        const exists: boolean = await gameExists(pin)
             .catch(ex => {
                 setError(ex.message)
                 return false
             })
 
-        if (!gameExists) return
-        // @ts-ignore
-        const player: IPlayer = await fetch(`${window.env.API_URL}/game/${pin}/player?playername=${username}`, {
-            method: 'POST'
-        }).then((res: Response) => {
-            if (res.status === 200) {
-                return res.json()
-            } else {
-                setError('Brukernavn ikke gyldig, e.l.')
-            }
-        }).catch(ex => {
+        if (!exists) return
+
+        const player = await createPlayer(pin, username!!).catch(ex => {
             // todo
         })
 
-        if (player) {
+        if (player?.id) {
             dispatch({
                 type: ActionTypes.SET_PLAYER,
                 payload: player
@@ -48,7 +38,7 @@ export default function QuizIndexRoute() {
                 type: ActionTypes.SET_PINCODE,
                 payload: pin
             })
-            navigate('../game/lobby')
+            navigate('/game')
         }
     }
 

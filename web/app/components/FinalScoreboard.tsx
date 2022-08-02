@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react'
-import { IPlayer } from '~/context/game/game'
-import { useGameContext } from '~/context/game/GameContext'
+import { IPlayer } from '../context/game/game'
+import { useGameContext } from '../context/game/GameContext'
 import CrownIcon from '../components/common/icons/crown.svg'
 
 export default function FinalScoreboard() {

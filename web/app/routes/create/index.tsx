@@ -1,12 +1,10 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useCreateQuiz } from '~/api/hooks/useQuiz'
-import { poster } from '~/api/operations'
-import Button from '~/components/common/Button'
-import QuestionForm from '~/components/quizAdministration/QuestionForm'
-import QuestionsPreview from '~/components/quizAdministration/QuestionsPreview'
-import QuizInformationForm from '~/components/quizAdministration/QuizInformationForm'
-import { IAlternative, IQuestion, IQuiz } from '~/context/QuizContext'
+import Button from '../../components/common/Button'
+import QuestionsPreview from '../../components/quizAdministration/QuestionsPreview'
+import QuizInformationForm from '../../components/quizAdministration/QuizInformationForm'
+import { IQuestion, IQuiz } from '../../context/QuizContext'
+import { createQuestion, createQuiz } from '../../api/api'
 
 export interface IQuizInfo {
     name: string
@@ -25,24 +23,18 @@ export default function CreateQuiz() {
     const [questions, setQuestions] = useState<IQuestion[]>([])
 
     const onCreateQuiz = async () => {
-        const {response, error} = await useCreateQuiz({
-            name: quizInfo.name,
-            description: quizInfo.description,
-        })
+        const newQuizId = await createQuiz({ name: quizInfo.name, description: quizInfo.description })
 
-        Promise.resolve(response).then(async (value) => {
-            questions.map(async (item) => {
-                item.quizId = value
-                // @ts-ignore
-                await fetch(`${window.env.API_URL}/quiz/${value}/questions`, {
-                    body: JSON.stringify(item),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    method: 'POST'
+        if (newQuizId) {
+            questions.forEach(question => {
+                createQuestion({
+                    ...question,
+                    quizId: newQuizId
                 })
             })
-        }).then(() => navigate('../start'))
+        }
+
+        navigate('/start')
     }
 
     return (

@@ -1,11 +1,7 @@
-import { json, LoaderFunction } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
-import { ActionTypes } from '~/context/game/game'
-import { useGameContext } from '~/context/game/GameContext'
-import { IQuestion } from '~/context/QuizContext'
-import { useWebSocket } from '~/context/SocketContext'
+import { useGameContext } from '../context/game/GameContext'
+import { IQuestion } from '../context/QuizContext'
+import { useWebSocket } from '../context/SocketContext'
 import Button from './common/Button'
-
 
 export default function Scoreboard() {
 
@@ -18,18 +14,17 @@ export default function Scoreboard() {
         if (state.hostId) {
             state.currentQuiz?.questions?.map((question: IQuestion) => {
                 if (state.currentQuestion?.sortOrder === question.sortOrder - 1) {
-                    ws?.send(JSON.stringify({
-                        'type': ActionTypes.NEXT_QUESTION_EVENT,
+                    ws?.emit('NEXT_QUESTION_EVENT', {
                         'questionId': question.id,
                         'hostId': state.hostId
-                    }))
+                    })
                 }
             })
         }
     }
 
     return (
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center h-full items-center">
             <h2 className="text-6xl pb-8 text-white">Leaderboard</h2>
             <div className="w-80 text-white">
                 {players?.slice(0, 5).map((player, i) => {

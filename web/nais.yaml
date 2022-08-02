@@ -7,17 +7,29 @@ metadata:
     team: team-tolk
 spec:
   image: {{ image }}
-  port: 3000
+  port: 8080
   ingresses:
     - https://kviss.dev.intern.nav.no/
   replicas:
     cpuThresholdPercentage: 90
     max: 1
     min: 1
-  template:
-    metadata:
-      annotations:
-        linkerd.io/inject: disabled
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  liveness:
+    path: /internal/isalive
+    initialDelay: 10
+  readiness:
+    path: /internal/isready
+    initialDelay: 10
+  env:
+    - name: API_URL
+      value: http://kviss-api
   accessPolicy:
     outbound:
       rules:

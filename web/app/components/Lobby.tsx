@@ -1,8 +1,7 @@
-import { useGameContext } from '~/context/game/GameContext'
+import { useGameContext } from '../context/game/GameContext'
 
 export default function LobbyView() {
     const { state } = useGameContext()
-
 
     return (
         <>
