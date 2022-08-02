@@ -58,7 +58,7 @@ fun Route.quizRoute(quizService: QuizService) {
                 post {
                     val source = call.receive<CreateQuestionAlternative>()
                     val id = quizService.createQuestion(source)
-                    call.respond(HttpStatusCode(200, "added question successfully"))
+                    call.respond(id)
                 }
 
                 patch {
