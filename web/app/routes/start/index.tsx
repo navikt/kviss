@@ -12,12 +12,13 @@ export default function StartQuizIndexRoute() {
     const [quizes, setQuizes] = useState<IQuiz[]>([])
 
     const navigate = useNavigate()
+    
 
     useEffect(() => {
         // @ts-ignore
         fetch(`${window.env.API_URL}/quiz`)
             .then(res => res.json())
-            .then((res: IQuiz[]) => setQuizes(res))
+            .then((res: IQuiz[]) => setQuizes(res.sort((a, b) => a.id! - b.id!))) // Mulig skummel dersom quiz ikke har id?
     }, [])
 
     const startQuiz = async (quizId: number | undefined) => {
@@ -69,7 +70,7 @@ export default function StartQuizIndexRoute() {
                     {quizes.map((quiz: IQuiz, i: number) => {
                         return <tr key={`${i}`}>
                             <td>
-                                {quiz.name}
+                                {quiz.name} 
                             </td>
                             <td>
                                 {quiz.description}
