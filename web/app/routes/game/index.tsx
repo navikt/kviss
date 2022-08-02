@@ -23,7 +23,7 @@ export default function QuizView() {
     }, [])
 
     return (
-        <div className="justify-center items-center">
+        <div className="justify-center h-full items-center">
 
             { state.currentQuestion && state.currentQuestion.sortOrder === state.currentQuiz?.questions!.length && state.lastEvent == ActionTypes.FINISH_QUESTION_EVENT ?
             <FinalScoreboard/>

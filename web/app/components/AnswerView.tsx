@@ -10,7 +10,7 @@ export default function AnswerView(): ReactElement {
     const feedbackText = state.isQuestionCorrect ? 'Correct answer!' : 'Wrong answer :('
 
     return <>
-        <div className={`flex flex-col h-screen justify-center items-center ${backroundColor}`}>
+        <div className={`flex flex-col h-full justify-center items-center ${backroundColor}`}>
             {feedbackText}
         </div>
     </>

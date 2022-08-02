@@ -29,7 +29,7 @@ export default function Scoreboard() {
     }
 
     return (
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center h-full items-center">
             <h2 className="text-6xl pb-8 text-white">Leaderboard</h2>
             <div className="w-80 text-white">
                 {players?.slice(0, 5).map((player, i) => {
