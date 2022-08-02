@@ -6,7 +6,7 @@ export default function Index() {
 
     return (
         <div className="flex items-center justify-center flex-col">
-            <h1 className="text-3xl text-center mb-4 text-white">
+            <h1 className="text-3xl text-center mb-4 text-white px-4">
                 Welcome to kviss! A application that solves all your quizzzing needs at NAV
             </h1>
             <Button onClick={() => navigate('./join')}>

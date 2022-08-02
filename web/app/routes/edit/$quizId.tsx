@@ -44,10 +44,8 @@ export default function EditQuiz() {
 
             // Check if question is new question or existing being updated
             questions.map(async (question: IQuestion) => {
-                console.log(question)
                 if (question.id === undefined) {
-                    //await poster(`${window.env.API_URL}/quiz/${quiz.id}/questions`, question)
-                    console.log('got here')
+                    question.quizId = quiz.id
                     // @ts-ignore
                     await fetch(`${window.env.API_URL}/quiz/${quiz.id}/questions`, {
                         body: JSON.stringify(question),
@@ -55,9 +53,9 @@ export default function EditQuiz() {
                             'Content-Type': 'application/json'
                         },
                         method: 'POST'
-                    }).then(res => console.log(res.json()))
+                    })
                 } else {
-                // @ts-ignore
+                    // @ts-ignore
                     await fetch(`${window.env.API_URL}/quiz/${quiz.id}/questions`, {
                         body: JSON.stringify(question),
                         headers: {

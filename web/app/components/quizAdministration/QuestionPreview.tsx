@@ -29,6 +29,7 @@ export default function QuestionPreview({
                         Description: {questions[questionIndex].description}
                     </h2>
                     {questions[questionIndex].alternatives.map((alt, i) => {
+                        // TODO: replace with grid
                         return (
                             <div key={i} className='flex flex-row'>
                                 <p className='text-gray-900 dark:text-gray-300 mr-3'>
