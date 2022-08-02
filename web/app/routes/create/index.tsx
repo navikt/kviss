@@ -34,7 +34,13 @@ export default function CreateQuiz() {
             questions.map(async (item) => {
                 item.quizId = value
                 // @ts-ignore
-                await poster(`${window.env.API_URL}/quiz/${value as number}/questions`, item)
+                await fetch(`${window.env.API_URL}/quiz/${value}/questions`, {
+                    body: JSON.stringify(item),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'POST'
+                })
             })
         }).then(() => navigate('../start'))
     }
