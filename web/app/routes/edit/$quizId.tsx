@@ -44,8 +44,10 @@ export default function EditQuiz() {
 
             // Check if question is new question or existing being updated
             questions.map(async (question: IQuestion) => {
+                console.log(question)
                 if (question.id === undefined) {
                     //await poster(`${window.env.API_URL}/quiz/${quiz.id}/questions`, question)
+                    console.log('got here')
                     // @ts-ignore
                     await fetch(`${window.env.API_URL}/quiz/${quiz.id}/questions`, {
                         body: JSON.stringify(question),
@@ -53,7 +55,7 @@ export default function EditQuiz() {
                             'Content-Type': 'application/json'
                         },
                         method: 'POST'
-                    })
+                    }).then(res => console.log(res.json()))
                 } else {
                 // @ts-ignore
                     await fetch(`${window.env.API_URL}/quiz/${quiz.id}/questions`, {
@@ -68,14 +70,14 @@ export default function EditQuiz() {
 
             // Check if a question has been deleted
             // TODO: FIX, ends up deleting questions
-            quiz.questions?.filter(x => !questions.includes(x)).map(async (question: IQuestion) => {
-                if (question.id) {
-                // @ts-ignore
-                    await fetch(`${window.env.API_URL}/quiz/${quiz.id}/questions?questionid=${question.id}`, {
-                        method: 'DELETE'
-                    })
-                }
-            })
+            // quiz.questions?.filter(x => !questions.includes(x)).map(async (question: IQuestion) => {
+            //     if (question.id) {
+            //     // @ts-ignore
+            //         await fetch(`${window.env.API_URL}/quiz/${quiz.id}/questions?questionid=${question.id}`, {
+            //             method: 'DELETE'
+            //         })
+            //     }
+            // })
 
             navigate('../start')
         }
