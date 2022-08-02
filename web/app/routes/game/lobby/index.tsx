@@ -1,12 +1,10 @@
-import Lobby from '~/components/Lobby'
-import {useWebSocket} from '~/context/SocketContext'
-import {useGameContext} from '~/context/game/GameContext'
+import Lobby from '../../../components/Lobby'
+import { useGameContext } from '../../../context/game/GameContext'
 import { useEffect } from 'react'
-import { ActionTypes } from '~/context/game/game'
+import { ActionTypes } from '../../../context/game/game'
 import { useNavigate } from 'react-router-dom'
 
 export default function PlayerLobbyIndexRoute() {
-    const ws = useWebSocket()
     const {state} = useGameContext()
     const navigate = useNavigate()
 

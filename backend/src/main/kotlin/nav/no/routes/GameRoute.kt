@@ -1,5 +1,6 @@
 package nav.no.routes
 
+import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -12,10 +13,11 @@ fun Route.gameRoute(gameService: GameService) {
     route("game") {
         route("{pin}") {
 
-//            get {
-//                val game: Game = gameService.getGame(getPin())
-//                call.respond(game)
-//            }
+            get {
+                val game = gameService.getGameByPin(getPin())
+                if (game != null) call.respond(game)
+                else call.respond(HttpStatusCode.NotFound)
+            }
 
             get("players") {
                 val players: List<Player> = gameService.getPlayers(getPin())
@@ -24,7 +26,9 @@ fun Route.gameRoute(gameService: GameService) {
 
             get("exist") {
                 val gameExist: Boolean = gameService.gameExist(call.parameters["pin"]!!.toInt())
-                call.respond(gameExist)
+
+                if (gameExist) call.respond(HttpStatusCode.OK)
+                else call.respond(HttpStatusCode.NotFound)
             }
 
             post("player") {

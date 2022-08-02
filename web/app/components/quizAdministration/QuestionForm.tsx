@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react'
-import { IAlternative, IQuestion } from '~/context/QuizContext'
-import { emptyQuestion } from '~/mock'
+import { IAlternative, IQuestion } from '../../context/QuizContext'
+import { emptyQuestion } from '../../mock'
 import Button from '../common/Button'
 import Input from '../common/Input'
 import Radio from '../common/Radio'

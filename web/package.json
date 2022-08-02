@@ -1,41 +1,41 @@
 {
+  "name": "kviss-web",
   "private": true,
-  "sideEffects": false,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "build": "npm run build:css && remix build",
-    "build:css": "tailwindcss -m -i ./styles/app.css -o app/styles/app.css",
-    "dev:nais": "concurrently \"npm run dev:css\" \"API_URL=https://kviss-api.dev.nav.no remix dev\"",
-    "dev:local": "concurrently \"npm run dev:css\" \"API_URL=http://localhost:8080 remix dev\"",
-    "dev:css": "tailwindcss -w -i ./styles/app.css -o app/styles/app.css",
-    "start": "remix-serve build"
+    "dev": "concurrently \"npm run dev:css\" \"API_URL=http://localhost:8081/api WS_URL=http://localhost:8081 vite\"",
+    "dev:nais": "concurrently \"npm run dev:css\" \"API_URL=https://kviss-api.dev.nav.no WS_URL=https://kviss.dev.intern.nav.no vite\"",
+    "build": "npm run build:css && tsc && vite build",
+    "preview": "vite preview",
+    "build:css": "tailwindcss -m -i ./app/main.css -o ./app/styles/app.css",
+    "dev:css": "tailwindcss -w -i ./app/main.css -o ./app/styles/app.css"
   },
   "dependencies": {
-    "@remix-run/node": "^1.6.3",
-    "@remix-run/react": "^1.6.3",
-    "@remix-run/serve": "^1.6.3",
     "classnames": "^2.3.1",
     "prettier": "^2.7.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
-    "swr": "^1.3.0"
+    "socket.io-client": "^4.5.1"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.6.3",
-    "@remix-run/eslint-config": "^1.6.3",
-    "@types/react": "^17.0.45",
-    "@types/react-dom": "^17.0.17",
+    "@types/node": "^18.6.3",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
+    "@vitejs/plugin-react": "^2.0.0",
     "autoprefixer": "^10.4.7",
     "concurrently": "^7.2.2",
     "eslint": "^8.15.0",
     "eslint-plugin-react": "^7.30.1",
     "postcss": "^8.4.14",
     "tailwindcss": "^3.1.5",
-    "typescript": "^4.6.4"
+    "typescript": "^4.6.4",
+    "vite": "^3.0.4"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   }
 }

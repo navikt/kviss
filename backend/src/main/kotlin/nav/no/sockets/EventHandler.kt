@@ -16,14 +16,14 @@ class EventHandler(
 
         when (event) {
             is StartGameEvent -> {
-                if (event.hostId == game.hostId) {
+                if (event.hostId == game!!.hostId) {
                     SendQuestionEvent(quiz.questions[0])
                 } else SendErrorEvent("Invalid host ID")
             }
             is NextQuestionEvent -> {
                 val question: ConsumerQuestion = context.quizService.getQuestion(event.questionId)
 
-                if (event.hostId == game.hostId) {
+                if (event.hostId == game!!.hostId) {
                     SendQuestionEvent(question)
                 } else SendErrorEvent("Invalid host ID")
             }
@@ -55,7 +55,7 @@ class EventHandler(
                 GameEndedEvent(context.gameService.getPlayers(gamePin))
             }
             is TriggerAnswerEvent -> {
-                if (event.hostId == game.hostId) {
+                if (event.hostId == game!!.hostId) {
                     ShowAnswersEvent(true)
                 } else SendErrorEvent("Invalid host id")
             }

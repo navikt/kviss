@@ -1,14 +1,15 @@
-FROM node:14.17.0
+FROM node:16-alpine
 
-ENV API_URL=https://kviss-api.dev.nav.no
-ENV WS_URL=wss://kviss-api.dev.nav.no
+ENV NODE_ENV production
+ENV NPM_CONFIG_CACHE /tmp
 
-COPY . .
+WORKDIR /app
 
-RUN yarn
+COPY dist dist/
+COPY server server/
 
-RUN yarn build
+WORKDIR server
 
-EXPOSE 3000
+EXPOSE 8080
 
-CMD ["yarn", "start"]
+CMD ["npm", "run", "start"]

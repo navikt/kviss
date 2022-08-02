@@ -1,4 +1,4 @@
-import { IAlternative, IQuestion, IQuiz } from '../QuizContext'
+import { IQuestion, IQuiz } from '../QuizContext'
 
 export interface Game {
     player?: IPlayer
@@ -44,7 +44,7 @@ export type GameAction =
     | { type: ActionTypes.SET_PLAYER; payload: IPlayer }
     | { type: ActionTypes.SET_PINCODE; payload: number }
     | { type: ActionTypes.SEND_QUESTION_EVENT; payload: IQuestion }
-    | { type: ActionTypes.PLAYER_JOINED_EVENT; payload: IPlayer }
+    | { type: ActionTypes.PLAYER_JOINED_EVENT; payload: IPlayer[] }
     | { type: ActionTypes.SET_HOST_ID; payload: string }
     | { type: ActionTypes.SET_LAST_EVENT; payload: string }
     | { type: ActionTypes.SET_CURRENT_QUIZ; payload: IQuiz }

@@ -55,6 +55,15 @@ fun Route.quizRoute(quizService: QuizService) {
                     }
                 }
 
+                get("{id}") {
+                    try {
+                        val questions = quizService.getQuestion(call.parameters["id"]!!.toLong())
+                        call.respond(questions)
+                    } catch (e: Exception) {
+                        call.respond(HttpStatusCode(404, "error getting questions"))
+                    }
+                }
+
                 post {
                     val source = call.receive<CreateQuestionAlternative>()
                     val id = quizService.createQuestion(source)

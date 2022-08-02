@@ -1,10 +1,10 @@
-import { useNavigate } from '@remix-run/react'
+import { useNavigate } from 'react-router-dom'
 
 export default function Index() {
     const navigate = useNavigate()
 
     return (
-        <div className="flex items-center justify-center h-screen flex-col">
+        <div className="flex items-center justify-center flex-col">
             <h1 className="text-3xl text-center mb-4 text-white">
                 Welcome to kviss! A application that solves all your quizzzing needs at NAV
             </h1>

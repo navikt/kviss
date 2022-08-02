@@ -56,9 +56,7 @@ class GameService(
         return playerDao.getPlayer(playerId).score
     }
 
-    fun getGame(id: Long): Game = gameDao.getGame(id).toModel()
-
-    fun getGameByPin(pin: Int): Game = gameDao.getGameByPin(pin)!!.toModel()
+    fun getGameByPin(pin: Int): Game? = gameDao.getGameByPin(pin)?.toModel()
 
     fun getPlayers(gamePin: Int) = playerDao.getPlayersByPin(gamePin)
 
@@ -80,7 +78,7 @@ class GameService(
         playerDao.deletePlayer(playerId)
     }
 
-    fun getQuizByPin(pin: Int) = quizService.getConsumerQuiz(getGameByPin(pin).quizId)
+    fun getQuizByPin(pin: Int) = quizService.getConsumerQuiz(getGameByPin(pin)!!.quizId)
 
     fun createGame(quizId: Long): Game {
         val pin = generatePin()
