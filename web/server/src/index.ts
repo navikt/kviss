@@ -10,11 +10,24 @@ const httpServer = createServer(app)
 
 const BUILD_PATH = path.resolve(__dirname, '../dist', '../../dist')
 
+/*
+    Must be the first app middleware to ensure body parsing works...
+
+    (╯°□°）╯︵ ┻━┻
+ */
+app.use(
+    '/api',
+    createProxyMiddleware({
+        target: config.API_URL,
+        pathRewrite: { '^/api': '' },
+    }),
+)
+
 app.use(express.static(BUILD_PATH))
 
 app.use(express.json())
 
-if (config.IS_PROD_CLUSTER) {
+if (!config.IS_PROD_CLUSTER) {
     app.use(function (req, res, next) {
         res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5173')
         res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE')
@@ -24,11 +37,6 @@ if (config.IS_PROD_CLUSTER) {
     })
 }
 
-app.use('/api', createProxyMiddleware({
-    target: config.API_URL,
-    pathRewrite: { '^/api': '' }
-}))
-
 app.get('/internal/isalive', (req: Request, res: Response) => {
     res.sendStatus(200)
 })
@@ -36,7 +44,9 @@ app.get('/internal/isready', (req: Request, res: Response) => {
     res.sendStatus(200)
 })
 
-app.use(/^(?!.*\/(internal|static)\/).*$/, (req: Request, res: Response) => res.sendFile(path.join(BUILD_PATH, 'index.html')))
+app.use(/^(?!.*\/(internal|static)\/).*$/, (req: Request, res: Response) =>
+    res.sendFile(path.join(BUILD_PATH, 'index.html')),
+)
 
 initSocket(httpServer)
 
