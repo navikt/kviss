@@ -18,7 +18,7 @@ function getColorScheme(color: string | undefined): string[] {
         return ['bg-rose-500', 'hover:bg-rose-600', 'active:ring-rose-100']
     case 'default':
     default:
-        return ['bg-gray-500', 'hover:bg-gray-800', 'active:ring-gray-300']
+        return ['transition', 'ease-in-out', 'delay-50', 'bg-gray-500', 'hover:bg-gray-600', 'active:ring-gray-300']
     }
 }
 
