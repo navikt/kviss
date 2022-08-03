@@ -71,9 +71,9 @@ class PlayerDao(
         }
     }
 
-    fun deletePlayer(playerId: Long) {
+    fun deletePlayer(playerId: Long): Int {
         dataSource.connection.use {
-            it.prepareStatement(DELETE_PLAYER).apply {
+           return it.prepareStatement(DELETE_PLAYER).apply {
                 setLong(1, playerId)
             }.executeUpdate()
         }
