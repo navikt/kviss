@@ -93,10 +93,10 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
         }
     })
 
-    socket.on(IncomingEvent.TRIGGER_UPDATE_PLAYER_LIST_EVENT, () => {
+    socket.on(IncomingEvent.TRIGGER_UPDATE_PLAYER_LIST_EVENT, async () => {
         console.log('TRIGGER_UPDATE_PLAYER_LIST_EVENT')
         if (game.hostId === hostId) {
-            const players = api.getPlayers(pin)
+            const players = await api.getPlayers(pin)
 
             const event: UpdatePlayerListEvent = { players: players }
             socket.in(pin).emit(OutgoingEvent.UPDATE_PLAYER_LIST_EVENT, event)
