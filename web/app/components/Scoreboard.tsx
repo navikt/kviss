@@ -1,10 +1,10 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import Button from './common/Button'
-import { useGameContext } from 'app/context/game/GameContext'
-import { useWebSocket } from 'app/context/SocketContext'
-import { IPlayer } from 'app/context/game/game'
-import { IQuestion } from 'app/context/QuizContext'
+import { useGameContext } from '../context/game/GameContext'
+import { useWebSocket } from '../context/SocketContext'
+import { IPlayer } from '../context/game/game'
+import { IQuestion } from '../context/QuizContext'
 
 export default function Scoreboard() {
 

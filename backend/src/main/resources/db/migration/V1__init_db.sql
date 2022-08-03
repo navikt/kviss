@@ -74,19 +74,17 @@ create table player
             references game
 );
 
-create table player_answers
+create table player_answer
 (
     id            bigserial
         constraint player_answers_pk
             primary key,
     alternative_id   bigint
         constraint player_answers_alternative_id_fk
-            references alternative
-            on delete cascade,
+            references alternative,
     game_id   bigint
         constraint player_answers_game_id_fk
-            references game
-            on delete cascade,
+            references game,
     player_id     bigint
         constraint player_answers_player_id_fk
             references player,
