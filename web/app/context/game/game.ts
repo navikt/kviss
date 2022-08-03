@@ -33,11 +33,12 @@ export enum ActionTypes {
     IS_QUESTION_CORRECT = 'IS_QUESTION_CORRECT',
     HAS_ANSWERED_EVENT = 'HAS_ANSWERED_EVENT',
     FINISH_QUESTION_EVENT = 'FINISH_QUESTION_EVENT',
-    UPDATE_PLAYER_SCORE_EVENT = 'UPDATE_PLAYER_SCORE_EVENT',
     TRIGGER_ANSWER_EVENT = 'TRIGGER_ANSWER_EVENT',
     SHOW_ANSWERS_EVENT = 'SHOW_ANSWERS_EVENT',
     PLAYER_ANSWERED_EVENT = 'PLAYER_ANSWERED_EVENT',
     LEAVE_GAME_EVENT = 'LEAVE_GAME_EVENT',
+    UPDATE_PLAYER_LIST_EVENT = 'UPDATE_PLAYER_LIST_EVENT',
+    TRIGGER_UPDATE_PLAYER_LIST_EVENT = 'TRIGGER_UPDATE_PLAYER_LIST_EVENT',
 }
 
 export type GameAction =
@@ -48,11 +49,11 @@ export type GameAction =
     | { type: ActionTypes.SET_HOST_ID; payload: string }
     | { type: ActionTypes.SET_LAST_EVENT; payload: string }
     | { type: ActionTypes.SET_CURRENT_QUIZ; payload: IQuiz }
-    | { type: ActionTypes.SEND_ANSWER_EVENT; payload: number }
+    | { type: ActionTypes.SEND_ANSWER_EVENT; payload: IAnswerEvent }
     | { type: ActionTypes.IS_QUESTION_CORRECT; payload: boolean }
-    | { type: ActionTypes.UPDATE_PLAYER_SCORE_EVENT; payload: IAnswerEvent }
     | { type: ActionTypes.PLAYER_ANSWERED_EVENT; payload: boolean }
     | { type: ActionTypes.PLAYER_LEFT_EVENT; payload: IPlayer }
+    | { type: ActionTypes.UPDATE_PLAYER_LIST_EVENT; payload: IPlayer[] }
 
 export interface GameProps {
     state: Game
@@ -67,6 +68,5 @@ export interface IPlayer {
 
 export interface IAnswerEvent {
     playerId: number
-    score: number
     correct: boolean
 }

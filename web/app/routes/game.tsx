@@ -68,19 +68,11 @@ export default function GameView() {
             case ActionTypes.SEND_ANSWER_EVENT: {
                 if (state.hostId) {
                     dispatch ({
-                        type: ActionTypes.UPDATE_PLAYER_SCORE_EVENT,
-                        payload: JSON.parse(event.data) as IAnswerEvent
-                    })
-                    dispatch ({
                         type: ActionTypes.PLAYER_ANSWERED_EVENT,
                         payload: true
                     })
                 }
                 if (state.player?.id === JSON.parse(event.data).playerId as number) {
-                    dispatch({
-                        type: ActionTypes.SEND_ANSWER_EVENT,
-                        payload: JSON.parse(event.data).score as number
-                    })
                     dispatch({
                         type: ActionTypes.IS_QUESTION_CORRECT,
                         payload: JSON.parse(event.data).correct as boolean
@@ -108,6 +100,14 @@ export default function GameView() {
                     type: ActionTypes.PLAYER_LEFT_EVENT,
                     payload: JSON.parse(event.data) as IPlayer
                 })
+                break
+            }
+            case ActionTypes.UPDATE_PLAYER_LIST_EVENT: {
+                dispatch({
+                    type: ActionTypes.UPDATE_PLAYER_LIST_EVENT,
+                    payload: JSON.parse(event.data).players as IPlayer[]
+                })
+                break
             }
             }
         }

@@ -72,4 +72,23 @@ create table player
     game_id    bigint
         constraint player_game_id_fk
             references game
-)
+);
+
+create table player_answers
+(
+    id            bigserial
+        constraint player_answers_pk
+            primary key,
+    alternative_id   bigint
+        constraint player_answers_alternative_id_fk
+            references alternative
+            on delete cascade,
+    game_id   bigint
+        constraint player_answers_game_id_fk
+            references game
+            on delete cascade,
+    player_id     bigint
+        constraint player_answers_player_id_fk
+            references player,
+    time_answered timestamp
+);

@@ -1,6 +1,7 @@
 import { json, LoaderFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { ActionTypes } from '~/context/game/game'
+import { useEffect, useState } from 'react'
+import { ActionTypes, IPlayer } from '~/context/game/game'
 import { useGameContext } from '~/context/game/GameContext'
 import { IQuestion } from '~/context/QuizContext'
 import { useWebSocket } from '~/context/SocketContext'
@@ -9,10 +10,15 @@ import Button from './common/Button'
 
 export default function Scoreboard() {
 
-    // TODO: change tmp json with players from the loader function once we can recieve data from backend
     const { state } = useGameContext()
     const ws = useWebSocket()
-    const players = state.players?.sort((a, b) => b.score - a.score)
+    const [players, setPlayers] = useState<IPlayer[]>()
+
+    useEffect(() => {
+        console.log('in useffect')
+        if (!state.players) return
+        setPlayers(state.players?.sort((a, b) => b.score - a.score))
+    },[state.players])
 
     const nextQuestion = async () => {
         if (state.hostId) {

@@ -12,7 +12,7 @@ export function Question(): ReactElement {
     const { state, dispatch } = useGameContext()
     const ws = useWebSocket()
 
-    const colors = ["bg-red-800", "bg-sky-700", "bg-yellow-500", "bg-green-800"]
+    const colors = ['bg-red-800', 'bg-sky-700', 'bg-yellow-500', 'bg-green-800']
     const sendAnswer = async (answer: IAlternative) => { 
         ws?.send(JSON.stringify({
             'type': ActionTypes.SELECT_ANSWER_EVENT,
@@ -32,6 +32,10 @@ export function Question(): ReactElement {
         })
         ws?.send(JSON.stringify({
             'type': ActionTypes.TRIGGER_ANSWER_EVENT,
+            'hostId': state.hostId
+        }))
+        ws?.send(JSON.stringify({
+            'type': ActionTypes.TRIGGER_UPDATE_PLAYER_LIST_EVENT,
             'hostId': state.hostId
         }))
     }
