@@ -1,8 +1,7 @@
 import { Namespace, Socket } from 'socket.io'
 import { IncomingEvent, Player } from './events/incoming'
 import * as api from './api'
-import { OutgoingEvent, SendAlternativesEvent, SendQuestionEvent, ShowAnswersEvent } from './events/outgoing'
-import {setGameFinished} from "./api";
+import { setGameFinished } from './api'
 import {
     OutgoingEvent,
     SendAlternativesEvent,
@@ -11,7 +10,6 @@ import {
     ShowAnswersEvent,
     UpdatePlayerListEvent,
 } from './events/outgoing'
-
 
 export default async function handleEvents(socket: Socket, sockets: Namespace) {
     const { pin, hostId, playerId } = socket.handshake.auth
