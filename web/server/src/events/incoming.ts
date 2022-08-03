@@ -8,7 +8,6 @@ export enum IncomingEvent {
     JOIN_GAME_EVENT = 'JOIN_GAME_EVENT',
     START_GAME_EVENT = 'START_GAME_EVENT',
     NEXT_QUESTION_EVENT = 'NEXT_QUESTION_EVENT',
-    SHOW_ALTERNATIVES_EVENT = 'SHOW_ALTERNATIVES_EVENT',
     LEAVE_GAME_EVENT = 'LEAVE_GAME_EVENT',
     END_GAME_EVENT = 'END_GAME_EVENT',
     SELECT_ANSWER_EVENT = 'SELECT_ANSWER_EVENT',
@@ -27,10 +26,6 @@ export interface StartGameEvent {
 export interface NextQuestionEvent {
     questionId: number
     hostId: string
-}
-
-export interface ShowAlternativesEvent {
-    questionId: number
 }
 
 export interface LeaveGameEvent {
