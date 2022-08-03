@@ -38,7 +38,6 @@ export interface GameEndedEvent {
 
 export interface SendAnswerEvent {
     playerId: number
-    score: number
     correct: boolean
 }
 

@@ -4,6 +4,7 @@ import * as api from './api'
 import {
     OutgoingEvent,
     SendAlternativesEvent,
+    SendAnswerEvent,
     SendQuestionEvent,
     ShowAnswersEvent,
     UpdatePlayerListEvent,
@@ -74,7 +75,14 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
     socket.on(IncomingEvent.SELECT_ANSWER_EVENT, async (arg) => {
         console.log('SELECT_ANSWER_EVENT', arg)
 
-        // TODO
+        const { alternativeId } = arg
+
+        const result = await api.sendAnswer(alternativeId, pin, playerId)
+
+        console.log('result: ', result)
+
+        const event: SendAnswerEvent = { playerId: result.playerId, correct: result.isCorrect }
+        sockets.in(pin).emit(OutgoingEvent.SEND_ANSWER_EVENT, event)
     })
 
     socket.on(IncomingEvent.END_GAME_EVENT, () => {
@@ -99,7 +107,7 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
             const players = await api.getPlayers(pin)
 
             const event: UpdatePlayerListEvent = { players: players }
-            socket.in(pin).emit(OutgoingEvent.UPDATE_PLAYER_LIST_EVENT, event)
+            sockets.in(pin).emit(OutgoingEvent.UPDATE_PLAYER_LIST_EVENT, event)
         } else {
             socket.emit(OutgoingEvent.SEND_ERROR_EVENT, { errorMessage: 'Invalid host ID' })
         }

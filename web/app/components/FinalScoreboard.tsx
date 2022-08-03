@@ -1,7 +1,6 @@
 import React from 'react'
 import { IPlayer } from '../context/game/game'
 import { useGameContext } from '../context/game/GameContext'
-import { Reactcomponent as CrownIcon } from '../components/common/icons/crown.svg'
 
 export default function FinalScoreboard() {
 
@@ -30,7 +29,7 @@ export default function FinalScoreboard() {
                 <div className='w-52'>
                     <div className='flex justify-center items-center mb-1'>
                         <p className='text-center text-white pb-1'>{setDefaultIfPlayerNameUndefined(players[0], 'no winner')}</p>
-                        {players[0] && <img src={CrownIcon} className='ml-3'/>}
+                        {players[0]}
                     </div>
                     <div className='flex flex-col justify-center items-center text-white h-80 bg-[#d4af37]'>
                         <p className='text-6xl'>1.</p>

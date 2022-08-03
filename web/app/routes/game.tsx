@@ -103,7 +103,7 @@ export default function GameView() {
             console.log('UPDATE_PLAYER_LIST_EVENT: ', arg)
             dispatch({
                 type: ActionTypes.UPDATE_PLAYER_LIST_EVENT,
-                payload: JSON.parse(arg.data).players as IPlayer[]
+                payload: arg.players as IPlayer[]
             })
         })
 

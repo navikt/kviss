@@ -22,3 +22,8 @@ export const getQuestionById = async (id: number) =>
     fetch(`${config.API_URL}/quiz/${id}`)
         .then((res) => res.json())
         .catch((e) => console.error(e))
+
+export const sendAnswer = async (alternativeId: number, pin: number, playerId: number) =>
+    fetch(`${config.API_URL}/game/${pin}/checkAnswer?alternativeId=${alternativeId}&playerId=${playerId}`)
+        .then((res) => res.json())
+        .catch((e) => console.error(e))

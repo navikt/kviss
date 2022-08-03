@@ -150,6 +150,12 @@ data class PlayerAnswer(
     val playerId: Long,
     @Contextual
     val timeAnswered: Timestamp?
-
 )
+
+@Serializable
+data class AnswerResult (
+    val playerId: Long,
+    val isCorrect: Boolean
+)
+
 
