@@ -34,7 +34,7 @@ export interface ShowAlternativesEvent {
 }
 
 export interface LeaveGameEvent {
-    player: Player
+    playerId: number
 }
 
 export interface EndGameEvent {

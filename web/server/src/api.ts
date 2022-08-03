@@ -21,5 +21,10 @@ export const getQuestionById = async (id: number) => fetch(`${config.API_URL}/qu
     .then(res => res.json())
     .catch(e => console.error(e))
 
+export const deletePlayer = async (id: number) => fetch(`${config.API_URL}/player/${id}`, {
+    method: 'DELETE'
+})
+    .then(res => res.status === 200)
+    .catch(e => console.error(e))
 
 
