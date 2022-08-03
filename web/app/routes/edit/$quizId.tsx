@@ -55,17 +55,6 @@ export default function EditQuiz() {
 
             })
 
-            // Check if a question has been deleted
-            // quiz?.questions?.filter(x => !questions.includes(x)).map(async (question: IQuestion) => {
-            //     if (question.id) {
-            //         await fetch(`/api/quiz/${quizId}/questions?questionid=${question.id}`,{
-            //             method: 'DELETE'
-            //         })
-            //     }
-            // })
-            
-            // Get updated quiz, as some questions can have been added
-
             navigate('/start')
         }
     }
