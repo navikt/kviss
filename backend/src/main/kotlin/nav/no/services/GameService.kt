@@ -74,8 +74,8 @@ class GameService(
         } else throw Exception("Cannot add player to non-existing game")
     }
 
-    fun deletePlayer(playerId: Long) {
-        playerDao.deletePlayer(playerId)
+    fun deletePlayer(playerId: Long): Int {
+        return playerDao.deletePlayer(playerId)
     }
 
     fun getQuizByPin(pin: Int) = quizService.getConsumerQuiz(getGameByPin(pin)!!.quizId)

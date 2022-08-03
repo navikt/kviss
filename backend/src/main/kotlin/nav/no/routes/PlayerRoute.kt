@@ -22,18 +22,15 @@ fun Route.playerRoute(gameService: GameService) {
         }
 
         delete("{id}") {
-            try {
-                val playerId = call.parameters["id"]!!.toLong()
-                gameService.deletePlayer(playerId)
+            val playerId = call.parameters["id"]!!.toLong()
+            if (gameService.deletePlayer(playerId) == 1) {
                 call.respond(HttpStatusCode.OK)
-            } catch (e: Exception) {
+            } else {
                 call.respondText(
                     "Error deleting player",
                     status = HttpStatusCode(404, "Player not found")
                 )
             }
         }
-
-
     }
 }
