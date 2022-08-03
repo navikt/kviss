@@ -3,6 +3,7 @@ package nav.no.services
 import io.mockk.*
 import kotlin.test.assertNotNull
 import nav.no.database.dao.AlternativesDao
+import nav.no.database.dao.AnswerDao
 import nav.no.database.dao.GameDao
 import nav.no.database.dao.PlayerDao
 import org.junit.jupiter.api.AfterEach
@@ -14,9 +15,10 @@ internal class GameServiceTest {
     private val alternativesDao = mockk<AlternativesDao>()
     private val playerDao = mockk<PlayerDao>()
     private val gamedao = mockk<GameDao>()
+    private val answerDao = mockk<AnswerDao>()
     private val quizService = mockk<QuizService>()
 
-    private val service = GameService(alternativesDao, playerDao, gamedao, quizService)
+    private val service = GameService(alternativesDao, playerDao, gamedao, quizService, answerDao)
 
     @AfterEach
     fun afterEach() {
