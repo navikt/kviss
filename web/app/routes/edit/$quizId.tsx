@@ -7,7 +7,7 @@ import QuizInformationForm from '../../components/quizAdministration/QuizInforma
 import { IQuestion, IQuiz } from '../../context/QuizContext'
 import { IQuizInfo } from '../create'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getQuizById } from '../../api/api'
+import { createQuestion, getQuizById, updateQuestion, updateQuiz } from '../../api/api'
 
 export default function EditQuiz() {
     const { quizId } = useParams()
@@ -19,58 +19,40 @@ export default function EditQuiz() {
     const [questions, setQuestions] = useState<IQuestion[]>([])
 
     useEffect(() => {
-        getQuizById(parseInt(quizId!))
-            .then((quiz: IQuiz) => {
-                setQuiz(quiz)
-                setQuizInfo({
-                    ...quiz
+        if (quizId !== undefined) {
+            getQuizById(parseInt(quizId))
+                .then((quiz: IQuiz) => {
+                    setQuiz(quiz)
+                    setQuizInfo({
+                        ...quiz
+                    })
+                    setQuestions(quiz.questions || [])
                 })
-                setQuestions(quiz.questions || [])
-            })
+        }
     }, [])
-
 
     const onUpdateQuiz = async () => {
         // Update quiz info
         if (questions.length !== 0) {
-            // @ts-ignore
-            await fetch(`${window.env.API_URL}/quiz/${quiz.id}`, {
-                body: JSON.stringify({
-                    id: quizId,
-                    name: quizInfo!.name,
-                    description: quizInfo!.description
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                method: 'PATCH'
+            await updateQuiz({
+                id: parseInt(quizId!),
+                name: quizInfo!.name,
+                description: quizInfo!.description
             })
-
             // Check if question is new question or existing being updated
-            questions.map(async (question: IQuestion) => {
+            questions.map(async (question: IQuestion, index: number) => {
                 if (question.id === undefined) {
-                // @ts-ignore
-                    await poster(`/api/quiz/${quiz.id}/questions`, question)
+                    question.quizId = parseInt(quizId!)
+                    
+                    const questionId = await createQuestion(question)
+
+                    const questionsCopy = [...questions]
+                    questionsCopy[index] = {...questions[index], id: questionId}
+                    setQuestions(questionsCopy)
                 } else {
-                // @ts-ignore
-                    await fetch(`/api/quiz/${quiz.id}/questions`, {
-                        body: JSON.stringify(question),
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        method: 'PATCH'
-                    })
+                    await updateQuestion(question, parseInt(quizId!))
                 }
-            })
 
-
-            // Check if a question has been deleted
-            quiz?.questions?.filter(x => !questions.includes(x)).map(async (question: IQuestion) => {
-                if (question.id) {
-                    await fetch(`/api/quiz/${quizId}/questions?questionid=${question.id}`,{
-                        method: 'DELETE'
-                    })
-                }
             })
 
             navigate('/start')

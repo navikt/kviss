@@ -19,7 +19,7 @@ export default function QuestionsPreview({
     }
 
     return(
-        <div>
+        <div className='flex flex-col justify-center items-center'>
             {questions.map((question, i) => {
                 return <QuestionPreview 
                     key={i} 

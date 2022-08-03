@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../components/common/Button'
 import { useNavigate } from 'react-router-dom'
 
 export default function Index() {
@@ -6,18 +7,18 @@ export default function Index() {
 
     return (
         <div className="flex items-center justify-center flex-col">
-            <h1 className="text-3xl text-center mb-4 text-white">
+            <h1 className="text-3xl text-center mb-4 text-white px-4">
                 Welcome to kviss! A application that solves all your quizzzing needs at NAV
             </h1>
-            <button className="border-2 rounded-lg bg-white my-4 py-4 w-64" onClick={() => navigate('./join')}>
-                <p className="text-2xl">Join quiz</p>
-            </button>
-            <button className="border-2 rounded-lg bg-white my-4 py-4 w-64" onClick={() => navigate('./start')}>
-                <p className="text-2xl">Start quiz</p>
-            </button>
-            <button className="border-2 rounded-lg bg-white my-4 py-4 w-64" onClick={() => navigate('./create')}>
-                <p className="text-2xl">Create quiz</p>
-            </button>
+            <Button onClick={() => navigate('./join')}>
+                <p className="text-2xl w-52">Join quiz</p>
+            </Button>
+            <Button onClick={() => navigate('./start')}>
+                <p className="text-2xl w-52">Start quiz</p>
+            </Button>
+            <Button onClick={() => navigate('./create')}>
+                <p className="text-2xl w-52">Create quiz</p>
+            </Button>
         </div>
     )
 }

@@ -1,3 +1,4 @@
+import { deleteQuestion } from '../../api/api'
 import React from 'react'
 import { useState } from 'react'
 import { IQuestion } from '../../context/QuizContext'
@@ -17,6 +18,9 @@ export default function QuestionPreview({
     const [edit, setEdit] = useState<boolean>(false)
 
     const onDeleteQuestion = () => {
+        if (questions[questionIndex].id && questions[questionIndex].quizId) {
+            deleteQuestion(questions[questionIndex].id!, questions[questionIndex].quizId!)
+        }
         const questionsCopy = [...questions]
         questionsCopy.splice(questionIndex, 1)
         setQuestions(questionsCopy)
@@ -25,15 +29,21 @@ export default function QuestionPreview({
     return (
         <div>
             {!edit
-                ? <div className='flex flex-col my-2'>
-                    <p className='text-gray-900 dark:text-gray-300'>
-                        Question: {questions[questionIndex].description}
-                    </p>
+                ? <div className='flex flex-col my-2 items-center'>
+                    <h2 className='text-xl text-gray-900 dark:text-gray-300 w-1/2'>
+                        Description: {questions[questionIndex].description}
+                    </h2>
                     {questions[questionIndex].alternatives.map((alt, i) => {
+                        // TODO: replace with grid
                         return (
-                            <p key={i} className='text-gray-900 dark:text-gray-300'>
-                                {`Alternative ${i + 1}: ${alt.text}. Correct?: ${alt.isCorrect}`}
-                            </p>
+                            <div key={i} className='flex flex-row'>
+                                <p className='text-gray-900 dark:text-gray-300 mr-3'>
+                                    {`Alternative ${i + 1}: ${alt.text}`}
+                                </p>
+                                <p className='text-gray-900 dark:text-gray-300 ml-3'>
+                                    {`Correct?: ${alt.isCorrect}`}
+                                </p>
+                            </div>
                         )
                     })}
                     <div>
