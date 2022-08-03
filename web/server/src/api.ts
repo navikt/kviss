@@ -21,6 +21,12 @@ export const getQuestionById = async (id: number) => fetch(`${config.API_URL}/qu
     .then(res => res.json())
     .catch(e => console.error(e))
 
+export const deletePlayer = async (id: number) => fetch(`${config.API_URL}/player/${id}`, {
+    method: 'DELETE'
+})
+    .then(res => res.status === 200)
+    .catch(e => console.error(e))
+
 export const setGameFinished = async (pin: number) => fetch(`${config.API_URL}/game/${pin}/finished`, {
     method: 'PATCH'
 })
@@ -31,6 +37,7 @@ export const getQuizById = async (id: number) =>
     fetch(`${config.API_URL}/quiz/${id}`)
         .then((res) => res.json())
         .catch((e) => console.error(e))
+
 
 export const getQuestionById = async (id: number) =>
     fetch(`${config.API_URL}/quiz/${id}`)
