@@ -116,7 +116,7 @@ private object QueriesPlayer {
 
     val UPDATE_PLAYER_SCORE = """
         UPDATE player 
-        SET score = ?
+        SET score = score + ?
         WHERE id = ?
         RETURNING score;
     """.trimIndent()
