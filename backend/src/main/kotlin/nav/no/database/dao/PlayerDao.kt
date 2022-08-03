@@ -63,17 +63,18 @@ class PlayerDao(
     }
 
 
-    fun updateScore(playerId: Long): Int {
+    fun updateScore(score: Int, playerId: Long): Int {
         dataSource.connection.use {
             return it.prepareStatement(UPDATE_PLAYER_SCORE).apply {
-                setLong(1, playerId)
+                setInt(1, score)
+                setLong(2, playerId)
             }.executeQuery().singleOrNull { getInt("score") }!!
         }
     }
 
-    fun deletePlayer(playerId: Long) {
+    fun deletePlayer(playerId: Long): Int {
         dataSource.connection.use {
-            it.prepareStatement(DELETE_PLAYER).apply {
+           return it.prepareStatement(DELETE_PLAYER).apply {
                 setLong(1, playerId)
             }.executeUpdate()
         }
@@ -115,7 +116,7 @@ private object QueriesPlayer {
 
     val UPDATE_PLAYER_SCORE = """
         UPDATE player 
-        SET score = score + 1000
+        SET score = ?
         WHERE id = ?
         RETURNING score;
     """.trimIndent()

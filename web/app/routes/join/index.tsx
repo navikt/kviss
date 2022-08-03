@@ -25,7 +25,7 @@ export default function QuizIndexRoute() {
 
         if (!exists) return
 
-        const player = await createPlayer(pin, username!!).catch(ex => {
+        const player = await createPlayer(pin, username!).catch(ex => {
             // todo
         })
 
@@ -44,7 +44,7 @@ export default function QuizIndexRoute() {
 
     return (
         <div className="flex flex-col h-screen justify-center items-center">
-            <form onSubmit={((e) => handleSubmit(e))}>
+            <form onSubmit={(e) => handleSubmit(e)}>
                 <Input
                     required
                     label="Brukernavn"

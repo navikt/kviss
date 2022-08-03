@@ -72,4 +72,21 @@ create table player
     game_id    bigint
         constraint player_game_id_fk
             references game
-)
+);
+
+create table player_answer
+(
+    id            bigserial
+        constraint player_answer_pk
+            primary key,
+    alternative_id   bigint
+        constraint player_answer_alternative_id_fk
+            references alternative,
+    game_id   bigint
+        constraint player_answer_game_id_fk
+            references game,
+    player_id     bigint
+        constraint player_answer_player_id_fk
+            references player,
+    time_answered timestamp
+);

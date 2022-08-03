@@ -1,9 +1,9 @@
 package nav.no.services
 
 import nav.no.database.dao.AlternativesDao
+import nav.no.database.dao.AnswerDao
 import nav.no.database.dao.GameDao
 import nav.no.database.dao.PlayerDao
-import nav.no.database.domain.GameId
 import nav.no.database.domain.GamePin
 import nav.no.database.domain.toModel
 import nav.no.models.Game
@@ -15,7 +15,8 @@ class GameService(
     private val alternativesDao: AlternativesDao,
     private val playerDao: PlayerDao,
     private val gameDao: GameDao,
-    private val quizService: QuizService
+    private val quizService: QuizService,
+    private val answerDao: AnswerDao
 ) {
     companion object {
         private const val MAX_RETRIES = 3
@@ -40,16 +41,27 @@ class GameService(
         return alternativesDao.getAlternative(alternativeId).isCorrect
     }
 
-    private fun increasePoint(playerId: Long): Int {
-        return playerDao.updateScore(playerId)
-    }
 
-    fun checkAnswer(alternativeId: Long, playerId: Long): Pair<Int, Boolean> {
-        return if (isCorrect(alternativeId)) {
-            increasePoint(playerId) to true
-        } else {
-            (getPlayer(playerId).score ?: 0) to false
+
+    fun checkAnswer(alternativeId: Long, gameId: Long, playerId: Long): Boolean {
+        if (isCorrect(alternativeId)) {
+            answerDao.insertPlayerAnswer(alternativeId, gameId, playerId)
+            val currentAnswers = gameDao.getPlayerAnswers(alternativeId, gameId)
+            currentAnswers.forEachIndexed{ i, answer ->
+                run {
+                    if (answer.playerId === playerId) {
+                        if (i < 15) {
+                            println("Giving score to player: " + answer.playerId + " Index is: " + i )
+                            playerDao.updateScore(1000 - (i * 50), playerId)
+                        } else {
+                            playerDao.updateScore(1000 - (15 * 50), playerId)
+                        }
+                    }
+                }
+            }
+            return true
         }
+        return false
     }
 
     fun getPoints(playerId: Long): Int? {
@@ -74,8 +86,8 @@ class GameService(
         } else throw Exception("Cannot add player to non-existing game")
     }
 
-    fun deletePlayer(playerId: Long) {
-        playerDao.deletePlayer(playerId)
+    fun deletePlayer(playerId: Long): Int {
+        return playerDao.deletePlayer(playerId)
     }
 
     fun getQuizByPin(pin: Int) = quizService.getConsumerQuiz(getGameByPin(pin)!!.quizId)

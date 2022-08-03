@@ -1,3 +1,4 @@
+import React from 'react'
 import { ReactElement } from 'react'
 import { ActionTypes } from '../context/game/game'
 import { useGameContext } from '../context/game/GameContext'
@@ -12,7 +13,7 @@ export function Question(): ReactElement {
     const { state, dispatch } = useGameContext()
     const ws = useWebSocket()
 
-    const colors = ["bg-[#BF616A]", "bg-[#5E81AC]", "bg-[#EBCB8B]", "bg-[#A3BE8C]"]
+    const colors = ['bg-[#BF616A]', 'bg-[#5E81AC]', 'bg-[#EBCB8B]', 'bg-[#A3BE8C]']
     const sendAnswer = async (answer: IAlternative) => { 
         ws?.emit('SELECT_ANSWER_EVENT', {
             'alternativeId': answer.id,
@@ -32,7 +33,11 @@ export function Question(): ReactElement {
         ws?.emit('TRIGGER_ANSWER_EVENT', {
             'hostId': state.hostId
         })
+        ws?.emit(ActionTypes.TRIGGER_UPDATE_PLAYER_LIST_EVENT, {
+            'hostId': state.hostId
+        })
     }
+    
 
 
     return (

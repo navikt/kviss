@@ -1,3 +1,4 @@
+import { Player } from './incoming'
 
 export enum OutgoingEvent {
     SEND_ALTERNATIVES_EVENT = 'SEND_ALTERNATIVES_EVENT',
@@ -7,7 +8,8 @@ export enum OutgoingEvent {
     PLAYER_LEFT_EVENT = 'PLAYER_LEFT_EVENT',
     GAME_ENDED_EVENT = 'GAME_ENDED_EVENT',
     SEND_ANSWER_EVENT = 'SEND_ANSWER_EVENT',
-    SHOW_ANSWERS_EVENT = 'SHOW_ANSWERS_EVENT'
+    SHOW_ANSWERS_EVENT = 'SHOW_ANSWERS_EVENT',
+    UPDATE_PLAYER_LIST_EVENT = 'UPDATE_PLAYER_LIST_EVENT',
 }
 
 export interface SendAlternativesEvent {
@@ -15,7 +17,7 @@ export interface SendAlternativesEvent {
 }
 
 export interface SendErrorEvent {
-    errorMessage: String
+    errorMessage: string
 }
 
 export interface SendQuestionEvent {
@@ -36,10 +38,13 @@ export interface GameEndedEvent {
 
 export interface SendAnswerEvent {
     playerId: number
-    score: number
-    correct: Boolean
+    correct: boolean
 }
 
 export interface ShowAnswersEvent {
-    show: Boolean
+    show: boolean
+}
+
+export interface UpdatePlayerListEvent {
+    players: any[]
 }
