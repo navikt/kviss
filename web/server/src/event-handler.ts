@@ -4,7 +4,6 @@ import * as api from './api'
 import { setGameFinished } from './api'
 import {
     OutgoingEvent,
-    SendAlternativesEvent,
     SendAnswerEvent,
     SendQuestionEvent,
     ShowAnswersEvent,
@@ -47,10 +46,10 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
 
     socket.on(IncomingEvent.NEXT_QUESTION_EVENT, async (arg) => {
         console.log('NEXT_QUESTION_EVENT', arg)
-        const { questionId } = arg
+        const { quizId, questionId } = arg
 
         if (game.hostId === hostId) {
-            const question = await api.getQuestionById(questionId)
+            const question = await api.getQuestionById(quizId, questionId)
 
             const event: SendQuestionEvent = { question }
             sockets.in(pin).emit(OutgoingEvent.SEND_QUESTION_EVENT, event)
@@ -63,16 +62,6 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
         console.log('LEAVE_GAME_EVENT')
         const { playerId } = arg as LeaveGameEvent
         await api.deletePlayer(playerId)
-    })
-
-    socket.on(IncomingEvent.SHOW_ALTERNATIVES_EVENT, async (arg) => {
-        console.log('SHOW_ALTERNATIVES_EVENT', arg)
-        const { questionId } = arg
-
-        const question = await api.getQuestionById(questionId)
-
-        const event: SendAlternativesEvent = { alternatives: question.alternatives }
-        sockets.in(pin).emit(OutgoingEvent.SEND_ALTERNATIVES_EVENT, event)
     })
 
     socket.on(IncomingEvent.SELECT_ANSWER_EVENT, async (arg) => {
