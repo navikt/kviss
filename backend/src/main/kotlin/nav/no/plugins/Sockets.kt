@@ -9,7 +9,6 @@ import nav.no.ApplicationContext
 import nav.no.models.*
 import nav.no.services.GameService
 import nav.no.services.QuizService
-import nav.no.sockets.gameSocket
 import java.time.Duration
 import java.util.*
 import kotlin.collections.LinkedHashSet
@@ -24,8 +23,6 @@ fun Application.configureSockets(context: ApplicationContext) {
     }
 
     routing {
-        val connections = Collections.synchronizedSet<SocketConnection?>(LinkedHashSet())
-        gameSocket(connections, context)
     }
 }
 
