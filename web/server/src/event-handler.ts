@@ -1,7 +1,13 @@
 import { Namespace, Socket } from 'socket.io'
-import { IncomingEvent } from './events/incoming'
+import { IncomingEvent, Player } from './events/incoming'
 import * as api from './api'
-import { OutgoingEvent, SendAlternativesEvent, SendQuestionEvent, ShowAnswersEvent } from './events/outgoing'
+import {
+    OutgoingEvent,
+    SendAlternativesEvent,
+    SendQuestionEvent,
+    ShowAnswersEvent,
+    UpdatePlayerListEvent,
+} from './events/outgoing'
 
 export default async function handleEvents(socket: Socket, sockets: Namespace) {
     const { pin, hostId, playerId } = socket.handshake.auth
@@ -82,6 +88,18 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
         if (game.hostId === hostId) {
             const event: ShowAnswersEvent = { show: true }
             socket.in(pin).emit(OutgoingEvent.SHOW_ANSWERS_EVENT, event)
+        } else {
+            socket.emit(OutgoingEvent.SEND_ERROR_EVENT, { errorMessage: 'Invalid host ID' })
+        }
+    })
+
+    socket.on(IncomingEvent.TRIGGER_UPDATE_PLAYER_LIST_EVENT, () => {
+        console.log('TRIGGER_UPDATE_PLAYER_LIST_EVENT')
+        if (game.hostId === hostId) {
+            const players = api.getPlayers(pin)
+
+            const event: UpdatePlayerListEvent = { players: players }
+            socket.in(pin).emit(OutgoingEvent.UPDATE_PLAYER_LIST_EVENT, event)
         } else {
             socket.emit(OutgoingEvent.SEND_ERROR_EVENT, { errorMessage: 'Invalid host ID' })
         }
