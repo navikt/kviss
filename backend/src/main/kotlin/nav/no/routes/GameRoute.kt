@@ -31,6 +31,11 @@ fun Route.gameRoute(gameService: GameService) {
                 else call.respond(HttpStatusCode.NotFound)
             }
 
+            patch("finished") {
+                if (gameService.setGameFinished(getPin()) == 1) call.respond(HttpStatusCode.OK)
+                else call.respond(HttpStatusCode.NotFound)
+            }
+
             post("player") {
                 val player = gameService.createPlayer(
                     playerName = call.request.queryParameters["playername"]!!,
