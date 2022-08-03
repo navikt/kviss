@@ -71,9 +71,9 @@ class GameDao(
         }
     }
 
-    fun setGameFinished(pin: Int) {
+    fun setGameFinished(pin: Int): Int {
         dataSource.connection.use {
-            it.prepareStatement(UPDATE_TO_FINISHED).apply {
+           return it.prepareStatement(UPDATE_TO_FINISHED).apply {
                 setInt(1, pin)
             }.executeUpdate()
         }
