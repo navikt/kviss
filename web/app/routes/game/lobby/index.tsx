@@ -1,3 +1,4 @@
+import React from 'react'
 import Lobby from '../../../components/Lobby'
 import { useGameContext } from '../../../context/game/GameContext'
 import { useEffect } from 'react'

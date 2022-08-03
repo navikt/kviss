@@ -1,3 +1,4 @@
+import React from 'react'
 import { ActionTypes } from '../../context/game/game'
 import { useGameContext } from '../../context/game/GameContext'
 import { IQuiz } from '../../context/QuizContext'
@@ -44,7 +45,7 @@ export default function StartQuizIndexRoute() {
                     const newQuizList = [...quizes].filter(quiz => quiz.id !== quizId)
                     setQuizes(newQuizList)
                 } else {
-                    throw Error("Feil ved sletting av quiz")
+                    throw Error('Feil ved sletting av quiz')
                 }
             })
     }
@@ -70,7 +71,7 @@ export default function StartQuizIndexRoute() {
                             </td>
                             <td className='flex flex-row'>
                                 <button
-                                    onClick={() => startQuiz(quiz.id!!)}
+                                    onClick={() => startQuiz(quiz.id!)}
                                     className="bg-lime-600 text-black font-bold py-2 px-4 rounded"
                                 >
                                         Start Quiz
@@ -80,7 +81,7 @@ export default function StartQuizIndexRoute() {
                                 <button className='ml-4' onClick={() => onEditQuiz(quiz.id)}>
                                     <EditIcon />
                                 </button>
-                                <button className='ml-4' onClick={() => onDeleteQuiz(quiz.id!!)}>
+                                <button className='ml-4' onClick={() => onDeleteQuiz(quiz.id!)}>
                                     <DeleteIcon />
                                 </button>
                             </td>

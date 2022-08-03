@@ -5,6 +5,7 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
+import nav.no.models.AnswerResult
 import nav.no.models.Game
 import nav.no.models.Player
 import nav.no.services.GameService
@@ -29,6 +30,17 @@ fun Route.gameRoute(gameService: GameService) {
 
                 if (gameExist) call.respond(HttpStatusCode.OK)
                 else call.respond(HttpStatusCode.NotFound)
+            }
+
+            get("checkAnswer") {
+                val alternativeId = call.request.queryParameters["alternativeId"]!!
+                val playerId = call.request.queryParameters["playerId"]!!
+                val game = gameService.getGameByPin(getPin())
+
+                val isCorrect = gameService.checkAnswer(alternativeId.toLong(), game!!.id, playerId.toLong())
+                val result = AnswerResult(playerId.toLong(), isCorrect)
+
+                call.respond(result)
             }
 
             post("player") {

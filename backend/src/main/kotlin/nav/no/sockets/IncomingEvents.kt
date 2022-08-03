@@ -59,3 +59,9 @@ data class SelectAnswerEvent(
 data class TriggerAnswerEvent(
     val hostId: String
 ) : IncomingEvent()
+
+@Serializable
+@SerialName("TRIGGER_UPDATE_PLAYER_LIST_EVENT")
+data class TriggerUpdatePlayerListEvent(
+    val hostId: String
+) : IncomingEvent()
