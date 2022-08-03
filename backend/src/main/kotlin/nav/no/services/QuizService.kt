@@ -12,7 +12,7 @@ class QuizService(
         private val quizDao: QuizDao,
         private val alternativesDao: AlternativesDao,
 ) {
-    fun getQuestions(quizId: Long): List<Question> =
+    fun getQuestionsByQuizId(quizId: Long): List<Question> =
             questionDao.getQuestions(quizId).map {
                 val alternatives =
                         alternativesDao.getAlternatives(it.id).map { alternative ->
@@ -31,7 +31,7 @@ class QuizService(
             }
     fun getQuizzes(): List<Quiz> =
             quizDao.getQuizzes().map {
-                val questions = getQuestions(it.id)
+                val questions = getQuestionsByQuizId(it.id)
                 it.toModel(questions)
             }
 
@@ -57,7 +57,7 @@ class QuizService(
         } else throw Exception("Each question must contain four alternatives")
     }
 
-    fun getQuiz(id: Long) = quizDao.getQuiz(id).toModel(getQuestions(id))
+    fun getQuiz(id: Long) = quizDao.getQuiz(id).toModel(getQuestionsByQuizId(id))
 
     fun deleteQuiz(id: Long) = quizDao.deleteQuiz(id)
 

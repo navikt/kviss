@@ -2,11 +2,9 @@ package nav.no.services
 
 import io.mockk.*
 import nav.no.database.dao.AlternativesDao
-import nav.no.database.dao.GameDao
 import nav.no.database.dao.QuestionDao
 import nav.no.database.dao.QuizDao
 import nav.no.database.domain.Quiz
-import nav.no.database.domain.toConsumerModel
 import nav.no.models.*
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
@@ -14,7 +12,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFails
 
 import nav.no.database.domain.Question as DBQuestion
-import nav.no.database.domain.Alternative as DBAlternative
 import nav.no.database.domain.Quiz as DBQuiz
 
 internal class QuizServiceTest {
@@ -133,7 +130,7 @@ internal class QuizServiceTest {
             )
         )
 
-        service.getQuestions(1)
+        service.getQuestionsByQuizId(1)
 
         verify(exactly = 1) { questionDao.getQuestions(any()) }
     }
@@ -141,7 +138,7 @@ internal class QuizServiceTest {
     @Test
     fun `Test getting quizzes`() {
         val alternatives = emptyList<Alternative>()
-        every { service.getQuestions(any()) } returns listOf(
+        every { service.getQuestionsByQuizId(any()) } returns listOf(
             Question(123, "", alternatives, 1, 1),
             Question(1234, "", alternatives, 1, 1)
         )
