@@ -1,6 +1,5 @@
 import { Namespace, Socket } from 'socket.io'
-import {IncomingEvent, LeaveGameEvent} from './events/incoming'
-import { IncomingEvent, Player } from './events/incoming'
+import { IncomingEvent, LeaveGameEvent, Player } from './events/incoming'
 import * as api from './api'
 import { setGameFinished } from './api'
 import {
@@ -62,7 +61,7 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
 
     socket.on(IncomingEvent.LEAVE_GAME_EVENT, async (arg) => {
         console.log('LEAVE_GAME_EVENT')
-        const {playerId} = arg as LeaveGameEvent
+        const { playerId } = arg as LeaveGameEvent
         await api.deletePlayer(playerId)
     })
 
