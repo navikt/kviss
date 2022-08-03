@@ -3,6 +3,8 @@ import { IPlayer } from '../context/game/game'
 
 const API_URL = process.env.NODE_ENV === 'production' ? '/api' : process.env.API_URL
 
+const fetchHeaders = { 'Content-Type': 'application/json' }
+
 export async function getAllQuizes(): Promise<IQuiz[]> {
     return fetch(`${API_URL}/quiz`).then((res) => res.json())
 }
@@ -27,12 +29,14 @@ export async function deleteQuizById(id: number): Promise<boolean> {
     }).then((res) => res.status === 200)
 }
 
-export async function createQuestion(question: IQuestion): Promise<boolean> {
+export async function createQuestion(question: IQuestion): Promise<number> {
     return fetch(`${API_URL}/quiz/${question.quizId}/questions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(question),
-    }).then((res) => res.status === 200)
+    })
+        .then((res) => res.text())
+        .then((id) => parseInt(id))
 }
 
 export async function gameExists(pin: number): Promise<boolean> {
@@ -49,4 +53,20 @@ export async function createPlayer(pin: number, username: string): Promise<IPlay
     return fetch(`${API_URL}/game/${pin}/player?playername=${username}`, {
         method: 'POST',
     }).then((res: Response) => res.json())
+}
+
+export async function updateQuiz(quiz: IQuiz) {
+    return fetch(`${API_URL}/quiz/${quiz.id}`, {
+        method: 'PATCH',
+        headers: fetchHeaders,
+        body: JSON.stringify(quiz),
+    })
+}
+
+export async function updateQuestion(question: IQuestion, quizId: number) {
+    return fetch(`${API_URL}/quiz/${quizId}/questions`, {
+        method: 'PATCH',
+        headers: fetchHeaders,
+        body: JSON.stringify(question),
+    })
 }
