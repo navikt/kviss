@@ -23,14 +23,14 @@ export default function QuizView() {
         <div className="justify-center h-full items-center">
 
             { state.currentQuestion && state.currentQuestion.sortOrder === state.currentQuiz?.questions!.length && state.lastEvent == ActionTypes.FINISH_QUESTION_EVENT ?
-            <FinalScoreboard/>
-            :
-            <>
-                {state.lastEvent === ActionTypes.SEND_QUESTION_EVENT && <Question />}
-                {state.lastEvent === ActionTypes.SHOW_ANSWERS_EVENT && <AnswerView />}
-                {state.lastEvent === ActionTypes.HAS_ANSWERED_EVENT && <WaitingView/>}
-                {state.lastEvent === ActionTypes.FINISH_QUESTION_EVENT && <Scoreboard/>}
-            </>
+                <FinalScoreboard/>
+                :
+                <>
+                    {state.lastEvent === ActionTypes.SEND_QUESTION_EVENT && <Question />}
+                    {state.lastEvent === ActionTypes.SHOW_ANSWERS_EVENT && <AnswerView />}
+                    {state.lastEvent === ActionTypes.HAS_ANSWERED_EVENT && <WaitingView/>}
+                    {state.lastEvent === ActionTypes.FINISH_QUESTION_EVENT && <Scoreboard/>}
+                </>
             }
 
 

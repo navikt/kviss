@@ -100,6 +100,14 @@ export default function GameView() {
                     type: ActionTypes.SET_LAST_EVENT,
                     payload: ActionTypes.SHOW_ANSWERS_EVENT
                 })
+                break
+            }
+            case ActionTypes.UPDATE_PLAYER_LIST_EVENT: {
+                dispatch({
+                    type: ActionTypes.UPDATE_PLAYER_LIST_EVENT,
+                    payload: JSON.parse(event.data).players as IPlayer[]
+                })
+                break
             }
         })
 

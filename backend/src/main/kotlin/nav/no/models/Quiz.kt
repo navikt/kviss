@@ -1,6 +1,8 @@
 package nav.no.models
 
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
+import java.sql.Timestamp
 
 @Serializable
 data class Game(
@@ -141,5 +143,13 @@ data class ConsumerPlayer(
 data class Scoreboard(
     val gamePin: Int,
     val players: List<Player>,
+)
+
+@Serializable
+data class PlayerAnswer(
+    val playerId: Long,
+    @Contextual
+    val timeAnswered: Timestamp?
+
 )
 
