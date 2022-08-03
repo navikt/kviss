@@ -1,4 +1,5 @@
 import { Namespace, Socket } from 'socket.io'
+import {IncomingEvent, LeaveGameEvent} from './events/incoming'
 import { IncomingEvent, Player } from './events/incoming'
 import * as api from './api'
 import { setGameFinished } from './api'
@@ -59,8 +60,10 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
         }
     })
 
-    socket.on(IncomingEvent.LEAVE_GAME_EVENT, () => {
-        // TODO
+    socket.on(IncomingEvent.LEAVE_GAME_EVENT, async (arg) => {
+        console.log('LEAVE_GAME_EVENT')
+        const {playerId} = arg as LeaveGameEvent
+        await api.deletePlayer(playerId)
     })
 
     socket.on(IncomingEvent.SHOW_ALTERNATIVES_EVENT, async (arg) => {
