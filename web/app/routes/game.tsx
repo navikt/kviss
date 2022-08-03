@@ -8,18 +8,16 @@ import { Outlet } from 'react-router-dom'
 import { io, Socket } from 'socket.io-client'
 
 const getUrl = () => {
-    if (process.env.NODE_ENV === 'production')
-        return `${(location.protocol)}//${(location.host)}`
-    else
-        return process.env.WS_URL || `${(location.protocol)}//${(location.host)}`
+    if (process.env.NODE_ENV === 'production') return `${location.protocol}//${location.host}`
+    else return process.env.WS_URL || `${location.protocol}//${location.host}`
 }
 
 export default function GameView() {
     const [socket, setSocket] = useState<Socket>()
-    const {state, dispatch} = useGameContext()
+    const { state, dispatch } = useGameContext()
 
     useEffect(() => {
-        if (!state.pin && socket) return
+        if (!!socket || !state.pin) return
 
         const url = getUrl()
 
@@ -27,13 +25,18 @@ export default function GameView() {
             path: '/ws',
             auth: {
                 pin: state.pin,
-                hostId: state.hostId
+                hostId: state.hostId,
+                playerId: state.player?.id,
             },
-            transports: ['polling']
+            transports: ['polling'],
         })
 
         setSocket(ws)
-    }, [])
+
+        return () => {
+            ws.close()
+        }
+    }, [setSocket])
 
     useEffect(() => {
         if (!socket) return
@@ -47,12 +50,12 @@ export default function GameView() {
 
             dispatch({
                 type: ActionTypes.SEND_QUESTION_EVENT,
-                payload: arg.question as IQuestion
+                payload: arg.question as IQuestion,
             })
 
             dispatch({
                 type: ActionTypes.SET_LAST_EVENT,
-                payload: ActionTypes.SEND_QUESTION_EVENT
+                payload: ActionTypes.SEND_QUESTION_EVENT,
             })
         })
 
@@ -60,7 +63,7 @@ export default function GameView() {
             console.log('PLAYER_JOINED_EVENT: ', arg)
             dispatch({
                 type: ActionTypes.PLAYER_JOINED_EVENT,
-                payload: arg.players as IPlayer[]
+                payload: arg.players as IPlayer[],
             })
         })
 
@@ -69,18 +72,18 @@ export default function GameView() {
             if (state.hostId) {
                 dispatch ({
                     type: ActionTypes.PLAYER_ANSWERED_EVENT,
-                    payload: true
+                    payload: true,
                 })
             }
-            if (state.player?.id === arg.playerId as number) {
+            if (state.player?.id === (arg.playerId as number)) {
                 dispatch({
                     type: ActionTypes.IS_QUESTION_CORRECT,
-                    payload: arg.correct as boolean
+                    payload: arg.correct as boolean,
                 })
                 if (!state.hostId) {
                     dispatch({
                         type: ActionTypes.SET_LAST_EVENT,
-                        payload: ActionTypes.HAS_ANSWERED_EVENT
+                        payload: ActionTypes.HAS_ANSWERED_EVENT,
                     })
                 }
             }
@@ -91,7 +94,7 @@ export default function GameView() {
             if (!state.hostId) {
                 dispatch({
                     type: ActionTypes.SET_LAST_EVENT,
-                    payload: ActionTypes.SHOW_ANSWERS_EVENT
+                    payload: ActionTypes.SHOW_ANSWERS_EVENT,
                 })
             }
         })
@@ -108,23 +111,18 @@ export default function GameView() {
             console.log('PLAYER_LEFT_EVENT: ', arg)
             dispatch({
                 type: ActionTypes.PLAYER_LEFT_EVENT,
-                payload: arg as IPlayer
+                payload: arg as IPlayer,
             })
         })
 
-
         socket.on('disconnect', () => {
-            console.log(socket.id) // undefined
+            console.log('user disconnected')
         })
-
     }, [socket])
 
     return (
         <SocketContextProvider socket={socket}>
-            <Outlet/>
+            <Outlet />
         </SocketContextProvider>
     )
 }
-
-
-
