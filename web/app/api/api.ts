@@ -70,3 +70,9 @@ export async function updateQuestion(question: IQuestion, quizId: number) {
         body: JSON.stringify(question),
     })
 }
+
+export async function deleteQuestion(questionId: number, quizId: number) {
+    return fetch(`${API_URL}/quiz/${quizId}/questions?questionid=${questionId}`, {
+        method: 'DELETE',
+    })
+}

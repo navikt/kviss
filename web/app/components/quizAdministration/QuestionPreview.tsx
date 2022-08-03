@@ -1,3 +1,5 @@
+import { deleteQuestion } from '../../api/api'
+import React from 'react'
 import { useState } from 'react'
 import { IQuestion } from '../../context/QuizContext'
 import Button from '../common/Button'
@@ -16,6 +18,9 @@ export default function QuestionPreview({
     const [edit, setEdit] = useState<boolean>(false)
 
     const onDeleteQuestion = () => {
+        if (questions[questionIndex].id && questions[questionIndex].quizId) {
+            deleteQuestion(questions[questionIndex].id!, questions[questionIndex].quizId!)
+        }
         const questionsCopy = [...questions]
         questionsCopy.splice(questionIndex, 1)
         setQuestions(questionsCopy)

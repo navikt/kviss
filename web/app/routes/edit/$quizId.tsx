@@ -52,6 +52,7 @@ export default function EditQuiz() {
                 } else {
                     await updateQuestion(question, parseInt(quizId!))
                 }
+
             })
 
             // Check if a question has been deleted
@@ -62,6 +63,8 @@ export default function EditQuiz() {
             //         })
             //     }
             // })
+            
+            // Get updated quiz, as some questions can have been added
 
             navigate('/start')
         }
