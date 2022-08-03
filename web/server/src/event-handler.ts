@@ -1,6 +1,8 @@
 import { Namespace, Socket } from 'socket.io'
 import { IncomingEvent, Player } from './events/incoming'
 import * as api from './api'
+import { OutgoingEvent, SendAlternativesEvent, SendQuestionEvent, ShowAnswersEvent } from './events/outgoing'
+import {setGameFinished} from "./api";
 import {
     OutgoingEvent,
     SendAlternativesEvent,
@@ -9,6 +11,7 @@ import {
     ShowAnswersEvent,
     UpdatePlayerListEvent,
 } from './events/outgoing'
+
 
 export default async function handleEvents(socket: Socket, sockets: Namespace) {
     const { pin, hostId, playerId } = socket.handshake.auth
@@ -85,10 +88,12 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
         sockets.in(pin).emit(OutgoingEvent.SEND_ANSWER_EVENT, event)
     })
 
-    socket.on(IncomingEvent.END_GAME_EVENT, () => {
-        // TODO
-        //   close room for everyone
-        // sockets.socketsLeave(pin)
+    socket.on(IncomingEvent.END_GAME_EVENT, async () => {
+        console.log('END_GAME_EVENT')
+        const finished = await api.setGameFinished(pin)
+        if (finished) {
+            sockets.socketsLeave(pin)
+        }
     })
 
     socket.on(IncomingEvent.TRIGGER_ANSWER_EVENT, () => {

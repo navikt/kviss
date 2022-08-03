@@ -32,6 +32,12 @@ fun Route.gameRoute(gameService: GameService) {
                 else call.respond(HttpStatusCode.NotFound)
             }
 
+
+            patch("finished") {
+                if (gameService.setGameFinished(getPin()) == 1) call.respond(HttpStatusCode.OK)
+                else call.respond(HttpStatusCode.NotFound)
+                }
+                
             get("checkAnswer") {
                 val alternativeId = call.request.queryParameters["alternativeId"]!!
                 val playerId = call.request.queryParameters["playerId"]!!
@@ -41,6 +47,7 @@ fun Route.gameRoute(gameService: GameService) {
                 val result = AnswerResult(playerId.toLong(), isCorrect)
 
                 call.respond(result)
+
             }
 
             post("player") {

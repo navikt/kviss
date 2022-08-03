@@ -13,6 +13,20 @@ export const getPlayers = async (pin: number) => {
         .catch((e) => console.error(e))
 }
 
+export const getQuizById = async (id: number) => fetch(`${config.API_URL}/quiz/${id}`)
+    .then(res => res.json())
+    .catch(e => console.error(e))
+
+export const getQuestionById = async (id: number) => fetch(`${config.API_URL}/quiz/${id}`)
+    .then(res => res.json())
+    .catch(e => console.error(e))
+
+export const setGameFinished = async (pin: number) => fetch(`${config.API_URL}/game/${pin}/finished`, {
+    method: 'PATCH'
+})
+    .then(res => res.status === 200)
+    .catch(e => console.error(e))
+
 export const getQuizById = async (id: number) =>
     fetch(`${config.API_URL}/quiz/${id}`)
         .then((res) => res.json())
