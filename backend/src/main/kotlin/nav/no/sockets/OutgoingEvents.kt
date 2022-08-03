@@ -47,7 +47,6 @@ data class GameEndedEvent(val scores: List<Player>) : OutgoingEvent()
 @SerialName("SEND_ANSWER_EVENT")
 data class SendAnswerEvent(
     val playerId: Long,
-    val score: Int,
     val correct: Boolean
 ) : OutgoingEvent()
 
@@ -56,3 +55,7 @@ data class SendAnswerEvent(
 data class ShowAnswersEvent(
     val show: Boolean
 ) : OutgoingEvent()
+
+@Serializable
+@SerialName("UPDATE_PLAYER_LIST_EVENT")
+data class UpdatePlayerListEvent(val players: List<Player>) : OutgoingEvent()

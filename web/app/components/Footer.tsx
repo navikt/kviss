@@ -1,3 +1,5 @@
+import React from 'react'
+
 export default function Footer() {
     return (
         <footer className="h-10 w-full pb-10 pt-5 border-t border-slate-600">

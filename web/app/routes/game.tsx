@@ -70,20 +70,12 @@ export default function GameView() {
         socket.on('SEND_ANSWER_EVENT', (arg) => {
             console.log('SEND_ANSWER_EVENT: ', arg)
             if (state.hostId) {
-                dispatch({
-                    type: ActionTypes.UPDATE_PLAYER_SCORE_EVENT,
-                    payload: arg as IAnswerEvent,
-                })
-                dispatch({
+                dispatch ({
                     type: ActionTypes.PLAYER_ANSWERED_EVENT,
                     payload: true,
                 })
             }
             if (state.player?.id === (arg.playerId as number)) {
-                dispatch({
-                    type: ActionTypes.SEND_ANSWER_EVENT,
-                    payload: arg.score as number,
-                })
                 dispatch({
                     type: ActionTypes.IS_QUESTION_CORRECT,
                     payload: arg.correct as boolean,
@@ -105,6 +97,14 @@ export default function GameView() {
                     payload: ActionTypes.SHOW_ANSWERS_EVENT,
                 })
             }
+        })
+
+        socket.on('UPDATE_PLAYER_LIST_EVENT', (arg) => {
+            console.log('UPDATE_PLAYER_LIST_EVENT: ', arg)
+            dispatch({
+                type: ActionTypes.UPDATE_PLAYER_LIST_EVENT,
+                payload: arg.players as IPlayer[]
+            })
         })
 
         socket.on('PLAYER_LEFT_EVENT', (arg) => {

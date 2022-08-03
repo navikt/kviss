@@ -44,11 +44,8 @@ class EventHandler(
                 SendAlternativesEvent(alternatives)
             }
             is SelectAnswerEvent -> {
-                val (score, isCorrect) = context.gameService.checkAnswer(event.alternativeId, event.playerId)
-                SendAnswerEvent(
-                    event.playerId,
-                    score, isCorrect
-                )
+                val isCorrect = context.gameService.checkAnswer(event.alternativeId, game!!.id, event.playerId)
+                SendAnswerEvent(event.playerId, isCorrect)
             }
             is EndGameEvent -> {
                 context.gameService.setGameFinished(gamePin)
@@ -57,6 +54,11 @@ class EventHandler(
             is TriggerAnswerEvent -> {
                 if (event.hostId == game!!.hostId) {
                     ShowAnswersEvent(true)
+                } else SendErrorEvent("Invalid host id")
+            }
+            is TriggerUpdatePlayerListEvent -> {
+                if (event.hostId == game!!.hostId) {
+                    UpdatePlayerListEvent(context.gameService.getPlayers(gamePin))
                 } else SendErrorEvent("Invalid host id")
             }
         }

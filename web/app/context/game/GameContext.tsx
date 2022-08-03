@@ -1,3 +1,4 @@
+import React from 'react'
 import { createContext, FC, ReactNode, useContext, useReducer } from 'react'
 import { ActionTypes, GameAction, Game, GameProps } from './game'
 
@@ -24,30 +25,11 @@ const reducer = (state: Game, action: GameAction) => {
     case ActionTypes.SET_LAST_EVENT: {
         return { ...state, lastEvent: payload }
     }
-    case ActionTypes.SEND_ANSWER_EVENT: {
-        const p = state.player
-        p ? p.score = payload : state.player?.score
-        return { ...state, 
-            player: p // TODO: Check if this works when backend sends correct score
-        }
-    }
     case ActionTypes.SET_CURRENT_QUIZ: {
         return { ...state, currentQuiz: payload }
     }
     case ActionTypes.IS_QUESTION_CORRECT: {
         return { ...state, isQuestionCorrect: payload }
-    }
-    case ActionTypes.UPDATE_PLAYER_SCORE_EVENT: {
-        const playersAnswered: number = state.answeredNumber!
-        state.players?.map((player) => {
-            if (player.id === payload.playerId) {
-                const p = player
-                if (isNaN(p.score)) p.score = 0
-                p.score = 1000 - (playersAnswered * 50)
-                return { ...state, player: p }
-            }
-        })
-        return { ...state }
     }
     case ActionTypes.PLAYER_ANSWERED_EVENT: {
         let n: number
@@ -58,6 +40,10 @@ const reducer = (state: Game, action: GameAction) => {
         console.log('Player left event with player ', payload)
         return { ...state,
             players: state.players?.filter(player => player.id !== payload.id), answeredNumber: state.answeredNumber! - 1 }
+    }
+    case ActionTypes.UPDATE_PLAYER_LIST_EVENT: {
+        console.log('setting players: ', payload)
+        return { ...state, players: payload}
     }
     default:
         return { ...state }

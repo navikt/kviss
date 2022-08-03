@@ -5,9 +5,12 @@ import nav.no.database.dao.QueriesGame.CHECK_GAME_PIN
 import nav.no.database.dao.QueriesGame.INSERT_GAME
 import nav.no.database.dao.QueriesGame.SELECT_GAME
 import nav.no.database.dao.QueriesGame.SELECT_GAME_BY_PIN
+import nav.no.database.dao.QueriesGame.SELECT_PLAYER_ANSWERS
 import nav.no.database.dao.QueriesGame.UPDATE_TO_FINISHED
 import nav.no.database.domain.Game
 import nav.no.database.singleOrNull
+import nav.no.models.PlayerAnswer
+import java.sql.ResultSet
 import java.util.*
 
 class GameDao(
@@ -68,12 +71,32 @@ class GameDao(
         }
     }
 
-    fun setGameFinished(pin: Int) {
+    fun setGameFinished(pin: Int): Int {
         dataSource.connection.use {
-            it.prepareStatement(UPDATE_TO_FINISHED).apply {
+           return it.prepareStatement(UPDATE_TO_FINISHED).apply {
                 setInt(1, pin)
             }.executeUpdate()
         }
+    }
+
+    fun getPlayerAnswers(alternativeId: Long, gameId: Long): MutableList<PlayerAnswer> {
+        val playerAnswers = mutableListOf<PlayerAnswer>()
+        dataSource.connection.use {
+            it.prepareStatement(SELECT_PLAYER_ANSWERS).apply {
+                setLong(1, alternativeId)
+                setLong(2, gameId)
+            }.executeQuery().run {
+                while (this.next()) {
+                    playerAnswers.add(
+                        PlayerAnswer(
+                            this.getLong(4),
+                            this.getTimestamp(5)
+                        )
+                    )
+                }
+            }
+        }
+        return playerAnswers
     }
 }
 
@@ -109,4 +132,13 @@ private object QueriesGame {
        SET is_active = FALSE
        WHERE pin = ?
     """.trimIndent()
+
+    val SELECT_PLAYER_ANSWERS = """
+       SELECT * 
+       FROM player_answer
+       WHERE alternative_id = ?
+       AND game_id = ?
+       ORDER BY time_answered ASC;
+    """.trimIndent()
+
 }

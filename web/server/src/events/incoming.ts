@@ -1,4 +1,4 @@
-interface Player {
+export interface Player {
     id: number
     name: string
     score?: number
@@ -12,8 +12,8 @@ export enum IncomingEvent {
     LEAVE_GAME_EVENT = 'LEAVE_GAME_EVENT',
     END_GAME_EVENT = 'END_GAME_EVENT',
     SELECT_ANSWER_EVENT = 'SELECT_ANSWER_EVENT',
-    TRIGGER_ANSWER_EVENT = 'TRIGGER_ANSWER_EVENT'
-
+    TRIGGER_ANSWER_EVENT = 'TRIGGER_ANSWER_EVENT',
+    TRIGGER_UPDATE_PLAYER_LIST_EVENT = 'TRIGGER_UPDATE_PLAYER_LIST_EVENT',
 }
 
 export interface JoinGameEvent {
@@ -47,5 +47,9 @@ export interface SelectAnswerEvent {
 }
 
 export interface TriggerAnswerEvent {
+    hostId: string
+}
+
+export interface TriggerUpdatePlayerListEvent {
     hostId: string
 }
