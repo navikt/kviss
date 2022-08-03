@@ -81,7 +81,7 @@ fun Route.quizRoute(quizService: QuizService) {
                     if (questionId != null) {
                         quizService.deleteQuestion(questionId)
                         call.respond(HttpStatusCode(200, "Question deleted successfully"))
-                    }
+                    } //TODO: fix this
                 }
             }
         }
