@@ -27,7 +27,7 @@ private object QueriesAnswer {
     """.trimIndent()
 
     val INSERT_PLAYER_ANSWER = """
-       INSERT INTO player_answers(alternative_id, game_id, player_id, time_answered)
+       INSERT INTO player_answer(alternative_id, game_id, player_id, time_answered)
        VALUES (?, ?, ?, NOW())
     """.trimIndent()
 

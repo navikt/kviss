@@ -135,7 +135,7 @@ private object QueriesGame {
 
     val SELECT_PLAYER_ANSWERS = """
        SELECT * 
-       FROM player_answers
+       FROM player_answer
        WHERE alternative_id = ?
        AND game_id = ?
        ORDER BY time_answered ASC;
