@@ -31,8 +31,8 @@ export const getQuizById = async (id: number) =>
         .then((res) => res.json())
         .catch((e) => console.error(e))
 
-export const getQuestionById = async (id: number) =>
-    fetch(`${config.API_URL}/quiz/${id}`)
+export const getQuestionById = async (quizId: number, questionId: number) =>
+    fetch(`${config.API_URL}/quiz/${quizId}/questions/${questionId}`)
         .then((res) => res.json())
         .catch((e) => console.error(e))
 

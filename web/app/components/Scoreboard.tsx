@@ -22,6 +22,7 @@ export default function Scoreboard() {
             state.currentQuiz?.questions?.map((question: IQuestion) => {
                 if (state.currentQuestion?.sortOrder === question.sortOrder - 1) {
                     ws?.emit('NEXT_QUESTION_EVENT', {
+                        'quizId': state.currentQuiz?.id,
                         'questionId': question.id,
                         'hostId': state.hostId
                     })
