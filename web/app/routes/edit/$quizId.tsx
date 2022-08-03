@@ -33,11 +33,11 @@ export default function EditQuiz() {
         // Update quiz info
         if (questions.length !== 0) {
             // @ts-ignore
-            await fetch(`${window.env.API_URL}/quiz/${quiz.id}`, {
+            await fetch(`/api/quiz/${quiz.id}`, {
                 body: JSON.stringify({
                     id: quizId,
-                    name: quizInfo!!.name,
-                    description: quizInfo!!.description
+                    name: quizInfo!.name,
+                    description: quizInfo!.description
                 }),
                 headers: {
                     'Content-Type': 'application/json'
@@ -58,7 +58,7 @@ export default function EditQuiz() {
                             'Content-Type': 'application/json'
                         },
                         method: 'PATCH'
-                    })
+                    }).then(res => console.log(res))
                 }
             })
 
