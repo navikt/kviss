@@ -1,3 +1,4 @@
+import React from 'react'
 import { useEffect, useState } from 'react'
 import { poster } from '../../api/operations'
 import Button from '../../components/common/Button'
@@ -9,7 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { getQuizById } from '../../api/api'
 
 export default function EditQuiz() {
-    const { quizId } = useParams();
+    const { quizId } = useParams()
 
     const navigate = useNavigate()
 
@@ -18,7 +19,7 @@ export default function EditQuiz() {
     const [questions, setQuestions] = useState<IQuestion[]>([])
 
     useEffect(() => {
-        getQuizById(parseInt(quizId!!))
+        getQuizById(parseInt(quizId!))
             .then((quiz: IQuiz) => {
                 setQuiz(quiz)
                 setQuizInfo({
@@ -36,8 +37,8 @@ export default function EditQuiz() {
             await fetch(`${window.env.API_URL}/quiz/${quiz.id}`, {
                 body: JSON.stringify({
                     id: quizId,
-                    name: quizInfo!!.name,
-                    description: quizInfo!!.description
+                    name: quizInfo!.name,
+                    description: quizInfo!.description
                 }),
                 headers: {
                     'Content-Type': 'application/json'

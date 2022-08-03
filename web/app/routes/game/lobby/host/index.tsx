@@ -1,3 +1,4 @@
+import React from 'react'
 import LobbyView from '../../../../components/Lobby'
 import { useWebSocket } from '../../../../context/SocketContext'
 import Button from '../../../../components/common/Button'

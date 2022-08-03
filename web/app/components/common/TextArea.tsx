@@ -1,3 +1,4 @@
+import React from 'react'
 import { TextareaHTMLAttributes } from 'react'
 import cl from 'classnames'
 

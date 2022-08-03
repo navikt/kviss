@@ -1,6 +1,7 @@
+import React from 'react'
 import { IPlayer } from '../context/game/game'
 import { useGameContext } from '../context/game/GameContext'
-import CrownIcon from '../components/common/icons/crown.svg'
+import { Reactcomponent as CrownIcon } from '../components/common/icons/crown.svg'
 
 export default function FinalScoreboard() {
 

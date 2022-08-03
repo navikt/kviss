@@ -1,3 +1,4 @@
+import React from 'react'
 import { IQuestion } from '../../context/QuizContext'
 import { emptyQuestion } from '../../mock'
 import Button from '../common/Button'

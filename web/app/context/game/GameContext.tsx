@@ -1,3 +1,4 @@
+import React from 'react'
 import { createContext, FC, ReactNode, useContext, useReducer } from 'react'
 import { ActionTypes, GameAction, Game, GameProps } from './game'
 

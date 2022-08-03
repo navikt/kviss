@@ -1,3 +1,5 @@
+import React from 'react'
+
 export default function EditIcon() {
     return <svg 
         width="1.25em" 

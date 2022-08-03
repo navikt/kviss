@@ -1,3 +1,4 @@
+import React from 'react'
 import { ChangeEvent, useState } from 'react'
 import { IAlternative, IQuestion } from '../../context/QuizContext'
 import { emptyQuestion } from '../../mock'

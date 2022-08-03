@@ -1,3 +1,4 @@
+import React from 'react'
 import { useGameContext } from '../context/game/GameContext'
 
 export default function LobbyView() {
