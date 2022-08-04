@@ -8,7 +8,8 @@ data class Game(
     val quizId: Long,
     val isActive: Boolean,
     val gamePin: GamePin,
-    val hostId: String = ""
+    val hostId: String = "",
+    val isJoinable: Boolean = true
 )
 data class Quiz(
     val name: String,
@@ -57,4 +58,4 @@ data class ScoreBoard(
 )
 
 fun Game.toModel() =
-    nav.no.models.Game(id, quizId, isActive, gamePin, hostId)
+    nav.no.models.Game(id, quizId, isActive, gamePin, hostId, isJoinable)
