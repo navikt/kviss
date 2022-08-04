@@ -29,7 +29,7 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
     const game = await api.getGameByPin(pin)
 
     api.getPlayers(pin).then((players: object[]) => {
-        socket.in(pin).emit(OutgoingEvent.PLAYER_JOINED_EVENT, { players })
+        sockets.in(pin).emit(OutgoingEvent.PLAYER_JOINED_EVENT, { players })
     })
 
     socket.once(IncomingEvent.START_GAME_EVENT, async () => {
