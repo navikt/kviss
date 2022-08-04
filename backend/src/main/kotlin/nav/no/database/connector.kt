@@ -31,7 +31,6 @@ private val hikariConfig = HikariConfig().apply {
             .dataSource(dataSource)
             .load()
             .run {
-                clean()
                 migrate()
             }
 }
