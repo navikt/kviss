@@ -61,7 +61,7 @@ create table game
     pin    int,
     is_active  bool,
     host_id text,
-    created timestamptz
+    created timestamptz default now()
 );
 create table player
 (
