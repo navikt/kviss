@@ -32,6 +32,10 @@ fun Route.gameRoute(gameService: GameService) {
                 else call.respond(HttpStatusCode.NotFound)
             }
 
+            patch("started") {
+                if (gameService.setGameStarted(getPin()) == 1) call.respond(HttpStatusCode.OK)
+                else call.respond(HttpStatusCode.NotFound)
+            }
 
             patch("finished") {
                 if (gameService.setGameFinished(getPin()) == 1) call.respond(HttpStatusCode.OK)
