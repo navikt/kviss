@@ -8,6 +8,7 @@ import Scoreboard from '../../components/Scoreboard'
 import WaitingView from '../../components/WaitingView'
 import { ActionTypes } from '../../context/game/game'
 import { useGameContext } from '../../context/game/GameContext'
+import logo from "../../public.svg"
 
 export default function QuizView() {
 
@@ -27,7 +28,16 @@ export default function QuizView() {
                 <FinalScoreboard/>
                 :
                 <>
-                    {state.lastEvent === undefined && state.hostId === undefined && <div className="text-white"> {state.player?.name} have joined! Do you see your name on the screen? </div>}
+                    {state.lastEvent === undefined && state.hostId === undefined && 
+                        <>
+                            <div className="text-white text-xl font-mono text-center"> {state.player?.name} joined the game! <br/> <br/> Do you see your name on the screen?</div>
+                            <div className="flex flex-col absolute bottom-7">
+                                <span className="animate-bounce">
+                                    <img src='/Rød.svg' className="h-40"/>
+                                </span>
+                            </div>
+                        </>
+                        }
                     {state.lastEvent === ActionTypes.SEND_QUESTION_EVENT && <Question />}
                     {state.lastEvent === ActionTypes.SHOW_ANSWERS_EVENT && <AnswerView />}
                     {state.lastEvent === ActionTypes.HAS_ANSWERED_EVENT && <WaitingView/>}
