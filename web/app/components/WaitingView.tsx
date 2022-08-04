@@ -5,7 +5,7 @@ export default function WaitingView() {
         <>
             <div className="flex flex-col h-full justify-center items-center text-white">
                 <h2>
-                    Venter på alle spillere  
+                    Waiting for all players  
                 </h2>
             </div>
         </>

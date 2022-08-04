@@ -24,7 +24,7 @@ export default function HostView() {
                 <LobbyView/>
                 <Button
                     onClick={() => startGame()}>
-                    Start quiz
+                    Start Kviss
                 </Button>
             </div>
         </>

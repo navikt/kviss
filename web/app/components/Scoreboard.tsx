@@ -34,7 +34,7 @@ export default function Scoreboard() {
     return (
         <div className="flex flex-col justify-center h-full items-center">
             <h2 className="text-6xl pb-8 text-white">Leaderboard</h2>
-            <div className="w-80 text-white">
+            <div className="w-80 text-white pb-40">
                 {players?.slice(0, 5).map((player, i) => {
                     // Shows top 5 players
                     return (
