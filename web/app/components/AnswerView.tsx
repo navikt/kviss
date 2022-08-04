@@ -18,7 +18,7 @@ export default function AnswerView() {
 
     return (
         <>
-            <div className={`flex flex-col h-full justify-center items-center ${backroundColor}`}>
+            <div className={`flex flex-col h-full w-full justify-center items-center ${backroundColor}`}>
                 {feedbackText}
                 <div>
                     You are currently in {position}.st place!
