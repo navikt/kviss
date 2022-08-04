@@ -9,7 +9,8 @@ import { createPlayer, gameExists } from '../../api/api'
 export default function QuizIndexRoute() {
     const navigate = useNavigate()
     const {state, dispatch} = useGameContext()
-    const [error, setError] = useState<string>()
+    const [pinError, setPinError] = useState<string>()
+    const [usernameError, setUsernameError] = useState<string>()
 
     const [username, setUsername] = useState<string>()
     const [pin, setPin] = useState<number>(0)
@@ -19,17 +20,22 @@ export default function QuizIndexRoute() {
 
         const exists: boolean = await gameExists(pin)
             .catch(ex => {
-                setError(ex.message)
                 return false
             })
 
-        if (!exists) return
+        if (!exists) {
+            setPinError('Invalid game-PIN!')
+            setUsernameError()
+            return
+        }
 
         const player = await createPlayer(pin, username!).catch(ex => {
             // todo
         })
 
-        if (player?.id) {
+        if (!player?.id) {
+            setUsernameError('Username taken!')
+        } else {
             dispatch({
                 type: ActionTypes.SET_PLAYER,
                 payload: player
@@ -52,7 +58,9 @@ export default function QuizIndexRoute() {
                     type="text"
                     onChange={(e) => setUsername(e.target.value)}
                 />
-
+                <div className='text-white pb-6'>
+                    {usernameError}
+                </div>
                 <Input
                     required
                     label="Pinkode"
@@ -60,7 +68,9 @@ export default function QuizIndexRoute() {
                     type="tel"
                     onChange={(e) => setPin(parseInt(e.target.value))}
                 />
-
+                <div className='text-white pb-6'>
+                    {pinError}
+                </div>
                 <Button type='submit'>
                     Neste
                 </Button>
