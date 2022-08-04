@@ -59,7 +59,7 @@ export function Question(): ReactElement {
                     <Button 
                         onClick={finishQuestion} 
                     >
-                        <h1 className='text-2xl my-2'>Neste</h1>
+                        <h1 className='text-2xl my-2'>Next</h1>
                     </Button>
                     <div className="text-white">
                         Spillere svart: {state.answeredNumber ? state.answeredNumber : 0} / {state.players?.length}

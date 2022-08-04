@@ -47,7 +47,7 @@ export default function Scoreboard() {
             </div>
             <Button
                 onClick={nextQuestion}>
-                Neste Spørsmål
+                Next Question
             </Button>
         </div>
     )

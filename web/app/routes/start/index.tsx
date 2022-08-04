@@ -74,7 +74,7 @@ export default function StartQuizIndexRoute() {
                                     onClick={() => startQuiz(quiz.id!)}
                                     className="bg-lime-600 text-black font-bold py-2 px-4 rounded"
                                 >
-                                        Start Quiz
+                                        Start Kviss
                                 </button>
                             </td>
                             <td>

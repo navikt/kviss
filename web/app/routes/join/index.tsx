@@ -53,7 +53,7 @@ export default function QuizIndexRoute() {
             <form onSubmit={(e) => handleSubmit(e)}>
                 <Input
                     required
-                    label="Brukernavn"
+                    label="Username"
                     name="username"
                     type="text"
                     onChange={(e) => setUsername(e.target.value)}
@@ -63,7 +63,7 @@ export default function QuizIndexRoute() {
                 </div>
                 <Input
                     required
-                    label="Pinkode"
+                    label="Pin code"
                     name="pinCode"
                     type="tel"
                     onChange={(e) => setPin(parseInt(e.target.value))}
@@ -72,7 +72,7 @@ export default function QuizIndexRoute() {
                     {pinError}
                 </div>
                 <Button type='submit'>
-                    Neste
+                    Next
                 </Button>
             </form>
         </div>

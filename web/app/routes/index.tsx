@@ -11,13 +11,13 @@ export default function Index() {
                 Welcome to kviss! A application that solves all your quizzzing needs at NAV
             </h1>
             <Button color="primary" onClick={() => navigate('./join')}>
-                <p className="text-2xl w-52">Join quiz</p>
+                <p className="text-2xl w-52">Join Kviss</p>
             </Button>
             <Button color="success" onClick={() => navigate('./start')}>
-                <p className="text-2xl w-52">Start quiz</p>
+                <p className="text-2xl w-52">Start Kviss</p>
             </Button>
             <Button color="warning" onClick={() => navigate('./create')}>
-                <p className="text-2xl w-52">Create quiz</p>
+                <p className="text-2xl w-52">Create Kviss</p>
             </Button>
         </div>
     )
