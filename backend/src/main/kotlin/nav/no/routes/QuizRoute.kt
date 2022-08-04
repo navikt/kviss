@@ -55,9 +55,9 @@ fun Route.quizRoute(quizService: QuizService) {
                     }
                 }
 
-                get("{id}") {
+                get("{questionId}") {
                     try {
-                        val questions = quizService.getQuestion(call.parameters["id"]!!.toLong())
+                        val questions = quizService.getQuestion(call.parameters["questionId"]!!.toLong())
                         call.respond(questions)
                     } catch (e: Exception) {
                         call.respond(HttpStatusCode(404, "error getting questions"))
