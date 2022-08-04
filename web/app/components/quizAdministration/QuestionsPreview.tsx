@@ -19,7 +19,7 @@ export default function QuestionsPreview({
     }
 
     return(
-        <div className='flex flex-col justify-center items-center'>
+        <div className='flex flex-col justify-center items-center pt-3'>
             {questions.map((question, i) => {
                 return <QuestionPreview 
                     key={i} 
@@ -28,6 +28,7 @@ export default function QuestionsPreview({
                     questionIndex={i}
                 />
             })}
+            <br/>
             <Button
                 onClick={onAddQuestion}
             >

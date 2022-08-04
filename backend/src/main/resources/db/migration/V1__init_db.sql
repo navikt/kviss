@@ -60,7 +60,8 @@ create table game
             references quiz,
     pin    int,
     is_active  bool,
-    host_id text
+    host_id text,
+    created timestamptz default now()
 );
 create table player
 (
