@@ -46,7 +46,7 @@ export default function QuestionPreview({
                             </div>
                         )
                     })}
-                    <div>
+                    <div className="pt-5">
                         <Button onClick={() => {setEdit(true)}}>
                             Edit question
                         </Button>
