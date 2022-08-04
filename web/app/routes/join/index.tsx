@@ -25,7 +25,7 @@ export default function QuizIndexRoute() {
 
         if (!exists) {
             setPinError('Invalid game-PIN!')
-            setUsernameError()
+            setUsernameError(undefined)
             return
         }
 
