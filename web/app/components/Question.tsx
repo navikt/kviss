@@ -43,7 +43,7 @@ export function Question(): ReactElement {
     return (
         <>
             { !state.hostId ? 
-                <div className="justify-center items-center">
+                <div className="justify-center items-center flex flex-col w-full">
                     {state.currentQuestion?.alternatives?.map((answer: IAlternative, i: number) => {
                         return <AnswerButton
                             color={colors[i]}
