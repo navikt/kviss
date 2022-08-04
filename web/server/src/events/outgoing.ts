@@ -12,10 +12,6 @@ export enum OutgoingEvent {
     UPDATE_PLAYER_LIST_EVENT = 'UPDATE_PLAYER_LIST_EVENT',
 }
 
-export interface SendAlternativesEvent {
-    alternatives: any[]
-}
-
 export interface SendErrorEvent {
     errorMessage: string
 }

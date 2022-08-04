@@ -41,18 +41,20 @@ export function Question(): ReactElement {
 
 
     return (
-        <div className="flex flex-col h-full justify-center items-center">
+        <>
             { !state.hostId ? 
-                state.currentQuestion?.alternatives?.map((answer: IAlternative, i: number) => {
-                    return <AnswerButton
-                        color={colors[i]}
-                        key={i}
-                        answerText={answer.text}
-                        onButtonClick={() => sendAnswer(answer)}
-                    />
-                })
+                <div className="justify-center items-center flex flex-col w-full">
+                    {state.currentQuestion?.alternatives?.map((answer: IAlternative, i: number) => {
+                        return <AnswerButton
+                            color={colors[i]}
+                            key={i}
+                            answerText={answer.text}
+                            onButtonClick={() => sendAnswer(answer)}
+                        />
+                    })}
+                </div>
                 :
-                <>
+                <div className="flex flex-col justify-center items-center">
                     <h1 className="text-2xl mb-4 text-white">{state.currentQuestion?.description}</h1>
                     <Button 
                         onClick={finishQuestion} 
@@ -62,10 +64,10 @@ export function Question(): ReactElement {
                     <div className="text-white">
                         Spillere svart: {state.answeredNumber ? state.answeredNumber : 0} / {state.players?.length}
                     </div>
-                </>
+                </div>
             }
             
             
-        </div>
+        </>
     )
 }

@@ -48,7 +48,7 @@ fun Route.quizRoute(quizService: QuizService) {
                 get {
                     try {
                         val questions: List<Question> = quizService
-                            .getQuestions(call.parameters["id"]!!.toLong())
+                            .getQuestionsByQuizId(call.parameters["id"]!!.toLong())
                         call.respond(questions)
                     } catch (e: Exception) {
                         call.respond(HttpStatusCode(404, "error getting questions"))

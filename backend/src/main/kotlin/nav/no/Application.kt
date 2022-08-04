@@ -11,7 +11,6 @@ fun main() {
     val context = ApplicationContext(System.getenv())
     embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
                 configureRouting(context)
-                configureSockets(context)
             }
             .start(wait = true)
 }
