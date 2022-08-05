@@ -1,3 +1,4 @@
+import Button from '../../components/common/Button'
 import React from 'react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -8,7 +9,7 @@ import Scoreboard from '../../components/Scoreboard'
 import WaitingView from '../../components/WaitingView'
 import { ActionTypes } from '../../context/game/game'
 import { useGameContext } from '../../context/game/GameContext'
-import logo from "../../public.svg"
+import logo from '../../public.svg'
 
 export default function QuizView() {
 
@@ -25,7 +26,21 @@ export default function QuizView() {
         <div className="justify-center h-full q-full items-center flex">
 
             { state.currentQuestion && state.currentQuestion.sortOrder === state.currentQuiz?.questions!.length && state.lastEvent == ActionTypes.FINISH_QUESTION_EVENT ?
-                <FinalScoreboard/>
+                <div className='h-full w-full'>
+                    <div className='mt-4 mr-4'>
+                        <div className='float-right flex'>
+                            <Button 
+                                onClick={() => navigate('../../')} 
+                            >
+                                <h1 className='text-l my-2 text-white'>Return to menu</h1>
+                            </Button>
+                        </div>
+                    </div>
+                    <div className='flex flex-col h-full justify-center items-center -pt-10'>
+                        <FinalScoreboard/>
+                    </div>
+                </div>
+                
                 :
                 <>
                     {state.lastEvent === undefined && state.hostId === undefined && 
@@ -37,7 +52,7 @@ export default function QuizView() {
                                 </span>
                             </div>
                         </>
-                        }
+                    }
                     {state.lastEvent === ActionTypes.SEND_QUESTION_EVENT && <Question />}
                     {state.lastEvent === ActionTypes.SHOW_ANSWERS_EVENT && <AnswerView />}
                     {state.lastEvent === ActionTypes.HAS_ANSWERED_EVENT && <WaitingView/>}
