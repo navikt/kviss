@@ -49,32 +49,40 @@ export default function QuizIndexRoute() {
     }
 
     return (
-        <div className="flex flex-col h-screen justify-center items-center">
-            <form onSubmit={(e) => handleSubmit(e)}>
-                <Input
-                    required
-                    label="Username"
-                    name="username"
-                    type="text"
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                <div className='text-white pb-6'>
-                    {usernameError}
-                </div>
-                <Input
-                    required
-                    label="Pin code"
-                    name="pinCode"
-                    type="tel"
-                    onChange={(e) => setPin(parseInt(e.target.value))}
-                />
-                <div className='text-white pb-6'>
-                    {pinError}
-                </div>
-                <Button type='submit'>
+        <>
+            <Button 
+                onClick={() => navigate('../../')} 
+            >
+                <h1 className='text-2xl my-2 text-white'>Return to menu</h1>
+            </Button>
+            <div className="flex flex-col h-screen justify-center items-center">
+                <form onSubmit={(e) => handleSubmit(e)}>
+                    <Input
+                        required
+                        label="Username"
+                        name="username"
+                        type="text"
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <div className='text-white pb-6'>
+                        {usernameError}
+                    </div>
+                    <Input
+                        required
+                        label="Pin code"
+                        name="pinCode"
+                        type="tel"
+                        onChange={(e) => setPin(parseInt(e.target.value))}
+                    />
+                    <div className='text-white pb-6'>
+                        {pinError}
+                    </div>
+                    <Button type='submit'>
                     Next
-                </Button>
-            </form>
-        </div>
+                    </Button>
+                </form>
+            </div>
+        </>
+        
     )
 }
