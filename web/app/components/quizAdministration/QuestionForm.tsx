@@ -60,11 +60,11 @@ export default function QuestionForm({
 
     const onQuestionSaved = () => {
         if (question.description.length < 1) {
-            alert("Please fill in question description before saving question")
+            alert('Please fill in question description before saving question')
             return
         }
         if (question.description.length > 250) {
-            alert("Please dont have a question over 250 characters")
+            alert('Please dont have a question over 250 characters')
             return
         }
         const questionsCopy: IQuestion[] = [...questions]

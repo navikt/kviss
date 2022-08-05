@@ -28,14 +28,22 @@ export default function QuizIndexRoute() {
             setUsernameError(undefined)
             return
         }
+        let player
 
-        const player = await createPlayer(pin, username!).catch(ex => {
-            // todo
-        })
+        if (username?.trim().length !== 0) {
+            player = await createPlayer(pin, username!.trim()).catch(ex => {
+                // todo
+            })
+        } else {
+            setUsernameError('Username cannot be empty!')
+            return
+        }
+
 
         if (!player?.id) {
             setUsernameError('Username taken!')
-        } else {
+        }
+        else {
             dispatch({
                 type: ActionTypes.SET_PLAYER,
                 payload: player
