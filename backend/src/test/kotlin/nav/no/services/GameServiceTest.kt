@@ -57,4 +57,13 @@ internal class GameServiceTest {
 
         verify(exactly = 2) { gamedao.checkGamePin(any()) }
     }
+
+    @Test
+    fun `set game as started`() {
+        every { gamedao.setGameStarted(any()) } returns 2
+
+        service.setGameStarted(123)
+
+        verify(exactly = 1) {gamedao.setGameStarted(any())}
+    }
 }

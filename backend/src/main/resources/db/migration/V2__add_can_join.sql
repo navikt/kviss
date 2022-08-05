@@ -1,0 +1,1 @@
+alter table game add is_joinable bool default true;

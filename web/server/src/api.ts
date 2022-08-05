@@ -26,6 +26,13 @@ export const setGameFinished = async (pin: number) =>
         .then((res) => res.status === 200)
         .catch((e) => console.error(e))
 
+export const setGameStarted = async (pin: number) =>
+    fetch(`${config.API_URL}/game/${pin}/started`, {
+        method: 'PATCH',
+    })
+        .then((res) => res.status === 200)
+        .catch((e) => console.error(e))
+
 export const getQuizById = async (id: number) =>
     fetch(`${config.API_URL}/quiz/${id}`)
         .then((res) => res.json())

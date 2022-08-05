@@ -7,6 +7,7 @@ import nav.no.database.dao.QueriesGame.SELECT_GAME
 import nav.no.database.dao.QueriesGame.SELECT_GAME_BY_PIN
 import nav.no.database.dao.QueriesGame.SELECT_PLAYER_ANSWERS
 import nav.no.database.dao.QueriesGame.UPDATE_TO_FINISHED
+import nav.no.database.dao.QueriesGame.UPDATE_TO_STARTED
 import nav.no.database.domain.Game
 import nav.no.database.singleOrNull
 import nav.no.models.PlayerAnswer
@@ -79,6 +80,15 @@ class GameDao(
         }
     }
 
+
+    fun setGameStarted(pin: Int): Int {
+        dataSource.connection.use {
+            return it.prepareStatement(UPDATE_TO_STARTED).apply {
+                setInt(1, pin)
+            }.executeUpdate()
+        }
+    }
+
     fun getPlayerAnswers(alternativeId: Long, gameId: Long): MutableList<PlayerAnswer> {
         val playerAnswers = mutableListOf<PlayerAnswer>()
         dataSource.connection.use {
@@ -139,6 +149,12 @@ private object QueriesGame {
        WHERE alternative_id = ?
        AND game_id = ?
        ORDER BY time_answered ASC;
+    """.trimIndent()
+
+    val UPDATE_TO_STARTED = """
+        update game
+        set is_joinable = false
+        where pin = ?
     """.trimIndent()
 
 }

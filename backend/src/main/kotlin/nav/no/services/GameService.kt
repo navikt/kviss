@@ -37,6 +37,8 @@ class GameService(
 
     fun setGameFinished(gamePin: GamePin): Int = gameDao.setGameFinished(gamePin)
 
+    fun setGameStarted(gamePin: GamePin): Int = gameDao.setGameStarted(gamePin)
+
     private fun isCorrect(alternativeId: Long): Boolean {
         return alternativesDao.getAlternative(alternativeId).isCorrect
     }
