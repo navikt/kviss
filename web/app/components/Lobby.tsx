@@ -6,7 +6,7 @@ export default function LobbyView() {
 
     return (
         <>
-            <h1 className={'text-2xl text-white'}> {state.pin}</h1>
+            <h1 className={'text-2xl text-white'}>Pin-code: {state.pin}</h1>
 
             <div className="flex flex-col h-40 p-60">
                 {state.players?.map((player, i) => {
