@@ -27,7 +27,7 @@ export default function QuizView() {
 
             { state.currentQuestion && state.currentQuestion.sortOrder === state.currentQuiz?.questions!.length && state.lastEvent == ActionTypes.FINISH_QUESTION_EVENT ?
                 <div className='h-full w-full'>
-                        <div className='mt-6 ml-6'>
+                        <div className='mt-2 ml-2'>
                             <Button 
                                 onClick={() => navigate('../../')} 
                             >
