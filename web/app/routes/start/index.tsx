@@ -57,6 +57,7 @@ export default function StartQuizIndexRoute() {
                     <tr className="text-left">
                         <th>Quiz name</th>
                         <th>Description</th>
+                        <th className='text-center'>Questions</th>
                         <th className="mt-3">Start</th>
                     </tr>
                 </thead>
@@ -68,6 +69,9 @@ export default function StartQuizIndexRoute() {
                             </td>
                             <td>
                                 {quiz.description}
+                            </td>
+                            <td className='text-center'>
+                              {quiz.questions?.length}
                             </td>
                             <td className='flex flex-row'>
                                 <button
