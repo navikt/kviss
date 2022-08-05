@@ -24,6 +24,26 @@ export default function CreateQuiz() {
     const [questions, setQuestions] = useState<IQuestion[]>([])
 
     const onCreateQuiz = async () => {
+        if (questions.length < 1) {
+            alert("Please create at least one question before saving")
+            return
+        }
+
+        if (quizInfo.name.length < 1) {
+            alert("Please give the kviss a name before saving")
+            return
+        }
+
+        if (quizInfo.name.length > 100) {
+            alert("Please do not use a kviss name with over 100 characters")
+            return
+        }
+
+        if (quizInfo.description.length > 350) {
+            alert("Please do not use a kviss description with over 350 characters")
+            return
+        }
+        
         const newQuizId = await createQuiz({ name: quizInfo.name, description: quizInfo.description })
 
         if (newQuizId) {
@@ -46,7 +66,7 @@ export default function CreateQuiz() {
             <QuestionsPreview questions={questions} setQuestions={setQuestions}/>
             <br/>
             <Button onClick={onCreateQuiz}>
-                <h1 className='text-2xl my-2'>CREATE QUIZ</h1>
+                <h1 className='text-2xl my-2'>CREATE KVISS</h1>
             </Button>
         </div>
     )
