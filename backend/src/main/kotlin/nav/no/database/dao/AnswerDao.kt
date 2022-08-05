@@ -1,6 +1,5 @@
 package nav.no.database.dao
 
-import nav.no.database.domain.Game
 import javax.sql.DataSource
 
 class AnswerDao (
@@ -19,12 +18,6 @@ class AnswerDao (
 }
 
 private object QueriesAnswer {
-
-    val SELECT_GAME = """
-       SELECT * 
-       FROM game
-       WHERE id = ?;
-    """.trimIndent()
 
     val INSERT_PLAYER_ANSWER = """
        INSERT INTO player_answer(alternative_id, game_id, player_id, time_answered)

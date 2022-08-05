@@ -7,7 +7,6 @@ import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.routing.*
 import nav.no.ApplicationContext
-import nav.no.database.dao.*
 import nav.no.routes.*
 
 fun Application.configureRouting(context: ApplicationContext) {

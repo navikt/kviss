@@ -7,7 +7,6 @@ import nav.no.database.dao.QueriesQuestions.SELECT_QUESTION
 import nav.no.database.dao.QueriesQuestions.SELECT_QUESTIONS
 import nav.no.database.dao.QueriesQuestions.UPDATE_QUESTION
 import nav.no.database.domain.Question
-import nav.no.database.domain.Quiz
 import nav.no.database.singleOrNull
 import nav.no.database.toList
 import nav.no.models.CreateQuestion
@@ -97,8 +96,6 @@ private object QueriesQuestions {
         SET description = ?, sort_order = ? 
         WHERE id = ?;
     """.trimIndent()
-
-    val DELETE_QUESTIONS = "DELETE FROM question WHERE quiz_id = ?;"
 
     val DELETE_QUESTION = "DELETE FROM question WHERE id = ?;"
 
