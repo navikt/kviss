@@ -6,7 +6,6 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
 import nav.no.models.AnswerResult
-import nav.no.models.Game
 import nav.no.models.Player
 import nav.no.services.GameService
 
@@ -26,7 +25,7 @@ fun Route.gameRoute(gameService: GameService) {
             }
 
             get("exist") {
-                val gameExist: Boolean = gameService.gameExist(call.parameters["pin"]!!.toInt())
+                val gameExist: Boolean = gameService.gameExist(getPin())
 
                 if (gameExist) call.respond(HttpStatusCode.OK)
                 else call.respond(HttpStatusCode.NotFound)

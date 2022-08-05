@@ -76,7 +76,7 @@ fun Route.quizRoute(quizService: QuizService) {
                     call.respond(HttpStatusCode(200, "Question successfully updated"))
                 }
 
-                delete() {
+                delete {
                     val questionId = call.request.queryParameters["questionid"]?.toLong()
                     if (questionId != null) {
                         quizService.deleteQuestion(questionId)
