@@ -6,7 +6,6 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.pipeline.*
 import nav.no.models.AnswerResult
-import nav.no.models.Game
 import nav.no.models.Player
 import nav.no.services.GameService
 

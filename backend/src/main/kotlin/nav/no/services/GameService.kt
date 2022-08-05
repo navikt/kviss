@@ -8,7 +8,6 @@ import nav.no.database.domain.GamePin
 import nav.no.database.domain.toModel
 import nav.no.models.Game
 import nav.no.models.Player
-import nav.no.models.Scoreboard
 import java.util.UUID
 
 class GameService(
@@ -66,10 +65,6 @@ class GameService(
         return false
     }
 
-    fun getPoints(playerId: Long): Int? {
-        return playerDao.getPlayer(playerId).score
-    }
-
     fun getGameByPin(pin: Int): Game? = gameDao.getGameByPin(pin)?.toModel()
 
     fun getPlayers(gamePin: Int) = playerDao.getPlayersByPin(gamePin)
@@ -92,8 +87,6 @@ class GameService(
         return playerDao.deletePlayer(playerId)
     }
 
-    fun getQuizByPin(pin: Int) = quizService.getConsumerQuiz(getGameByPin(pin)!!.quizId)
-
     fun createGame(quizId: Long): Game {
         val pin = generatePin()
         val hostId = UUID.randomUUID().toString()
@@ -101,8 +94,4 @@ class GameService(
         return Game(id, quizId, true, pin, hostId)
     }
 
-
-    fun getScoreboard(gamePin: GamePin): Scoreboard {
-        return Scoreboard(gamePin, playerDao.getPlayersByPin(gamePin))
-    }
 }

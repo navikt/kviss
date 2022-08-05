@@ -11,8 +11,6 @@ import nav.no.database.dao.QueriesGame.UPDATE_TO_STARTED
 import nav.no.database.domain.Game
 import nav.no.database.singleOrNull
 import nav.no.models.PlayerAnswer
-import java.sql.ResultSet
-import java.util.*
 
 class GameDao(
     private val dataSource: DataSource,

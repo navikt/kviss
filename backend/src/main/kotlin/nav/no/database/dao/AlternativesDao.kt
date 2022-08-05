@@ -10,7 +10,6 @@ import nav.no.database.singleOrNull
 import nav.no.database.toList
 import nav.no.models.CreateAlternative
 import nav.no.models.EditAlternative
-import nav.no.models.EditQuestionAlternative
 
 class AlternativesDao(
         private val dataSource: DataSource,
