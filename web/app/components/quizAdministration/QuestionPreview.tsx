@@ -15,7 +15,7 @@ export default function QuestionPreview({
     questionIndex: number
 }) {
 
-    const [edit, setEdit] = useState<boolean>(false)
+    const [edit, setEdit] = useState<boolean>(true)
 
     const onDeleteQuestion = () => {
         if (questions[questionIndex].id && questions[questionIndex].quizId) {
@@ -30,18 +30,21 @@ export default function QuestionPreview({
         <div>
             {!edit
                 ? <div className='flex flex-col my-2 items-center'>
-                    <h2 className='text-xl text-gray-900 dark:text-gray-300 w-1/2'>
+                    <h2 className='text-xl text-gray-900 dark:text-gray-300 w-1/2 mb-5'>
                         Description: {questions[questionIndex].description}
                     </h2>
                     {questions[questionIndex].alternatives.map((alt, i) => {
                         // TODO: replace with grid
                         return (
-                            <div key={i} className='flex flex-row'>
+                            <div key={i} className='flex flex-row mb-2 justify-center items-center'>
                                 <p className='text-gray-900 dark:text-gray-300 mr-3'>
                                     {`Alternative ${i + 1}: ${alt.text}`}
                                 </p>
                                 <p className='text-gray-900 dark:text-gray-300 ml-3'>
-                                    {`Correct?: ${alt.isCorrect}`}
+                                    {/* {`Correct?: ${alt.isCorrect}`} */}
+                                    {alt.isCorrect ?
+                                        <img src='/correct.png' className="w-5"/> :
+                                        <img src='/incorrect.png' className="w-5"/>}
                                 </p>
                             </div>
                         )

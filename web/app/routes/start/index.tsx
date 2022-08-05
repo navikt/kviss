@@ -51,7 +51,7 @@ export default function StartQuizIndexRoute() {
     }
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col justify-center items-center">
             <table className="border-separate border-spacing-2 border border-slate-500 text-white">
                 <thead>
                     <tr className="text-left">
