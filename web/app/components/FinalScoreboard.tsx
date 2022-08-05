@@ -46,7 +46,7 @@ export default function FinalScoreboard() {
             <div className='mt-4'>
                 <h2 className='text-3xl text-white'>And the rest...</h2>
                 <div className='mt-1'>
-                    {players?.slice(3).map((item, i) => {
+                    {players?.slice(3,10).map((item, i) => {
                         return <p key={i} className='text-white'>{`${i+4}. ${item.name} - ${item.score} points`}</p>
                     })}
                 </div>

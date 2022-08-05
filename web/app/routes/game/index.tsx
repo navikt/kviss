@@ -27,16 +27,18 @@ export default function QuizView() {
 
             { state.currentQuestion && state.currentQuestion.sortOrder === state.currentQuiz?.questions!.length && state.lastEvent == ActionTypes.FINISH_QUESTION_EVENT ?
                 <div className='h-full w-full'>
-                        <div className='mt-2 ml-2'>
+                    <div className='mt-4 mr-4'>
+                        <div className='float-right flex'>
                             <Button 
                                 onClick={() => navigate('../../')} 
                             >
-                                <h1 className='text-2xl my-2 text-white'>Return to menu</h1>
+                                <h1 className='text-l my-2 text-white'>Return to menu</h1>
                             </Button>
                         </div>
-                        <div className='flex flex-col h-full justify-center items-center -pt-10'>
-                            <FinalScoreboard/>
-                        </div>
+                    </div>
+                    <div className='flex flex-col h-full justify-center items-center -pt-10'>
+                        <FinalScoreboard/>
+                    </div>
                 </div>
                 
                 :
