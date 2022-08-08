@@ -14,7 +14,7 @@ export default function AnswerView() {
         if (player.id === state.player?.id) return i + 1
     })
 
-    const s = position[0] === 1 ? "st" : "nd"
+    const s = position[0] === 1 ? 'st' : 'nd'
 
     const score = players.filter(player => player.id === state.player?.id)[0].score
 

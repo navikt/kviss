@@ -51,7 +51,7 @@ export type GameAction =
     | { type: ActionTypes.SEND_ANSWER_EVENT; payload: IAnswerEvent }
     | { type: ActionTypes.IS_QUESTION_CORRECT; payload: boolean }
     | { type: ActionTypes.PLAYER_ANSWERED_EVENT; payload: boolean }
-    | { type: ActionTypes.PLAYER_LEFT_EVENT; payload: IPlayer }
+    | { type: ActionTypes.PLAYER_LEFT_EVENT; payload: number }
     | { type: ActionTypes.UPDATE_PLAYER_LIST_EVENT; payload: IPlayer[] }
 
 export interface GameProps {

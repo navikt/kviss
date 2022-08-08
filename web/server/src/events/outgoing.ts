@@ -25,7 +25,7 @@ export interface PlayerJoinedEvent {
 }
 
 export interface PlayerLeftEvent {
-    player: any
+    playerId: number
 }
 
 export interface GameEndedEvent {
