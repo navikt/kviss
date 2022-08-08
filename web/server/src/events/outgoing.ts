@@ -10,6 +10,7 @@ export enum OutgoingEvent {
     SEND_ANSWER_EVENT = 'SEND_ANSWER_EVENT',
     SHOW_ANSWERS_EVENT = 'SHOW_ANSWERS_EVENT',
     UPDATE_PLAYER_LIST_EVENT = 'UPDATE_PLAYER_LIST_EVENT',
+    LAST_QUESTION_EVENT = 'LAST_QUESTION_EVENT',
 }
 
 export interface SendErrorEvent {
@@ -43,4 +44,8 @@ export interface ShowAnswersEvent {
 
 export interface UpdatePlayerListEvent {
     players: any[]
+}
+
+export interface LastQuestionEvent {
+    last: boolean
 }

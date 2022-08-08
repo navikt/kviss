@@ -14,8 +14,6 @@ export default function AnswerView() {
         if (player.id === state.player?.id) return i + 1
     })
 
-    const s = position[0] === 1 ? 'st' : 'nd'
-
     const score = players.filter(player => player.id === state.player?.id)[0].score
 
     return (
@@ -23,7 +21,7 @@ export default function AnswerView() {
             <div className={`flex flex-col h-full w-full justify-center items-center font-bold  text-xl font-mono  text-white ${backroundColor}`}>
                 {feedbackText}
                 <div className="absolute bottom-7 pb-40 font-medium">
-                    You are currently in {position}.{s} place!
+                    You are currently in {position}. place!
                 </div>
                 <div className="absolute bottom-0 pb-40 font-medium">
                     Score: {score} points!

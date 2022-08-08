@@ -124,6 +124,18 @@ export default function GameView() {
             }
         })
 
+        socket.on('LAST_QUESTION_EVENT', (arg) => {
+            console.log('LAST_QUESTION_EVENT: ', arg)
+
+            if (!state.hostId) {
+                dispatch({
+                    type: ActionTypes.SET_LAST_EVENT,
+                    payload: ActionTypes.LAST_QUESTION_EVENT,
+                })
+            }
+            
+        })
+
         socket.on('disconnect', () => {
             console.log('user disconnected')
         })

@@ -45,6 +45,9 @@ const reducer = (state: Game, action: GameAction) => {
         console.log('setting players: ', payload)
         return { ...state, players: payload}
     }
+    case ActionTypes.LAST_QUESTION_EVENT: {
+        return { ...state, isLastQuestion: payload}
+    }
     default:
         return { ...state }
     }
