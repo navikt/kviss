@@ -60,7 +60,7 @@ fun Route.quizRoute(quizService: QuizService) {
                         val questions = quizService.getQuestion(call.parameters["questionId"]!!.toLong())
                         call.respond(questions)
                     } catch (e: Exception) {
-                        call.respond(HttpStatusCode(400, "error getting questions"))
+                        call.respond(HttpStatusCode(400, "error getting question"))
                     }
                 }
 
