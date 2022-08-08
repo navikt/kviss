@@ -16,7 +16,7 @@ fun Route.playerRoute(gameService: GameService) {
             } catch (e: Exception) {
                 call.respondText(
                         "Error getting player",
-                        status = HttpStatusCode(404, "Player not found")
+                        status = HttpStatusCode(400, "Player not found")
                 )
             }
         }
@@ -28,7 +28,7 @@ fun Route.playerRoute(gameService: GameService) {
             } else {
                 call.respondText(
                     "Error deleting player",
-                    status = HttpStatusCode(404, "Player not found")
+                    status = HttpStatusCode(400, "Player not found")
                 )
             }
         }
