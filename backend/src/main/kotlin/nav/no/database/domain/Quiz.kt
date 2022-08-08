@@ -47,15 +47,6 @@ fun Alternative.toModel() =
 
 fun Alternative.toConsumerModel() =
     nav.no.models.ConsumerAlternative(id, text)
-data class Player(
-    val id: Long,
-    val name: String,
-    val score: Int,
-)
-
-data class ScoreBoard(
-    val scores: List<Player>,
-)
 
 fun Game.toModel() =
     nav.no.models.Game(id, quizId, isActive, gamePin, hostId, isJoinable)

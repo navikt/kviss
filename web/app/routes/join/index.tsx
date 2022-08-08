@@ -28,14 +28,22 @@ export default function QuizIndexRoute() {
             setUsernameError(undefined)
             return
         }
+        let player
 
-        const player = await createPlayer(pin, username!).catch(ex => {
-            // todo
-        })
+        if (username?.trim().length !== 0) {
+            player = await createPlayer(pin, username!.trim()).catch(ex => {
+                // todo
+            })
+        } else {
+            setUsernameError('Username cannot be empty!')
+            return
+        }
+
 
         if (!player?.id) {
             setUsernameError('Username taken!')
-        } else {
+        }
+        else {
             dispatch({
                 type: ActionTypes.SET_PLAYER,
                 payload: player
@@ -49,32 +57,45 @@ export default function QuizIndexRoute() {
     }
 
     return (
-        <div className="flex flex-col h-screen justify-center items-center">
-            <form onSubmit={(e) => handleSubmit(e)}>
-                <Input
-                    required
-                    label="Username"
-                    name="username"
-                    type="text"
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                <div className='text-white pb-6'>
-                    {usernameError}
+        <>
+            <div className='mt-4 mr-4'>
+                <div className='float-right flex'>
+                    <Button
+                        onClick={() => navigate('../../')}
+                    >
+                        <h1 className='text-l my-2 text-white bg-grey'>Return to menu</h1>
+                    </Button>
                 </div>
-                <Input
-                    required
-                    label="Pin code"
-                    name="pinCode"
-                    type="tel"
-                    onChange={(e) => setPin(parseInt(e.target.value))}
-                />
-                <div className='text-white pb-6'>
-                    {pinError}
-                </div>
-                <Button type='submit'>
+                
+            </div>
+            <div className="flex flex-col h-screen justify-center items-center">
+                <form onSubmit={(e) => handleSubmit(e)}>
+                    <Input
+                        required
+                        label="Username"
+                        name="username"
+                        type="text"
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <div className='text-white pb-6'>
+                        {usernameError}
+                    </div>
+                    <Input
+                        required
+                        label="Pin code"
+                        name="pinCode"
+                        type="tel"
+                        onChange={(e) => setPin(parseInt(e.target.value))}
+                    />
+                    <div className='text-white pb-6'>
+                        {pinError}
+                    </div>
+                    <Button type='submit'>
                     Next
-                </Button>
-            </form>
-        </div>
+                    </Button>
+                </form>
+            </div>
+        </>
+        
     )
 }

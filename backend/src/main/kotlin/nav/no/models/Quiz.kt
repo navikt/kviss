@@ -68,17 +68,6 @@ data class Question(
     val sortOrder: Int
 )
 
-/*
-
-{
-    "id": 1,
-    "description": "The first question",
-    "alternatives": [],
-    "quizId": 666,
-    "sortOrder": 1
-}
-
-* */
 
 @Serializable
 data class CreateQuestion(
