@@ -6,7 +6,7 @@ export default function Index() {
     const navigate = useNavigate()
 
     return (
-        <div className="flex items-center justify-center flex-col">
+        <div className="flex items-center justify-center flex-col font-bold  text-xl font-mono">
             <h1 className="text-3xl text-center mb-4 text-white px-4 pb-20">
                 Welcome to kviss! A application that solves all your quizzzing needs at NAV
             </h1>
