@@ -133,7 +133,6 @@ export default function GameView() {
                     payload: ActionTypes.LAST_QUESTION_EVENT,
                 })
             }
-            
         })
 
         socket.on('disconnect', () => {

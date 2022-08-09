@@ -25,20 +25,20 @@ fun Route.gameRoute(gameService: GameService) {
             }
 
             get("exist") {
-                val gameExist: Boolean = gameService.gameExist(call.parameters["pin"]!!.toInt())
+                val gameExist: Boolean = gameService.gameExist(getPin())
 
                 if (gameExist) call.respond(HttpStatusCode.OK)
-                else call.respond(HttpStatusCode.NotFound)
+                else call.respond(HttpStatusCode.ServiceUnavailable)
             }
 
             patch("started") {
                 if (gameService.setGameStarted(getPin()) == 1) call.respond(HttpStatusCode.OK)
-                else call.respond(HttpStatusCode.NotFound)
+                else call.respond(HttpStatusCode.InternalServerError)
             }
 
             patch("finished") {
                 if (gameService.setGameFinished(getPin()) == 1) call.respond(HttpStatusCode.OK)
-                else call.respond(HttpStatusCode.NotFound)
+                else call.respond(HttpStatusCode.InternalServerError)
                 }
                 
             get("checkAnswer") {

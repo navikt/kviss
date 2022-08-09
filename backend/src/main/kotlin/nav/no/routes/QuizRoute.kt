@@ -28,7 +28,7 @@ fun Route.quizRoute(quizService: QuizService) {
                     val quiz: Quiz = quizService.getQuiz(call.parameters["id"]!!.toLong())
                     call.respond(quiz)
                 } catch (e: Exception) {
-                    call.respond(HttpStatusCode(404, "Quiz not found"))
+                    call.respond(HttpStatusCode(400, "Quiz not found"))
                 }
             }
 
@@ -51,7 +51,7 @@ fun Route.quizRoute(quizService: QuizService) {
                             .getQuestionsByQuizId(call.parameters["id"]!!.toLong())
                         call.respond(questions)
                     } catch (e: Exception) {
-                        call.respond(HttpStatusCode(404, "error getting questions"))
+                        call.respond(HttpStatusCode(500, "error getting questions"))
                     }
                 }
 
@@ -60,7 +60,7 @@ fun Route.quizRoute(quizService: QuizService) {
                         val questions = quizService.getQuestion(call.parameters["questionId"]!!.toLong())
                         call.respond(questions)
                     } catch (e: Exception) {
-                        call.respond(HttpStatusCode(404, "error getting questions"))
+                        call.respond(HttpStatusCode(400, "error getting question"))
                     }
                 }
 
@@ -76,7 +76,7 @@ fun Route.quizRoute(quizService: QuizService) {
                     call.respond(HttpStatusCode(200, "Question successfully updated"))
                 }
 
-                delete() {
+                delete {
                     val questionId = call.request.queryParameters["questionid"]?.toLong()
                     if (questionId != null) {
                         quizService.deleteQuestion(questionId)
@@ -84,7 +84,7 @@ fun Route.quizRoute(quizService: QuizService) {
                     } else {
                         call.respondText(
                             "Error deleting question",
-                            status = HttpStatusCode(404, "question not found")
+                            status = HttpStatusCode(500, "question not found")
                         )
                     }
                 }

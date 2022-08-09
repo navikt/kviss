@@ -58,8 +58,8 @@ export default function QuizIndexRoute() {
 
     return (
         <>
-            <div className='mt-4 mr-4'>
-                <div className='float-right flex'>
+            <div className='mt-4 ml-4'>
+                <div className='float-left flex'>
                     <Button
                         onClick={() => navigate('../../')}
                     >
