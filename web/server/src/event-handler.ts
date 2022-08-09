@@ -4,6 +4,7 @@ import * as api from './api'
 import { setGameFinished } from './api'
 import {
     OutgoingEvent,
+    PlayerLeftEvent,
     SendAnswerEvent,
     SendQuestionEvent,
     ShowAnswersEvent,
@@ -107,11 +108,14 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
         }
     })
 
-    socket.on('disconnect', () => {
+    socket.on('disconnect', async () => {
         if (hostId) {
             console.log(`Host (${hostId}) left room ${pin}`)
         } else {
             console.log(`Player (${playerId}) left room ${pin}`)
+            await api.deletePlayer(playerId)
+            const event: PlayerLeftEvent = { playerId: playerId }
+            sockets.in(pin).emit(OutgoingEvent.PLAYER_LEFT_EVENT, event)
         }
         socket.leave(pin)
     })

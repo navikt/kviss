@@ -111,8 +111,17 @@ export default function GameView() {
             console.log('PLAYER_LEFT_EVENT: ', arg)
             dispatch({
                 type: ActionTypes.PLAYER_LEFT_EVENT,
-                payload: arg as IPlayer,
+                payload: arg as number,
             })
+            dispatch({
+                type: ActionTypes.PLAYER_ANSWERED_EVENT,
+                payload: true
+            })
+            if (state.hostId) {
+                socket.emit(ActionTypes.TRIGGER_UPDATE_PLAYER_LIST_EVENT, {
+                    'hostId': state.hostId
+                })
+            }
         })
 
         socket.on('disconnect', () => {

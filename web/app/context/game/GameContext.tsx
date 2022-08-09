@@ -39,7 +39,7 @@ const reducer = (state: Game, action: GameAction) => {
     case ActionTypes.PLAYER_LEFT_EVENT: {
         console.log('Player left event with player ', payload)
         return { ...state,
-            players: state.players?.filter(player => player.id !== payload.id), answeredNumber: state.answeredNumber! - 1 }
+            players: state.players?.filter(player => player.id !== payload), answeredNumber: state.answeredNumber! - 1 }
     }
     case ActionTypes.UPDATE_PLAYER_LIST_EVENT: {
         console.log('setting players: ', payload)
