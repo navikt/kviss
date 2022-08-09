@@ -5,14 +5,6 @@ export default function LobbyView() {
     const { state } = useGameContext()
 
 
-    // const nPlayers = state.players?.length || 0
-    // let smCol: number
-    // let mdCol: number
-
-    // nPlayers > 4 ? smCol = 4 : smCol = nPlayers
-    // nPlayers > 6 ? mdCol = 6 : mdCol = nPlayers
-    
-
     return (
         <>
             <h1 className={'text-2xl text-white mb-20'}>Pin-code: {state.pin}</h1>
