@@ -35,7 +35,7 @@ export default function QuizView() {
                                 <h1 className='text-l my-2 text-white'>Return to menu</h1>
                             </Button>
                     </div>
-                        <FinalScoreboard/>
+                    <FinalScoreboard/>
                 </div>
                 
                 :

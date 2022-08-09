@@ -1,11 +1,12 @@
+import React from 'react'
 import { useGameContext } from '../context/game/GameContext'
 
 export default function LobbyView() {
     const { state } = useGameContext()
 
     const nPlayers = state.players?.length || 0
-    var smCol: number
-    var mdCol: number
+    let smCol: number
+    let mdCol: number
 
     nPlayers > 4 ? smCol = 4 : smCol = nPlayers
     nPlayers > 6 ? mdCol = 6 : mdCol = nPlayers
