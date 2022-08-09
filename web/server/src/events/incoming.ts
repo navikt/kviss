@@ -13,6 +13,7 @@ export enum IncomingEvent {
     SELECT_ANSWER_EVENT = 'SELECT_ANSWER_EVENT',
     TRIGGER_ANSWER_EVENT = 'TRIGGER_ANSWER_EVENT',
     TRIGGER_UPDATE_PLAYER_LIST_EVENT = 'TRIGGER_UPDATE_PLAYER_LIST_EVENT',
+    TRIGGER_LAST_QUESTION_EVENT = 'TRIGGER_LAST_QUESTION_EVENT',
 }
 
 export interface JoinGameEvent {
@@ -46,5 +47,9 @@ export interface TriggerAnswerEvent {
 }
 
 export interface TriggerUpdatePlayerListEvent {
+    hostId: string
+}
+
+export interface TriggerLastQuestionEvent {
     hostId: string
 }

@@ -12,6 +12,7 @@ export interface Game {
     lastEvent?: string
     isQuestionCorrect?: boolean
     answeredNumber?: number
+    isLastQuestion?: boolean
 }
 
 export enum ActionTypes {
@@ -38,6 +39,8 @@ export enum ActionTypes {
     LEAVE_GAME_EVENT = 'LEAVE_GAME_EVENT',
     UPDATE_PLAYER_LIST_EVENT = 'UPDATE_PLAYER_LIST_EVENT',
     TRIGGER_UPDATE_PLAYER_LIST_EVENT = 'TRIGGER_UPDATE_PLAYER_LIST_EVENT',
+    TRIGGER_LAST_QUESTION_EVENT = 'TRIGGER_LAST_QUESTION_EVENT',
+    LAST_QUESTION_EVENT = 'LAST_QUESTION_EVENT',
 }
 
 export type GameAction =
@@ -53,6 +56,7 @@ export type GameAction =
     | { type: ActionTypes.PLAYER_ANSWERED_EVENT; payload: boolean }
     | { type: ActionTypes.PLAYER_LEFT_EVENT; payload: number }
     | { type: ActionTypes.UPDATE_PLAYER_LIST_EVENT; payload: IPlayer[] }
+    | { type: ActionTypes.LAST_QUESTION_EVENT; payload: boolean }
 
 export interface GameProps {
     state: Game

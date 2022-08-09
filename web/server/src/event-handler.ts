@@ -108,6 +108,11 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
         }
     })
 
+    socket.on(IncomingEvent.TRIGGER_LAST_QUESTION_EVENT, () => {
+        console.log('TRIGGER_LAST_QUESTION_EVENT')
+        sockets.in(pin).emit(OutgoingEvent.LAST_QUESTION_EVENT, { last: true })
+    })
+
     socket.on('disconnect', async () => {
         if (hostId) {
             console.log(`Host (${hostId}) left room ${pin}`)
