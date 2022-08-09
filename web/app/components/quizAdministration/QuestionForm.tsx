@@ -92,7 +92,7 @@ export default function QuestionForm({
                                 onChange={e => replaceAlternativeTextAtIndex(i, e.target.value)}
                             />
                             <Radio 
-                                label='Correct?:'
+                                label='Correct'
                                 name='alternative'
                                 value={`alt-${i}`}
                                 checked={item.isCorrect}
