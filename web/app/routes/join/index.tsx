@@ -75,6 +75,7 @@ export default function QuizIndexRoute() {
                         label="Username"
                         name="username"
                         type="text"
+                        autoComplete="off"
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     <div className='text-white pb-6'>
@@ -85,6 +86,7 @@ export default function QuizIndexRoute() {
                         label="Pin code"
                         name="pinCode"
                         type="tel"
+                        autoComplete="off"
                         onChange={(e) => setPin(parseInt(e.target.value))}
                     />
                     <div className='text-white pb-6'>
