@@ -25,22 +25,22 @@ export default function CreateQuiz() {
 
     const onCreateQuiz = async () => {
         if (questions.length < 1) {
-            alert("Please create at least one question before saving")
+            alert('Please create at least one question before saving')
             return
         }
 
         if (quizInfo.name.length < 1) {
-            alert("Please give the kviss a name before saving")
+            alert('Please give the kviss a name before saving')
             return
         }
 
         if (quizInfo.name.length > 100) {
-            alert("Please do not use a kviss name with over 100 characters")
+            alert('Please do not use a kviss name with over 100 characters')
             return
         }
 
         if (quizInfo.description.length > 350) {
-            alert("Please do not use a kviss description with over 350 characters")
+            alert('Please do not use a kviss description with over 350 characters')
             return
         }
         
