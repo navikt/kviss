@@ -30,12 +30,16 @@ export function Question(): ReactElement {
             type: ActionTypes.SET_LAST_EVENT,
             payload: ActionTypes.FINISH_QUESTION_EVENT
         })
-        ws?.emit('TRIGGER_ANSWER_EVENT', {
+        ws?.emit(ActionTypes.TRIGGER_ANSWER_EVENT, {
             'hostId': state.hostId
         })
         ws?.emit(ActionTypes.TRIGGER_UPDATE_PLAYER_LIST_EVENT, {
             'hostId': state.hostId
         })
+            
+        if (state.currentQuiz?.questions?.slice(-1)[0].id === state.currentQuestion?.id) {
+            ws?.emit(ActionTypes.TRIGGER_LAST_QUESTION_EVENT)
+        }
     }
     
 

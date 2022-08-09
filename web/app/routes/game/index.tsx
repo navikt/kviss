@@ -26,16 +26,21 @@ export default function QuizView() {
         <div className="justify-center h-full w-full items-center flex font-bold  text-xl font-mono">
 
             { state.currentQuestion && state.currentQuestion.sortOrder === state.currentQuiz?.questions!.length && state.lastEvent == ActionTypes.FINISH_QUESTION_EVENT ?
-                <div className='h-full w-full flex-col justify-center items-center -pt-10'>
-                    <div className='mt-4 ml-4 left-0'>
-                        <Button 
-                            onClick={() => navigate('../../')} 
-                        >
-                            <h1 className='text-l my-2 text-white'>Return to menu</h1>
-                        </Button>
+                <div className='h-full w-full'>
+                    <div className='mt-4 ml-4'>
+                        <div className='flex'>
+                            <Button 
+                                onClick={() => navigate('../../')} 
+                            >
+                                <h1 className='text-l my-2 text-white'>Return to menu</h1>
+                            </Button>
+                        </div>
                     </div>
-                    <FinalScoreboard/>
+                    <div className='flex flex-col h-full justify-center items-center -pt-10'>
+                        <FinalScoreboard/>
+                    </div>
                 </div>
+
                 
                 :
                 <>
@@ -53,6 +58,24 @@ export default function QuizView() {
                     {state.lastEvent === ActionTypes.SHOW_ANSWERS_EVENT && <AnswerView />}
                     {state.lastEvent === ActionTypes.HAS_ANSWERED_EVENT && <WaitingView/>}
                     {state.lastEvent === ActionTypes.FINISH_QUESTION_EVENT && <Scoreboard/>}
+                    {state.lastEvent === ActionTypes.LAST_QUESTION_EVENT && 
+                    <>
+                        <div className='h-full w-full'>
+                            <div className='mt-4 ml-4'>
+                                <div className='flex'>
+                                    <Button 
+                                        onClick={() => navigate('../../')} 
+                                    >
+                                        <h1 className='text-l my-2 text-white'>Return to menu</h1>
+                                    </Button>
+                                </div>
+                            </div>
+                            <div className='flex flex-col h-full justify-center items-center -pt-10'>
+                                <FinalScoreboard/>
+                            </div>
+                        </div>
+                    </>
+                    }
                 </>
             }
 
