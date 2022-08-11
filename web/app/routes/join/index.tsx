@@ -18,6 +18,11 @@ export default function QuizIndexRoute() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
+        dispatch({
+            type: ActionTypes.SET_LAST_EVENT,
+            payload: undefined,
+        })
+
         const exists: boolean = await gameExists(pin)
             .catch(ex => {
                 return false

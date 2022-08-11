@@ -49,7 +49,7 @@ export type GameAction =
     | { type: ActionTypes.SEND_QUESTION_EVENT; payload: IQuestion }
     | { type: ActionTypes.PLAYER_JOINED_EVENT; payload: IPlayer[] }
     | { type: ActionTypes.SET_HOST_ID; payload: string }
-    | { type: ActionTypes.SET_LAST_EVENT; payload: string }
+    | { type: ActionTypes.SET_LAST_EVENT; payload?: string }
     | { type: ActionTypes.SET_CURRENT_QUIZ; payload: IQuiz }
     | { type: ActionTypes.SEND_ANSWER_EVENT; payload: IAnswerEvent }
     | { type: ActionTypes.IS_QUESTION_CORRECT; payload: boolean }
