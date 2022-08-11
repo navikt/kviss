@@ -22,7 +22,7 @@ export default function Radio({ label, ...rest }: RadioProps) {
     ]
 
     return (
-        <label className="flex items-center mb-4 ml-2 text-md font-medium text-gray-900 dark:text-gray-300">
+        <label className="flex items-center mb-4 ml-2 text-md font-medium text-gray-300 dark:text-gray-300">
             {label}
             <input type="radio" {...rest} className={cl(inputClasses)} />
         </label>

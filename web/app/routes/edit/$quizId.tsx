@@ -61,11 +61,11 @@ export default function EditQuiz() {
 
     return (
         <div className='flex flex-col justify-center items-center my-4'>
-            <h2 className='text-2xl mb-2 text-gray-900 dark:text-gray-300'>Quiz info</h2>
+            <h2 className='text-2xl mb-2 text-gray-300 dark:text-gray-300'>Quiz info</h2>
             {quizInfo && (
                 <QuizInformationForm quizInfo={quizInfo} setQuizInfo={setQuizInfo}/>
             )}
-            <h2 className='text-2xl my-2 text-gray-900 dark:text-gray-300'>Questions</h2>
+            <h2 className='text-2xl my-2 text-gray-300 dark:text-gray-300'>Questions</h2>
             <QuestionsPreview questions={questions} setQuestions={setQuestions}/>
 
             <Button onClick={onUpdateQuiz}>

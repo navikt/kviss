@@ -28,7 +28,7 @@ export default function Input({ label, ...rest }: InputProps) {
 
     return (
         <div className="mb-6">
-            <label htmlFor="base-input" className="block mb-2 text-md font-medium text-gray-900 dark:text-gray-300">
+            <label htmlFor="base-input" className="block mb-2 text-md font-medium text-gray-300 dark:text-gray-300">
                 {label}
             </label>
             <input {...rest} className={cl(inputClasses)} />

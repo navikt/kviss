@@ -60,9 +60,9 @@ export default function CreateQuiz() {
 
     return (
         <div className='flex flex-col justify-center items-center pb-5'>
-            <h2 className='text-3xl mb-2 text-gray-900 dark:text-gray-300 pt-3'>Quiz info</h2>
+            <h2 className='text-3xl mb-2 text-gray-300 dark:text-gray-300 pt-3'>Quiz info</h2>
             <QuizInformationForm quizInfo={quizInfo} setQuizInfo={setQuizInfo} />
-            {questions.length !== 0 && <h2 className='text-3xl my-2 text-gray-900 dark:text-gray-300'>Questions</h2>}
+            {questions.length !== 0 && <h2 className='text-3xl my-2 text-gray-300 dark:text-gray-300'>Questions</h2>}
             <QuestionsPreview questions={questions} setQuestions={setQuestions}/>
             <br/>
             <Button onClick={onCreateQuiz}>
