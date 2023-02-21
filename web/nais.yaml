@@ -2,9 +2,9 @@ apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
   name: kviss
-  namespace: team-tolk
+  namespace: team-researchops
   labels:
-    team: team-tolk
+    team: team-researchops
 spec:
   image: {{ image }}
   port: 8080
