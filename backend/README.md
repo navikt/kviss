@@ -38,7 +38,19 @@ docker run \
 ```
 
 Make sure you run `CREATE DATABASE kviss;` after setting up the container, as this is not done automatically.
+```
+docker ps
+docker exec -it <containr_id> bash
+psql -U postgres
+CREATE DATABASE kviss;
+\q
+exit
+```
 
+Make sure you have the correct environment variables set.
+```
+DB_DATABASE=kviss;DB_HOST=localhost;DB_PASSWORD=<password>;DB_PORT=5432;DB_USERNAME=postgres
+```
 #### (Option 3) nais-cli
 
 It is also possible to connect to the dev database using [nais-cli](https://doc.nais.io/cli/).
