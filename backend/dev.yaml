@@ -2,9 +2,9 @@ apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
   name: kviss-api
-  namespace: team-tolk
+  namespace: team-researchops
   labels:
-    team: team-tolk
+    team: team-researchops
   annotations:
     likerd.io/inject: "false"
 spec:
