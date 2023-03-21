@@ -14,8 +14,9 @@ private val hikariConfig = HikariConfig().apply {
         requireNotNull(env["DB_HOST"]) { "database host must be set if jdbc url is not provided" },
         requireNotNull(env["DB_PORT"]) { "database port must be set if jdbc url is not provided" },
         requireNotNull(env["DB_DATABASE"]) { "database name must be set if jdbc url is not provided" },
-        env["DB_USERNAME"]?.let { "?user=$it" } ?: "")
+        env["DB_USERNAME"]?.let { "?user=$it" } ?: "?user=postgres")
 
+    this.username = "postgres"
     env["DB_USERNAME"]?.let { this.username = it }
     env["DB_PASSWORD"]?.let { this.password = it }
 }
