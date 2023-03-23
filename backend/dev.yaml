@@ -26,9 +26,6 @@ spec:
   readiness:
     initialDelay: 30
     path: isready
-  ingresses:
-    - https://kviss-api.dev.nav.no/
-    - https://kviss-api.intern.dev.nav.no/
   template:
     metadata:
       annotations:

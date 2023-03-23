@@ -1,6 +1,6 @@
 # kviss
 
-kviss is an internal quiz application for the employees of NAV, and can be accessed at [https://kviss.dev.intern.nav.no/](https://kviss.dev.intern.nav.no/)
+kviss is an internal quiz application for the employees of NAV, and can be accessed at [https://kviss.intern.dev.nav.no/](https://kviss.intern.dev.nav.no/)
 
 ## Apps
 

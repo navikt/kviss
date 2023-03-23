@@ -9,7 +9,7 @@ spec:
   image: {{ image }}
   port: 8080
   ingresses:
-    - https://kviss.dev.intern.nav.no/
+    - https://kviss.intern.dev.nav.no/
   replicas:
     cpuThresholdPercentage: 90
     max: 1
