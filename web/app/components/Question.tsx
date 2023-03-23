@@ -6,12 +6,14 @@ import { IAlternative } from '../context/QuizContext'
 import { useWebSocket } from '../context/SocketContext'
 import AnswerButton from './AnswerButton'
 import Button from './common/Button'
+import SmallButton from './common/SmallButton'
 
 
 export function Question(): ReactElement {
 
     const { state, dispatch } = useGameContext()
     const ws = useWebSocket()
+    const ventemusikk = new Audio('/KvissSang_nr1.mp3')
 
     const colors = ['bg-[#BF616A]', 'bg-[#5E81AC]', 'bg-[#EBCB8B]', 'bg-[#A3BE8C]']
     const sendAnswer = async (answer: IAlternative) => {
@@ -26,6 +28,7 @@ export function Question(): ReactElement {
     }
 
     const finishQuestion = async () => {
+        ventemusikk.pause()
         dispatch({
             type: ActionTypes.SET_LAST_EVENT,
             payload: ActionTypes.FINISH_QUESTION_EVENT
@@ -43,6 +46,9 @@ export function Question(): ReactElement {
     }
 
 
+    function startVentemusikk() {
+        ventemusikk.play()
+    }
 
     return (
         <>
@@ -66,6 +72,11 @@ export function Question(): ReactElement {
                     >
                         <h1 className='text-2xl my-2'>Next</h1>
                     </Button>
+                    <SmallButton
+                        onClick={startVentemusikk}
+                    >
+                        Ventemusikk
+                    </SmallButton>
                     <div className="pb-2">
                         Pin code: {state.pin}
                     </div>
@@ -79,7 +90,6 @@ export function Question(): ReactElement {
                     </div>
                 </div>
             }
-
 
         </>
     )
