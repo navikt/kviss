@@ -2,9 +2,9 @@ apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
   name: kviss-api
-  namespace: team-researchops
+  namespace: team-tolk
   labels:
-    team: team-researchops
+    team: team-tolk
   annotations:
     likerd.io/inject: "false"
 spec:
@@ -18,7 +18,7 @@ spec:
     sqlInstances:
       - type: POSTGRES_14
         databases:
-          - name: kviss-app
+          - name: kviss-db
             envVarPrefix: DB
   liveness:
     initialDelay: 30
