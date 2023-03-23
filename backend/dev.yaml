@@ -18,7 +18,7 @@ spec:
     sqlInstances:
       - type: POSTGRES_14
         databases:
-          - name: kviss
+          - name: kviss-app
             envVarPrefix: DB
   liveness:
     initialDelay: 30
