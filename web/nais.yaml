@@ -2,9 +2,9 @@ apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
   name: kviss
-  namespace: team-tolk
+  namespace: security-champion-admin
   labels:
-    team: team-tolk
+    team: security-champion-admin
 spec:
   image: {{ image }}
   port: 8080
