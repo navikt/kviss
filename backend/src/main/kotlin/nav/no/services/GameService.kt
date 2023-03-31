@@ -50,7 +50,7 @@ class GameService(
             val currentAnswers = gameDao.getPlayerAnswers(alternativeId, gameId)
             currentAnswers.forEachIndexed{ i, answer ->
                 run {
-                    if (answer.playerId === playerId) {
+                    if (answer.playerId == playerId) {
                         if (i < 15) {
                             println("Giving score to player: " + answer.playerId + " Index is: " + i )
                             playerDao.updateScore(1000 - (i * 50), playerId)
