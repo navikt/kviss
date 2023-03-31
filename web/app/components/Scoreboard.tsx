@@ -52,18 +52,31 @@ export default function Scoreboard() {
                     )
                 })}
             </div>
-            <div className="w-80 text-white pb-40">
+            <div className="w-full text-white pb-40">
                 <div>
                     Question:
                     {state.currentQuestion?.description}
                 </div>
+                <div className={'text-white pt-4'}>
+                    Correct answer:
+                </div>
                 {state.currentQuestion?.alternatives
                     .map((alternative) => {
                         if(alternative.text === '') return
-                        const isCorrect = isCorrectAnswer(state.currentQuestion?.id, alternative.id)
-                        const className = isCorrect ? 'text-white' : 'text-gray-700 dark:text-gray-600'
-                        const isCorrectText = isCorrect ? ' * Correct answer *' : ''
-                        return <div className={className} key={alternative.id}>{alternative.text} {isCorrectText}</div>
+                        if(!isCorrectAnswer(state.currentQuestion?.id, alternative.id)) return
+                        return <div className={'text-white'} key={alternative.id}>
+                            {alternative.text}
+                        </div>
+                    })
+                }
+                <div className={'text-gray-700 dark:text-gray-600 pt-4'}>
+                    Other answers:
+                </div>
+                {state.currentQuestion?.alternatives
+                    .map((alternative) => {
+                        if(alternative.text === '') return
+                        if(isCorrectAnswer(state.currentQuestion?.id, alternative.id)) return
+                        return <div className={'text-gray-700 dark:text-gray-600'} key={alternative.id}>{alternative.text}</div>
                     })
                 }
             </div>
@@ -71,14 +84,6 @@ export default function Scoreboard() {
                 onClick={nextQuestion}>
                 Next Question
             </Button>
-            <div className="pb-2">
-                Pin code: {state.pin}
-            </div>
-            <div className="pb-2">
-                Question
-                {' ' + (state.currentQuestion ? state.currentQuestion?.sortOrder : 0)}
-                {' of ' + state.currentQuiz?.questions?.length}
-            </div>
         </div>
     )
 }

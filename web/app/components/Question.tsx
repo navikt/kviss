@@ -77,14 +77,6 @@ export function Question(): ReactElement {
                     >
                         Ventemusikk
                     </SmallButton>
-                    <div className="pb-2">
-                        Pin code: {state.pin}
-                    </div>
-                    <div className="pb-2">
-                        Question
-                        {' ' + (state.currentQuestion ? state.currentQuestion?.sortOrder : 0)}
-                        {' of ' + state.currentQuiz?.questions?.length}
-                    </div>
                     <div className="text-white absolute bottom-40">
                         Players answered: {state.answeredNumber ? state.answeredNumber : 0} / {state.players?.length}
                     </div>
