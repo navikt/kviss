@@ -67,6 +67,15 @@ export function Question(): ReactElement {
                 :
                 <div className="flex flex-col justify-center items-center">
                     <h1 className="text-2xl mb-4 text-white">{state.currentQuestion?.description}</h1>
+                    {state.currentQuestion?.alternatives?.map((answer: IAlternative, i: number) => {
+                        if(answer.text === '') return
+                        return <AnswerButton
+                            color={colors[i]}
+                            key={i}
+                            answerText={answer.text}
+                            onButtonClick={() => {return}}
+                        />
+                    })}
                     <Button
                         onClick={finishQuestion}
                     >
