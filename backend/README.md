@@ -1,5 +1,12 @@
 # kviss backend
 
+### Upgrading gradle wrapper
+Find the newest version of gradle here: https://gradle.org/releases/ Then run this command:
+
+```shell
+./gradlew wrapper --gradle-version $gradleVersion
+```
+
 ## Getting started
 
 1. Build the project using `gradle build`
