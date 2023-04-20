@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { ReactElement } from 'react'
 import { ActionTypes } from '../context/game/game'
 import { useGameContext } from '../context/game/GameContext'
@@ -13,7 +13,8 @@ export function Question(): ReactElement {
 
     const { state, dispatch } = useGameContext()
     const ws = useWebSocket()
-    const ventemusikk = new Audio('/KvissSang_nr1.mp3')
+    const [ventemusikk, setVentemusikk] = useState<HTMLAudioElement>()
+
 
     const colors = ['bg-[#BF616A]', 'bg-[#5E81AC]', 'bg-[#EBCB8B]', 'bg-[#A3BE8C]']
     const sendAnswer = async (answer: IAlternative) => {
@@ -28,7 +29,7 @@ export function Question(): ReactElement {
     }
 
     const finishQuestion = async () => {
-        ventemusikk.pause()
+        stopVentemusikk()
         dispatch({
             type: ActionTypes.SET_LAST_EVENT,
             payload: ActionTypes.FINISH_QUESTION_EVENT
@@ -45,9 +46,20 @@ export function Question(): ReactElement {
         }
     }
 
-
     function startVentemusikk() {
-        ventemusikk.play()
+        stopVentemusikk()
+        const nyMusikk = new Audio('/KvissSang_nr1.mp3')
+        setVentemusikk(nyMusikk)
+        nyMusikk.play()
+    }
+
+    function stopVentemusikk() {
+        if(ventemusikk) {
+            ventemusikk.pause()
+            ventemusikk.currentTime = 0
+            setVentemusikk(undefined)
+        }
+
     }
 
     return (
