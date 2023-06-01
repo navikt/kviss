@@ -1,10 +1,11 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-import Button from './common/Button'
+import Button from '../components/common/Button'
 import { useGameContext } from '../context/game/GameContext'
 import { useWebSocket } from '../context/SocketContext'
 import { IPlayer } from '../context/game/game'
-import { IQuestion } from '../context/QuizContext'
+import { IAlternative, IQuestion } from '../context/QuizContext'
+import AnswerButton from './AnswerButton'
 
 export default function Scoreboard() {
 
@@ -52,31 +53,20 @@ export default function Scoreboard() {
                     )
                 })}
             </div>
-            <div className="w-full text-white pb-40">
+            <div className="w-full text-white pb-5">
                 <div>
                     Question:
                     {state.currentQuestion?.description}
                 </div>
-                <div className={'text-white pt-4'}>
-                    Correct answer:
-                </div>
                 {state.currentQuestion?.alternatives
-                    .map((alternative) => {
+                    .map((alternative: IAlternative, i: number) => {
                         if(alternative.text === '') return
-                        if(!isCorrectAnswer(state.currentQuestion?.id, alternative.id)) return
-                        return <div className={'text-white'} key={alternative.id}>
-                            {alternative.text}
-                        </div>
-                    })
-                }
-                <div className={'text-gray-700 dark:text-gray-600 pt-4'}>
-                    Other answers:
-                </div>
-                {state.currentQuestion?.alternatives
-                    .map((alternative) => {
-                        if(alternative.text === '') return
-                        if(isCorrectAnswer(state.currentQuestion?.id, alternative.id)) return
-                        return <div className={'text-gray-700 dark:text-gray-600'} key={alternative.id}>{alternative.text}</div>
+                        return <AnswerButton
+                            color={isCorrectAnswer(state.currentQuestion?.id, alternative.id)? 'bg-lime-600' : 'bg-rose-700'}
+                            key={i}
+                            answerText={alternative.text}
+                            onButtonClick={() => {return}}
+                        />
                     })
                 }
             </div>
