@@ -4,6 +4,7 @@ import { createServer } from 'http'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import config from './config'
 import initSocket from './initSocket'
+import rateLimit from 'express-rate-limit'
 
 const app = express()
 const httpServer = createServer(app)
@@ -45,6 +46,15 @@ app.get('/internal/isalive', (req: Request, res: Response) => {
 app.get('/internal/isready', (req: Request, res: Response) => {
     res.sendStatus(200)
 })
+
+export const apiRateLimit = rateLimit({
+    windowMs: 1000, // 1 sekund
+    message: 'You have exceeded the 100 requests in 1s limit!',
+    standardHeaders: true,
+    legacyHeaders: false,
+})
+
+app.use(apiRateLimit)
 
 app.use(/^(?!.*\/(internal|static)\/).*$/, (req: Request, res: Response) =>
     res.sendFile(path.join(BUILD_PATH, 'index.html')),
