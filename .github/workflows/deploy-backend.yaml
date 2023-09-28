@@ -34,7 +34,7 @@ jobs:
       - uses: nais/docker-build-push@c1d05d5a796be7b24d59a2e76851acdcdbcaff7a # ratchet:nais/docker-build-push@v0
         id: docker-push
         with:
-          team: security-champions-admin
+          team: security-champion-admin
           push_image: true
           pull: true
           docker_context: ./backend/
