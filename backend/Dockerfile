@@ -1,5 +1,5 @@
-FROM amazoncorretto:17-alpine3.17
+FROM gcr.io/distroless/java17-debian12
 
-ENV JAVA_OPTS='-XX:MaxRAMPercentage=90'
-
-COPY build/libs/*.jar ./
+COPY build/libs/app.jar /app/app.jar
+WORKDIR /app
+CMD ["app.jar"]

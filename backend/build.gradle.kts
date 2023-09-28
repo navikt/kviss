@@ -1,22 +1,24 @@
-val ktor_version: String by project
-val kotlin_version: String by project
-val logback_version: String by project
-val kafka_version = "3.4.0"
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
+val ktor_version = "2.3.4"
+val kotlin_version = "1.9.10"
+val logback_version = "1.4.11"
 val postgresql_version = "42.5.4"
-val hikariCP_version = "3.4.5"
-val flyway_core_version = "6.5.0"
-val mockk_version = "1.13.4"
+val hikariCP_version = "5.0.1"
+val flyway_core_version = "9.22.2"
+val mockk_version = "1.13.8"
 val junit_jupiter_version = "5.9.2"
 
 
 plugins {
-    application
-    kotlin("jvm") version "1.8.10"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
+    kotlin("jvm") version "1.9.10"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "nav.no"
-version = "0.0.1"
+
+val mainClass = "nav.no.ApplicationKt"
 
 tasks {
     compileKotlin {
@@ -26,6 +28,7 @@ tasks {
     compileTestKotlin {
         kotlinOptions.jvmTarget = "17"
     }
+
     withType<Test> {
         useJUnitPlatform()
         testLogging {
@@ -33,24 +36,19 @@ tasks {
         }
     }
 
+    withType<Wrapper> {
+        gradleVersion = "8.3.0"
+    }
 
-    jar {
-        archiveFileName.set("app.jar")
-
+    withType<ShadowJar> {
+        archiveBaseName.set("app")
+        archiveClassifier.set("")
         manifest {
-            attributes["Main-Class"] = "nav.no.ApplicationKt"
-            attributes["Class-Path"] = configurations.runtimeClasspath.get().joinToString(separator = " ") {
-                it.name
-            }
-        }
-        doLast {
-            configurations.runtimeClasspath.get()
-                .filter { it.name != "app.jar" }
-                .forEach {
-                    val file = File("$buildDir/libs/${it.name}")
-                    if (!file.exists())
-                        it.copyTo(file)
-                }
+            attributes(
+                mapOf(
+                    "Main-Class" to mainClass
+                )
+            )
         }
     }
 }
