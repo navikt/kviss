@@ -1,61 +1,44 @@
 name: Deploy frontend
-
 on:
   workflow_dispatch: # Allow manually triggered workflow run
   push:
     branches:
       - main
-      - socket.io
     paths:
       - web/**
-
 env:
   docker_image: ghcr.io/${{ github.repository }}-web:${{ github.sha }}
-
 jobs:
   build:
-    name: Build and push Docker container
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      packages: write
+      contents: write # dep-submission
+      id-token: write # nais docker-build-push
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node 16
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # ratchet:actions/checkout@v2
+      - name: Setup Node 18
+        uses: actions/setup-node@7c12f8017d5436eb855f1ed4399f037a36fbd9e8 # ratchet:actions/setup-node@v2
         with:
-          node-version: '16.x'
-
+          node-version: '18.x'
       - name: Yarn install and build client
         working-directory: web
         run: yarn install && yarn build
-
       - name: Yarn install and build server
         working-directory: web/server
         run: yarn install && yarn build
-
-      - name: Login to Docker
-        uses: docker/login-action@v1
+      - uses: nais/docker-build-push@c1d05d5a796be7b24d59a2e76851acdcdbcaff7a # ratchet:nais/docker-build-push@v0
+        id: docker-push
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: ./web
-          push: true
-          tags: ${{ env.docker_image }}
-
-  deploy:
-    name: Deploy to dev-gcp
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: nais/deploy/actions/deploy@v1
+          team: security-champion-admin
+          push_image: true
+          pull: true
+          docker_context: web/
+          dockerfile: web/Dockerfile
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+      - uses: nais/deploy/actions/deploy@0bca2c7e607d30fd757a2a23fb7d07b3ff96d540 # ratchet:nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: web/nais.yaml
-          VAR: image=${{ env.docker_image }}
+          IMAGE: ${{ steps.docker-push.outputs.image }}
