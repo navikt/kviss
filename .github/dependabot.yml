@@ -17,13 +17,13 @@ updates:
       - dependency-name: "*"
         update-types: ["version-update:semver-minor"]
 
-   - package-ecosystem: npm
-     directory: "/web/server/"
-     schedule:
-       interval: daily
-     ignore:
-       - dependency-name: "*"
-         update-types: ["version-update:semver-minor"]
+  - package-ecosystem: npm
+    directory: "/web/server/"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-minor"]
 
   - package-ecosystem: github-actions
     directory: "/"
