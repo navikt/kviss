@@ -38,6 +38,7 @@ jobs:
           push_image: true
           pull: true
           docker_context: backend/
+          dockerfile: backend/Dockerfile
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
   deploy:
