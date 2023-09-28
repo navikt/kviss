@@ -12,7 +12,7 @@
     "dev:css": "tailwindcss -w -i ./app/main.css -o ./app/styles/app.css"
   },
   "dependencies": {
-    "classnames": "^2.3.1",
+    "classnames": "^2.3.2",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
