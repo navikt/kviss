@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # ratchet:actions/checkout@v2
       - name: Setup Node 18
-        uses: actions/setup-node@7c12f8017d5436eb855f1ed4399f037a36fbd9e8 # ratchet:actions/setup-node@v2
+        uses: actions/setup-node@72c43c2d8fa01b0e1ca5fc3f8cb258c8d8bd286d # ratchet:actions/setup-node@v2
         with:
           node-version: '18.x'
       - name: Yarn install and build client
