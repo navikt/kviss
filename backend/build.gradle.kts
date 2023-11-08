@@ -1,6 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-val ktor_version = "2.3.5"
+val ktor_version = "2.3.6"
 val kotlin_version = "1.9.20"
 val logback_version = "1.4.11"
 val postgresql_version = "42.6.0"
