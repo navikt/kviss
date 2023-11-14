@@ -1,11 +1,11 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-val ktor_version = "2.3.5"
+val ktor_version = "2.3.6"
 val kotlin_version = "1.9.20"
 val logback_version = "1.4.11"
 val postgresql_version = "42.6.0"
 val hikariCP_version = "5.1.0"
-val flyway_core_version = "10.0.0"
+val flyway_core_version = "10.0.1"
 val mockk_version = "1.13.8"
 val junit_jupiter_version = "5.10.1"
 
