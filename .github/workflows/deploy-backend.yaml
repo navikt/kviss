@@ -14,12 +14,12 @@ jobs:
       id-token: write # nais docker-build-push
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # ratchet:actions/checkout@v4
-      - uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0 # ratchet:actions/setup-java@v3
+      - uses: actions/setup-java@387ac29b308b003ca37ba93a6cab5eb57c8f5f93 # ratchet:actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17.x
           cache: gradle
-      - uses: gradle/gradle-build-action@842c587ad8aa4c68eeba24c396e15af4c2e9f30a # ratchet:gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@87a9a15658c426a54dd469d4fc7dc1a73ca9d4a6 # ratchet:gradle/gradle-build-action@v2
         env:
           DEPENDENCY_GRAPH_INCLUDE_CONFIGURATIONS: compileClasspath|runtimeClasspath # Eksluderer test dependencies
         with:
