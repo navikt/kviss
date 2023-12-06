@@ -14,12 +14,12 @@ jobs:
       id-token: write # nais docker-build-push
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # ratchet:actions/checkout@v4
-      - uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0 # ratchet:actions/setup-java@v3
+      - uses: actions/setup-java@16ef37f8dd292a31055a9ee0d26fa0a4efab58de # ratchet:actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17.x
           cache: gradle
-      - uses: gradle/gradle-build-action@842c587ad8aa4c68eeba24c396e15af4c2e9f30a # ratchet:gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@87a9a15658c426a54dd469d4fc7dc1a73ca9d4a6 # ratchet:gradle/gradle-build-action@v2
         env:
           DEPENDENCY_GRAPH_INCLUDE_CONFIGURATIONS: compileClasspath|runtimeClasspath # Eksluderer test dependencies
         with:
@@ -27,7 +27,7 @@ jobs:
       - name: test and build # build for dep submission, shadowjar for docker
         run: ./gradlew build shadowjar
         working-directory: ./backend/
-      - uses: nais/docker-build-push@3257289fd8cb0018ce0bda55db86ee54c21669b1 # ratchet:nais/docker-build-push@v0
+      - uses: nais/docker-build-push@c602c2f06a1ac147a44986188690cfe3a2305862 # ratchet:nais/docker-build-push@v0
         id: docker-push
         with:
           team: security-champion-admin
