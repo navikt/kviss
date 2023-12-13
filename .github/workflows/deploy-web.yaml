@@ -26,7 +26,7 @@ jobs:
       - name: Yarn install and build server
         working-directory: web/server
         run: yarn install && yarn build
-      - uses: nais/docker-build-push@3257289fd8cb0018ce0bda55db86ee54c21669b1 # ratchet:nais/docker-build-push@v0
+      - uses: nais/docker-build-push@c602c2f06a1ac147a44986188690cfe3a2305862 # ratchet:nais/docker-build-push@v0
         id: docker-push
         with:
           team: security-champion-admin
