@@ -1,18 +1,18 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 val ktor_version = "2.3.7"
-val kotlin_version = "1.9.21"
+val kotlin_version = "1.9.22"
 val logback_version = "1.4.14"
 val postgresql_version = "42.7.1"
 val hikariCP_version = "5.1.0"
-val flyway_core_version = "10.3.0"
-val mockk_version = "1.13.8"
+val flyway_core_version = "10.7.1"
+val mockk_version = "1.13.9"
 val junit_jupiter_version = "5.10.1"
 
 
 plugins {
-    kotlin("jvm") version "1.9.21"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.21"
+    kotlin("jvm") version "1.9.22"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
