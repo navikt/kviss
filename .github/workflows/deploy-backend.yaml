@@ -19,7 +19,7 @@ jobs:
           distribution: temurin
           java-version: 17.x
           cache: gradle
-      - uses: gradle/gradle-build-action@982da8e78c05368c70dac0351bb82647a9e9a5d2 # ratchet:gradle/gradle-build-action@v2
+      - uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87 # ratchet:gradle/gradle-build-action@v2
         env:
           DEPENDENCY_GRAPH_INCLUDE_CONFIGURATIONS: compileClasspath|runtimeClasspath # Eksluderer test dependencies
         with:
@@ -27,7 +27,7 @@ jobs:
       - name: test and build # build for dep submission, shadowjar for docker
         run: ./gradlew build shadowjar
         working-directory: ./backend/
-      - uses: nais/docker-build-push@1d8fa37371227a83cc5f1f491d528f572341eb09 # ratchet:nais/docker-build-push@v0
+      - uses: nais/docker-build-push@14cd7a0a656477da33aa7d627123330990ef3807 # ratchet:nais/docker-build-push@v0
         id: docker-push
         with:
           team: security-champion-admin
@@ -37,7 +37,7 @@ jobs:
           dockerfile: backend/Dockerfile
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-      - uses: nais/deploy/actions/deploy@61193047e1e07ef2d0368dcc616484ed64f860cd # ratchet:nais/deploy/actions/deploy@v1
+      - uses: nais/deploy/actions/deploy@c73efa8384743a5c14b94d4a4b9c1cf5a260b532 # ratchet:nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
