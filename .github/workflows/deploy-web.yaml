@@ -26,7 +26,7 @@ jobs:
       - name: Yarn install and build server
         working-directory: web/server
         run: yarn install && yarn build
-      - uses: nais/docker-build-push@1d8fa37371227a83cc5f1f491d528f572341eb09 # ratchet:nais/docker-build-push@v0
+      - uses: nais/docker-build-push@14cd7a0a656477da33aa7d627123330990ef3807 # ratchet:nais/docker-build-push@v0
         id: docker-push
         with:
           team: security-champion-admin
@@ -36,7 +36,7 @@ jobs:
           dockerfile: web/Dockerfile
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-      - uses: nais/deploy/actions/deploy@61193047e1e07ef2d0368dcc616484ed64f860cd # ratchet:nais/deploy/actions/deploy@v1
+      - uses: nais/deploy/actions/deploy@7295912067a9d92457e6a934024ec503dcdc7986 # ratchet:nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
