@@ -5,10 +5,8 @@ metadata:
   namespace: security-champion-admin
   labels:
     team: security-champion-admin
-  annotations:
-    likerd.io/inject: "false"
 spec:
-  image: {{ image }}
+  image: "{{ image }}"
   port: 8080
   replicas:
     cpuThresholdPercentage: 90
@@ -26,10 +24,6 @@ spec:
   readiness:
     initialDelay: 30
     path: isready
-  template:
-    metadata:
-      annotations:
-        linkerd.io/inject: disabled
   accessPolicy:
     inbound:
       rules:
