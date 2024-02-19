@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-java@16ef37f8dd292a31055a9ee0d26fa0a4efab58de # ratchet:actions/setup-java@v3
         with:
           distribution: temurin
-          java-version: 17.x
+          java-version: 21
           cache: gradle
       - uses: gradle/gradle-build-action@29c0906b64b8fc82467890bfb7a0a7ef34bda89e # ratchet:gradle/gradle-build-action@v2
         env:

@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/java17-debian12
+FROM gcr.io/distroless/java21-debian12
 
 COPY build/libs/app.jar /app/app.jar
 WORKDIR /app

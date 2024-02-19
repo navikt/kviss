@@ -20,14 +20,11 @@ group = "nav.no"
 
 val mainClass = "nav.no.ApplicationKt"
 
-tasks {
-    compileKotlin {
-        kotlinOptions.jvmTarget = "17"
-    }
+kotlin {
+    jvmToolchain(21)
+}
 
-    compileTestKotlin {
-        kotlinOptions.jvmTarget = "17"
-    }
+tasks {
 
     withType<Test> {
         useJUnitPlatform()
@@ -37,7 +34,7 @@ tasks {
     }
 
     withType<Wrapper> {
-        gradleVersion = "8.3.0"
+        gradleVersion = "8.6"
     }
 
     withType<ShadowJar> {
@@ -52,6 +49,7 @@ tasks {
         }
     }
 }
+
 repositories {
     mavenCentral()
 }
@@ -65,7 +63,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("org.postgresql:postgresql:$postgresql_version")
     implementation("com.zaxxer:HikariCP:$hikariCP_version")
-    implementation("org.flywaydb:flyway-core:$flyway_core_version")
+    implementation("org.flywaydb:flyway-database-postgresql:$flyway_core_version")
     implementation("io.ktor:ktor-server-cors:$ktor_version")
     testImplementation("io.mockk:mockk:$mockk_version")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
