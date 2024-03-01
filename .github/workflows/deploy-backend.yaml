@@ -27,7 +27,7 @@ jobs:
       - name: test and build # build for dep submission, shadowjar for docker
         run: ./gradlew build shadowjar
         working-directory: ./backend/
-      - uses: nais/docker-build-push@14cd7a0a656477da33aa7d627123330990ef3807 # ratchet:nais/docker-build-push@v0
+      - uses: nais/docker-build-push@3e3dd59e778ead7ba199dbfcde40350a178a2226 # ratchet:nais/docker-build-push@v0
         id: docker-push
         with:
           team: security-champion-admin
