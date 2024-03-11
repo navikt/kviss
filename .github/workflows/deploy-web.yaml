@@ -36,7 +36,7 @@ jobs:
           dockerfile: web/Dockerfile
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-      - uses: nais/deploy/actions/deploy@b3ee57a58e6ffbc7dc0586f3781a41e807eda467 # ratchet:nais/deploy/actions/deploy@v1
+      - uses: nais/deploy/actions/deploy@bec500fab9b9eaa5d3cb6d49c63451714c5c3a41 # ratchet:nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
