@@ -36,6 +36,8 @@ spec:
   env:
     - name: API_URL
       value: http://kviss-api
+    - name: APIE_SCOPE
+      value: api://prod-gcp.security-champion-admin.kviss-api/.default
   accessPolicy:
     outbound:
       rules:
