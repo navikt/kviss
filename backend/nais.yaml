@@ -17,7 +17,7 @@ spec:
     min: 1
   gcp:
     sqlInstances:
-      - type: POSTGRES_14
+      - type: POSTGRES_15
         databases:
           - name: kviss-db
             envVarPrefix: DB
