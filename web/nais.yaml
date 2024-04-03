@@ -9,7 +9,13 @@ spec:
   image: {{ image }}
   port: 8080
   ingresses:
-    - https://kviss.intern.dev.nav.no/
+    - https://kviss.nav.no/
+  azure:
+    application:
+      enabled: true
+    sidecar:
+      enabled: true
+      autoLogin: true
   replicas:
     cpuThresholdPercentage: 90
     max: 1

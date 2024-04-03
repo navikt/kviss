@@ -1,10 +1,11 @@
-import express, { Request, Response } from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 import path from 'path'
 import { createServer } from 'http'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import config from './config'
 import initSocket from './initSocket'
 import rateLimit from 'express-rate-limit'
+import { validateAzureToken } from '@navikt/oasis'
 
 const app = express()
 const httpServer = createServer(app)
@@ -59,6 +60,28 @@ app.use(apiRateLimit)
 app.use(/^(?!.*\/(internal|static)\/).*$/, (req: Request, res: Response) =>
     res.sendFile(path.join(BUILD_PATH, 'index.html')),
 )
+
+const ensureAuthenticated = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        // @ts-ignore
+        const token = req.headers.authorization.replace('Bearer ', '');
+
+        if (!token) {
+            res.redirect(`/oauth2/login?redirect=${req.originalUrl}`);
+        }
+        const validation = await validateAzureToken(token);
+
+        if (!validation.ok) {
+            res.redirect(`/oauth2/login?redirect=${req.originalUrl}`);
+        } else {
+            next();
+        }
+    } catch (error) {
+        res.redirect(`/oauth2/login?redirect=${req.originalUrl}`);
+    }
+};
+
+app.use(ensureAuthenticated);
 
 initSocket(httpServer)
 
