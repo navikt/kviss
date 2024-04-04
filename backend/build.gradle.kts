@@ -5,7 +5,7 @@ val kotlin_version = "1.9.23"
 val logback_version = "1.5.3"
 val postgresql_version = "42.7.3"
 val hikariCP_version = "5.1.0"
-val flyway_core_version = "10.10.0"
+val flyway_core_version = "10.11.0"
 val mockk_version = "1.13.10"
 val junit_jupiter_version = "5.10.2"
 
