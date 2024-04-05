@@ -1,4 +1,4 @@
-name: Deploy frontend
+name: Build & deploy frontend
 on:
   workflow_dispatch: # Allow manually triggered workflow run
   push:
@@ -6,10 +6,8 @@ on:
       - main
     paths:
       - web/**
-env:
-  docker_image: ghcr.io/${{ github.repository }}-web:${{ github.sha }}
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: write # dep-submission
@@ -20,12 +18,17 @@ jobs:
         uses: actions/setup-node@25b062c917b0c75f8b47d8469aff6c94ffd89abb # ratchet:actions/setup-node@v2
         with:
           node-version: '20.x'
+          registry-url: 'https://npm.pkg.github.com'
       - name: Yarn install and build client
         working-directory: web
         run: yarn install && yarn build
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Yarn install and build server
         working-directory: web/server
         run: yarn install && yarn build
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - uses: nais/docker-build-push@3e3dd59e778ead7ba199dbfcde40350a178a2226 # ratchet:nais/docker-build-push@v0
         id: docker-push
         with:
@@ -39,6 +42,6 @@ jobs:
       - uses: nais/deploy/actions/deploy@96e757fcdfbced4bb66b28b0cd6133006e71e47d # ratchet:nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: dev-gcp
+          CLUSTER: prod-gcp
           RESOURCE: web/nais.yaml
           IMAGE: ${{ steps.docker-push.outputs.image }}
