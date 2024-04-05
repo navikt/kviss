@@ -61,8 +61,12 @@ app.use(/^(?!.*\/(internal|static)\/).*$/, (req: Request, res: Response) =>
     res.sendFile(path.join(BUILD_PATH, 'index.html')),
 )
 
-const ensureAuthenticated = async (req: Request, res: Response, next: NextFunction) => {
+const ensureAuthenticated = async (req: Request, res: Response) => {
     try {
+        if(req.headers.authorization === undefined) {
+            res.redirect(`/oauth2/login?redirect=${req.originalUrl}`);
+        }
+
         // @ts-ignore
         const token = req.headers.authorization.replace('Bearer ', '');
 
@@ -73,8 +77,6 @@ const ensureAuthenticated = async (req: Request, res: Response, next: NextFuncti
 
         if (!validation.ok) {
             res.redirect(`/oauth2/login?redirect=${req.originalUrl}`);
-        } else {
-            next();
         }
     } catch (error) {
         res.redirect(`/oauth2/login?redirect=${req.originalUrl}`);
