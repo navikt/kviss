@@ -9,7 +9,13 @@ spec:
   image: {{ image }}
   port: 8080
   ingresses:
-    - https://kviss.intern.dev.nav.no/
+    - https://kviss.nav.no/
+  azure:
+    application:
+      enabled: true
+    sidecar:
+      enabled: true
+      autoLogin: true
   replicas:
     cpuThresholdPercentage: 90
     max: 1
@@ -30,6 +36,8 @@ spec:
   env:
     - name: API_URL
       value: http://kviss-api
+    - name: APIE_SCOPE
+      value: api://prod-gcp.security-champion-admin.kviss-api/.default
   accessPolicy:
     outbound:
       rules:

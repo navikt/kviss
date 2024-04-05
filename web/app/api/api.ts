@@ -1,9 +1,30 @@
 import { IGame, IQuestion, IQuiz } from '../context/QuizContext'
 import { IPlayer } from '../context/game/game'
+import { getToken, requestOboToken, validateToken } from '@navikt/oasis'
 
 const API_URL = process.env.NODE_ENV === 'production' ? '/api' : process.env.API_URL
+const API_SCOPE = process.env.API_SCOPE || 'api://default'
 
 const fetchHeaders = { 'Content-Type': 'application/json' }
+
+async function fetchWithToken(req: Request, url: string, options: RequestInit = {}) {
+    const token = getToken(req);
+    if (!token) {
+        throw new Error('Missing token');
+    }
+
+    const validation = await validateToken(token);
+    if (!validation.ok) {
+        throw new Error('Invalid token');
+    }
+
+    const obo = await requestOboToken(token, API_SCOPE);
+    if (!obo.ok) {
+        throw new Error('Error while requesting OBO token');
+    }
+    const headersWithToken = { ...fetchHeaders, 'Authorization': `Bearer ${obo}` };
+    return fetch(url, { ...options, headers: headersWithToken });
+}
 
 export async function getAllQuizes(): Promise<IQuiz[]> {
     return fetch(`${API_URL}/quiz`).then((res) => res.json())
