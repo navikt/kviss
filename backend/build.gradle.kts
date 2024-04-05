@@ -47,6 +47,7 @@ tasks {
                 )
             )
         }
+        mergeServiceFiles()
     }
 }
 
