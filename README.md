@@ -1,6 +1,7 @@
 # kviss
 
-kviss is an internal quiz application for the employees of NAV, and can be accessed at [https://kviss.intern.dev.nav.no/](https://kviss.intern.dev.nav.no/)
+kviss is an internal quiz application for the employees of NAV, and can be accessed at [https://kviss.nav.no/](https://kviss.nav.no/).
+It is secured by wonderwall and requires SSO-login via Azure AD/Entra.
 
 ## Apps
 
