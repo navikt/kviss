@@ -13,7 +13,7 @@ jobs:
       contents: write # dep-submission
       id-token: write # nais docker-build-push
     steps:
-      - uses: actions/checkout@8410ad0602e1e429cee44a835ae9f77f654a6694 # ratchet:actions/checkout@v2
+      - uses: actions/checkout@8410ad0602e1e429cee44a835ae9f77f654a6694 # ratchet:actions/checkout@v4
       - name: Setup Node 20
         uses: actions/setup-node@25b062c917b0c75f8b47d8469aff6c94ffd89abb # ratchet:actions/setup-node@v2
         with:
@@ -73,6 +73,7 @@ jobs:
       contents: write # to write sarif
       id-token: write # for nais/login
     steps:
+      - uses: actions/checkout@8410ad0602e1e429cee44a835ae9f77f654a6694 # ratchet:actions/checkout@v4
       - uses: nais/login@557ec71a21c53ce9a8f672e1889997d2d564bd8c # ratchet:nais/login@v0
         with:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
@@ -107,7 +108,7 @@ jobs:
       security-events: write # push sarif to github security
       id-token: write # for nais/login
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # ratchet:actions/checkout@v4.1.1
+      - uses: actions/checkout@8410ad0602e1e429cee44a835ae9f77f654a6694 # ratchet:actions/checkout@v4
       - uses: nais/login@4ce7445c84f09114e481a1d2c164f563e9e2ba8e # ratchet:nais/login@v0
         with:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
@@ -137,7 +138,7 @@ jobs:
       security-events: write # push sarif to github security
       id-token: write # for nais/login
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # ratchet:actions/checkout@v4.1.1
+      - uses: actions/checkout@8410ad0602e1e429cee44a835ae9f77f654a6694 # ratchet:actions/checkout@v4
       - uses: nais/login@4ce7445c84f09114e481a1d2c164f563e9e2ba8e # ratchet:nais/login@v0
         with:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
