@@ -21,6 +21,8 @@ app.use(
     '/api',
     createProxyMiddleware({
         target: config.API_URL,
+        pathRewrite: { '^/api': '' },
+        logLevel: 'debug',
         changeOrigin: process.env.NODE_ENV !== 'production',
     }),
 )
