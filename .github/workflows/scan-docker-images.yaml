@@ -4,7 +4,6 @@ on:
     branches:
       - main
   workflow_dispatch:
-
 jobs:
   build-frontend:
     runs-on: ubuntu-latest
@@ -71,6 +70,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build-frontend, build-backend]
     steps:
+      - uses: nais/login@557ec71a21c53ce9a8f672e1889997d2d564bd8c # ratchet:nais/login@v0
+        with:
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          team: security-champion-admin
       - name: Run backend
         run: docker run -d -p 8080:8080 ${{ needs.build-backend.outputs.image }}
       - name: Run frontend
@@ -87,9 +91,9 @@ jobs:
             -a \
             -j
       - name: Upload scan report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # ratchet:actions/upload-artifact@v4
         with:
-          name: zap-report_web.zip
+          name: zap_report_web.zip
           path: zap/report_web.html
         if: ${{ always() }}
   trivy-scan-backend:
@@ -136,7 +140,7 @@ jobs:
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           team: security-champion-admin
       - name: Pull docker image
-        run: docker pull ${{ needs.build-backend.outputs.image }}
+        run: docker pull ${{ needs.build-frontend.outputs.image }}
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@d710430a6722f083d3b36b8339ff66b32f22ee55 # ratchet:aquasecurity/trivy-action@master
         with:
