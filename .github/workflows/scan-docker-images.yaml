@@ -69,6 +69,9 @@ jobs:
   run-zap-scan:
     runs-on: ubuntu-latest
     needs: [build-frontend, build-backend]
+    permissions:
+      contents: write # to write sarif
+      id-token: write # for nais/login
     steps:
       - uses: nais/login@557ec71a21c53ce9a8f672e1889997d2d564bd8c # ratchet:nais/login@v0
         with:
@@ -92,10 +95,10 @@ jobs:
             -j
       - name: Upload scan report
         uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # ratchet:actions/upload-artifact@v4
+        if: ${{ always() }}
         with:
           name: zap_report_web.zip
           path: zap/report_web.html
-        if: ${{ always() }}
   trivy-scan-backend:
     runs-on: ubuntu-latest
     needs: [build-backend]
@@ -123,6 +126,7 @@ jobs:
           exit-code: 1
       - name: Upload results to GitHub Security
         uses: github/codeql-action/upload-sarif@e8893c57a1f3a2b659b6b55564fdfdbbd2982911 # ratchet:github/codeql-action/upload-sarif@v2
+        if: ${{ always() }}
         with:
           sarif_file: 'trivy.sarif'
   trivy-scan-frontend:
@@ -152,5 +156,6 @@ jobs:
           exit-code: 1
       - name: Upload results to GitHub Security
         uses: github/codeql-action/upload-sarif@e8893c57a1f3a2b659b6b55564fdfdbbd2982911 # ratchet:github/codeql-action/upload-sarif@v2
+        if: ${{ always() }}
         with:
           sarif_file: 'trivy.sarif'
