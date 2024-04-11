@@ -35,6 +35,7 @@ jobs:
           pull: true
           docker_context: backend/
           dockerfile: backend/Dockerfile
+          image_suffix: backend
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
       - uses: nais/deploy/actions/deploy@96e757fcdfbced4bb66b28b0cd6133006e71e47d # ratchet:nais/deploy/actions/deploy@v1
