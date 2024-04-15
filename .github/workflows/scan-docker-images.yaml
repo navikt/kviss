@@ -86,6 +86,7 @@ jobs:
       - name: ZAP Scan
         run: |
           docker run -v $(pwd):/zap/wrk/:rw \
+            --platform linux/amd64 \
             -t \
             owasp/zap2docker-stable \
             zap-baseline.py \
