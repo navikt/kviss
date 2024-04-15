@@ -87,10 +87,9 @@ jobs:
         run: |
           docker run -v $(pwd):/zap/wrk/:rw \
             -t \
-            --network=host \
             owasp/zap2docker-stable \
             zap-baseline.py \
-            -t http://localhost:3000 \
+            -t http://0.0.0.0:3000 \
             -r zap/report_web.html \
             -a \
             -j
