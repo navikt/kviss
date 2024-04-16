@@ -88,12 +88,11 @@ jobs:
       - name: ZAP Scan
         run: |
           docker run -v $(pwd):/zap/wrk/:rw \
-            --platform linux/amd64 \
             --network zap \
             -t \
             owasp/zap2docker-stable \
             zap-baseline.py \
-            -t http://0.0.0.0:3000 \
+            -t http://${{ env.FRONTEND_IP }}:3000 \
             -r zap/report_web.html \
             -a \
             -j
