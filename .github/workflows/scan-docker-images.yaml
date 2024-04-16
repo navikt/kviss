@@ -84,24 +84,17 @@ jobs:
       - name: Run frontend
         run: docker run --network zap --name frontend -d -p 3000:3000 ${{ needs.build-frontend.outputs.image }}
       - name: Fetch IP for frontend
-        run: echo "FRONTEND_IP=$(docker inspect frontend | grep IPAddress | tail -1 | awk '{print $2}' | tr -d '\",\n')" >> $GITHUB_ENV
+        run: echo "FRONTEND_URL=http://$(docker inspect frontend | grep IPAddress | tail -1 | awk '{print $2}' | tr -d '\",\n'):3000" >> $GITHUB_ENV
       - name: ZAP Scan
-        run: |
-          docker run -v $(pwd):/zap/wrk/:rw \
-            --network zap \
-            -t \
-            owasp/zap2docker-stable \
-            zap-baseline.py \
-            -t http://${{ env.FRONTEND_IP }}:3000 \
-            -r zap/report_web.html \
-            -a \
-            -j
+        uses: zaproxy/action-baseline@v0.12.0
+        with:
+          target: ${{ env.FRONTEND_IP }}
       - name: Upload scan report
         uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # ratchet:actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: zap_report_web.zip
-          path: zap/report_web.html
+          path: zap/zap_scan.html
   trivy-scan-backend:
     runs-on: ubuntu-latest
     needs: [build-backend]
