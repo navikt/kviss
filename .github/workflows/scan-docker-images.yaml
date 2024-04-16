@@ -79,14 +79,17 @@ jobs:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           team: security-champion-admin
-      - name: Run backend
-        run: docker run -d -p 8080:8080 ${{ needs.build-backend.outputs.image }}
+      - name: Setup docker network
+        run: docker network create zap
       - name: Run frontend
-        run: docker run -d -p 3000:3000 ${{ needs.build-frontend.outputs.image }}
+        run: docker run --network zap --name frontend -d -p 3000:3000 ${{ needs.build-frontend.outputs.image }}
+      - name: Fetch IP for frontend
+        run: echo "FRONTEND_IP=$(docker inspect frontend | grep IPAddress | tail -1 | awk '{print $2}' | tr -d '\",\n')" >> $GITHUB_ENV
       - name: ZAP Scan
         run: |
           docker run -v $(pwd):/zap/wrk/:rw \
             --platform linux/amd64 \
+            --network zap \
             -t \
             owasp/zap2docker-stable \
             zap-baseline.py \
