@@ -87,6 +87,9 @@ jobs:
         run: echo "FRONTEND_URL=http://$(docker inspect frontend | grep IPAddress | tail -1 | awk '{print $2}' | tr -d '\",\n'):3000" >> $GITHUB_ENV
       - name: ZAP Scan
         run: |
+            whoami
+            ls -l
+            pwd
             docker run -v $(pwd):/zap/wrk/:rw \
             --network zap \
             -t \
@@ -96,6 +99,9 @@ jobs:
             -r zap/report_web.html \
             -a \
             -j
+      - name: test
+        if: ${{ always() }}
+        run: ls -l
       - name: Upload scan report
         uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # ratchet:actions/upload-artifact@v4
         if: ${{ always() }}
