@@ -88,6 +88,7 @@ jobs:
           echo "FRONTEND_URL=http://$(docker inspect frontend | grep IPAddress | tail -1 | awk '{print $2}' | tr -d '\",\n'):3000" >> $GITHUB_ENV
           mkdir tmp
           chmod 0770 tmp
+          chown docker tmp
       - name: ZAP Scan
         run: |
             whoami
@@ -95,7 +96,7 @@ jobs:
             pwd
             docker run -v $(pwd)/tmp:/zap/wrk/:rw \
             --network zap \
-            --user runner \
+            --user docker \
             -t \
             softwaresecurityproject/zap-stable \
             zap-baseline.py \
