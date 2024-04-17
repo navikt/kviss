@@ -83,25 +83,23 @@ jobs:
         run: docker network create zap
       - name: Run frontend
         run: docker run --network zap --name frontend -d -p 3000:3000 europe-north1-docker.pkg.dev/nais-management-233d/security-champion-admin/kviss:2024.04.16-12.33-6b265de #${{ needs.build-frontend.outputs.image }}
-      - name: Fetch IP for frontend
+      - name: Zap Setup
         run: | 
           echo "FRONTEND_URL=http://$(docker inspect frontend | grep IPAddress | tail -1 | awk '{print $2}' | tr -d '\",\n'):3000" >> $GITHUB_ENV
-          mkdir tmp
-          chmod 0770 tmp
-          chown docker tmp
+          mkdir zap
+          chmod 0777 zap
       - name: ZAP Scan
         run: |
             whoami
             ls -l
             pwd
-            docker run -v $(pwd)/tmp:/zap/wrk/:rw \
+            docker run -v $(pwd)/zap:/zap/wrk/:rw \
             --network zap \
-            --user docker \
             -t \
             softwaresecurityproject/zap-stable \
             zap-baseline.py \
             -t ${{ env.FRONTEND_URL }} \
-            -r tmp/zap/report_web.html \
+            -r report_web.html \
             -a \
             -j
       - name: test
@@ -114,7 +112,7 @@ jobs:
         if: ${{ always() }}
         with:
           name: zap_report_web.zip
-          path: zap/report_web.html
+          path: /zap/report_web.html
   trivy-scan-backend:
     runs-on: ubuntu-latest
     if: false
