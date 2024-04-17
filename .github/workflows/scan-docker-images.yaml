@@ -92,10 +92,11 @@ jobs:
             pwd
             docker run -v $(pwd):/zap/wrk/:rw \
             --network zap \
+            --user runner \
             -t \
             softwaresecurityproject/zap-stable \
             zap-baseline.py \
-            -t http://${{ env.FRONTEND_URL }}:3000 \
+            -t ${{ env.FRONTEND_URL }} \
             -r zap/report_web.html \
             -a \
             -j
