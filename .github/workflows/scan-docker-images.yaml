@@ -74,6 +74,8 @@ jobs:
     permissions:
       contents: write # to write sarif
       id-token: write # for nais/login
+    env:
+      APP_PORT: 8080
     steps:
       - uses: actions/checkout@8410ad0602e1e429cee44a835ae9f77f654a6694 # ratchet:actions/checkout@v4
       - uses: nais/login@4ce7445c84f09114e481a1d2c164f563e9e2ba8e # ratchet:nais/login@v0
@@ -84,10 +86,10 @@ jobs:
       - name: Setup docker network
         run: docker network create zap
       - name: Run frontend
-        run: docker run --network zap --name frontend -d -p 8080:8080 ${{ needs.build-frontend.outputs.image }}
+        run: docker run --network zap --name app -d -p ${{env.APP_PORT}}:${{env.APP_PORT}} ${{ needs.build-frontend.outputs.image }}
       - name: Zap Setup
         run: | 
-          echo "APP_URL=http://$(docker inspect frontend | grep IPAddress | tail -1 | awk '{print $2}' | tr -d '\",\n'):8080" >> $GITHUB_ENV
+          echo "APP_URL=http://$(docker inspect app | grep IPAddress | tail -1 | awk '{print $2}' | tr -d '\",\n'):${{env.APP_PORT}}" >> $GITHUB_ENV
           mkdir zap
           chmod 0777 zap
       - name: ZAP Scan
@@ -98,17 +100,19 @@ jobs:
             softwaresecurityproject/zap-stable \
             zap-full-scan.py \
             -t ${{ env.APP_URL }} \
-            -r report_web.html \
+            -w report_web.md \
             -a \
             -s \
             -I \
             -j
+      - name: Setup step summary
+        run: cat report_web.md >> $GITHUB_STEP_SUMMARY
       - name: Upload scan report
         uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # ratchet:actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: zap_report
-          path: zap/report_web.html
+          path: zap/report_web.md
   trivy-scan-backend:
     runs-on: ubuntu-latest
     needs: [build-backend]
