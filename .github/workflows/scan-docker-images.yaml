@@ -90,6 +90,7 @@ jobs:
           chmod 0777 zap
       - name: ZAP Scan
         run: |
+            docker ps
             whoami
             ls -l
             pwd
