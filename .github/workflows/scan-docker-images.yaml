@@ -111,7 +111,6 @@ jobs:
           path: zap/report_web.html
   trivy-scan-backend:
     runs-on: ubuntu-latest
-    if: false
     needs: [build-backend]
     permissions:
       contents: write # to write sarif
@@ -142,7 +141,6 @@ jobs:
           sarif_file: 'trivy.sarif'
   trivy-scan-frontend:
     runs-on: ubuntu-latest
-    if: false
     needs: [build-frontend]
     permissions:
       contents: write # to write sarif
