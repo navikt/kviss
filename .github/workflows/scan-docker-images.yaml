@@ -37,6 +37,7 @@ jobs:
           pull: true
           docker_context: web/
           dockerfile: web/Dockerfile
+          image_suffix: frontend
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
   build-backend:
@@ -64,6 +65,7 @@ jobs:
           pull: true
           docker_context: backend/
           dockerfile: backend/Dockerfile
+          image_suffix: backend
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
   run-zap-scan:
