@@ -1,4 +1,9 @@
 version: 2
+registries:
+  npm-github:
+    type: npm-registry
+    url: https://npm.pkg.github.com
+    token: ${{secrets.READER_TOKEN}}
 updates:
   - package-ecosystem: gradle
     directory: "/backend/"
@@ -21,6 +26,8 @@ updates:
     directory: "/web/server/"
     schedule:
       interval: daily
+    registries:
+      - npm-github
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-minor", "version-update:semver-patch"]
