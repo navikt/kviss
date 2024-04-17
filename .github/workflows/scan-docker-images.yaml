@@ -82,7 +82,7 @@ jobs:
       - name: Setup docker network
         run: docker network create zap
       - name: Run frontend
-        run: docker run --network zap --name frontend -d -p 3000:3000 europe-north1-docker.pkg.dev/nais-management-233d/security-champion-admin/kviss:2024.04.16-12.33-6b265de #${{ needs.build-frontend.outputs.image }}
+        run: docker run --network zap --name frontend -d -p 3000:3000 europe-north1-docker.pkg.dev/nais-management-233d/security-champion-admin/kviss-frontend:2024.04.11-10.35-354135f #${{ needs.build-frontend.outputs.image }}
       - name: Zap Setup
         run: | 
           echo "FRONTEND_URL=http://$(docker inspect frontend | grep IPAddress | tail -1 | awk '{print $2}' | tr -d '\",\n'):3000" >> $GITHUB_ENV
