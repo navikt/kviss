@@ -54,7 +54,7 @@ jobs:
           team: ${{ env.TEAM_NAMESPACE }}
 
       - name: network
-        run: docker create network zap
+        run: docker network create zap
     
       - name: Start application image
         run: docker run --name app --network zap -d -p ${{env.APP_PORT}}:${{env.APP_PORT}} ${{ needs.build-app.outputs.image }}
