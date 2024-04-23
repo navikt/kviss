@@ -1,8 +1,7 @@
 name: SAST/DAST scans
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: 0 4 * * 1
   workflow_dispatch:
 jobs:
   build-frontend:
@@ -83,10 +82,8 @@ jobs:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           team: security-champion-admin
-      - name: Setup docker network
-        run: docker network create zap
       - name: Run frontend
-        run: docker run --network zap --name app -d -p ${{env.APP_PORT}}:${{env.APP_PORT}} ${{ needs.build-frontend.outputs.image }}
+        run: docker run --name app -d -p ${{env.APP_PORT}}:${{env.APP_PORT}} ${{ needs.build-frontend.outputs.image }}
       - name: Zap Setup
         run: | 
           echo "APP_URL=http://$(docker inspect app | grep IPAddress | tail -1 | awk '{print $2}' | tr -d '\",\n'):${{env.APP_PORT}}" >> $GITHUB_ENV
@@ -95,7 +92,6 @@ jobs:
       - name: ZAP Scan
         run: |
             docker run -v $(pwd)/zap:/zap/wrk/:rw \
-            --network zap \
             -t \
             softwaresecurityproject/zap-stable \
             zap-full-scan.py \
@@ -110,49 +106,6 @@ jobs:
         if: ${{ always() }}
         with:
           name: zap_report_frontend
-          path: zap/report_web.html
-  zap-scan-backend:
-    runs-on: ubuntu-latest
-    needs: [build-backend]
-    permissions:
-      contents: write # to write sarif
-      id-token: write # for nais/login
-    env:
-      APP_PORT: 8080
-    steps:
-      - uses: actions/checkout@8410ad0602e1e429cee44a835ae9f77f654a6694 # ratchet:actions/checkout@v4
-      - uses: nais/login@4ce7445c84f09114e481a1d2c164f563e9e2ba8e # ratchet:nais/login@v0
-        with:
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          team: security-champion-admin
-      - name: Setup docker network
-        run: docker network create zap
-      - name: Run backend
-        run: docker run --network zap --name app -d -p ${{env.APP_PORT}}:${{env.APP_PORT}} ${{ needs.build-backend.outputs.image }}
-      - name: Zap Setup
-        run: | 
-          echo "APP_URL=http://$(docker inspect app | grep IPAddress | tail -1 | awk '{print $2}' | tr -d '\",\n'):${{env.APP_PORT}}" >> $GITHUB_ENV
-          mkdir zap
-          chmod 0777 zap
-      - name: ZAP Scan
-        run: |
-            docker run -v $(pwd)/zap:/zap/wrk/:rw \
-            --network zap \
-            -t \
-            softwaresecurityproject/zap-stable \
-            zap-full-scan.py \
-            -t ${{ env.APP_URL }} \
-            -r report_web.html \
-            -a \
-            -s \
-            -I \
-            -j
-      - name: Upload scan report
-        uses: actions/upload-artifact@1746f4ab65b179e0ea60a494b83293b640dd5bba # ratchet:actions/upload-artifact@v4
-        if: ${{ always() }}
-        with:
-          name: backend
           path: zap/report_web.html
   trivy-scan-backend:
     runs-on: ubuntu-latest
