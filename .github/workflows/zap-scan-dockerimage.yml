@@ -53,8 +53,11 @@ jobs:
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           team: ${{ env.TEAM_NAMESPACE }}
 
+      - name: network
+        run: docker create network zap
+    
       - name: Start application image
-        run: docker run --name app -d -p ${{env.APP_PORT}}:${{env.APP_PORT}} ${{ needs.build-app.outputs.image }}
+        run: docker run --name app --network zap -d -p ${{env.APP_PORT}}:${{env.APP_PORT}} ${{ needs.build-app.outputs.image }}
 
       - name: Zap Setup
         run: | 
@@ -66,6 +69,7 @@ jobs:
         run: |
             docker run -v $(pwd)/zap:/zap/wrk/:rw \
             -t \
+            --network zap  \
             softwaresecurityproject/zap-stable \
             zap-baseline.py \
             -t ${{ env.APP_URL }} \
