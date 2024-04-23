@@ -65,7 +65,6 @@ jobs:
       - name: ZAP Baseline Scan # https://www.zaproxy.org/docs/docker/baseline-scan/
         run: |
             docker run -v $(pwd)/zap:/zap/wrk/:rw \
-            --network zap \
             -t \
             softwaresecurityproject/zap-stable \
             zap-baseline.py \
