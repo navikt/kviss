@@ -27,10 +27,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@navikt/oasis@^3.2.2":
-  version "3.2.3"
-  resolved "https://npm.pkg.github.com/download/@navikt/oasis/3.2.3/bacb27cab74ef16c057f79f68f71f66bbe27e0c9#bacb27cab74ef16c057f79f68f71f66bbe27e0c9"
-  integrity sha512-KvJ/D2ID2Psx+W8EoQTOX+5JpGuChrpy4c0bkGxQRACtoAgByglh2KIWL9F7ESLi0f0LAWZpw/tNq3d+Q7/nJQ==
+"@navikt/oasis@^3.2.4":
+  version "3.2.4"
+  resolved "https://npm.pkg.github.com/download/@navikt/oasis/3.2.4/d2f3829d5b2ca14b442bf3024a8e2585611a7509#d2f3829d5b2ca14b442bf3024a8e2585611a7509"
+  integrity sha512-TeEIaJl3dtoAUJCQpiQCKof8CXjijojrIAfg01aevOmZ8DU+7PnqqFrxp2DK4xxxn8V6H7bEHAyM4kB2uofsog==
   dependencies:
     jose "^5.2.3"
     openid-client "^5.6.5"
