@@ -1,5 +1,5 @@
-FROM gcr.io/distroless/java21-debian12
+FROM cgr.dev/chainguard/jre-lts:latest
 
 COPY build/libs/app.jar /app/app.jar
 WORKDIR /app
-CMD ["app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
