@@ -26,8 +26,6 @@ updates:
     directory: "/web/server/"
     schedule:
       interval: daily
-    registries:
-      - npm-github
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-minor", "version-update:semver-patch"]
