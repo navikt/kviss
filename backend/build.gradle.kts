@@ -1,4 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.cyclonedx.gradle.CycloneDxTask
 
 val ktor_version = "2.3.10"
 val kotlin_version = "1.9.23"
@@ -14,6 +15,7 @@ plugins {
     kotlin("jvm") version "1.9.23"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.23"
     id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("org.cyclonedx.bom") version "1.8.2"
 }
 
 group = "nav.no"
@@ -34,7 +36,7 @@ tasks {
     }
 
     withType<Wrapper> {
-        gradleVersion = "8.6"
+        gradleVersion = "8.7"
     }
 
     withType<ShadowJar> {
@@ -48,6 +50,12 @@ tasks {
             )
         }
         mergeServiceFiles()
+        finalizedBy(cyclonedxBom)
+    }
+
+    withType<CycloneDxTask> {
+        setOutputFormat("json")
+        setOutputName("bom")
     }
 }
 
