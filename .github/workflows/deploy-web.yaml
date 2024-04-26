@@ -29,7 +29,7 @@ jobs:
         run: yarn install && yarn build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-      - uses: nais/docker-build-push@3e3dd59e778ead7ba199dbfcde40350a178a2226 # ratchet:nais/docker-build-push@v0
+      - uses: nais/docker-build-push@099f6e6d0b4fa8899d03aae7dd274f87d4ff0651 # ratchet:nais/docker-build-push@v0
         id: docker-push
         with:
           team: security-champion-admin
