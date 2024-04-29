@@ -9,6 +9,7 @@ jobs:
     permissions:
       contents: write # dep-submission
       id-token: write # nais docker-build-push
+      checks: write # for dastardly
     steps:
       - uses: actions/checkout@8410ad0602e1e429cee44a835ae9f77f654a6694 # ratchet:actions/checkout@v4
       - name: Setup Node 20
