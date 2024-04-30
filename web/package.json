@@ -15,14 +15,14 @@
     "classnames": "^2.5.1",
     "prettier": "^3.2.5",
     "react": "^18.3.1",
-    "react-dom": "^18.2.0",
+    "react-dom": "^18.3.1",
     "react-router-dom": "^6.23.0",
     "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",
     "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.2.25",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "@vitejs/plugin-react": "^4.2.1",
