@@ -6,17 +6,17 @@ registries:
     token: ${{secrets.READER_TOKEN}}
 updates:
   - package-ecosystem: gradle
-    directory: "/backend/"
+    directory: /backend
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: "/web/"
+    directory: /web/
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: "/web/server/"
+    directory: /web/server/
     schedule:
       interval: daily
     registries:
@@ -24,5 +24,15 @@ updates:
 
   - package-ecosystem: github-actions
     directory: "/"
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /backend
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /web
     schedule:
       interval: daily
