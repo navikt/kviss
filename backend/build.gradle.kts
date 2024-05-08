@@ -12,7 +12,7 @@ val junit_jupiter_version = "5.10.2"
 
 plugins {
     kotlin("jvm") version "1.9.23"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.23"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.24"
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
