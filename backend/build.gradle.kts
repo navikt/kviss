@@ -1,7 +1,7 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 val ktor_version = "2.3.10"
-val kotlin_version = "1.9.23"
+val kotlin_version = "1.9.24"
 val logback_version = "1.5.6"
 val postgresql_version = "42.7.3"
 val hikariCP_version = "5.1.0"
@@ -11,7 +11,7 @@ val junit_jupiter_version = "5.10.2"
 
 
 plugins {
-    kotlin("jvm") version "1.9.23"
+    kotlin("jvm") version "1.9.24"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.24"
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
