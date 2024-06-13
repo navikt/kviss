@@ -48,7 +48,7 @@ jobs:
           image_suffix: frontend
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-      - uses: nais/deploy/actions/deploy@60cf43ccea0f0df491654b2abd818e9e1768354b # ratchet:nais/deploy/actions/deploy@v1
+      - uses: nais/deploy/actions/deploy@46cb08a54e6471e1e624c8713d578abc25def884 # ratchet:nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-gcp
