@@ -36,7 +36,7 @@ jobs:
         run: yarn install && yarn build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-      - uses: nais/docker-build-push@099f6e6d0b4fa8899d03aae7dd274f87d4ff0651 # ratchet:nais/docker-build-push@v0
+      - uses: nais/docker-build-push@c00a86e7b5a57b284a308e88ad15470f3c79f80f # ratchet:nais/docker-build-push@v0
         id: docker-push
         with:
           team: security-champion-admin
@@ -69,7 +69,7 @@ jobs:
       - name: build shadowjar
         run: ./gradlew shadowjar
         working-directory: ./backend/
-      - uses: nais/docker-build-push@099f6e6d0b4fa8899d03aae7dd274f87d4ff0651 # ratchet:nais/docker-build-push@v0
+      - uses: nais/docker-build-push@c00a86e7b5a57b284a308e88ad15470f3c79f80f # ratchet:nais/docker-build-push@v0
         id: docker-push
         with:
           team: security-champion-admin
