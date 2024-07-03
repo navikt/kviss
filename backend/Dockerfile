@@ -1,4 +1,4 @@
-FROM cgr.dev/chainguard/jre-lts:latest@sha256:cdda79985031478a0e7c89892c7889fa80cb981b084ad50f1d6dd4bd007097c3
+FROM cgr.dev/chainguard/jre-lts:latest@sha256:79c171abad0ad4e030f38fd32cecdeb4a8342f40ad14e85d584296e5349bd423
 
 COPY build/libs/app.jar /app/app.jar
 WORKDIR /app
