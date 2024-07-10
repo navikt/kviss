@@ -23,7 +23,7 @@ jobs:
 
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # ratchet:actions/checkout@v2
       - name: Setup Node 20
-        uses: actions/setup-node@25b062c917b0c75f8b47d8469aff6c94ffd89abb # ratchet:actions/setup-node@v2
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # ratchet:actions/setup-node@v2
         with:
           node-version: '20.x'
           registry-url: 'https://npm.pkg.github.com'
