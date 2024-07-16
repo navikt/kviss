@@ -12,4 +12,6 @@ WORKDIR server
 
 EXPOSE 8080
 
+RUN npm ci --production
+
 CMD ["server.js"]
