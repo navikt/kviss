@@ -8,10 +8,8 @@ WORKDIR /app
 COPY dist dist/
 COPY server server/
 
-WORKDIR server
-
 EXPOSE 8080
 
 RUN npm ci --production
 
-CMD ["server.js"]
+CMD ["/app/server/server.js"]
