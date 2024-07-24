@@ -1,4 +1,4 @@
-FROM node:22-alpine@sha256:691f9990cad4749d7374159dab4ac0f633e4fc28c2f43d6f7cffe4ab90d3a8f9
+FROM node:22-alpine@sha256:9fcc1a6da2b9eee38638df75c5f826e06e9c79f6a0f97f16ed98fe0ebb0725c0
 
 ENV NODE_ENV production
 ENV NPM_CONFIG_CACHE /tmp
