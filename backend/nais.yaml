@@ -21,6 +21,7 @@ spec:
         databases:
           - name: kviss-db
             envVarPrefix: DB
+        tier: db-f1-micro
   liveness:
     initialDelay: 30
     path: isalive
