@@ -153,7 +153,7 @@ jobs:
           severity: 'MEDIUM,HIGH,CRITICAL'
           limit-severities-for-sarif: true
       - name: Upload results to GitHub Security
-        uses: github/codeql-action/upload-sarif@2c779ab0d087cd7fe7b826087247c2c81f27bfa6 # ratchet:github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@4dd16135b69a43b6c8efb853346f8437d92d3c93 # ratchet:github/codeql-action/upload-sarif@v2
         if: ${{ always() }}
         with:
           sarif_file: 'trivy.sarif'
@@ -185,7 +185,7 @@ jobs:
           severity: 'MEDIUM,HIGH,CRITICAL'
           limit-severities-for-sarif: true
       - name: Upload results to GitHub Security
-        uses: github/codeql-action/upload-sarif@2c779ab0d087cd7fe7b826087247c2c81f27bfa6 # ratchet:github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@4dd16135b69a43b6c8efb853346f8437d92d3c93 # ratchet:github/codeql-action/upload-sarif@v2
         if: ${{ always() }}
         with:
           sarif_file: 'trivy.sarif'
