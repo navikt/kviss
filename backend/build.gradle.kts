@@ -2,7 +2,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 val ktor_version = "2.3.12"
 val kotlin_version = "2.0.20"
-val logback_version = "1.5.7"
+val logback_version = "1.5.8"
 val postgresql_version = "42.7.4"
 val hikariCP_version = "5.1.0"
 val flyway_core_version = "10.17.3"
