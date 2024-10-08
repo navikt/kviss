@@ -18,7 +18,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # ratchet:actions/checkout@v4
+      - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # ratchet:actions/checkout@v4
       - name: Setup Node 20
         uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # ratchet:actions/setup-node@v2
         with:
@@ -60,7 +60,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # ratchet:actions/checkout@v4
+      - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # ratchet:actions/checkout@v4
       - uses: nais/login@4ce7445c84f09114e481a1d2c164f563e9e2ba8e # ratchet:nais/login@v0
         with:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
