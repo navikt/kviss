@@ -120,7 +120,7 @@ jobs:
             -I \
             -j
       - name: Upload scan report
-        uses: actions/upload-artifact@84480863f228bb9747b473957fcc9e309aa96097 # ratchet:actions/upload-artifact@v4
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # ratchet:actions/upload-artifact@v4
         if: ${{ always() }}
         with:
           name: zap-report_frontend
