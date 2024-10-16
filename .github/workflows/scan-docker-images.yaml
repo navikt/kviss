@@ -145,7 +145,7 @@ jobs:
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           team: security-champion-admin
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@5681af892cd0f4997658e2bacc62bd0a894cf564 # ratchet:aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@915b19bbe73b92a6cf82a1bc12b087c9a19a5fe2 # ratchet:aquasecurity/trivy-action@master
         with:
           image-ref: '${{ needs.build-backend.outputs.image }}'
           format: 'sarif'
@@ -177,7 +177,7 @@ jobs:
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           team: security-champion-admin
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@5681af892cd0f4997658e2bacc62bd0a894cf564 # ratchet:aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@915b19bbe73b92a6cf82a1bc12b087c9a19a5fe2 # ratchet:aquasecurity/trivy-action@master
         with:
           image-ref: '${{ needs.build-frontend.outputs.image }}'
           format: 'sarif'
