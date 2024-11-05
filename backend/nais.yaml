@@ -32,3 +32,7 @@ spec:
     inbound:
       rules:
         - application: kviss
+  observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: java

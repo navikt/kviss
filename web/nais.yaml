@@ -6,7 +6,7 @@ metadata:
   labels:
     team: security-champion-admin
 spec:
-  image: {{ image }}
+  image: "{{ image }}"
   port: 8080
   ingresses:
     - https://kviss.nav.no/
@@ -37,9 +37,13 @@ spec:
   env:
     - name: API_URL
       value: http://kviss-api
-    - name: APIE_SCOPE
+    - name: API_SCOPE
       value: api://prod-gcp.security-champion-admin.kviss-api/.default
   accessPolicy:
     outbound:
       rules:
         - application: kviss-api
+  observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: nodejs
