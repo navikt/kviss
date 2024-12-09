@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/nodejs22-debian12@sha256:d2bf966afe785153974fdd2663c7181dbfdf407d229b5df4adef185ca134da04
+FROM gcr.io/distroless/nodejs22-debian12@sha256:b2811d7945a1f3ef91cf8a2ead779171b438eb0011f3bdee0c8cc60cb90b2c0c
 
 ENV NODE_ENV production
 ENV NPM_CONFIG_CACHE /tmp
