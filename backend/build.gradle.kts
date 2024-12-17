@@ -7,7 +7,7 @@ val postgresql_version = "42.7.4"
 val hikariCP_version = "6.2.1"
 val flyway_core_version = "11.1.0"
 val mockk_version = "1.13.13"
-val junit_jupiter_version = "5.11.3"
+val junit_jupiter_version = "5.11.4"
 
 
 plugins {
