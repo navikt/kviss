@@ -1,7 +1,6 @@
 import { Namespace, Socket } from 'socket.io'
 import { IncomingEvent, LeaveGameEvent, Player } from './events/incoming'
 import * as api from './api'
-import { setGameFinished } from './api'
 import {
     OutgoingEvent,
     PlayerLeftEvent,
@@ -10,19 +9,38 @@ import {
     ShowAnswersEvent,
     UpdatePlayerListEvent,
 } from './events/outgoing'
+import jwt from 'jsonwebtoken'
 
 export default async function handleEvents(socket: Socket, sockets: Namespace) {
     const { pin, hostId, playerId } = socket.handshake.auth
+    const authHeader = socket.handshake.headers.authorization
 
     if (!pin) {
         console.warn('Pin missing')
         return
     }
 
+    let navIdent: string | undefined
+    if (authHeader) {
+        const token = authHeader.split(' ')[1]
+        try {
+            const secret = process.env.AZURE_APP_CLIENT_SECRET
+            if (!secret) {
+                throw new Error('AZURE_APP_CLIENT_SECRET is not defined')
+            }
+            const decodedToken: any = jwt.verify(token, secret)
+            navIdent = decodedToken.NAVident
+        } catch (err) {
+            console.error('Invalid token', err)
+            socket.emit(OutgoingEvent.SEND_ERROR_EVENT, { errorMessage: 'Invalid token' })
+            return
+        }
+    }
+
     socket.join(pin)
 
     if (hostId) {
-        console.log(`Host (${hostId}) joined room ${pin}`)
+        console.log(`Host (${hostId}) with NAVident (${navIdent}) joined room ${pin}`)
     } else {
         console.log(`Player (${playerId}) joined room ${pin}`)
     }
