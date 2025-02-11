@@ -14,8 +14,6 @@
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
     "http-proxy-middleware": "^3.0.3",
-    "jsonwebtoken": "^9.0.2",
-    "jwks-rsa": "^3.1.0",
     "node-fetch": "^2.6.7",
     "path": "^0.12.7",
     "socket.io": "^4.8.1",
@@ -23,7 +21,6 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
-    "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^22.13.1",
     "@types/node-fetch": "^2.6.2",
     "ts-node": "^10.9.1",

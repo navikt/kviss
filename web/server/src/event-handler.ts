@@ -9,8 +9,7 @@ import {
     ShowAnswersEvent,
     UpdatePlayerListEvent,
 } from './events/outgoing'
-import jwt from 'jsonwebtoken'
-import jwksClient from 'jwks-rsa'
+import { parseAzureUserToken, validateToken } from '@navikt/oasis'
 
 export default async function handleEvents(socket: Socket, sockets: Namespace) {
     const { pin, hostId, playerId } = socket.handshake.auth
@@ -21,63 +20,25 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
         return
     }
 
-    const jwksUri = process.env.AZURE_OPENID_CONFIG_JWKS_URI;
-    if (!jwksUri) {
-        throw new Error('AZURE_OPENID_CONFIG_JWKS_URI is not defined');
+    const token = getToken(socket.handshake.headers.authorization);
+    if (!token) {
+        throw new Error('Token is missing');
     }
-    var client = jwksClient({
-        jwksUri: jwksUri
-    });
     
-    interface JwksHeader {
-        kid: string;
+    const validation = await validateToken(token);
+    if (!validation.ok) {
+        throw new Error('Token is not valid');
     }
-
-    interface SigningKey {
-        publicKey?: string;
-        rsaPublicKey?: string;
-    }
-
-    type GetKeyCallback = (err: Error | null, key?: string) => void;
-
-    function getKey(header: JwksHeader, callback: GetKeyCallback): void {
-        client.getSigningKey(header.kid, function(err: Error | null, key?: SigningKey) {
-            if (err) {
-                callback(err);
-            } else if (key) {
-                var signingKey = key.publicKey || key.rsaPublicKey;
-                callback(null, signingKey);
-            } else {
-                callback(new Error('No signing key found'));
-            }
-        });
-    }
-
-    let navIdent: string | undefined
-    if (authHeader) {
-        const token = authHeader.split(' ')[1]
-        try {
-            const secret = process.env.AZURE_APP_CLIENT_SECRET
-            if (!secret) {
-                throw new Error('AZURE_APP_CLIENT_SECRET is not defined')
-            }
-            const decodedToken: any = jwt.verify(token, secret, {
-                 algorithms: ['HS256'],
-                 audience: process.env.AZURE_APP_CLIENT_ID,
-                 issuer: process.env.AZURE_OPENID_CONFIG_ISSUER
-                })
-            navIdent = decodedToken.NAVident
-        } catch (err) {
-            console.error('Invalid token', err)
-            socket.emit(OutgoingEvent.SEND_ERROR_EVENT, { errorMessage: 'Invalid token' })
-            return
-        }
+    
+    const parse = parseAzureUserToken(token);
+    if (parse.ok) {
+      console.log(`Bruker: ${parse.preferred_username} (${parse.NAVident})`);
     }
 
     socket.join(pin)
 
     if (hostId) {
-        console.log(`Host (${hostId}) with NAVident (${navIdent}) joined room ${pin}`)
+        console.log(`Host (${hostId}) joined room ${pin}`)
     } else {
         console.log(`Player (${playerId}) joined room ${pin}`)
     }
@@ -180,3 +141,9 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
         socket.leave(pin)
     })
 }
+
+function getToken(authHeader: string | undefined) {
+    if (!authHeader) return null;
+    return authHeader.replace('Bearer ', '');
+}
+
