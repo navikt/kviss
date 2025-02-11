@@ -10,6 +10,7 @@ import {
     UpdatePlayerListEvent,
 } from './events/outgoing'
 import jwt from 'jsonwebtoken'
+import jwksClient from 'jwks-rsa'
 
 export default async function handleEvents(socket: Socket, sockets: Namespace) {
     const { pin, hostId, playerId } = socket.handshake.auth
@@ -20,6 +21,38 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
         return
     }
 
+    const jwksUri = process.env.AZURE_OPENID_CONFIG_JWKS_URI;
+    if (!jwksUri) {
+        throw new Error('AZURE_OPENID_CONFIG_JWKS_URI is not defined');
+    }
+    var client = jwksClient({
+        jwksUri: jwksUri
+    });
+    
+    interface JwksHeader {
+        kid: string;
+    }
+
+    interface SigningKey {
+        publicKey?: string;
+        rsaPublicKey?: string;
+    }
+
+    type GetKeyCallback = (err: Error | null, key?: string) => void;
+
+    function getKey(header: JwksHeader, callback: GetKeyCallback): void {
+        client.getSigningKey(header.kid, function(err: Error | null, key?: SigningKey) {
+            if (err) {
+                callback(err);
+            } else if (key) {
+                var signingKey = key.publicKey || key.rsaPublicKey;
+                callback(null, signingKey);
+            } else {
+                callback(new Error('No signing key found'));
+            }
+        });
+    }
+
     let navIdent: string | undefined
     if (authHeader) {
         const token = authHeader.split(' ')[1]
@@ -28,7 +61,11 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
             if (!secret) {
                 throw new Error('AZURE_APP_CLIENT_SECRET is not defined')
             }
-            const decodedToken: any = jwt.verify(token, secret)
+            const decodedToken: any = jwt.verify(token, secret, {
+                 algorithms: ['HS256'],
+                 audience: process.env.AZURE_APP_CLIENT_ID,
+                 issuer: process.env.AZURE_OPENID_CONFIG_ISSUER
+                })
             navIdent = decodedToken.NAVident
         } catch (err) {
             console.error('Invalid token', err)
