@@ -15,7 +15,8 @@ spec:
       enabled: true
       allowAllUsers: true
       claims:
-        - NAVident
+        extra:
+          - NAVident
     sidecar:
       enabled: true
       autoLogin: true
