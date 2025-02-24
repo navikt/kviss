@@ -38,6 +38,7 @@ jobs:
           languages: ${{ matrix.language }}
 
       - name: Setup java
+        if: matrix.language == 'kotlin'
         uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4.6.0
         with:
           distribution: temurin
@@ -45,22 +46,26 @@ jobs:
           cache: gradle
 
       - name: test and build
+        if: matrix.language == 'kotlin'
         run: ./gradlew build
         working-directory: ./backend/
 
-      - name: Setup Node 20
+      - name: Setup Node 22
+        if: matrix.language == 'javascript'
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
-          node-version: '20.x'
+          node-version: '22.x'
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Yarn install and build client
+        if: matrix.language == 'javascript'
         working-directory: web
         run: yarn install && yarn build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Yarn install and build server
+        if: matrix.language == 'javascript'
         working-directory: web/server
         run: yarn install && yarn build
         env:

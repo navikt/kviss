@@ -1,5 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 val ktor_version = "2.3.13"
 val kotlin_version = "2.1.10"
 val logback_version = "1.5.16"
@@ -9,49 +7,20 @@ val flyway_core_version = "11.3.3"
 val mockk_version = "1.13.16"
 val junit_jupiter_version = "5.12.0"
 
+group = "nav.no"
+val mainClass = "nav.no.ApplicationKt"
 
 plugins {
     kotlin("jvm") version "2.1.10"
     id("org.jetbrains.kotlin.plugin.serialization") version "2.1.10"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
-
-group = "nav.no"
-
-val mainClass = "nav.no.ApplicationKt"
 
 kotlin {
     jvmToolchain(21)
 }
 
-tasks {
-
-    withType<Test> {
-        useJUnitPlatform()
-        testLogging {
-            events("skipped", "failed")
-        }
-    }
-
-    withType<Wrapper> {
-        gradleVersion = "8.6"
-    }
-
-    withType<ShadowJar> {
-        archiveBaseName.set("app")
-        archiveClassifier.set("")
-        manifest {
-            attributes(
-                mapOf(
-                    "Main-Class" to mainClass
-                )
-            )
-        }
-        mergeServiceFiles()
-    }
-}
-
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -72,4 +41,37 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params:$junit_jupiter_version")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$junit_jupiter_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+}
+
+
+tasks {
+    withType<Jar> {
+        archiveBaseName.set("app")
+
+        manifest {
+            attributes["Main-Class"] = mainClass
+            attributes["Class-Path"] = configurations.runtimeClasspath.get().joinToString(separator = " ") {
+                it.name
+            }
+        }
+
+        doLast {
+            configurations.runtimeClasspath.get().forEach {
+                val file = File("${layout.buildDirectory.get()}/libs/${it.name}")
+                if (!file.exists())
+                    it.copyTo(file)
+            }
+        }
+    }
+
+    withType<Test> {
+        useJUnitPlatform()
+        testLogging {
+            events("skipped", "failed")
+        }
+    }
+
+    withType<Wrapper> {
+        gradleVersion = "8.12"
+    }
 }
