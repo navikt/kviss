@@ -76,7 +76,7 @@ export default function StartQuizIndexRoute() {
                             <td className='flex flex-row'>
                                 <button
                                     onClick={() => startQuiz(quiz.id!)}
-                                    className="bg-lime-600 text-black font-bold py-2 px-4 rounded"
+                                    className="bg-lime-600 text-black font-bold py-2 px-4 rounded-sm"
                                 >
                                         Start Kviss
                                 </button>

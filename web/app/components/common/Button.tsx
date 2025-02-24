@@ -26,7 +26,7 @@ export default function Button({ children, color, ...rest }: ButtonProps) {
     const classes = [
         [...getColorScheme(color)],
         'text-white',
-        'focus:outline-none',
+        'focus:outline-hidden',
         'active:ring-2',
         'rounded-full',
         'text-md',

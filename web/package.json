@@ -5,11 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run dev:css\" \"API_URL=http://localhost:8081/api WS_URL=http://localhost:8081 vite\"",
-    "dev:nais": "concurrently \"npm run dev:css\" \"API_URL=https://kviss-api.dev.nav.no WS_URL=https://kviss.dev.intern.nav.no vite\"",
     "build": "npm run build:css && tsc && vite build",
     "preview": "vite preview",
-    "build:css": "tailwindcss -m -i ./app/main.css -o ./app/styles/app.css",
-    "dev:css": "tailwindcss -w -i ./app/main.css -o ./app/styles/app.css"
+    "build:css": "npx @tailwindcss/cli -m -i ./app/main.css -o ./app/styles/app.css",
+    "dev:css": "npx @tailwindcss/cli -w -i ./app/main.css -o ./app/styles/app.css"
   },
   "dependencies": {
     "classnames": "^2.5.1",
@@ -20,22 +19,22 @@
     "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.8",
     "@types/node": "^22.13.5",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "@vitejs/plugin-react": "^4.3.4",
-    "autoprefixer": "^10.4.20",
     "concurrently": "^9.1.2",
     "eslint": "^8.57.1",
     "eslint-plugin-react": "^7.37.4",
     "postcss": "^8.5.3",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.0.8",
     "typescript": "^5.7.3",
     "vite": "^6.1.1"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }
