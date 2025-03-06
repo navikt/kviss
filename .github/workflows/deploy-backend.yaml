@@ -50,3 +50,5 @@ jobs:
           IMAGE: ${{ steps.docker-push.outputs.image }}
 
       - uses: gradle/actions/dependency-submission@94baf225fe0a508e581a564467443d0e2379123b
+        with:
+          build-root-directory: backend
