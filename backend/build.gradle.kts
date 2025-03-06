@@ -5,7 +5,7 @@ val postgresql_version = "42.7.5"
 val hikariCP_version = "6.2.1"
 val flyway_core_version = "11.3.4"
 val mockk_version = "1.13.17"
-val junit_jupiter_version = "5.12.0"
+val junit_version = "5.12.0"
 
 group = "nav.no"
 val mainClass = "nav.no.ApplicationKt"
@@ -30,16 +30,19 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
+    implementation("io.ktor:ktor-server-cors:$ktor_version")
+
     implementation("ch.qos.logback:logback-classic:$logback_version")
+
     implementation("org.postgresql:postgresql:$postgresql_version")
     implementation("com.zaxxer:HikariCP:$hikariCP_version")
     implementation("org.flywaydb:flyway-database-postgresql:$flyway_core_version")
-    implementation("io.ktor:ktor-server-cors:$ktor_version")
+
     testImplementation("io.mockk:mockk:$mockk_version")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:$junit_jupiter_version")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:$junit_jupiter_version")
+    testImplementation(platform("org.junit:junit-bom:$junit_version"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
 

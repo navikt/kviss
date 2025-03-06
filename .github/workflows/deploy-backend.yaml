@@ -21,20 +21,18 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # ratchet:actions/checkout@v4
-      - uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # ratchet:actions/setup-java@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 21
-          cache: gradle
-      - uses: gradle/gradle-build-action@ac2d340dc04d9e1113182899e983b5400c17cda1 # ratchet:gradle/gradle-build-action@v2
-        env:
-          DEPENDENCY_GRAPH_INCLUDE_CONFIGURATIONS: compileClasspath|runtimeClasspath # Eksluderer test dependencies
-        with:
-          dependency-graph: generate-and-submit
+
+      - uses: gradle/actions/setup-gradle@94baf225fe0a508e581a564467443d0e2379123b
+
       - name: test and build # build for dep submission, shadowjar for docker
-        run: ./gradlew build shadowjar
+        run: ./gradlew build
         working-directory: ./backend/
+
       - uses: nais/docker-build-push@5246e4705d79945a0ec28eb9bd3638dd534fee46 # ratchet:nais/docker-build-push@v0
         id: docker-push
         with:
@@ -44,11 +42,11 @@ jobs:
           docker_context: backend/
           dockerfile: backend/Dockerfile
           image_suffix: backend
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+
       - uses: nais/deploy/actions/deploy@7c152a10f4da3ca352d57a25eba0b3a8e04882f9 # ratchet:nais/deploy/actions/deploy@v1
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-gcp
           RESOURCE: backend/nais.yaml
           IMAGE: ${{ steps.docker-push.outputs.image }}
+
+      - uses: gradle/actions/dependency-submission@94baf225fe0a508e581a564467443d0e2379123b

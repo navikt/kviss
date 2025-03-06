@@ -21,22 +21,28 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # ratchet:actions/checkout@v2
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
       - name: Setup Node 22
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # ratchet:actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: '22.x'
           registry-url: 'https://npm.pkg.github.com'
+
       - name: Yarn install and build client
         working-directory: web
         run: yarn install && yarn build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
       - name: Yarn install and build server
         working-directory: web/server
         run: yarn install && yarn build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
       - uses: nais/docker-build-push@5246e4705d79945a0ec28eb9bd3638dd534fee46 # ratchet:nais/docker-build-push@v0
         id: docker-push
         with:
@@ -46,11 +52,9 @@ jobs:
           docker_context: web/
           dockerfile: web/Dockerfile
           image_suffix: frontend
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+
       - uses: nais/deploy/actions/deploy@7c152a10f4da3ca352d57a25eba0b3a8e04882f9 # ratchet:nais/deploy/actions/deploy@v1
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-gcp
           RESOURCE: web/nais.yaml
           IMAGE: ${{ steps.docker-push.outputs.image }}
