@@ -5,7 +5,7 @@ val postgresql_version = "42.7.5"
 val hikariCP_version = "6.2.1"
 val flyway_core_version = "11.4.0"
 val mockk_version = "1.13.17"
-val junit_version = "5.12.0"
+val junit_version = "5.12.1"
 
 group = "nav.no"
 val mainClass = "nav.no.ApplicationKt"
