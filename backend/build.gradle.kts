@@ -1,6 +1,6 @@
 val ktor_version = "2.3.13"
 val kotlin_version = "2.1.10"
-val logback_version = "1.5.17"
+val logback_version = "1.5.18"
 val postgresql_version = "42.7.5"
 val hikariCP_version = "6.2.1"
 val flyway_core_version = "11.4.0"
