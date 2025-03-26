@@ -8,31 +8,36 @@ updates:
   - package-ecosystem: gradle
     directory: /backend
     schedule:
-      interval: daily
+      interval: weekly
+    groups:
+      gradle:
+        patterns:
+          - "*"
 
   - package-ecosystem: npm
-    directory: /web/
+    directory: /web
     schedule:
-      interval: daily
-
-  - package-ecosystem: npm
-    directory: /web/server/
-    schedule:
-      interval: daily
-    registries:
-      - npm-github
+      interval: weekly
+    registries: "*"
+    groups:
+      npm:
+        patterns:
+          - "*"
 
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
-      interval: daily
+      interval: weekly
+    groups:
+      github:
+        patterns:
+          - "*"
 
   - package-ecosystem: docker
-    directory: /backend
+    directory: /
     schedule:
-      interval: daily
-
-  - package-ecosystem: docker
-    directory: /web
-    schedule:
-      interval: daily
+      interval: weekly
+    groups:
+      docker:
+        patterns:
+          - "*"
