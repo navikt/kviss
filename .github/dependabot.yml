@@ -15,7 +15,9 @@ updates:
           - "*"
 
   - package-ecosystem: npm
-    directory: /web
+    directories: 
+      - "/web"
+      - "/web/server"
     schedule:
       interval: weekly
     registries: "*"
@@ -34,7 +36,9 @@ updates:
           - "*"
 
   - package-ecosystem: docker
-    directory: /
+    directories:
+      - "/web"
+      - "/backend"
     schedule:
       interval: weekly
     groups:
