@@ -10,6 +10,7 @@ import {
     UpdatePlayerListEvent,
 } from './events/outgoing'
 import { parseAzureUserToken, validateToken } from '@navikt/oasis'
+import { AnswerResponse, Game, Quiz } from './types'
 
 export default async function handleEvents(socket: Socket, sockets: Namespace) {
     const { pin, hostId, playerId } = socket.handshake.auth
@@ -43,7 +44,7 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
         console.log(`Player (${playerId}) joined room ${pin}`)
     }
 
-    const game = await api.getGameByPin(pin)
+    const game = await api.getGameByPin(pin) as Game
 
     api.getPlayers(pin).then((players: object[]) => {
         sockets.in(pin).emit(OutgoingEvent.PLAYER_JOINED_EVENT, { players })
@@ -52,7 +53,7 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
     socket.once(IncomingEvent.START_GAME_EVENT, async () => {
         console.log('START_GAME_EVENT')
         if (game.hostId === hostId) {
-            const quiz = await api.getQuizById(game.quizId)
+            const quiz = await api.getQuizById(game.quizId) as Quiz
 
             const event: SendQuestionEvent = { question: quiz.questions[0] }
             sockets.in(pin).emit(OutgoingEvent.SEND_QUESTION_EVENT, event)
@@ -86,7 +87,7 @@ export default async function handleEvents(socket: Socket, sockets: Namespace) {
 
         const { alternativeId } = arg
 
-        const result = await api.sendAnswer(alternativeId, pin, playerId)
+        const result = await api.sendAnswer(alternativeId, pin, playerId) as AnswerResponse
 
         console.log('result: ', result)
 
