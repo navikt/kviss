@@ -90,7 +90,7 @@ jobs:
           egress-policy: audit
 
       - uses: actions/checkout@v4
-      - uses: nais/login@3444be636212c24b7f4c2d83c700aba40961b437 # ratchet:nais/login@v0
+      - uses: nais/login@e7cf2c159677dc7c7d599feff5f808f2bf59c7cf # ratchet:nais/login@v0
         with:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
@@ -134,7 +134,7 @@ jobs:
           egress-policy: audit
 
       - uses: actions/checkout@v4
-      - uses: nais/login@3444be636212c24b7f4c2d83c700aba40961b437 # ratchet:nais/login@v0
+      - uses: nais/login@e7cf2c159677dc7c7d599feff5f808f2bf59c7cf # ratchet:nais/login@v0
         with:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
@@ -146,7 +146,7 @@ jobs:
           format: 'sarif'
           output: 'trivy.sarif'
       - name: Upload results to GitHub Security
-        uses: github/codeql-action/upload-sarif@1b549b9259bda1cb5ddde3b41741a82a2d15a841 # ratchet:github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # ratchet:github/codeql-action/upload-sarif@v2
         if: ${{ always() }}
         with:
           sarif_file: 'trivy.sarif'
@@ -164,7 +164,7 @@ jobs:
           egress-policy: audit
 
       - uses: actions/checkout@v4
-      - uses: nais/login@3444be636212c24b7f4c2d83c700aba40961b437 # ratchet:nais/login@v0
+      - uses: nais/login@e7cf2c159677dc7c7d599feff5f808f2bf59c7cf # ratchet:nais/login@v0
         with:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
@@ -176,7 +176,7 @@ jobs:
           format: 'sarif'
           output: 'trivy.sarif'
       - name: Upload results to GitHub Security
-        uses: github/codeql-action/upload-sarif@1b549b9259bda1cb5ddde3b41741a82a2d15a841 # ratchet:github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@45775bd8235c68ba998cffa5171334d58593da47 # ratchet:github/codeql-action/upload-sarif@v2
         if: ${{ always() }}
         with:
           sarif_file: 'trivy.sarif'
