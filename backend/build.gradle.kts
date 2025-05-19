@@ -1,9 +1,9 @@
 val ktor_version = "2.3.13"
-val kotlin_version = "2.1.20"
+val kotlin_version = "2.1.21"
 val logback_version = "1.5.18"
 val postgresql_version = "42.7.5"
 val hikariCP_version = "6.3.0"
-val flyway_core_version = "11.8.1"
+val flyway_core_version = "11.8.2"
 val mockk_version = "1.14.2"
 val junit_version = "5.12.2"
 
@@ -11,8 +11,8 @@ group = "nav.no"
 val mainClass = "nav.no.ApplicationKt"
 
 plugins {
-    kotlin("jvm") version "2.1.20"
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.1.20"
+    kotlin("jvm") version "2.1.21"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.1.21"
 }
 
 kotlin {
