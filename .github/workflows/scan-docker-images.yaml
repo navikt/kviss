@@ -146,7 +146,7 @@ jobs:
           format: 'sarif'
           output: 'trivy.sarif'
       - name: Upload results to GitHub Security
-        uses: github/codeql-action/upload-sarif@60168efe1c415ce0f5521ea06d5c2062adbeed1b # ratchet:github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@ff0a06e83cb2de871e5a09832bc6a81e7276941f # ratchet:github/codeql-action/upload-sarif@v2
         if: ${{ always() }}
         with:
           sarif_file: 'trivy.sarif'
@@ -176,7 +176,7 @@ jobs:
           format: 'sarif'
           output: 'trivy.sarif'
       - name: Upload results to GitHub Security
-        uses: github/codeql-action/upload-sarif@60168efe1c415ce0f5521ea06d5c2062adbeed1b # ratchet:github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@ff0a06e83cb2de871e5a09832bc6a81e7276941f # ratchet:github/codeql-action/upload-sarif@v2
         if: ${{ always() }}
         with:
           sarif_file: 'trivy.sarif'

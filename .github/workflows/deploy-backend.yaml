@@ -27,7 +27,7 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - uses: gradle/actions/setup-gradle@06832c7b30a0129d7fb559bcc6e43d26f6374244
+      - uses: gradle/actions/setup-gradle@8379f6a1328ee0e06e2bb424dadb7b159856a326
 
       - name: test and build # build for dep submission, shadowjar for docker
         run: ./gradlew build
@@ -49,6 +49,6 @@ jobs:
           RESOURCE: backend/nais.yaml
           IMAGE: ${{ steps.docker-push.outputs.image }}
 
-      - uses: gradle/actions/dependency-submission@06832c7b30a0129d7fb559bcc6e43d26f6374244
+      - uses: gradle/actions/dependency-submission@8379f6a1328ee0e06e2bb424dadb7b159856a326
         with:
           build-root-directory: backend
