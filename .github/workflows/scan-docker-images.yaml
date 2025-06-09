@@ -140,13 +140,13 @@ jobs:
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           team: security-champion-admin
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@6c175e9c4083a92bbca2f9724c8a5e33bc2d97a5 # ratchet:aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@76071ef0d7ec797419534a183b498b4d6366cf37 # ratchet:aquasecurity/trivy-action@master
         with:
           image-ref: '${{ needs.build-backend.outputs.image }}'
           format: 'sarif'
           output: 'trivy.sarif'
       - name: Upload results to GitHub Security
-        uses: github/codeql-action/upload-sarif@ff0a06e83cb2de871e5a09832bc6a81e7276941f # ratchet:github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@fca7ace96b7d713c7035871441bd52efbe39e27e # ratchet:github/codeql-action/upload-sarif@v2
         if: ${{ always() }}
         with:
           sarif_file: 'trivy.sarif'
@@ -170,13 +170,13 @@ jobs:
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           team: security-champion-admin
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@6c175e9c4083a92bbca2f9724c8a5e33bc2d97a5 # ratchet:aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@76071ef0d7ec797419534a183b498b4d6366cf37 # ratchet:aquasecurity/trivy-action@master
         with:
           image-ref: '${{ needs.build-frontend.outputs.image }}'
           format: 'sarif'
           output: 'trivy.sarif'
       - name: Upload results to GitHub Security
-        uses: github/codeql-action/upload-sarif@ff0a06e83cb2de871e5a09832bc6a81e7276941f # ratchet:github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@fca7ace96b7d713c7035871441bd52efbe39e27e # ratchet:github/codeql-action/upload-sarif@v2
         if: ${{ always() }}
         with:
           sarif_file: 'trivy.sarif'
