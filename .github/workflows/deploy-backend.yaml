@@ -17,7 +17,7 @@ jobs:
       id-token: write # nais docker-build-push
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@002fdce3c6a235733a90a27c80493a3241e56863 # v2.12.1
+        uses: step-security/harden-runner@6c439dc8bdf85cadbbce9ed30d1c7b959517bc49 # v2.12.2
         with:
           egress-policy: audit
 
@@ -43,7 +43,7 @@ jobs:
           dockerfile: backend/Dockerfile
           image_suffix: backend
 
-      - uses: nais/deploy/actions/deploy@d30ad2c21d7862e22d45cac6accfbf42bbbc0f39 # ratchet:nais/deploy/actions/deploy@v1
+      - uses: nais/deploy/actions/deploy@2784252c436273b3a305df04a765a22ba6fb1d65 # ratchet:nais/deploy/actions/deploy@v1
         env:
           CLUSTER: prod-gcp
           RESOURCE: backend/nais.yaml
