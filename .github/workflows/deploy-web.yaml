@@ -53,7 +53,7 @@ jobs:
           dockerfile: web/Dockerfile
           image_suffix: frontend
 
-      - uses: nais/deploy/actions/deploy@64b71e5a692448778e9cc27080604e68c8183391 # ratchet:nais/deploy/actions/deploy@v1
+      - uses: nais/deploy/actions/deploy@961addd1e4d4211f1a7333ada5fde85f7c9aa5b7 # ratchet:nais/deploy/actions/deploy@v1
         env:
           CLUSTER: prod-gcp
           RESOURCE: web/nais.yaml
