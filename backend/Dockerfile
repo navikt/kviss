@@ -1,4 +1,4 @@
-FROM cgr.dev/chainguard/jre:latest@sha256:0ce8e2297ff2fdea1b11897c0d3433785833b0ac8c13283b36afa303a704f7fd
+FROM europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/jre:openjdk-21
 
 COPY build/libs/*.jar /app/
 WORKDIR /app
