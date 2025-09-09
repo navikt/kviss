@@ -39,7 +39,7 @@ jobs:
       - uses: nais/docker-build-push@1fae4798c79f4af4c3cdbd3fe65e51f8f3ba2368 # ratchet:nais/docker-build-push@v0
         id: docker-push
         with:
-          team: security-champion-admin
+          team: appsec
           push_image: true
           pull: true
           docker_context: web/
@@ -70,7 +70,7 @@ jobs:
       - uses: nais/docker-build-push@1fae4798c79f4af4c3cdbd3fe65e51f8f3ba2368 # ratchet:nais/docker-build-push@v0
         id: docker-push
         with:
-          team: security-champion-admin
+          team: appsec
           push_image: true
           pull: true
           docker_context: backend/
@@ -94,7 +94,7 @@ jobs:
         with:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          team: security-champion-admin
+          team: appsec
       - name: Run frontend
         run: docker run --name app -d -p ${{env.APP_PORT}}:${{env.APP_PORT}} ${{ needs.build-frontend.outputs.image }}
       - name: Zap Setup
@@ -138,7 +138,7 @@ jobs:
         with:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          team: security-champion-admin
+          team: appsec
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # ratchet:aquasecurity/trivy-action@master
         with:
@@ -168,7 +168,7 @@ jobs:
         with:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          team: security-champion-admin
+          team: appsec
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # ratchet:aquasecurity/trivy-action@master
         with:

@@ -2,14 +2,14 @@ apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
   name: kviss
-  namespace: security-champion-admin
+  namespace: appsec
   labels:
-    team: security-champion-admin
+    team: appsec
 spec:
   image: "{{ image }}"
   port: 8080
   ingresses:
-    - https://kviss.nav.no/
+    - https://appsec-kviss.nav.no/
   azure:
     application:
       enabled: true
