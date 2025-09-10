@@ -6,14 +6,12 @@ on:
       - main
     paths:
       - backend/**
-permissions:
-  contents: read
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # dep-submission
+      contents: read
       id-token: write # nais docker-build-push
     steps:
       - name: Harden Runner
@@ -29,8 +27,8 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@017a9effdb900e5b5b2fddfb590a105619dca3c3
 
-      - name: test and build # build for dep submission, shadowjar for docker
-        run: ./gradlew build
+      - name: test and build
+        run: ./gradlew installDist
         working-directory: ./backend/
 
       - uses: nais/docker-build-push@1fae4798c79f4af4c3cdbd3fe65e51f8f3ba2368 # ratchet:nais/docker-build-push@v0
@@ -48,7 +46,3 @@ jobs:
           CLUSTER: prod-gcp
           RESOURCE: backend/nais.yaml
           IMAGE: ${{ steps.docker-push.outputs.image }}
-
-      - uses: gradle/actions/dependency-submission@017a9effdb900e5b5b2fddfb590a105619dca3c3
-        with:
-          build-root-directory: backend

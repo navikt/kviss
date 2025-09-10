@@ -1,4 +1,4 @@
-val ktor_version = "2.3.13"
+val ktor_version = "3.2.3"
 val kotlin_version = "2.2.10"
 val logback_version = "1.5.18"
 val postgresql_version = "42.7.7"
@@ -7,12 +7,16 @@ val flyway_core_version = "11.12.0"
 val mockk_version = "1.14.5"
 val junit_version = "5.13.4"
 
-group = "nav.no"
-val mainClass = "nav.no.ApplicationKt"
-
 plugins {
     kotlin("jvm") version "2.2.10"
+    id("application")
     id("org.jetbrains.kotlin.plugin.serialization") version "2.2.10"
+}
+
+application {
+    mainClass.set("nav.no.ApplicationKt")
+    applicationName = "app"
+
 }
 
 kotlin {
@@ -39,7 +43,7 @@ dependencies {
     implementation("org.flywaydb:flyway-database-postgresql:$flyway_core_version")
 
     testImplementation("io.mockk:mockk:$mockk_version")
-    testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
+    testImplementation("io.ktor:ktor-server-test-host-jvm:$ktor_version")
     testImplementation(platform("org.junit:junit-bom:$junit_version"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
@@ -48,25 +52,6 @@ dependencies {
 
 
 tasks {
-    withType<Jar> {
-        archiveBaseName.set("app")
-
-        manifest {
-            attributes["Main-Class"] = mainClass
-            attributes["Class-Path"] = configurations.runtimeClasspath.get().joinToString(separator = " ") {
-                it.name
-            }
-        }
-
-        doLast {
-            configurations.runtimeClasspath.get().forEach {
-                val file = File("${layout.buildDirectory.get()}/libs/${it.name}")
-                if (!file.exists())
-                    it.copyTo(file)
-            }
-        }
-    }
-
     withType<Test> {
         useJUnitPlatform()
         testLogging {
@@ -75,6 +60,6 @@ tasks {
     }
 
     withType<Wrapper> {
-        gradleVersion = "8.12"
+        gradleVersion = "9.0.0"
     }
 }
