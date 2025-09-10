@@ -106,7 +106,7 @@ jobs:
         run: |
             docker run -v $(pwd)/zap:/zap/wrk/:rw \
             -t \
-            softwaresecurityproject/zap-stable \
+            ghcr.io/zaproxy/zaproxy:stable \
             zap-full-scan.py \
             -t ${{ env.APP_URL }} \
             -r report_web.html \
