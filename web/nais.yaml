@@ -9,7 +9,7 @@ spec:
   image: "{{ image }}"
   port: 8080
   ingresses:
-    - https://appsec-kviss.nav.no/
+    - https://kviss.nav.no/
   azure:
     application:
       enabled: true
