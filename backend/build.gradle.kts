@@ -1,5 +1,5 @@
-val ktor_version = "3.2.3"
-val kotlin_version = "2.2.10"
+val ktor_version = "3.3.0"
+val kotlin_version = "2.2.20"
 val logback_version = "1.5.18"
 val postgresql_version = "42.7.7"
 val hikariCP_version = "7.0.2"
@@ -8,9 +8,9 @@ val mockk_version = "1.14.5"
 val junit_version = "5.13.4"
 
 plugins {
-    kotlin("jvm") version "2.2.10"
+    kotlin("jvm") version "2.2.20"
     id("application")
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.10"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
 }
 
 application {
