@@ -1,11 +1,11 @@
 val ktor_version = "3.3.0"
 val kotlin_version = "2.2.20"
-val logback_version = "1.5.18"
+val logback_version = "1.5.19"
 val postgresql_version = "42.7.8"
 val hikariCP_version = "7.0.2"
 val flyway_core_version = "11.13.2"
-val mockk_version = "1.14.5"
-val junit_version = "5.13.4"
+val mockk_version = "1.14.6"
+val junit_version = "6.0.0"
 
 plugins {
     kotlin("jvm") version "2.2.20"
