@@ -1,29 +1,18 @@
-name: Dependabot auto-merge
-on: pull_request
+name: Automerge Dependabot PRs
 
-permissions:
-  contents: write
-  pull-requests: write
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
 
 jobs:
-  dependabot:
+  automerge:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    permissions: write-all
     steps:
-      - name: Harden Runner
-        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+      - uses: GitHubSecurityLab/actions-permissions/monitor@v1
+      - name: Automerge Dependabot PRs
+        uses: navikt/automerge-dependabot@v1.2.2
         with:
-          egress-policy: audit
-
-      - name: Dependabot metadata
-        id: metadata
-        uses: dependabot/fetch-metadata@08eff52bf64351f401fb50d4972fa95b9f2c2d1b # v2.4.0
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-
-      - name: Enable auto-merge for Dependabot PRs
-        if: steps.metadata.outputs.update-type != 'version-update:semver-major'
-        run: gh pr merge --auto --squash "$PR_URL"
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          token: ${{ github.token }}
+          minimum-age-of-pr: '3'
