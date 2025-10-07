@@ -15,4 +15,5 @@ jobs:
         uses: navikt/automerge-dependabot@v1.2.2
         with:
           token: ${{ github.token }}
+          always-allow: '*'
           minimum-age-of-pr: '1'
