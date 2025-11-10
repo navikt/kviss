@@ -28,7 +28,7 @@ spec:
           - name: kviss-db
             envVarPrefix: DB
         tier: db-g1-small
-        allowDeletion: true
+        cascadingDelete: true
   liveness:
     initialDelay: 30
     path: isalive
