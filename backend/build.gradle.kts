@@ -1,9 +1,9 @@
-val ktor_version = "3.3.1"
+val ktor_version = "3.3.2"
 val kotlin_version = "2.2.21"
 val logback_version = "1.5.20"
 val postgresql_version = "42.7.8"
 val hikariCP_version = "7.0.2"
-val flyway_core_version = "11.15.0"
+val flyway_core_version = "11.16.0"
 val mockk_version = "1.14.6"
 val junit_version = "6.0.1"
 
