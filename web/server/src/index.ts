@@ -8,6 +8,7 @@ import rateLimit from 'express-rate-limit'
 import { validateAzureToken } from '@navikt/oasis'
 
 const app = express()
+app.set('trust proxy', 1)
 const httpServer = createServer(app)
 
 const BUILD_PATH = path.resolve(__dirname, '../dist', '../../dist')
